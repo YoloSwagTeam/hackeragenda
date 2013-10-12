@@ -13,5 +13,6 @@
     $(document).ready(function() {
       $("#calendar").fullCalendar({
         firstDay: 1,
+        events: '{% url 'events_json' %}',
       });
     })
