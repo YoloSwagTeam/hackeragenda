@@ -6,3 +6,5 @@ django-extensions==0.9
 django-pdb==0.3.2
 hamlpy==0.82
 django-bower==4.8
+python-dateutil
+BeautifulSoup
