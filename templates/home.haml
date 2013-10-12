@@ -11,13 +11,7 @@
   %script{type: "text/javascript", src: "{% static 'fullcalendar/fullcalendar.js' %}"}
   :javascript
     $(document).ready(function() {
-      var date = new Date();
-      var d = date.getDate();
-      var m = date.getMonth();
-      var y = date.getFullYear();
       $("#calendar").fullCalendar({
-        // pass
         firstDay: 1,
-        events: []
       });
     })
