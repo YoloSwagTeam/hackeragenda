@@ -17,5 +17,5 @@ settings_local.py
 *.swo
 *.index
 ve/
-hackeragenda/bower/
+bower/
 db.sqlite

@@ -53,7 +53,7 @@ STATICFILES_FINDERS = (
 
 SECRET_KEY = 't)^bq6!v8!vj$+t+!4x1+uj100d73_8pt5d1(gh=py=lz7$^vm'
 
-BOWER_COMPONENTS_ROOT = PROJECT_PATH + '/bower/'
+BOWER_COMPONENTS_ROOT = SUBPROJECT_PATH + '/bower/'
 
 TEMPLATE_LOADERS = (
     'hamlpy.template.loaders.HamlPyFilesystemLoader',
