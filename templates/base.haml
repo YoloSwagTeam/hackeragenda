@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+%html
+
+  <!-- paulirish.com/2008/conditional-stylesheets-vs-css-hacks-answer-neither/ -->
+  <!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
+  <!--[if IE 7]>    <html class="no-js lt-ie9 lt-ie8" lang="en"> <![endif]-->
+  <!--[if IE 8]>    <html class="no-js lt-ie9" lang="en"> <![endif]-->
+  <!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+  %head
+    %meta{"charset": "utf-8"}
+
+    <!-- Set the viewport width to device width for mobile -->
+    %meta{"name": "viewport", "content": "width: device-width"}
+
+    %title
+      \\o/
+
+    <!-- IE Fix for HTML5 Tags -->
+    <!--[if lt IE 9]>
+      %script{"src": "http://html5shiv.googlecode.com/svn/trunk/html5.js"}
+    <![endif]-->
+
+    <!-- Included CSS Files (Uncompressed) -->
+    <!-- %link{"rel": "stylesheet", "href": "{{ STATIC_URL }}stylesheets/foundation.css"} -->
+
+    <!-- Included CSS Files (Compressed) -->
+    %link{"rel": "stylesheet", "href": "{{ STATIC_URL }}stylesheets/foundation.min.css"}
+    %link{"rel": "stylesheet", "href": "{{ STATIC_URL }}stylesheets/app.css"}
+    -block head
+
+    <!-- IE Fix for HTML5 Tags -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+  %body
+
+    <!-- container -->
+    %div.container
+
+      %div.row
+          %div.twelve.columns
+            %h2
+              %a{"style": "color: black", "href": "{% url 'home' %}"}
+                Belgium Hackers Agenda
+              %hr
+
+      -block container
+        %div.row
+          %div.twelve.columns
+            -block content
+
+
+      %footer.row
+        %div{"style": "text-align: center;"}
+          Fouteur
+
+
+    <!-- Included JS Files (Uncompressed) -->
+    <!--
+    %script{"src": "{{ STATIC_URL }}javascripts/modernizr.foundation.js"}
+    %script{"src": "{{ STATIC_URL }}javascripts/jquery.js"}
+    %script{"src": "{{ STATIC_URL }}javascripts/jquery.foundation.mediaQueryToggle.js"}
+    %script{"src": "{{ STATIC_URL }}javascripts/jquery.foundation.reveal.js"}
+    %script{"src": "{{ STATIC_URL }}javascripts/jquery.foundation.orbit.js"}
+    %script{"src": "{{ STATIC_URL }}javascripts/jquery.foundation.navigation.js"}
+    %script{"src": "{{ STATIC_URL }}javascripts/jquery.foundation.buttons.js"}
+    %script{"src": "{{ STATIC_URL }}javascripts/jquery.foundation.tabs.js"}
+    %script{"src": "{{ STATIC_URL }}javascripts/jquery.foundation.forms.js"}
+    %script{"src": "{{ STATIC_URL }}javascripts/jquery.foundation.tooltips.js"}
+    %script{"src": "{{ STATIC_URL }}javascripts/jquery.foundation.accordion.js"}
+    %script{"src": "{{ STATIC_URL }}javascripts/jquery.placeholder.js"}
+    %script{"src": "{{ STATIC_URL }}javascripts/jquery.foundation.alerts.js"} -->
+
+    <!-- Included JS Files (Compressed) -->
+    %script{"src": "{{ STATIC_URL }}javascripts/foundation.min.js"}
+
+    <!-- Initialize JS Plugins -->
+    %script{"src": "{{ STATIC_URL }}javascripts/app.js"}
+    -block javascript

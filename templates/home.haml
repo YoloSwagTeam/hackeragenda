@@ -1,0 +1,22 @@
+-extends "base.haml"
+-load static
+
+-block head
+  %link{rel: "stylesheet", type: "text/css", href: "{% static 'fullcalendar/fullcalendar.css' %}"}
+
+-block content
+  #calendar
+
+-block javascript
+  %script{type: "text/javascript", src: "{% static 'fullcalendar/fullcalendar.js' %}"}
+  :javascript
+    $(document).ready(function() {
+      var date = new Date();
+      var d = date.getDate();
+      var m = date.getMonth();
+      var y = date.getFullYear();
+      $("#calendar").fullCalendar({
+        // pass
+        events: []
+      });
+    })
