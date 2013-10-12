@@ -99,6 +99,7 @@ INSTALLED_APPS = (
     'django.contrib.admin',
     'south',
     'djangobower',
+    'events',
 )
 
 BOWER_INSTALLED_APPS = (
