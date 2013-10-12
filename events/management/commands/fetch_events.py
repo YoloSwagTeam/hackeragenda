@@ -3,10 +3,19 @@ from BeautifulSoup import BeautifulSoup
 from dateutil.parser import parse
 
 from django.core.management.base import BaseCommand
+from django.db import transaction
 from events.models import Event
 
+
+class Command(BaseCommand):
+    def handle(self, *args, **options):
+        for source in [urlab]:
+            with transaction.commit_on_success():
+                source()
+
+
 def urlab():
-    # clean things
+    # clean events
     Event.objects.filter(source="urlab").delete()
 
     soup = BeautifulSoup(urlopen("https://wiki.urlab.be/Main_Page").read())
@@ -27,6 +36,4 @@ def urlab():
 
         print "adding %s [%s] (%s)..." % (title, "urlab", location)
 
-class Command(BaseCommand):
-    def handle(self, *args, **options):
-        urlab()
+
