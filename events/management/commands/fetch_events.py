@@ -10,7 +10,14 @@ from events.models import Event
 
 class Command(BaseCommand):
     def handle(self, *args, **options):
-        for source in [urlab, neutrinet, hsbxl, agenda_du_libre_be, constantvzw]:
+        for source in [
+                       urlab,
+                       neutrinet,
+                       hsbxl,
+                       agenda_du_libre_be,
+                       constantvzw,
+                       bhackspace,
+                      ]:
             with transaction.commit_on_success():
                 source()
 
@@ -150,3 +157,28 @@ def constantvzw():
         )
 
         print "adding %s [%s] (%s)..." % (title, "constantvzw", location)
+
+
+def bhackspace():
+    # clean events
+    Event.objects.filter(source="bhackspace").delete()
+
+    soup = BeautifulSoup(urlopen("http://wiki.bhackspace.be/index.php/Main_Page").read())
+
+    for event in soup.find('table', 'table')('tr')[1:]:
+        title = event.a.text
+        url = "http://wiki.bhackspace.be" + event.a["href"]
+        start = parse(event('td')[1].text)
+        location = event('td')[2].text
+
+        Event.objects.create(
+            title=title,
+            source="bhackspace",
+            url=url,
+            start=start,
+            location=location,
+            color="DarkGoldenRod",
+            text_color="white",
+        )
+
+        print "adding %s [%s] (%s)..." % (title, "bhackspace", location)
