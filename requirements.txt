@@ -4,7 +4,7 @@ Werkzeug==0.8.3
 django-debug-toolbar==0.9.4
 django-extensions==0.9
 django-pdb==0.3.2
-hamlpy==0.82
+hamlpy==0.82.2
 django-bower==4.8
 python-dateutil
 BeautifulSoup
