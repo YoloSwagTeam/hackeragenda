@@ -22,6 +22,7 @@ class Command(BaseCommand):
                        constantvzw,
                        bhackspace,
                        incubhacker,
+                       opengarage,
                       ]:
             with transaction.commit_on_success():
                 source()
@@ -213,3 +214,28 @@ def incubhacker():
         )
 
         print "adding %s [%s] (%s)..." % (title, "incubhacker", "")
+
+
+def opengarage():
+    # clean events
+    Event.objects.filter(source="opengarage").delete()
+
+    soup = BeautifulSoup(urlopen("http://www.meetup.com/OpenGarage/").read())
+
+    for event in soup.find('ul', id='ajax-container')('li'):
+        if event.find('li', 'dateTime') is None or event.find('li', 'dateTime').time is None:
+            continue
+        title = event.a.text
+        url = event.a["href"]
+        start = parse(event.find('li', 'dateTime').time['datetime']).replace(tzinfo=None)
+
+        Event.objects.create(
+            title=title,
+            source="opengarage",
+            url=url,
+            start=start,
+            color="DarkOrchid",
+            text_color="white",
+        )
+
+        print "adding %s [%s] (%s)..." % (title, "opengarage", "")
