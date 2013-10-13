@@ -57,7 +57,7 @@ def neutrinet():
             url=url,
             start=start,
             location=location,
-            color="dark blue",
+            color="DarkBlue",
             text_color="white",
         )
 
