@@ -208,7 +208,7 @@ def incubhacker():
 
         Event.objects.create(
             title=title,
-            source="bhackspace",
+            source="incubhacker",
             url=url,
             start=start,
             end=end,
