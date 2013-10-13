@@ -1,6 +1,7 @@
 from urllib2 import urlopen
 from BeautifulSoup import BeautifulSoup
 from dateutil.parser import parse
+from feedparser import parse as feed_parse
 
 from django.core.management.base import BaseCommand
 from django.db import transaction
@@ -9,7 +10,7 @@ from events.models import Event
 
 class Command(BaseCommand):
     def handle(self, *args, **options):
-        for source in [urlab, neutrinet, hsbxl]:
+        for source in [urlab, neutrinet, hsbxl, agenda_du_libre_be]:
             with transaction.commit_on_success():
                 source()
 
@@ -92,3 +93,20 @@ def hsbxl():
         )
 
         print "adding %s [%s] (%s)..." % (title, "hsbxl", location)
+
+
+def agenda_du_libre_be():
+    # clean events
+    Event.objects.filter(source="agenda_du_libre_be").delete()
+
+    for event in feed_parse("http://agendadulibre.be/rss.php?region=all").entries:
+        Event.objects.create(
+            title=event.title,
+            source="agenda_du_libre_be",
+            url=event.link,
+            start=parse(event.updated).replace(tzinfo=None),
+            location=event.summary.split(":")[0],
+            text_color="white",
+        )
+
+        print "adding %s [%s] (%s)..." % (event.title, "agenda_du_libre_be", event.summary.split(":")[0])

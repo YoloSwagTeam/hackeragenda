@@ -8,3 +8,4 @@ hamlpy==0.82
 django-bower==4.8
 python-dateutil
 BeautifulSoup
+feedparser
