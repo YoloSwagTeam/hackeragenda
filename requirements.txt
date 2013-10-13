@@ -9,3 +9,4 @@ django-bower==4.8
 python-dateutil
 BeautifulSoup
 feedparser
+icalendar
