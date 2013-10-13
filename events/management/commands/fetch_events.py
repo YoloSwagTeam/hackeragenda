@@ -23,6 +23,7 @@ class Command(BaseCommand):
                        bhackspace,
                        incubhacker,
                        opengarage,
+                       whitespace,
                       ]:
             with transaction.commit_on_success():
                 source()
@@ -239,3 +240,28 @@ def opengarage():
         )
 
         print "adding %s [%s] (%s)..." % (title, "opengarage", "")
+
+
+def whitespace():
+    # clean events
+    Event.objects.filter(source="whitespace").delete()
+
+    soup = BeautifulSoup(urlopen("http://www.0x20.be/Main_Page").read())
+
+    for event in soup.ul('li'):
+        title = event.a.text
+        url = "http://www.0x20.be" + event.a["href"]
+        start = parse(event.b.text[:-1])
+        location = event('a')[1].text
+
+        Event.objects.create(
+            title=title,
+            source="whitespace",
+            url=url,
+            start=start,
+            location=location,
+            color="white",
+            text_color="black",
+        )
+
+        print "adding %s [%s] (%s)..." % (title, "whitespace", location)
