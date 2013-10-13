@@ -39,7 +39,7 @@ USE_TZ = False
 MEDIA_ROOT = ''
 MEDIA_URL = '/medias/'
 
-STATIC_ROOT = '/static_deploy/'
+STATIC_ROOT = SUBPROJECT_PATH + '/static_deploy/static/'
 STATIC_URL = '/static/'
 
 STATICFILES_DIRS = (
