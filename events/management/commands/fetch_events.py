@@ -101,7 +101,7 @@ def hsbxl():
             start=start,
             end=end,
             location=location,
-            color="Green",
+            color="Coral",
             text_color="white",
         )
 
