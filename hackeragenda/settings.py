@@ -39,7 +39,7 @@ USE_TZ = False
 MEDIA_ROOT = ''
 MEDIA_URL = '/medias/'
 
-STATIC_ROOT = ''
+STATIC_ROOT = '/static_deploy/'
 STATIC_URL = '/static/'
 
 STATICFILES_DIRS = (
