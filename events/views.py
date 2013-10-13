@@ -9,4 +9,5 @@ def get_events_in_json(request):
         "start": x.start.strftime("%F"),
         "color": x.color,
         "textColor": x.text_color,
+        "url": x.url,
     } for x in Event.objects.all()]))
