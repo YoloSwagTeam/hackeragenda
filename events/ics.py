@@ -20,7 +20,7 @@ def get_ics_of_events(request):
             if event.end:
                 ics_event.add('dtend', event.end)
             else:
-                ics_event.add('dtend', event.start + timedelta(hours=1))
+                ics_event.add('dtend', event.start + timedelta(hours=3))
         ics_event.add('dtstamp', event.start)
         ics_event['uid'] = event.url
 
