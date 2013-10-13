@@ -10,4 +10,4 @@ def get_events_in_json(request):
         "color": x.color,
         "textColor": x.text_color,
         "url": x.url,
-    } for x in Event.objects.all()]))
+    } for x in Event.objects.all()]), mimetype="application/json")
