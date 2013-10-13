@@ -11,6 +11,8 @@ ADMINS = (
     # ('Your Name', 'your_email@example.com'),
 )
 
+ALLOWED_HOSTS = ['*']
+
 MANAGERS = ADMINS
 
 DATABASES = {
