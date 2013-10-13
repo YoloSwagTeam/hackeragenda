@@ -10,3 +10,5 @@ python-dateutil
 BeautifulSoup
 feedparser
 icalendar
+django-tastypie
+mimeparse
