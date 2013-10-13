@@ -14,5 +14,10 @@
       $("#calendar").fullCalendar({
         firstDay: 1,
         events: '{% url 'events_json' %}',
+        header: {
+          left: 'prev,next today',
+          center: 'title',
+          right: 'month,agendaWeek,agendaDay'
+        },
       });
     })
