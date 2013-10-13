@@ -1,4 +1,8 @@
+import json
+import calendar
+
 from urllib2 import urlopen
+from datetime import datetime
 from BeautifulSoup import BeautifulSoup
 from dateutil.parser import parse
 from feedparser import parse as feed_parse
@@ -17,6 +21,7 @@ class Command(BaseCommand):
                        agenda_du_libre_be,
                        constantvzw,
                        bhackspace,
+                       incubhacker,
                       ]:
             with transaction.commit_on_success():
                 source()
@@ -182,3 +187,29 @@ def bhackspace():
         )
 
         print "adding %s [%s] (%s)..." % (title, "bhackspace", location)
+
+
+def incubhacker():
+    # clean events
+    Event.objects.filter(source="incubhacker").delete()
+
+    now = calendar.timegm(datetime.now().utctimetuple())
+
+    # 2 magics numbers are from a reverse of the incubhacker calendar api
+    for event in json.load(urlopen("http://www.incubhacker.be/index.php/agenda/jsonfeed?format=raw&gcid=2&start=%s&end=%s" % (now - 1187115, now + 2445265))):
+        title = event["title"]
+        url = "http://www.incubhacker.be" + event["url"]
+        start = parse(event["start"]).replace(tzinfo=None)
+        end = parse(event["end"]).replace(tzinfo=None)
+
+        Event.objects.create(
+            title=title,
+            source="bhackspace",
+            url=url,
+            start=start,
+            end=end,
+            color="#357A47",
+            text_color="white",
+        )
+
+        print "adding %s [%s] (%s)..." % (title, "incubhacker", "")
