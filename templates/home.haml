@@ -11,6 +11,7 @@
       %a.round.button.alert{href: "{% url 'events_rss' %}"}
         RSS
 
+  %hr
   %h2 FAQ
   %ul
     %li
@@ -55,6 +56,8 @@
   %center
     %a{href: "http://thecatapi.com/"}
       %img{src: "http://thecatapi.com/api/images/get?format=src&size=small"}
+
+  %hr
 
 -block javascript
   %script{type: "text/javascript", src: "{% static 'fullcalendar/fullcalendar.js' %}"}
