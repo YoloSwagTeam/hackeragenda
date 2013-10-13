@@ -22,7 +22,7 @@ def urlab():
 
     for event in filter(lambda x: x, map(lambda x: x('td'), soup('table', 'wikitable')[0]('tr'))):
         title = event[0].text
-        url = "https://wiki;urlab.be" + event[0].a["href"]
+        url = "https://wiki.urlab.be" + event[0].a["href"]
         start = parse(event[1].text)
         location = event[2].text
 
@@ -32,6 +32,8 @@ def urlab():
             url=url,
             start=start,
             location=location,
+            color="pink",
+            text_color="black",
         )
 
         print "adding %s [%s] (%s)..." % (title, "urlab", location)
@@ -45,7 +47,7 @@ def neutrinet():
 
     for event in filter(lambda x: x, map(lambda x: x('td'), soup('table', 'wikitable')[0]('tr'))):
         title = event[0].text
-        url = "https://wiki;urlab.be" + event[0].a["href"]
+        url = "https://neutrinet.be" + event[0].a["href"]
         start = parse(event[1].text)
         location = event[2].text
 
@@ -55,6 +57,8 @@ def neutrinet():
             url=url,
             start=start,
             location=location,
+            color="dark blue",
+            text_color="white",
         )
 
         print "adding %s [%s] (%s)..." % (title, "neutrinet", location)
