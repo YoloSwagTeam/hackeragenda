@@ -6,6 +6,10 @@
 
 -block content
   #calendar
+  .data
+    %center
+      %a.round.button.alert{href: "{% url 'events_rss' %}"}
+        RSS
 
   %h2 FAQ
   %ul
