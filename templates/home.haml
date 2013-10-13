@@ -7,6 +7,31 @@
 -block content
   #calendar
 
+  %h2 FAQ
+  %ul
+    %li
+      %b What's that?
+      %br
+      %p.faq
+        It is an agenda that centralize events that can interest hackers in Belgium. It grabs informations by parsing hackerspaces/others website. You can find the source code <a href="https://github.com/Psycojoker/hackeragenda">here</a>.
+      %p.faq
+        It is a (time I can find in) one weekend project to help a community that I love and try to encourage its members to interact more together.
+
+    %li
+      %b My wonderful organization isn't present! This is SKANDALOUSE!
+      %p.faq
+        Either I didn't knew it's existence, either I didn't found the list of event on the website (I've put organizations that I knew in Brussels + hackerspaces from hackerspaces.org/Belgium). Send me <a href="mailto: brain at worlddomination.be">an email</a> or <a href="https://github.com/Psycojoker/hackeragenda/issues/new">open a bug</a> with the correct informations (basically I need an url from which I can extract events in a structured way) or <a href="https://github.com/Psycojoker/hackeragenda">patch</a>.
+
+    %li
+      %b Can I submit an event?
+      %p.faq
+        No/not yet, I was too lazy/haven't got the time to code this part. Feel free to <a href="https://github.com/Psycojoker/hackeragenda">send me a patch</a>.
+
+    %li
+      %b My organization has a strange colour.
+      %p.faq
+        I've either try to find some kind of colour already chosen by the organization or just picked up one randomly (except for UrLab, I love pink). If you aren't happy, <a href="https://github.com/Psycojoker/hackeragenda/issues/new">open a bug</a> or <a href="https://github.com/Psycojoker/hackeragenda">send a patch</a> (edit <a href="https://github.com/Psycojoker/hackeragenda/blob/master/events/management/commands/fetch_events.py">edit this file</a>).
+
 -block javascript
   %script{type: "text/javascript", src: "{% static 'fullcalendar/fullcalendar.js' %}"}
   :javascript
@@ -21,3 +46,7 @@
         },
       });
     })
+  :css
+    .faq {
+      margin-left: 14px;
+    }
