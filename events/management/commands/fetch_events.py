@@ -53,7 +53,7 @@ def urlab():
             text_color="black",
         )
 
-        print "adding %s [%s] (%s)..." % (title, "urlab", location)
+        print "adding %s [%s] (%s)..." % (title.encode("Utf-8"), "urlab", location.encode("Utf-8"))
 
 
 def neutrinet():
@@ -78,7 +78,7 @@ def neutrinet():
             text_color="white",
         )
 
-        print "adding %s [%s] (%s)..." % (title, "neutrinet", location)
+        print "adding %s [%s] (%s)..." % (title.encode("Utf-8"), "neutrinet", location.encode("Utf-8"))
 
 
 def hsbxl():
@@ -108,7 +108,7 @@ def hsbxl():
             text_color="white",
         )
 
-        print "adding %s [%s] (%s)..." % (title, "hsbxl", location)
+        print "adding %s [%s] (%s)..." % (title.encode("Utf-8"), "hsbxl", location.encode("Utf-8"))
 
 
 def agenda_du_libre_be():
@@ -125,7 +125,7 @@ def agenda_du_libre_be():
             text_color="white",
         )
 
-        print "adding %s [%s] (%s)..." % (event.title, "agenda_du_libre_be", event.summary.split(":")[0])
+        print "adding %s [%s] (%s)..." % (event.title.encode("Utf-8"), "agenda_du_libre_be", event.summary.split(":")[0].encode("Utf-8"))
 
 def constantvzw():
     Event.objects.filter(source="constantvzw").delete()
@@ -165,7 +165,7 @@ def constantvzw():
             text_color="black",
         )
 
-        print "adding %s [%s] (%s)..." % (title, "constantvzw", location)
+        print "adding %s [%s] (%s)..." % (title.encode("Utf-8"), "constantvzw", location.encode("Utf-8") if location else "")
 
 
 def bhackspace():
@@ -190,7 +190,7 @@ def bhackspace():
             text_color="white",
         )
 
-        print "adding %s [%s] (%s)..." % (title, "bhackspace", location)
+        print "adding %s [%s] (%s)..." % (title.encode("Utf-8"), "bhackspace", location.encode("Utf-8"))
 
 
 def incubhacker():
@@ -216,7 +216,7 @@ def incubhacker():
             text_color="white",
         )
 
-        print "adding %s [%s] (%s)..." % (title, "incubhacker", "")
+        print "adding %s [%s] (%s)..." % (title.encode("Utf-8"), "incubhacker", "")
 
 
 def opengarage():
@@ -241,7 +241,7 @@ def opengarage():
             text_color="white",
         )
 
-        print "adding %s [%s] (%s)..." % (title, "opengarage", "")
+        print "adding %s [%s] (%s)..." % (title.encode("Utf-8"), "opengarage", "")
 
 
 def whitespace():
@@ -266,7 +266,7 @@ def whitespace():
             text_color="black",
         )
 
-        print "adding %s [%s] (%s)..." % (title, "whitespace", location)
+        print "adding %s [%s] (%s)..." % (title.encode("Utf-8"), "whitespace", location.encode("Utf-8"))
 
 
 def voidwarranties():
@@ -291,4 +291,4 @@ def voidwarranties():
             text_color="#C58723",
         )
 
-        print "adding %s [%s] (%s)..." % (title, "voidwarranties", "")
+        print "adding %s [%s] (%s)..." % (title.encode("Utf-8"), "voidwarranties", "")
