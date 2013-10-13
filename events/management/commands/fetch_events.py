@@ -9,7 +9,7 @@ from events.models import Event
 
 class Command(BaseCommand):
     def handle(self, *args, **options):
-        for source in [urlab, neutrinet]:
+        for source in [urlab, neutrinet, hsbxl]:
             with transaction.commit_on_success():
                 source()
 
@@ -62,3 +62,33 @@ def neutrinet():
         )
 
         print "adding %s [%s] (%s)..." % (title, "neutrinet", location)
+
+
+def hsbxl():
+    # clean events
+    Event.objects.filter(source="hsbxl").delete()
+
+    soup = BeautifulSoup(urlopen("http://www.hackerspace.be/Hackerspace_Brussels").read())
+
+    for event in soup.table.table('ul'):
+        title = event.a.text
+        url = "http://www.hackerspace.be" + event.a["href"]
+        if len(event.b.text.split(" - ")) == 2:
+            start, end = event.b.text.split(" - ")
+            start, end = parse(start), parse(end[:-1])
+        else:
+            start, end = (parse(event.b.text[:-1]), None)
+        location = event('a')[1].text
+
+        Event.objects.create(
+            title=title,
+            source="hsbxl",
+            url=url,
+            start=start,
+            end=end,
+            location=location,
+            color="Green",
+            text_color="white",
+        )
+
+        print "adding %s [%s] (%s)..." % (title, "hsbxl", location)
