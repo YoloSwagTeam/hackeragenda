@@ -212,8 +212,8 @@ def incubhacker():
             url=url,
             start=start,
             end=end,
-            color="#357A47",
-            text_color="white",
+            color="#296038",
+            text_color="#6FCE91",
         )
 
         print "adding %s [%s] (%s)..." % (title.encode("Utf-8"), "incubhacker", "")
