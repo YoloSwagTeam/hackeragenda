@@ -28,26 +28,37 @@
       #listFormat
           -regroup event_list by start.date|date:"F o" as event_list
           -for group in event_list
-            %div{style: "padding-left: 30px; padding-bottom: 70px"}
-              %h3= group.grouper
+            -if forloop.first
               %div{style: "padding-left: 30px"}
-                -for event in group.list
+                %h3= group.grouper
+            -else
+              %div{style: "padding-top: 45px"}
+                %center
+                  %h1
+                    ֮
+              %div{style: "padding-left: 30px;"}
+                %h3= group.grouper
+            %div{style: "padding-left: 30px"}
+              -regroup group.list by start|date:"l j" as group_list
+              -for event_list in group_list
+                -for event in event_list.list
+                  -if forloop.first
+                    .row
+                      .three.columns
+                          %h4= event.start|date:"l j"
                   .row
                     .two.columns
                       %center
-                        %h4
+                        %h3
                           %small
-                            =event.start|date:"l j"
                             -if not event.all_day and event.start.hour != 0
-                              %br
                               -if event.end
                                 {{ event.start|date:"H:i" }} to {{ event.end|date:"H:i" }}
                               -else
                                 =event.start|date:"H:i"
                             -else
-                              %br
                               All day
-                    .three.columns
+                    .three.columns{style: "padding-top: 5px"}
                       %center
                         %h5
                           %span{style: 'background-color: {{ event.color|default:"black" }}; color: {{ event.text_color|default:"white" }}; padding: 3px; padding-left: 6px; padding-right: 6px;'}= event.source|upper|underscore_to_space
@@ -58,6 +69,12 @@
                           %br
                           %small at
                             =event.location
+                  -if forloop.last and not forloop.parentloop.last
+                    .row
+                      .three.columns
+                      .six.columns
+                        %hr
+                      .three.columns
 
   %hr
   %h2 FAQ
