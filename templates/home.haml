@@ -1,17 +1,63 @@
 -extends "base.haml"
 -load static
+-load events_tags
 
 -block head
   %link{rel: "stylesheet", type: "text/css", href: "{% static 'fullcalendar/fullcalendar.css' %}"}
 
 -block content
-  #calendar
-  .data
-    %center
-      %a.round.button.alert{href: "{% url 'events_rss' %}"}
-        RSS
-      %a.round.button.success{href: "{% url 'events_ics' %}"}
-        ICS
+  %dl.tabs
+    %dd.active
+      %a{href: "#table"}
+        Table
+    %dd
+      %a{href: "#list"}
+        List
+
+  %ul.tabs-content
+    %li#tableTab.active
+      #calendar
+      .data
+        %center
+          %a.round.button.alert{href: "{% url 'events_rss' %}"}
+            RSS
+          %a.round.button.success{href: "{% url 'events_ics' %}"}
+            ICS
+
+    %li#listTab
+      #listFormat
+          -regroup event_list by start.date|date:"F o" as event_list
+          -for group in event_list
+            %div{style: "padding-left: 30px; padding-bottom: 70px"}
+              %h3= group.grouper
+              %div{style: "padding-left: 30px"}
+                -for event in group.list
+                  .row
+                    .two.columns
+                      %center
+                        %h4
+                          %small
+                            =event.start|date:"l j"
+                            -if not event.all_day and event.start.hour != 0
+                              %br
+                              -if event.end
+                                {{ event.start|date:"H:i" }} to {{ event.end|date:"H:i" }}
+                              -else
+                                =event.start|date:"H:i"
+                            -else
+                              %br
+                              All day
+                    .three.columns
+                      %center
+                        %h5
+                          %span{style: 'background-color: {{ event.color|default:"black" }}; color: {{ event.text_color|default:"white" }}; padding: 3px; padding-left: 6px; padding-right: 6px;'}= event.source|upper|underscore_to_space
+                    .seven.columns
+                      %h4
+                        %a{href: "{{ event.url }}"}= event.title
+                        -if event.location
+                          %br
+                          %small at
+                            =event.location
 
   %hr
   %h2 FAQ

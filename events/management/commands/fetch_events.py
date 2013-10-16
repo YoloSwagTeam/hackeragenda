@@ -49,7 +49,7 @@ def urlab():
             source="urlab",
             url=url,
             start=start,
-            location=location,
+            location=location.strip() if location else None,
             color=COLORS['urlab']['bg'],
             text_color=COLORS['urlab']['fg'],
         )
@@ -74,7 +74,7 @@ def neutrinet():
             source="neutrinet",
             url=url,
             start=start,
-            location=location,
+            location=location.strip() if location else None,
             color=COLORS['neutrinet']['bg'],
             text_color=COLORS['neutrinet']['fg'],
         )
@@ -104,7 +104,7 @@ def hsbxl():
             url=url,
             start=start,
             end=end,
-            location=location,
+            location=location.strip() if location else None,
             color=COLORS['hsbxl']['bg'],
             text_color=COLORS['hsbxl']['fg'],
         )
@@ -162,7 +162,7 @@ def constantvzw():
             url=url,
             start=start,
             end=end,
-            location=location,
+            location=location.strip() if location else None,
             color=COLORS['constantvzw']['bg'],
             text_color=COLORS['constantvzw']['fg'],
         )
@@ -187,7 +187,7 @@ def bhackspace():
             source="bhackspace",
             url=url,
             start=start,
-            location=location,
+            location=location.strip() if location else None,
             color=COLORS['bhackspace']['bg'],
             text_color=COLORS['bhackspace']['fg'],
         )
@@ -263,7 +263,7 @@ def whitespace():
             source="whitespace",
             url=url,
             start=start,
-            location=location,
+            location=location.strip() if location else None,
             color=COLORS['whitespace']['bg'],
             text_color=COLORS['whitespace']['fg'],
         )
