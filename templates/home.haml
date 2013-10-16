@@ -45,6 +45,9 @@
                   -if forloop.first
                     .row
                       .three.columns
+                        -if event.start.date == event.start.date.today
+                          %h4 Today
+                        -else
                           %h4= event.start|date:"l j"
                   .row
                     .two.columns
