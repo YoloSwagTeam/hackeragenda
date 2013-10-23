@@ -33,10 +33,6 @@ class Command(BaseCommand):
                 source()
 
 
-def cleanDateStr(s):
-    """remove th, st, nd... suffixes from date strings"""
-    return s.strip().replace('th', '').replace('st', '').replace('nd', '')
-
 def urlab():
     # clean events
     Event.objects.filter(source="urlab").delete()
@@ -72,12 +68,11 @@ def foam():
 
         link  = title.a['href']
 
-        datestr = date.text.split('-')
-        start, end = None, None
-        if len(datestr) > 0:
-            start = datetime.strptime(cleanDateStr(datestr[0]), '%d %b %Y')
-        if len(datestr) > 1:
-            end = datetime.strptime(cleanDateStr(datestr[1]), '%d %b %Y')
+        dates = map(parse, date.text.split('-'))
+        if len(date) == 2:
+            start, end = dates
+        else:
+            start, end = dates[0], None
 
         Event.objects.create(
             title=title.text,
