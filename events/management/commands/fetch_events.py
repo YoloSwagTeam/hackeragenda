@@ -74,10 +74,10 @@ def foam():
         link  = title.find('a')['href']
         datestr = date.text.split('-')
         start, end = None, None
-        if len(datestr):
-            start = datetime.strptime(cleanDateStr(datestr.pop()), '%d %b %Y')
-        if len(datestr):
-            end = datetime.strptime(cleanDateStr(datestr.pop()), '%d %b %Y')
+        if len(datestr) > 0:
+            start = datetime.strptime(cleanDateStr(datestr[0]), '%d %b %Y')
+        if len(datestr) > 1:
+            end = datetime.strptime(cleanDateStr(datestr[1]), '%d %b %Y')
         print start, end, title.text, "http://fo.am"+link
         Event.objects.create(
             title=title.text,
