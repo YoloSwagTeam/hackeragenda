@@ -84,7 +84,7 @@ def foam():
             color=COLORS['foam']['bg'],
             text_color=COLORS['foam']['fg']
         )
-        print "Adding %s [foam]" % (title.text)
+        print "Adding %s [foam]" % title.text.encode("Utf-8")
 
 
 def neutrinet():
