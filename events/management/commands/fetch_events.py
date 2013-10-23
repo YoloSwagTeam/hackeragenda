@@ -206,6 +206,9 @@ def bhackspace():
 
     soup = BeautifulSoup(urlopen("http://wiki.bhackspace.be/index.php/Main_Page").read())
 
+    if soup.table.find('table', 'table') is None:
+        return
+
     for event in soup.find('table', 'table')('tr')[1:]:
         title = event.a.text
         url = "http://wiki.bhackspace.be" + event.a["href"]
