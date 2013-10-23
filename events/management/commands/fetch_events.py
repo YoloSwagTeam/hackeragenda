@@ -34,8 +34,8 @@ class Command(BaseCommand):
 
 
 def cleanDateStr(s):
-	"""remove th, st, nd... suffixes from date strings"""
-	return s.strip().replace('th', '').replace('st', '').replace('nd', '')
+    """remove th, st, nd... suffixes from date strings"""
+    return s.strip().replace('th', '').replace('st', '').replace('nd', '')
 
 def urlab():
     # clean events
@@ -63,9 +63,9 @@ def urlab():
 
 def foam():
     Event.objects.filter(source="foam").delete()
-    
+
     soup = BeautifulSoup(urlopen("http://fo.am/events/").read())
-    
+
     for line in soup.findAll('tr'):
         title = line.find('td', attrs={'class': 'etitle'})
         date  = line.find('td', attrs={'class': 'edate'})
