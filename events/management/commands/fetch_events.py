@@ -66,7 +66,7 @@ def foam():
 
     soup = BeautifulSoup(urlopen("http://fo.am/events/").read())
 
-    for line in soup('tr'):
+    for line in soup.find('table', 'eventlist')('tr'):
         title = line.find('td', 'etitle')
         date  = line.find('td', 'edate')
 
