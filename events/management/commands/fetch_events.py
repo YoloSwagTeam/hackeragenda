@@ -14,6 +14,7 @@ from events.models import Event
 
 from events.colors import COLORS
 
+
 class Command(BaseCommand):
     def handle(self, *args, **options):
         for source in [
@@ -57,6 +58,7 @@ def urlab():
 
         print "adding %s [%s] (%s)..." % (title.encode("Utf-8"), "urlab", location.encode("Utf-8"))
 
+
 def foam():
     Event.objects.filter(source="foam").delete()
 
@@ -77,7 +79,7 @@ def foam():
         Event.objects.create(
             title=title.text,
             source="foam",
-            url='http://fo.am'+link,
+            url='http://fo.am' + link,
             start=start,
             end=end,
             color=COLORS['foam']['bg'],
