@@ -67,7 +67,7 @@ def foam():
     for line in soup.find('table', 'eventlist')('tr')[1:]:
         title, date = line('td')
 
-        link  = title.a['href']
+        link = title.a['href']
 
         dates = map(parse, date.text.split('-'))
         if len(date) == 2:
@@ -84,7 +84,7 @@ def foam():
             color=COLORS['foam']['bg'],
             text_color=COLORS['foam']['fg']
         )
-        print "Adding %s [foam]"%(title.text)
+        print "Adding %s [foam]" % (title.text)
 
 
 def neutrinet():
@@ -158,6 +158,7 @@ def agenda_du_libre_be():
         )
 
         print "adding %s [%s] (%s)..." % (event.title.encode("Utf-8"), "agenda_du_libre_be", event.summary.split(":")[0].encode("Utf-8"))
+
 
 def constantvzw():
     Event.objects.filter(source="constantvzw").delete()
