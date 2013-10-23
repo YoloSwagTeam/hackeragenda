@@ -146,18 +146,20 @@ def agenda_du_libre_be():
     # clean events
     Event.objects.filter(source="agenda_du_libre_be").delete()
 
-    for event in feed_parse("http://agendadulibre.be/rss.php?region=all").entries:
+    data = Calendar.from_ical(urlopen("http://www.agendadulibre.be/ical.php?region=all").read())
+
+    for event in data.walk()[1:]:
         Event.objects.create(
-            title=event.title,
+            title=event["SUMMARY"].encode("Utf-8"),
             source="agenda_du_libre_be",
-            url=event.link,
-            start=parse(event.updated).replace(tzinfo=None),
-            location=event.summary.split(":")[0],
+            url=event["URL"],
+            start=event["DTSTART"].dt.replace(tzinfo=None),
+            location=event["LOCATION"].encode("Utf-8"),
             color=COLORS['agenda_du_libre_be']['bg'],
             text_color=COLORS['agenda_du_libre_be']['fg'],
         )
 
-        print "adding %s [%s] (%s)..." % (event.title.encode("Utf-8"), "agenda_du_libre_be", event.summary.split(":")[0].encode("Utf-8"))
+        print "adding %s [%s] (%s)..." % (event["SUMMARY"].encode("Utf-8"), "agenda_du_libre_be", event["LOCATION"].encode("Utf-8"))
 
 
 def constantvzw():
