@@ -70,9 +70,6 @@ def foam():
         title = line.find('td', 'etitle')
         date  = line.find('td', 'edate')
 
-        if not date and title:
-            continue
-
         link  = title.a['href']
 
         datestr = date.text.split('-')
