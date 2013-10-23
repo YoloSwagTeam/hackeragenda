@@ -18,6 +18,7 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         for source in [
                        urlab,
+                       foam,
                        neutrinet,
                        hsbxl,
                        agenda_du_libre_be,
@@ -31,6 +32,10 @@ class Command(BaseCommand):
             with transaction.commit_on_success():
                 source()
 
+
+def cleanDateStr(s):
+	"""remove th, st, nd... suffixes from date strings"""
+	return s.strip().replace('th', '').replace('st', '').replace('nd', '')
 
 def urlab():
     # clean events
@@ -55,6 +60,35 @@ def urlab():
         )
 
         print "adding %s [%s] (%s)..." % (title.encode("Utf-8"), "urlab", location.encode("Utf-8"))
+
+def foam():
+    Event.objects.filter(source="foam").delete()
+    
+    soup = BeautifulSoup(urlopen("http://fo.am/events/").read())
+    
+    for line in soup.findAll('tr'):
+        title = line.find('td', attrs={'class': 'etitle'})
+        date  = line.find('td', attrs={'class': 'edate'})
+        if not (date and title):
+            continue
+        link  = title.find('a')['href']
+        datestr = date.text.split('-')
+        start, end = None, None
+        if len(datestr):
+            start = datetime.strptime(cleanDateStr(datestr.pop()), '%d %b %Y')
+        if len(datestr):
+            end = datetime.strptime(cleanDateStr(datestr.pop()), '%d %b %Y')
+        print start, end, title.text, "http://fo.am"+link
+        Event.objects.create(
+            title=title.text,
+            source="foam",
+            url='http://fo.am'+link,
+            start=start,
+            end=end,
+            color=COLORS['foam']['bg'],
+            text_color=COLORS['foam']['fg']
+        )
+        print "Adding %s [foam]"%(title.text)
 
 
 def neutrinet():

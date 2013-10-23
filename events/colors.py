@@ -8,5 +8,6 @@ COLORS = {
 	"incubhacker": {"bg": "#296038", "fg": "#6FCE91"},
 	"opengarage": {"bg": "DarkOrchid", "fg": "white"},
 	"whitespace": {"bg": "white", "fg": "black"},
-	"voidwarranties": {"bg": "#25272C", "fg": "#C58723"}
+	"voidwarranties": {"bg": "#25272C", "fg": "#C58723"},
+	"foam": {"bg": "#C9C4BF", "fg": "black"}
 }
