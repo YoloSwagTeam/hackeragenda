@@ -5,7 +5,6 @@ from urllib2 import urlopen
 from datetime import datetime
 from BeautifulSoup import BeautifulSoup
 from dateutil.parser import parse
-from feedparser import parse as feed_parse
 from icalendar import Calendar
 
 from django.core.management.base import BaseCommand
