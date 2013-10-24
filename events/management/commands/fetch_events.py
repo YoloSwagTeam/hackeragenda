@@ -2,7 +2,7 @@ import json
 import calendar
 
 from urllib2 import urlopen
-from datetime import datetime
+from datetime import datetime, date, timedelta
 from BeautifulSoup import BeautifulSoup
 from dateutil.parser import parse
 from icalendar import Calendar
@@ -115,30 +115,23 @@ def hsbxl():
     # clean events
     Event.objects.filter(source="hsbxl").delete()
 
-    soup = BeautifulSoup(urlopen("http://www.hackerspace.be/Hackerspace_Brussels").read())
+    today = date.today() - timedelta(days=6 * 30)
 
-    for event in soup.table.table('ul'):
-        title = event.a.text
-        url = "http://www.hackerspace.be" + event.a["href"]
-        if len(event.b.text.split(" - ")) == 2:
-            start, end = event.b.text.split(" - ")
-            start, end = parse(start), parse(end[:-1])
-        else:
-            start, end = (parse(event.b.text[:-1]), None)
-        location = event('a')[1].text
+    data = json.load(urlopen("https://hackerspace.be/Special:Ask/-5B-5BCategory:TechTue-7C-7CEvent-5D-5D-20-5B-5BEnd-20date::-3E%s-2D%s-2D%s-20-5D-5D/-3FStart-20date/-3FEnd-20date/-3FLocation/format%%3Djson/sort%%3D-5BStart-20date-5D/order%%3Dasc/offset%%3D0'" % (today.year, today.month, today.day)))
 
+    for event in data["results"].values():
         Event.objects.create(
-            title=title,
+            title=event["fulltext"],
             source="hsbxl",
-            url=url,
-            start=start,
-            end=end,
-            location=location.strip() if location else None,
+            url=event["fullurl"],
+            start=datetime.fromtimestamp(int(event["printouts"]["Start date"][0])),
+            end=datetime.fromtimestamp(int(event["printouts"]["End date"][0])),
+            location=event["printouts"]["Location"][0]["fulltext"],
             color=COLORS['hsbxl']['bg'],
             text_color=COLORS['hsbxl']['fg'],
         )
 
-        print "adding %s [%s] (%s)..." % (title.encode("Utf-8"), "hsbxl", location.encode("Utf-8"))
+        print "adding %s [%s] (%s)..." % (event["fulltext"].encode("Utf-8"), "hsbxl", event["printouts"]["Location"][0]["fulltext"].encode("Utf-8"))
 
 
 def agenda_du_libre_be():
