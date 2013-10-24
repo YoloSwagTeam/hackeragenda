@@ -5,11 +5,12 @@ from django.contrib import admin
 from django.views.generic import ListView
 
 from events.models import Event
+from events.views import EventListView
 
 admin.autodiscover()
 
 urlpatterns = patterns('',
-    url(r'^$', ListView.as_view(queryset=Event.objects.filter(start__gte=datetime.now).order_by("start"), template_name="home.html"), name='home'),
+    url(r'^$', EventListView.as_view(), name='home'),
     # url(r'^hackeragenda/', include('hackeragenda.foo.urls')),
     url(r'^admin/', include(admin.site.urls)),
     url(r'^events/', include('events.urls')),
