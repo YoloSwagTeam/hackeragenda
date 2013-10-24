@@ -2,9 +2,7 @@ from datetime import datetime
 
 from django.conf.urls import patterns, include, url
 from django.contrib import admin
-from django.views.generic import ListView
 
-from events.models import Event
 from events.views import EventListView
 
 admin.autodiscover()
