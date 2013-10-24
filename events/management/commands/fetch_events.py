@@ -64,12 +64,12 @@ def foam():
     soup = BeautifulSoup(urlopen("http://fo.am/events/").read())
 
     for line in soup.find('table', 'eventlist')('tr')[1:]:
-        title, date = line('td')
+        title, event_date = line('td')
 
         link = title.a['href']
 
-        dates = map(parse, date.text.split('-'))
-        if len(date) == 2:
+        dates = map(parse, event_date.text.split('-'))
+        if len(dates) == 2:
             start, end = dates
         else:
             start, end = dates[0], None
