@@ -64,7 +64,7 @@
                     .three.columns{style: "padding-top: 5px"}
                       %center
                         %h5
-                          %span{style: 'background-color: {{ event.color|default:"black" }}; color: {{ event.text_color|default:"white" }}; padding: 3px; padding-left: 6px; padding-right: 6px;'}= event.source|upper|underscore_to_space
+                          %span{style: 'background-color: {{ event.background_color|default:"black" }}; color: {{ event.text_color|default:"white" }}; padding: 3px; padding-left: 6px; padding-right: 6px;'}= event.source|upper|underscore_to_space
                     .seven.columns
                       %h4
                         %a{href: "{{ event.url }}"}= event.title

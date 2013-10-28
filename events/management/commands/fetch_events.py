@@ -50,9 +50,7 @@ def urlab():
             source="urlab",
             url=url,
             start=start,
-            location=location.strip() if location else None,
-            color=COLORS['urlab']['bg'],
-            text_color=COLORS['urlab']['fg'],
+            location=location.strip() if location else None
         )
 
         print "adding %s [%s] (%s)..." % (title.encode("Utf-8"), "urlab", location.encode("Utf-8"))
@@ -79,9 +77,7 @@ def foam():
             source="foam",
             url='http://fo.am' + link,
             start=start,
-            end=end,
-            color=COLORS['foam']['bg'],
-            text_color=COLORS['foam']['fg']
+            end=end
         )
         print "Adding %s [foam]" % title.text.encode("Utf-8")
 
@@ -103,9 +99,7 @@ def neutrinet():
             source="neutrinet",
             url=url,
             start=start,
-            location=location.strip() if location else None,
-            color=COLORS['neutrinet']['bg'],
-            text_color=COLORS['neutrinet']['fg'],
+            location=location.strip() if location else None
         )
 
         print "adding %s [%s] (%s)..." % (title.encode("Utf-8"), "neutrinet", location.encode("Utf-8"))
@@ -126,9 +120,7 @@ def hsbxl():
             url=event["fullurl"],
             start=datetime.fromtimestamp(int(event["printouts"]["Start date"][0])),
             end=datetime.fromtimestamp(int(event["printouts"]["End date"][0])),
-            location=event["printouts"]["Location"][0]["fulltext"],
-            color=COLORS['hsbxl']['bg'],
-            text_color=COLORS['hsbxl']['fg'],
+            location=event["printouts"]["Location"][0]["fulltext"]
         )
 
         print "adding %s [%s] (%s)..." % (event["fulltext"].encode("Utf-8"), "hsbxl", event["printouts"]["Location"][0]["fulltext"].encode("Utf-8"))
@@ -146,9 +138,7 @@ def agenda_du_libre_be():
             source="agenda_du_libre_be",
             url=event["URL"],
             start=event["DTSTART"].dt.replace(tzinfo=None),
-            location=event["LOCATION"].encode("Utf-8"),
-            color=COLORS['agenda_du_libre_be']['bg'],
-            text_color=COLORS['agenda_du_libre_be']['fg'],
+            location=event["LOCATION"].encode("Utf-8")
         )
 
         print "adding %s [%s] (%s)..." % (event["SUMMARY"].encode("Utf-8"), "agenda_du_libre_be", event["LOCATION"].encode("Utf-8"))
@@ -187,9 +177,7 @@ def constantvzw():
             url=url,
             start=start,
             end=end,
-            location=location.strip() if location else None,
-            color=COLORS['constantvzw']['bg'],
-            text_color=COLORS['constantvzw']['fg'],
+            location=location.strip() if location else None
         )
 
         print "adding %s [%s] (%s)..." % (title.encode("Utf-8"), "constantvzw", location.encode("Utf-8") if location else "")
@@ -215,9 +203,7 @@ def bhackspace():
             source="bhackspace",
             url=url,
             start=start,
-            location=location.strip() if location else None,
-            color=COLORS['bhackspace']['bg'],
-            text_color=COLORS['bhackspace']['fg'],
+            location=location.strip() if location else None
         )
 
         print "adding %s [%s] (%s)..." % (title.encode("Utf-8"), "bhackspace", location.encode("Utf-8"))
@@ -241,9 +227,7 @@ def incubhacker():
             source="incubhacker",
             url=url,
             start=start,
-            end=end,
-            color=COLORS['incubhacker']['bg'],
-            text_color=COLORS['incubhacker']['fg'],
+            end=end
         )
 
         print "adding %s [%s] (%s)..." % (title.encode("Utf-8"), "incubhacker", "")
@@ -266,9 +250,7 @@ def opengarage():
             title=title,
             source="opengarage",
             url=url,
-            start=start,
-            color=COLORS['opengarage']['bg'],
-            text_color=COLORS['opengarage']['fg'],
+            start=start
         )
 
         print "adding %s [%s] (%s)..." % (title.encode("Utf-8"), "opengarage", "")
@@ -291,9 +273,7 @@ def whitespace():
             source="whitespace",
             url=url,
             start=start,
-            location=location.strip() if location else None,
-            color=COLORS['whitespace']['bg'],
-            text_color=COLORS['whitespace']['fg'],
+            location=location.strip() if location else None
         )
 
         print "adding %s [%s] (%s)..." % (title.encode("Utf-8"), "whitespace", location.encode("Utf-8"))
@@ -316,9 +296,7 @@ def voidwarranties():
             source="voidwarranties",
             url=url,
             start=start,
-            end=end,
-            color=COLORS['voidwarranties']['bg'],
-            text_color=COLORS['voidwarranties']['fg'],
+            end=end
         )
 
         print "adding %s [%s] (%s)..." % (title.encode("Utf-8"), "voidwarranties", "")
