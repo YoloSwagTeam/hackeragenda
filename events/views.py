@@ -10,8 +10,7 @@ from .colors import COLORS
 class EventListView(ListView):
     template_name = "home.haml"
     
-    def get_queryset(self):
-        return Event.objects.filter(start__gte=datetime.now).order_by("start")
+    queryset = Event.objects.filter(start__gte=datetime.now).order_by("start")
     
     def get_context_data(self, **kwargs):
         context = super(EventListView, self).get_context_data(**kwargs)
