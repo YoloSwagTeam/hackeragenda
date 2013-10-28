@@ -1,5 +1,5 @@
 from django.db import models
-
+from events.colors import COLORS
 
 class Event(models.Model):
     title = models.CharField(max_length=255)
@@ -15,3 +15,15 @@ class Event(models.Model):
 
     def __unicode__(self):
         return "%s [%s]" % (self.title, self.source)
+
+    @property
+    def background_color(self):
+        if self.source in COLORS:
+            return COLORS[self.source]['bg']
+        return None
+
+    @property
+    def text_color(self):
+        if self.source in COLORS:
+            return COLORS[self.source]['fg']
+        return None
