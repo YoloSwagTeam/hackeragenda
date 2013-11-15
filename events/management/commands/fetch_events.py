@@ -7,6 +7,7 @@ from datetime import datetime, date, timedelta
 from BeautifulSoup import BeautifulSoup
 from dateutil.parser import parse
 from icalendar import Calendar
+from optparse import make_option
 
 from django.core.management.base import BaseCommand
 from django.db import transaction
@@ -14,6 +15,14 @@ from events.models import Event
 
 
 class Command(BaseCommand):
+    option_list = BaseCommand.option_list + (
+        make_option('--quiet',
+            action='store_true',
+            dest='quiet',
+            default=False,
+            help='No debug output'),
+        )
+
     def handle(self, *args, **options):
         for source in [
                        urlab,
@@ -30,14 +39,14 @@ class Command(BaseCommand):
                       ]:
             try:
                 with transaction.commit_on_success():
-                    source()
+                    source(options)
             except Exception as e:
                 import traceback
                 traceback.print_exc(file=sys.stdout)
                 print e
 
 
-def urlab():
+def urlab(options):
     # clean events
     Event.objects.filter(source="urlab").delete()
 
@@ -57,10 +66,11 @@ def urlab():
             location=location.strip() if location else None
         )
 
-        print "adding %s [%s] (%s)..." % (title.encode("Utf-8"), "urlab", location.encode("Utf-8"))
+        if not options["quiet"]:
+            print "adding %s [%s] (%s)..." % (title.encode("Utf-8"), "urlab", location.encode("Utf-8"))
 
 
-def foam():
+def foam(options):
     Event.objects.filter(source="foam").delete()
 
     soup = BeautifulSoup(urlopen("http://fo.am/events/").read())
@@ -83,10 +93,11 @@ def foam():
             start=start,
             end=end
         )
-        print "Adding %s [foam]" % title.text.encode("Utf-8")
+        if not options["quiet"]:
+            print "Adding %s [foam]" % title.text.encode("Utf-8")
 
 
-def neutrinet():
+def neutrinet(options):
     # clean events
     Event.objects.filter(source="neutrinet").delete()
 
@@ -106,10 +117,11 @@ def neutrinet():
             location=location.strip() if location else None
         )
 
-        print "adding %s [%s] (%s)..." % (title.encode("Utf-8"), "neutrinet", location.encode("Utf-8"))
+        if not options["quiet"]:
+            print "adding %s [%s] (%s)..." % (title.encode("Utf-8"), "neutrinet", location.encode("Utf-8"))
 
 
-def hsbxl():
+def hsbxl(options):
     # clean events
     Event.objects.filter(source="hsbxl").delete()
 
@@ -127,10 +139,11 @@ def hsbxl():
             location=event["printouts"]["Location"][0]["fulltext"]
         )
 
-        print "adding %s [%s] (%s)..." % (event["fulltext"].encode("Utf-8"), "hsbxl", event["printouts"]["Location"][0]["fulltext"].encode("Utf-8"))
+        if not options["quiet"]:
+            print "adding %s [%s] (%s)..." % (event["fulltext"].encode("Utf-8"), "hsbxl", event["printouts"]["Location"][0]["fulltext"].encode("Utf-8"))
 
 
-def agenda_du_libre_be():
+def agenda_du_libre_be(options):
     # clean events
     Event.objects.filter(source="agenda_du_libre_be").delete()
 
@@ -145,10 +158,11 @@ def agenda_du_libre_be():
             location=event["LOCATION"].encode("Utf-8")
         )
 
-        print "adding %s [%s] (%s)..." % (event["SUMMARY"].encode("Utf-8"), "agenda_du_libre_be", event["LOCATION"].encode("Utf-8"))
+        if not options["quiet"]:
+            print "adding %s [%s] (%s)..." % (event["SUMMARY"].encode("Utf-8"), "agenda_du_libre_be", event["LOCATION"].encode("Utf-8"))
 
 
-def constantvzw():
+def constantvzw(options):
     Event.objects.filter(source="constantvzw").delete()
 
     soup = BeautifulSoup(urlopen("http://www.constantvzw.org/site/").read())
@@ -184,10 +198,11 @@ def constantvzw():
             location=location.strip() if location else None
         )
 
-        print "adding %s [%s] (%s)..." % (title.encode("Utf-8"), "constantvzw", location.encode("Utf-8") if location else "")
+        if not options["quiet"]:
+            print "adding %s [%s] (%s)..." % (title.encode("Utf-8"), "constantvzw", location.encode("Utf-8") if location else "")
 
 
-def bhackspace():
+def bhackspace(options):
     # clean events
     Event.objects.filter(source="bhackspace").delete()
 
@@ -210,10 +225,11 @@ def bhackspace():
             location=location.strip() if location else None
         )
 
-        print "adding %s [%s] (%s)..." % (title.encode("Utf-8"), "bhackspace", location.encode("Utf-8"))
+        if not options["quiet"]:
+            print "adding %s [%s] (%s)..." % (title.encode("Utf-8"), "bhackspace", location.encode("Utf-8"))
 
 
-def incubhacker():
+def incubhacker(options):
     # clean events
     Event.objects.filter(source="incubhacker").delete()
 
@@ -234,10 +250,11 @@ def incubhacker():
             end=end
         )
 
-        print "adding %s [%s] (%s)..." % (title.encode("Utf-8"), "incubhacker", "")
+        if not options["quiet"]:
+            print "adding %s [%s] (%s)..." % (title.encode("Utf-8"), "incubhacker", "")
 
 
-def opengarage():
+def opengarage(options):
     # clean events
     Event.objects.filter(source="opengarage").delete()
 
@@ -257,10 +274,11 @@ def opengarage():
             start=start
         )
 
-        print "adding %s [%s] (%s)..." % (title.encode("Utf-8"), "opengarage", "")
+        if not options["quiet"]:
+            print "adding %s [%s] (%s)..." % (title.encode("Utf-8"), "opengarage", "")
 
 
-def whitespace():
+def whitespace(options):
     # clean events
     Event.objects.filter(source="whitespace").delete()
 
@@ -280,10 +298,11 @@ def whitespace():
             location=location.strip() if location else None
         )
 
-        print "adding %s [%s] (%s)..." % (title.encode("Utf-8"), "whitespace", location.encode("Utf-8"))
+        if not options["quiet"]:
+            print "adding %s [%s] (%s)..." % (title.encode("Utf-8"), "whitespace", location.encode("Utf-8"))
 
 
-def voidwarranties():
+def voidwarranties(options):
     # clean events
     Event.objects.filter(source="voidwarranties").delete()
 
@@ -303,4 +322,5 @@ def voidwarranties():
             end=end
         )
 
-        print "adding %s [%s] (%s)..." % (title.encode("Utf-8"), "voidwarranties", "")
+        if not options["quiet"]:
+            print "adding %s [%s] (%s)..." % (title.encode("Utf-8"), "voidwarranties", "")
