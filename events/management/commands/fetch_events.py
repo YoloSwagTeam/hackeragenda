@@ -1,3 +1,4 @@
+import sys
 import json
 import calendar
 
@@ -29,8 +30,13 @@ class Command(BaseCommand):
                        whitespace,
                        voidwarranties,
                       ]:
-            with transaction.commit_on_success():
-                source()
+            try:
+                with transaction.commit_on_success():
+                    source()
+            except Exception as e:
+                import traceback
+                traceback.print_exc(file=sys.stdout)
+                print e
 
 
 def urlab():
