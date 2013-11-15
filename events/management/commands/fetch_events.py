@@ -12,8 +12,6 @@ from django.core.management.base import BaseCommand
 from django.db import transaction
 from events.models import Event
 
-from events.colors import COLORS
-
 
 class Command(BaseCommand):
     def handle(self, *args, **options):
