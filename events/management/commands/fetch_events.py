@@ -103,7 +103,10 @@ def neutrinet(options):
 
     soup = BeautifulSoup(urlopen("http://neutrinet.be/index.php?title=Main_Page").read())
 
-    for event in filter(lambda x: x, map(lambda x: x('td'), soup('table', 'wikitable')[0]('tr'))):
+    if not soup.table.table.tr.find('table', 'wikitable'):
+        return
+
+    for event in filter(lambda x: x, map(lambda x: x('td'), soup.table.table.tr.find('table', 'wikitable')('tr'))):
         title = event[0].text
         url = "https://neutrinet.be" + event[0].a["href"]
         start = parse(event[1].text)
