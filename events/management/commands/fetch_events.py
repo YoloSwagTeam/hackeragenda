@@ -291,6 +291,8 @@ def whitespace(options):
     soup = BeautifulSoup(urlopen("http://www.0x20.be/Main_Page").read())
 
     for event in soup.ul('li'):
+        if event.text == 'More...':
+            continue
         title = event.a.text
         url = "http://www.0x20.be" + event.a["href"]
         start = parse(event.b.text[:-1])
