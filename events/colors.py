@@ -9,5 +9,6 @@ COLORS = {
     "opengarage": {"bg": "DarkOrchid", "fg": "white"},
     "whitespace": {"bg": "white", "fg": "black"},
     "voidwarranties": {"bg": "#25272C", "fg": "#C58723"},
-    "foam": {"bg": "#C9C4BF", "fg": "black"}
+    "foam": {"bg": "#C9C4BF", "fg": "black"},
+    "wolfplex": {"bg": "#666661", "fg": "black"},
 }

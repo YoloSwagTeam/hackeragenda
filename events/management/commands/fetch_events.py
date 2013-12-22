@@ -8,6 +8,7 @@ from BeautifulSoup import BeautifulSoup
 from dateutil.parser import parse
 from icalendar import Calendar
 from optparse import make_option
+from HTMLParser import HTMLParser
 
 from django.core.management.base import BaseCommand
 from django.db import transaction
@@ -36,6 +37,7 @@ class Command(BaseCommand):
                        opengarage,
                        whitespace,
                        voidwarranties,
+                       wolfplex,
                       ]:
             try:
                 with transaction.commit_on_success():
@@ -332,3 +334,39 @@ def voidwarranties(options):
 
         if not options["quiet"]:
             print "adding %s [%s] (%s)..." % (title.encode("Utf-8"), "voidwarranties", "")
+
+
+def wolfplex(options):
+    # clean events
+    Event.objects.filter(source="wolfplex").delete()
+
+    html_parser = HTMLParser()
+
+    soup = BeautifulSoup(urlopen("http://www.wolfplex.org/wiki/Main_Page").read())
+
+    events = soup.find("div", id="accueil-agenda").dl
+
+    for date_info, event in zip(events('dt'), events('dd')[1::2]):
+        if event.span:
+            event.span.clear()
+
+        title = html_parser.unescape(event.text)
+        base_domain = "http://www.wolfplex.org" if not event.a["href"].startswith("http") else ""
+        url = (base_domain + event.a["href"]) if event.a else "http://www.wolfplex.org"
+        start = parse(date_info.span["title"])
+
+        if "@" in title:
+            title, location = title.split("@", 1)
+        else:
+            location = None
+
+        Event.objects.create(
+            title=title,
+            source="wolfplex",
+            url=url,
+            start=start,
+            location=location
+        )
+
+        if not options["quiet"]:
+            print "adding %s [%s] (%s)..." % (title.encode("Utf-8"), "wolfplex", location.encode("Utf-8") if location else "")
