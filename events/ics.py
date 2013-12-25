@@ -13,10 +13,10 @@ def get_ics_of_events(request):
     for event in Event.objects.all():
         ics_event = ICSEvent()
         ics_event.add('summary', '%s [%s]' % (event.title, event.source))
-        ics_event.add('dtstart', event.start)
         if event.start.hour == 0 and event.start.minute == 0:
             ics_event.add('dtstart', event.start.date())
         else:
+            ics_event.add('dtstart', event.start)
             if event.end:
                 ics_event.add('dtend', event.end)
             else:
