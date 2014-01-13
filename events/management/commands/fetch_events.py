@@ -77,9 +77,8 @@ def afpyro(options={}):
     Event.objects.filter(source="afpyro").delete()
 
     soup = BeautifulSoup(urlopen("http://afpyro.afpy.org/").read())
-    for link in filter(lambda x: x['href'][:7] == '/dates/', soup('a')):
-        if not '(BE)' in link.text:
-            continue
+    filtering = lambda x: x['href'][:7] == '/dates/' and '(BE)' in x.text
+    for link in filter(filtering , soup('a')):
         datetuple = map(int, link['href'].split('/')[-1].split('.')[0].split('_'))
         event = Event.objects.create(
             title=link.text,
