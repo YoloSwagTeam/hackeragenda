@@ -4,6 +4,10 @@
 
 -block head
   %link{rel: "stylesheet", type: "text/css", href: "{% static 'fullcalendar/fullcalendar.css' %}"}
+  :css
+    .fc-state-highlight {
+      background: none repeat scroll 0 0 #FCEB8F;
+    }
 
 -block content
   %dl.tabs
