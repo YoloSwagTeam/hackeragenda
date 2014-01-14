@@ -314,7 +314,11 @@ def whitespace(options):
             continue
         title = event.a.text
         url = "http://www.0x20.be" + event.a["href"]
-        start = parse(event.b.text[:-1])
+        if "-" in event.b.text[:-1]:
+            start, end = map(lambda x: parse(x.strip()), event.b.text[:-1].split("-"))
+        else:
+            start = parse(event.b.text[:-1])
+            end = None
         location = event('a')[1].text
 
         Event.objects.create(
@@ -322,6 +326,7 @@ def whitespace(options):
             source="whitespace",
             url=url,
             start=start,
+            end=end,
             location=location.strip() if location else None
         )
 
