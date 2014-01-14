@@ -27,6 +27,7 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         for source in [
                        urlab,
+                       afpyro,
                        foam,
                        neutrinet,
                        hsbxl,
@@ -71,6 +72,22 @@ def urlab(options):
         if not options["quiet"]:
             print "adding %s [%s] (%s)..." % (title.encode("Utf-8"), "urlab", location.encode("Utf-8"))
 
+def afpyro(options={}):
+    # clean events
+    Event.objects.filter(source="afpyro").delete()
+
+    soup = BeautifulSoup(urlopen("http://afpyro.afpy.org/").read())
+    filtering = lambda x: x['href'][:7] == '/dates/' and '(BE)' in x.text
+    for link in filter(filtering , soup('a')):
+        datetuple = map(int, link['href'].split('/')[-1].split('.')[0].split('_'))
+        event = Event.objects.create(
+            title=link.text,
+            source="afpyro",
+            url="http://afpyro.afpy.org"+link['href'],
+            start=datetime(*datetuple)
+        )
+        if not options['quiet']:
+            print "adding %s [%s]"%(event.title, event.source)
 
 def foam(options):
     Event.objects.filter(source="foam").delete()
