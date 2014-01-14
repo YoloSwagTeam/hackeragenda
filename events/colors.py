@@ -1,6 +1,6 @@
 COLORS = {
     "urlab": {"bg": "pink", "fg": "black"},
-    "afpyro": {"bg": "#366d9c", "fg": "#FFCC3F"},
+    "afpyro": {"bg": "#133F52", "fg": "#FFFFFF"},
     "neutrinet": {"bg": "DarkBlue", "fg": "white"},
     "hsbxl": {"bg": "coral", "fg": "white"},
     "agenda_du_libre_be": {"bg": "#3A87AD", "fg": "white"},
