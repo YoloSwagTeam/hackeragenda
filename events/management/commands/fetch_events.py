@@ -30,6 +30,7 @@ class Command(BaseCommand):
                        afpyro,
                        foam,
                        neutrinet,
+                       okno,
                        hsbxl,
                        agenda_du_libre_be,
                        constantvzw,
@@ -115,6 +116,23 @@ def foam(options):
         if not options["quiet"]:
             print "Adding %s [foam]" % title.text.encode("Utf-8")
 
+def okno(options):
+    Event.objects.filter(source="okno").delete()
+    soup = BeautifulSoup(urlopen("http://www.okno.be/events/").read())
+
+    for entry in soup('div', 'switch-events'):
+        datetuple = map(int, entry('span', 'date-display-single')[0].text.split('.'))
+        title = entry('span', 'field-content')[0].text
+        link = "http://www.okno.be" + entry('a')[0]['href']
+        Event.objects.create(
+            title=title,
+            source="okno",
+            url=link,
+            start=datetime(*datetuple)
+        )
+
+        if not options["quiet"]:
+            print "Adding %s [okno]"%(title.encode("Utf-8"))
 
 def neutrinet(options):
     # clean events

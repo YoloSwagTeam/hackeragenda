@@ -2,6 +2,7 @@ COLORS = {
     "urlab": {"bg": "pink", "fg": "black"},
     "afpyro": {"bg": "#133F52", "fg": "#FFFFFF"},
     "neutrinet": {"bg": "DarkBlue", "fg": "white"},
+    "okno": {"bg": "#FFFFFF", "fg": "#00FF00"},
     "hsbxl": {"bg": "coral", "fg": "white"},
     "agenda_du_libre_be": {"bg": "#3A87AD", "fg": "white"},
     "constantvzw": {"bg": "#D2C7BA", "fg": "black"},
