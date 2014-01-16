@@ -14,9 +14,10 @@ from django.core.management.base import BaseCommand
 from django.db import transaction
 from events.models import Event
 
-#Needed for BxLUG
+# Needed for BxLUG
 reload(sys)
 sys.setdefaultencoding("utf-8")
+
 
 class Command(BaseCommand):
     option_list = BaseCommand.option_list + (
@@ -25,29 +26,29 @@ class Command(BaseCommand):
             dest='quiet',
             default=False,
             help='No debug output'),
-        )
+    )
 
     def handle(self, *args, **options):
         if args:
             sources = args
         else:
             sources = [
-                       "afpyro",
-                       "agenda_du_libre_be",
-                       "bhackspace",
-                       "bxlug",
-                       "constantvzw",
-                       "foam",
-                       "hsbxl",
-                       "incubhacker",
-                       "neutrinet",
-                       "okno",
-                       "opengarage",
-                       "urlab",
-                       "voidwarranties",
-                       "whitespace",
-                       "wolfplex",
-                      ]
+                "afpyro",
+                "agenda_du_libre_be",
+                "bhackspace",
+                "bxlug",
+                "constantvzw",
+                "foam",
+                "hsbxl",
+                "incubhacker",
+                "neutrinet",
+                "okno",
+                "opengarage",
+                "urlab",
+                "voidwarranties",
+                "whitespace",
+                "wolfplex",
+            ]
         for source in sources:
             try:
                 with transaction.commit_on_success():
@@ -67,16 +68,16 @@ def afpyro(options={}):
 
     soup = BeautifulSoup(urlopen("http://afpyro.afpy.org/").read())
     filtering = lambda x: x['href'][:7] == '/dates/' and '(BE)' in x.text
-    for link in filter(filtering , soup('a')):
+    for link in filter(filtering, soup('a')):
         datetuple = map(int, link['href'].split('/')[-1].split('.')[0].split('_'))
         event = Event.objects.create(
             title=link.text,
             source="afpyro",
-            url="http://afpyro.afpy.org"+link['href'],
+            url="http://afpyro.afpy.org" + link['href'],
             start=datetime(*datetuple)
         )
         if not options['quiet']:
-            print "adding %s [%s]"%(event.title, event.source)
+            print "adding %s [%s]" % (event.title, event.source)
 
 
 def agenda_du_libre_be(options):
@@ -144,7 +145,7 @@ def bxlug(options):
         )
 
         if not options["quiet"]:
-            print "adding %s [%s]"%(event.title, event.source)
+            print "adding %s [%s]" % (event.title, event.source)
 
 
 def constantvzw(options):
@@ -307,7 +308,7 @@ def okno(options):
         )
 
         if not options["quiet"]:
-            print "Adding %s [okno]"%(title.encode("Utf-8"))
+            print "Adding %s [okno]" % (title.encode("Utf-8"))
 
 
 def opengarage(options):
