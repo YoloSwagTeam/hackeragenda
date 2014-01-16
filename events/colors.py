@@ -1,8 +1,8 @@
 COLORS = {
-    
     "afpyro": {"bg": "#133F52", "fg": "#FFFFFF"},
     "agenda_du_libre_be": {"bg": "#3A87AD", "fg": "white"},
     "bhackspace": {"bg": "DarkGoldenRod", "fg": "white"},
+    "bxlug": {"bg": "white", "fg": "#990000"},
     "constantvzw": {"bg": "#D2C7BA", "fg": "black"},
     "foam": {"bg": "#C9C4BF", "fg": "black"},
     "hsbxl": {"bg": "coral", "fg": "white"},

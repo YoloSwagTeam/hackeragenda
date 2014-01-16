@@ -14,6 +14,9 @@ from django.core.management.base import BaseCommand
 from django.db import transaction
 from events.models import Event
 
+#Needed for BxLUG
+reload(sys)
+sys.setdefaultencoding("utf-8")
 
 class Command(BaseCommand):
     option_list = BaseCommand.option_list + (
@@ -29,6 +32,7 @@ class Command(BaseCommand):
                        afpyro,
                        agenda_du_libre_be,
                        bhackspace,
+                       bxlug,
                        constantvzw,
                        foam,
                        hsbxl,
@@ -112,6 +116,28 @@ def bhackspace(options):
 
         if not options["quiet"]:
             print "adding %s [%s] (%s)..." % (title.encode("Utf-8"), "bhackspace", location.encode("Utf-8"))
+
+
+def bxlug(options):
+    Event.objects.filter(source="bxlug").delete()
+
+    soup = BeautifulSoup(urlopen("http://www.bxlug.be/spip.php?page=agenda-zpip"))
+    for entry in soup('article', 'evenement'):
+        # [:-1] => ignore timezones, because sqlite doesn't seem to like it
+        start = parse(entry('meta', itemprop='startDate')[0]['content'][:-1])
+        end = parse(entry('meta', itemprop='endDate')[0]['content'][:-1])
+        title = entry('span', itemprop='name')[0].text
+        url = "http://www.bxlug.be/" + entry('a', itemprop='url')[0]['href']
+        event = Event.objects.create(
+            title=title,
+            source="bxlug",
+            url=url,
+            start=start,
+            end=end
+        )
+
+        if not options["quiet"]:
+            print "adding %s [%s]"%(event.title, event.source)
 
 
 def constantvzw(options):
