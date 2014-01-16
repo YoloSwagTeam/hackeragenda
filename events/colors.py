@@ -8,7 +8,7 @@ COLORS = {
     "hsbxl": {"bg": "coral", "fg": "white"},
     "incubhacker": {"bg": "#296038", "fg": "#6FCE91"},
     "neutrinet": {"bg": "DarkBlue", "fg": "white"},
-    "okno": {"bg": "#FFFFFF", "fg": "#00FF00"},
+    "okno": {"bg": "#FFFFFF", "fg": "#00AA00"},
     "opengarage": {"bg": "DarkOrchid", "fg": "white"},
     "urlab": {"bg": "pink", "fg": "black"},
     "voidwarranties": {"bg": "#25272C", "fg": "#C58723"},
