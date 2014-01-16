@@ -14,6 +14,9 @@ from django.core.management.base import BaseCommand
 from django.db import transaction
 from events.models import Event
 
+#Needed for BxLUG
+reload(sys)
+sys.setdefaultencoding("utf-8")
 
 class Command(BaseCommand):
     option_list = BaseCommand.option_list + (
@@ -25,52 +28,38 @@ class Command(BaseCommand):
         )
 
     def handle(self, *args, **options):
-        for source in [
-                       urlab,
-                       afpyro,
-                       foam,
-                       neutrinet,
-                       hsbxl,
-                       agenda_du_libre_be,
-                       constantvzw,
-                       bhackspace,
-                       incubhacker,
-                       opengarage,
-                       whitespace,
-                       voidwarranties,
-                       wolfplex,
-                      ]:
+        if args:
+            sources = args
+        else:
+            sources = [
+                       "afpyro",
+                       "agenda_du_libre_be",
+                       "bhackspace",
+                       "bxlug",
+                       "constantvzw",
+                       "foam",
+                       "hsbxl",
+                       "incubhacker",
+                       "neutrinet",
+                       "okno",
+                       "opengarage",
+                       "urlab",
+                       "voidwarranties",
+                       "whitespace",
+                       "wolfplex",
+                      ]
+        for source in sources:
             try:
                 with transaction.commit_on_success():
-                    source(options)
+                    if source not in globals():
+                        print >>sys.stderr, "Error: %s is not an available source" % source
+                        return
+                    globals()[source](options)
             except Exception as e:
                 import traceback
                 traceback.print_exc(file=sys.stdout)
                 print e
 
-
-def urlab(options):
-    # clean events
-    Event.objects.filter(source="urlab").delete()
-
-    soup = BeautifulSoup(urlopen("https://wiki.urlab.be/Main_Page").read())
-
-    for event in filter(lambda x: x, map(lambda x: x('td'), soup('table', 'wikitable')[0]('tr'))):
-        title = event[0].text
-        url = "https://wiki.urlab.be" + event[0].a["href"]
-        start = parse(event[1].text)
-        location = event[2].text
-
-        Event.objects.create(
-            title=title,
-            source="urlab",
-            url=url,
-            start=start,
-            location=location.strip() if location else None
-        )
-
-        if not options["quiet"]:
-            print "adding %s [%s] (%s)..." % (title.encode("Utf-8"), "urlab", location.encode("Utf-8"))
 
 def afpyro(options={}):
     # clean events
@@ -88,81 +77,6 @@ def afpyro(options={}):
         )
         if not options['quiet']:
             print "adding %s [%s]"%(event.title, event.source)
-
-def foam(options):
-    Event.objects.filter(source="foam").delete()
-
-    soup = BeautifulSoup(urlopen("http://fo.am/events/").read())
-
-    for line in soup.find('table', 'eventlist')('tr')[1:]:
-        title, event_date = line('td')
-
-        link = title.a['href']
-
-        dates = map(parse, event_date.text.split('-'))
-        if len(dates) == 2:
-            start, end = dates
-        else:
-            start, end = dates[0], None
-
-        Event.objects.create(
-            title=title.text,
-            source="foam",
-            url='http://fo.am' + link,
-            start=start,
-            end=end
-        )
-        if not options["quiet"]:
-            print "Adding %s [foam]" % title.text.encode("Utf-8")
-
-
-def neutrinet(options):
-    # clean events
-    Event.objects.filter(source="neutrinet").delete()
-
-    soup = BeautifulSoup(urlopen("http://neutrinet.be/index.php?title=Main_Page").read())
-
-    if not soup.table.table.tr.find('table', 'wikitable'):
-        return
-
-    for event in filter(lambda x: x, map(lambda x: x('td'), soup.table.table.tr.find('table', 'wikitable')('tr'))):
-        title = event[0].text
-        url = "https://neutrinet.be" + event[0].a["href"]
-        start = parse(event[1].text)
-        location = event[2].text
-
-        Event.objects.create(
-            title=title,
-            source="neutrinet",
-            url=url,
-            start=start,
-            location=location.strip() if location else None
-        )
-
-        if not options["quiet"]:
-            print "adding %s [%s] (%s)..." % (title.encode("Utf-8"), "neutrinet", location.encode("Utf-8"))
-
-
-def hsbxl(options):
-    # clean events
-    Event.objects.filter(source="hsbxl").delete()
-
-    today = date.today() - timedelta(days=6 * 30)
-
-    data = json.load(urlopen("https://hackerspace.be/Special:Ask/-5B-5BCategory:TechTue-7C-7CEvent-5D-5D-20-5B-5BEnd-20date::-3E%s-2D%s-2D%s-20-5D-5D/-3FStart-20date/-3FEnd-20date/-3FLocation/format%%3Djson/sort%%3D-5BStart-20date-5D/order%%3Dasc/offset%%3D0'" % (today.year, today.month, today.day)))
-
-    for event in data["results"].values():
-        Event.objects.create(
-            title=event["fulltext"],
-            source="hsbxl",
-            url=event["fullurl"],
-            start=datetime.fromtimestamp(int(event["printouts"]["Start date"][0])),
-            end=datetime.fromtimestamp(int(event["printouts"]["End date"][0])),
-            location=event["printouts"]["Location"][0]["fulltext"]
-        )
-
-        if not options["quiet"]:
-            print "adding %s [%s] (%s)..." % (event["fulltext"].encode("Utf-8"), "hsbxl", event["printouts"]["Location"][0]["fulltext"].encode("Utf-8"))
 
 
 def agenda_du_libre_be(options):
@@ -182,6 +96,55 @@ def agenda_du_libre_be(options):
 
         if not options["quiet"]:
             print "adding %s [%s] (%s)..." % (event["SUMMARY"].encode("Utf-8"), "agenda_du_libre_be", event["LOCATION"].encode("Utf-8"))
+
+
+def bhackspace(options):
+    # clean events
+    Event.objects.filter(source="bhackspace").delete()
+
+    soup = BeautifulSoup(urlopen("http://wiki.bhackspace.be/index.php/Main_Page").read())
+
+    if soup.table.find('table', 'table') is None:
+        return
+
+    for event in soup.find('table', 'table')('tr')[1:]:
+        title = event.a.text
+        url = "http://wiki.bhackspace.be" + event.a["href"]
+        start = parse(event('td')[1].text)
+        location = event('td')[2].text
+
+        Event.objects.create(
+            title=title,
+            source="bhackspace",
+            url=url,
+            start=start,
+            location=location.strip() if location else None
+        )
+
+        if not options["quiet"]:
+            print "adding %s [%s] (%s)..." % (title.encode("Utf-8"), "bhackspace", location.encode("Utf-8"))
+
+
+def bxlug(options):
+    Event.objects.filter(source="bxlug").delete()
+
+    soup = BeautifulSoup(urlopen("http://www.bxlug.be/spip.php?page=agenda-zpip"))
+    for entry in soup('article', 'evenement'):
+        # [:-1] => ignore timezones, because sqlite doesn't seem to like it
+        start = parse(entry('meta', itemprop='startDate')[0]['content'][:-1])
+        end = parse(entry('meta', itemprop='endDate')[0]['content'][:-1])
+        title = entry('span', itemprop='name')[0].text
+        url = "http://www.bxlug.be/" + entry('a', itemprop='url')[0]['href']
+        event = Event.objects.create(
+            title=title,
+            source="bxlug",
+            url=url,
+            start=start,
+            end=end
+        )
+
+        if not options["quiet"]:
+            print "adding %s [%s]"%(event.title, event.source)
 
 
 def constantvzw(options):
@@ -227,31 +190,53 @@ def constantvzw(options):
             print "adding %s [%s] (%s)..." % (title.encode("Utf-8"), "constantvzw", location.encode("Utf-8") if location else "")
 
 
-def bhackspace(options):
-    # clean events
-    Event.objects.filter(source="bhackspace").delete()
+def foam(options):
+    Event.objects.filter(source="foam").delete()
 
-    soup = BeautifulSoup(urlopen("http://wiki.bhackspace.be/index.php/Main_Page").read())
+    soup = BeautifulSoup(urlopen("http://fo.am/events/").read())
 
-    if soup.table.find('table', 'table') is None:
-        return
+    for line in soup.find('table', 'eventlist')('tr')[1:]:
+        title, event_date = line('td')
 
-    for event in soup.find('table', 'table')('tr')[1:]:
-        title = event.a.text
-        url = "http://wiki.bhackspace.be" + event.a["href"]
-        start = parse(event('td')[1].text)
-        location = event('td')[2].text
+        link = title.a['href']
+
+        dates = map(parse, event_date.text.split('-'))
+        if len(dates) == 2:
+            start, end = dates
+        else:
+            start, end = dates[0], None
 
         Event.objects.create(
-            title=title,
-            source="bhackspace",
-            url=url,
+            title=title.text,
+            source="foam",
+            url='http://fo.am' + link,
             start=start,
-            location=location.strip() if location else None
+            end=end
+        )
+        if not options["quiet"]:
+            print "Adding %s [foam]" % title.text.encode("Utf-8")
+
+
+def hsbxl(options):
+    # clean events
+    Event.objects.filter(source="hsbxl").delete()
+
+    today = date.today() - timedelta(days=6 * 30)
+
+    data = json.load(urlopen("https://hackerspace.be/Special:Ask/-5B-5BCategory:TechTue-7C-7CEvent-5D-5D-20-5B-5BEnd-20date::-3E%s-2D%s-2D%s-20-5D-5D/-3FStart-20date/-3FEnd-20date/-3FLocation/format%%3Djson/sort%%3D-5BStart-20date-5D/order%%3Dasc/offset%%3D0'" % (today.year, today.month, today.day)))
+
+    for event in data["results"].values():
+        Event.objects.create(
+            title=event["fulltext"],
+            source="hsbxl",
+            url=event["fullurl"],
+            start=datetime.fromtimestamp(int(event["printouts"]["Start date"][0])),
+            end=datetime.fromtimestamp(int(event["printouts"]["End date"][0])),
+            location=event["printouts"]["Location"][0]["fulltext"]
         )
 
         if not options["quiet"]:
-            print "adding %s [%s] (%s)..." % (title.encode("Utf-8"), "bhackspace", location.encode("Utf-8"))
+            print "adding %s [%s] (%s)..." % (event["fulltext"].encode("Utf-8"), "hsbxl", event["printouts"]["Location"][0]["fulltext"].encode("Utf-8"))
 
 
 def incubhacker(options):
@@ -279,6 +264,52 @@ def incubhacker(options):
             print "adding %s [%s] (%s)..." % (title.encode("Utf-8"), "incubhacker", "")
 
 
+def neutrinet(options):
+    # clean events
+    Event.objects.filter(source="neutrinet").delete()
+
+    soup = BeautifulSoup(urlopen("http://neutrinet.be/index.php?title=Main_Page").read())
+
+    if not soup.table.table.tr.find('table', 'wikitable'):
+        return
+
+    for event in filter(lambda x: x, map(lambda x: x('td'), soup.table.table.tr.find('table', 'wikitable')('tr'))):
+        title = event[0].text
+        url = "https://neutrinet.be" + event[0].a["href"]
+        start = parse(event[1].text)
+        location = event[2].text
+
+        Event.objects.create(
+            title=title,
+            source="neutrinet",
+            url=url,
+            start=start,
+            location=location.strip() if location else None
+        )
+
+        if not options["quiet"]:
+            print "adding %s [%s] (%s)..." % (title.encode("Utf-8"), "neutrinet", location.encode("Utf-8"))
+
+
+def okno(options):
+    Event.objects.filter(source="okno").delete()
+    soup = BeautifulSoup(urlopen("http://www.okno.be/events/").read())
+
+    for entry in soup('div', 'switch-events'):
+        datetuple = map(int, entry('span', 'date-display-single')[0].text.split('.'))
+        title = entry('span', 'field-content')[0].text
+        link = "http://www.okno.be" + entry('a')[0]['href']
+        Event.objects.create(
+            title=title,
+            source="okno",
+            url=link,
+            start=datetime(*datetuple)
+        )
+
+        if not options["quiet"]:
+            print "Adding %s [okno]"%(title.encode("Utf-8"))
+
+
 def opengarage(options):
     # clean events
     Event.objects.filter(source="opengarage").delete()
@@ -301,6 +332,54 @@ def opengarage(options):
 
         if not options["quiet"]:
             print "adding %s [%s] (%s)..." % (title.encode("Utf-8"), "opengarage", "")
+
+
+def urlab(options):
+    # clean events
+    Event.objects.filter(source="urlab").delete()
+
+    soup = BeautifulSoup(urlopen("https://wiki.urlab.be/Main_Page").read())
+
+    for event in filter(lambda x: x, map(lambda x: x('td'), soup('table', 'wikitable')[0]('tr'))):
+        title = event[0].text
+        url = "https://wiki.urlab.be" + event[0].a["href"]
+        start = parse(event[1].text)
+        location = event[2].text
+
+        Event.objects.create(
+            title=title,
+            source="urlab",
+            url=url,
+            start=start,
+            location=location.strip() if location else None
+        )
+
+        if not options["quiet"]:
+            print "adding %s [%s] (%s)..." % (title.encode("Utf-8"), "urlab", location.encode("Utf-8"))
+
+
+def voidwarranties(options):
+    # clean events
+    Event.objects.filter(source="voidwarranties").delete()
+
+    data = Calendar.from_ical(urlopen("http://voidwarranties.be/index.php/Special:Ask/-5B-5BCategory:Events-5D-5D/-3FHas-20start-20date=start/-3FHas-20end-20date=end/-3FHas-20coordinates=location/format=icalendar/title=VoidWarranties/description=Events-20at-20http:-2F-2Fvoidwarranties.be/limit=500").read())
+
+    for event in data.walk()[1:]:
+        title = str(event["SUMMARY"])
+        url = event["URL"]
+        start = event["DTSTART"].dt if event.get("DTSTART") else event["DTSTAMP"].dt
+        end = event["DTEND"].dt if event.get("DTSTART") else None
+
+        Event.objects.create(
+            title=title,
+            source="voidwarranties",
+            url=url,
+            start=start,
+            end=end
+        )
+
+        if not options["quiet"]:
+            print "adding %s [%s] (%s)..." % (title.encode("Utf-8"), "voidwarranties", "")
 
 
 def whitespace(options):
@@ -332,30 +411,6 @@ def whitespace(options):
 
         if not options["quiet"]:
             print "adding %s [%s] (%s)..." % (title.encode("Utf-8"), "whitespace", location.encode("Utf-8"))
-
-
-def voidwarranties(options):
-    # clean events
-    Event.objects.filter(source="voidwarranties").delete()
-
-    data = Calendar.from_ical(urlopen("http://voidwarranties.be/index.php/Special:Ask/-5B-5BCategory:Events-5D-5D/-3FHas-20start-20date=start/-3FHas-20end-20date=end/-3FHas-20coordinates=location/format=icalendar/title=VoidWarranties/description=Events-20at-20http:-2F-2Fvoidwarranties.be/limit=500").read())
-
-    for event in data.walk()[1:]:
-        title = str(event["SUMMARY"])
-        url = event["URL"]
-        start = event["DTSTART"].dt if event.get("DTSTART") else event["DTSTAMP"].dt
-        end = event["DTEND"].dt if event.get("DTSTART") else None
-
-        Event.objects.create(
-            title=title,
-            source="voidwarranties",
-            url=url,
-            start=start,
-            end=end
-        )
-
-        if not options["quiet"]:
-            print "adding %s [%s] (%s)..." % (title.encode("Utf-8"), "voidwarranties", "")
 
 
 def wolfplex(options):
