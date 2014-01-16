@@ -77,7 +77,7 @@ def afpyro(options={}):
             start=datetime(*datetuple)
         )
         if not options['quiet']:
-            print "adding %s [%s]" % (event.title, event.source)
+            print "adding %s [%s]" % (event.title.encode("Utf-8"), event.source)
 
 
 def agenda_du_libre_be(options):
