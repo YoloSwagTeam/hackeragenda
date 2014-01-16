@@ -28,26 +28,33 @@ class Command(BaseCommand):
         )
 
     def handle(self, *args, **options):
-        for source in [
-                       afpyro,
-                       agenda_du_libre_be,
-                       bhackspace,
-                       bxlug,
-                       constantvzw,
-                       foam,
-                       hsbxl,
-                       incubhacker,
-                       neutrinet,
-                       okno,
-                       opengarage,
-                       urlab,
-                       voidwarranties,
-                       whitespace,
-                       wolfplex,
-                      ]:
+        if args:
+            sources = args
+        else:
+            sources = [
+                       "afpyro",
+                       "agenda_du_libre_be",
+                       "bhackspace",
+                       "bxlug",
+                       "constantvzw",
+                       "foam",
+                       "hsbxl",
+                       "incubhacker",
+                       "neutrinet",
+                       "okno",
+                       "opengarage",
+                       "urlab",
+                       "voidwarranties",
+                       "whitespace",
+                       "wolfplex",
+                      ]
+        for source in sources:
             try:
                 with transaction.commit_on_success():
-                    source(options)
+                    if source not in globals():
+                        print >>sys.stderr, "Error: %s is not an available source" % source
+                        return
+                    globals()[source](options)
             except Exception as e:
                 import traceback
                 traceback.print_exc(file=sys.stdout)
