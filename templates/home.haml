@@ -94,11 +94,58 @@
       %p.faq
         It is a (time I can find in) one weekend project to help a community that I love and try to encourage its members to interact more together.
 
+      %p.faq
+        We now hacked a special JSON format, you can submit url of a document respecting this format bysending me <a href="mailto: brain at worlddomination.be">an email</a>. See below for the format specification.
     %li
       %b My wonderful organization isn't present! This is SKANDALOUSE!
       %p.faq
         Either I didn't knew its existence, either I didn't found the list of event on the website (I've put organizations that I knew in Brussels + hackerspaces from hackerspaces.org/Belgium). Send me <a href="mailto: brain at worlddomination.be">an email</a> or <a href="https://github.com/Psycojoker/hackeragenda/issues/new">open a bug</a> with the correct informations (basically I need an url from which I can extract events in a structured way) or <a href="https://github.com/Psycojoker/hackeragenda">patch</a>.
 
+    %li
+      %b
+        JSON Format
+      %br
+      %p.faq
+        Hackeragenda accepts a simplified Json format for an organisation to specify it's upcoming events.
+
+      %p.faq
+        For the moment it's a simple json object, composed of the keys:
+          %ul
+            %li "org" : Organisation name (mandatory)
+            %li "api" : API version number (mandatory)
+            %li "events" : A list of event object (mandatory)
+      %p.faq
+        Each event object can contain the following keys:
+          %ul
+            %li "title" : Name of the event that will be displayed  (mandatory)
+            %li "url" : URL for this event (mandatory)
+            %li "start" : start date of the event, in ISO8601 (mandatory)
+            %li "end" : end of the event, in ISO8601 (optional)
+            %li "all_day" : Is the event the whole day? (optional)
+            %li "location" : Human readable adress for your event (optional)
+
+      %p.faq
+          Example :
+          %pre.panel
+            "org": "afypro",
+            "api" : 0.1,
+            "events" : [
+                    {<br>
+                       "title": "Small conf",<br>
+                       "start": "2012-05-23 12:00",<br>
+                       "end": "2012-05-23 18:23",<br>
+                       "all_day": false,<br>
+                       "url": "http://..."<br>
+                    },
+                    {<br>
+                       "title": "Marvelous conference",<br>
+                       "start": "2012-05-23 12:00",<br>
+                       "all_day": true,<br>
+                       "location": "123 avenue du soleil",<br>
+                       "url": "http://..."<br>
+                    }
+                ]
+            }
     %li
       %b What kind of stuff are you ready to add?
       %p.faq

@@ -9,6 +9,7 @@ from dateutil.parser import parse
 from icalendar import Calendar
 from optparse import make_option
 from HTMLParser import HTMLParser
+import requests
 
 from django.core.management.base import BaseCommand
 from django.db import transaction
@@ -53,9 +54,13 @@ class Command(BaseCommand):
             try:
                 with transaction.commit_on_success():
                     if source not in globals():
-                        print >>sys.stderr, "Error: %s is not an available source" % source
-                        return
-                    globals()[source](options)
+                        if source.startswith('http://') or  source.startswith('https://'):
+                            json_api(source)
+                        else:
+                            print >>sys.stderr, "Error: %s is not an available source" % source
+                            return
+                    else:
+                        globals()[source](options)
             except Exception as e:
                 import traceback
                 traceback.print_exc(file=sys.stdout)
@@ -448,3 +453,25 @@ def wolfplex(options):
 
         if not options["quiet"]:
             print "adding %s [%s] (%s)..." % (title.encode("Utf-8"), "wolfplex", location.encode("Utf-8") if location else "")
+
+def json_api(url):
+    """Generic function to add events from an urls respecting the json api
+    """
+    reponse = requests.get(url)
+    j = reponse.json()
+
+    # clean events
+    Event.objects.filter(source=j['org']).delete()
+
+    for event in j['events']:
+        Event.objects.create(
+            title=event['title'],
+            source=j['org'],
+            url=event['url'],
+            start=parse(event['start']),
+            end=parse(event['end']) if event.has_key('end') else None,
+            all_day=event['all_day'] if event.has_key('all_day') else None,
+            location=event['location'] if event.has_key('location') else None,
+        )
+
+        print "adding %s [%s] (%s)..." % (event['title'].encode("Utf-8"), j['org'], event.get('location', '').encode("Utf-8"))
