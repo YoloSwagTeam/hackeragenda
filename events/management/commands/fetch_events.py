@@ -455,7 +455,8 @@ def wolfplex(options):
 
 
 def json_api(url):
-    """Generic function to add events from an urls respecting the json api
+    """
+    Generic function to add events from an urls respecting the json api
     """
     j = json.load(urlopen(url))
 
