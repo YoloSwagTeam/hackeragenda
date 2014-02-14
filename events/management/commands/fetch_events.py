@@ -346,7 +346,10 @@ def urlab(options):
 
     soup = BeautifulSoup(urlopen("https://wiki.urlab.be/Main_Page").read())
 
-    for event in filter(lambda x: x, map(lambda x: x('td'), soup('table', 'wikitable')[0]('tr'))):
+    if soup('table')[4].table is None:
+        return
+
+    for event in filter(lambda x: x, map(lambda x: x('td'), soup('table')[4].table('tr'))):
         title = event[0].text
         url = "https://wiki.urlab.be" + event[0].a["href"]
         start = parse(event[1].text)
