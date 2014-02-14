@@ -49,6 +49,7 @@ class Command(BaseCommand):
                 "whitespace",
                 "wolfplex",
             ]
+
         for source in sources:
             try:
                 with transaction.commit_on_success():
@@ -458,15 +459,15 @@ def json_api(url):
     """
     Generic function to add events from an urls respecting the json api
     """
-    j = json.load(urlopen(url))
+    data = json.load(urlopen(url))
 
     # clean events
-    Event.objects.filter(source=j['org']).delete()
+    Event.objects.filter(source=data['org']).delete()
 
-    for event in j['events']:
+    for event in data['events']:
         Event.objects.create(
             title=event['title'],
-            source=j['org'],
+            source=data['org'],
             url=event['url'],
             start=parse(event['start']),
             end=parse(event['end']) if 'end' in event else None,
@@ -474,4 +475,4 @@ def json_api(url):
             location=event['location'] if 'location' in event else None,
         )
 
-        print "adding %s [%s] (%s)..." % (event['title'].encode("Utf-8"), j['org'], event.get('location', '').encode("Utf-8"))
+        print "adding %s [%s] (%s)..." % (event['title'].encode("Utf-8"), data['org'], event.get('location', '').encode("Utf-8"))
