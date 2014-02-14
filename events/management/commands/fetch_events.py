@@ -53,7 +53,7 @@ class Command(BaseCommand):
             try:
                 with transaction.commit_on_success():
                     if source not in globals():
-                        if source.startswith('http://') or  source.startswith('https://'):
+                        if source.startswith('http://') or source.startswith('https://'):
                             json_api(source)
                         else:
                             print >>sys.stderr, "Error: %s is not an available source" % source
@@ -453,6 +453,7 @@ def wolfplex(options):
         if not options["quiet"]:
             print "adding %s [%s] (%s)..." % (title.encode("Utf-8"), "wolfplex", location.encode("Utf-8") if location else "")
 
+
 def json_api(url):
     """Generic function to add events from an urls respecting the json api
     """
@@ -467,9 +468,9 @@ def json_api(url):
             source=j['org'],
             url=event['url'],
             start=parse(event['start']),
-            end=parse(event['end']) if event.has_key('end') else None,
-            all_day=event['all_day'] if event.has_key('all_day') else None,
-            location=event['location'] if event.has_key('location') else None,
+            end=parse(event['end']) if 'end' in event else None,
+            all_day=event['all_day'] if 'all_day' in event else None,
+            location=event['location'] if 'location' in event else None,
         )
 
         print "adding %s [%s] (%s)..." % (event['title'].encode("Utf-8"), j['org'], event.get('location', '').encode("Utf-8"))
