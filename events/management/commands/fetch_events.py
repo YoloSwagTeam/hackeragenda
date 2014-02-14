@@ -9,7 +9,6 @@ from dateutil.parser import parse
 from icalendar import Calendar
 from optparse import make_option
 from HTMLParser import HTMLParser
-import requests
 
 from django.core.management.base import BaseCommand
 from django.db import transaction
@@ -457,8 +456,7 @@ def wolfplex(options):
 def json_api(url):
     """Generic function to add events from an urls respecting the json api
     """
-    reponse = requests.get(url)
-    j = reponse.json()
+    j = json.load(urlopen(url))
 
     # clean events
     Event.objects.filter(source=j['org']).delete()
