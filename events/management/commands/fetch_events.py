@@ -7,6 +7,7 @@ from datetime import datetime, date, timedelta
 from BeautifulSoup import BeautifulSoup
 from dateutil.parser import parse
 from icalendar import Calendar
+from icalendar import Event as icalendarEvent
 from optparse import make_option
 from HTMLParser import HTMLParser
 
@@ -44,10 +45,12 @@ class Command(BaseCommand):
                 "neutrinet",
                 "okno",
                 "opengarage",
+                "opentechschool",
                 "urlab",
                 "voidwarranties",
                 "whitespace",
                 "wolfplex",
+
             ]
 
         for source in sources:
@@ -317,27 +320,11 @@ def okno(options):
 
 
 def opengarage(options):
-    # clean events
-    Event.objects.filter(source="opengarage").delete()
+    return generic_meetup("opengarage", "OpenGarage", options)
 
-    soup = BeautifulSoup(urlopen("http://www.meetup.com/OpenGarage/").read())
 
-    for event in soup.find('ul', id='ajax-container')('li'):
-        if event.find('li', 'dateTime') is None or event.find('li', 'dateTime').time is None:
-            continue
-        title = event.a.text
-        url = event.a["href"]
-        start = parse(event.find('li', 'dateTime').time['datetime']).replace(tzinfo=None)
-
-        Event.objects.create(
-            title=title,
-            source="opengarage",
-            url=url,
-            start=start
-        )
-
-        if not options["quiet"]:
-            print "adding %s [%s] (%s)..." % (title.encode("Utf-8"), "opengarage", "")
+def opentechschool(options):
+    return generic_meetup("opentechschool", "OpenTechSchool-Brussels", options)
 
 
 def urlab(options):
@@ -479,3 +466,27 @@ def json_api(url):
         )
 
         print "adding %s [%s] (%s)..." % (event['title'].encode("Utf-8"), data['org'], event.get('location', '').encode("Utf-8"))
+
+
+def generic_meetup(source, meetup_name, options):
+    Event.objects.filter(source=source).delete()
+
+    data = Calendar.from_ical(urlopen("http://www.meetup.com/{}/events/ical/".format(meetup_name)).read())
+
+    for event in data.walk():
+        if not isinstance(event, icalendarEvent):
+            continue
+        title = event.get("SUMMARY", None)
+        start = event.get("DTSTART", None)
+        if None in (title, start):
+            continue
+        Event.objects.create(
+            title=title.encode("Utf-8"),
+            source=source,
+            url=event.get("URL", ""),
+            start=start.dt.replace(tzinfo=None),
+            location=event.get("LOCATION", "").encode("Utf-8")
+        )
+
+        if not options["quiet"]:
+            print "adding %s [%s] (%s)..." % (title.encode("Utf-8"), source, event.get("LOCATION", "").encode("Utf-8"))
