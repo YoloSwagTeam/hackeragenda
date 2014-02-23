@@ -85,7 +85,7 @@ def afpyro(options={}):
             start=datetime(*datetuple)
         )
         if not options['quiet']:
-            print "adding %s [%s]" % (event.title.encode("Utf-8"), event.source)
+            print "Adding %s [%s]" % (event.title.encode("Utf-8"), event.source)
 
 
 def agenda_du_libre_be(options):
@@ -104,7 +104,7 @@ def agenda_du_libre_be(options):
         )
 
         if not options["quiet"]:
-            print "adding %s [%s] (%s)..." % (event["SUMMARY"].encode("Utf-8"), "agenda_du_libre_be", event["LOCATION"].encode("Utf-8"))
+            print "Adding %s [%s] (%s)..." % (event["SUMMARY"].encode("Utf-8"), "agenda_du_libre_be", event["LOCATION"].encode("Utf-8"))
 
 
 def bhackspace(options):
@@ -131,7 +131,7 @@ def bhackspace(options):
         )
 
         if not options["quiet"]:
-            print "adding %s [%s] (%s)..." % (title.encode("Utf-8"), "bhackspace", location.encode("Utf-8"))
+            print "Adding %s [%s] (%s)..." % (title.encode("Utf-8"), "bhackspace", location.encode("Utf-8"))
 
 
 def bxlug(options):
@@ -153,7 +153,7 @@ def bxlug(options):
         )
 
         if not options["quiet"]:
-            print "adding %s [%s]" % (event.title, event.source)
+            print "Adding %s [%s]" % (event.title, event.source)
 
 
 def constantvzw(options):
@@ -196,7 +196,7 @@ def constantvzw(options):
         )
 
         if not options["quiet"]:
-            print "adding %s [%s] (%s)..." % (title.encode("Utf-8"), "constantvzw", location.encode("Utf-8") if location else "")
+            print "Adding %s [%s] (%s)..." % (title.encode("Utf-8"), "constantvzw", location.encode("Utf-8") if location else "")
 
 
 def foam(options):
@@ -245,7 +245,7 @@ def hsbxl(options):
         )
 
         if not options["quiet"]:
-            print "adding %s [%s] (%s)..." % (event["fulltext"].encode("Utf-8"), "hsbxl", event["printouts"]["Location"][0]["fulltext"].encode("Utf-8"))
+            print "Adding %s [%s] (%s)..." % (event["fulltext"].encode("Utf-8"), "hsbxl", event["printouts"]["Location"][0]["fulltext"].encode("Utf-8"))
 
 
 def incubhacker(options):
@@ -270,7 +270,7 @@ def incubhacker(options):
         )
 
         if not options["quiet"]:
-            print "adding %s [%s] (%s)..." % (title.encode("Utf-8"), "incubhacker", "")
+            print "Adding %s [%s] (%s)..." % (title.encode("Utf-8"), "incubhacker", "")
 
 
 def neutrinet(options):
@@ -297,7 +297,7 @@ def neutrinet(options):
         )
 
         if not options["quiet"]:
-            print "adding %s [%s] (%s)..." % (title.encode("Utf-8"), "neutrinet", location.encode("Utf-8"))
+            print "Adding %s [%s] (%s)..." % (title.encode("Utf-8"), "neutrinet", location.encode("Utf-8"))
 
 
 def okno(options):
@@ -351,7 +351,7 @@ def urlab(options):
         )
 
         if not options["quiet"]:
-            print "adding %s [%s] (%s)..." % (title.encode("Utf-8"), "urlab", location.encode("Utf-8"))
+            print "Adding %s [%s] (%s)..." % (title.encode("Utf-8"), "urlab", location.encode("Utf-8"))
 
 
 def voidwarranties(options):
@@ -375,7 +375,7 @@ def voidwarranties(options):
         )
 
         if not options["quiet"]:
-            print "adding %s [%s] (%s)..." % (title.encode("Utf-8"), "voidwarranties", "")
+            print "Adding %s [%s] (%s)..." % (title.encode("Utf-8"), "voidwarranties", "")
 
 
 def whitespace(options):
@@ -406,7 +406,7 @@ def whitespace(options):
         )
 
         if not options["quiet"]:
-            print "adding %s [%s] (%s)..." % (title.encode("Utf-8"), "whitespace", location.encode("Utf-8"))
+            print "Adding %s [%s] (%s)..." % (title.encode("Utf-8"), "whitespace", location.encode("Utf-8"))
 
 
 def wolfplex(options):
@@ -442,7 +442,7 @@ def wolfplex(options):
         )
 
         if not options["quiet"]:
-            print "adding %s [%s] (%s)..." % (title.encode("Utf-8"), "wolfplex", location.encode("Utf-8") if location else "")
+            print "Adding %s [%s] (%s)..." % (title.encode("Utf-8"), "wolfplex", location.encode("Utf-8") if location else "")
 
 
 def json_api(url):
@@ -465,7 +465,7 @@ def json_api(url):
             location=event['location'] if 'location' in event else None,
         )
 
-        print "adding %s [%s] (%s)..." % (event['title'].encode("Utf-8"), data['org'], event.get('location', '').encode("Utf-8"))
+        print "Adding %s [%s] (%s)..." % (event['title'].encode("Utf-8"), data['org'], event.get('location', '').encode("Utf-8"))
 
 
 def generic_meetup(source, meetup_name, options):
@@ -489,4 +489,4 @@ def generic_meetup(source, meetup_name, options):
         )
 
         if not options["quiet"]:
-            print "adding %s [%s] (%s)..." % (title.encode("Utf-8"), source, event.get("LOCATION", "").encode("Utf-8"))
+            print "Adding %s [%s] (%s)..." % (title.encode("Utf-8"), source, event.get("LOCATION", "").encode("Utf-8"))
