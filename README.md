@@ -13,3 +13,11 @@ Foobar:
 To update the events:
 
     python manage.py fetch_events
+
+To add a new organization :
+
+1. Add a new function in `events/management/commands/fetch_events.py`
+2. Add the function in the sources (`fetch_events.py` line ~36)
+3. Add a color to the organization in `events/colors.py`
+4. Test
+5. Pull request
