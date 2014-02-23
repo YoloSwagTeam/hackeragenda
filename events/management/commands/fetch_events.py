@@ -7,6 +7,7 @@ from datetime import datetime, date, timedelta
 from BeautifulSoup import BeautifulSoup
 from dateutil.parser import parse
 from icalendar import Calendar
+from icalendar import Event as icalendarEvent
 from optparse import make_option
 from HTMLParser import HTMLParser
 
@@ -44,10 +45,12 @@ class Command(BaseCommand):
                 "neutrinet",
                 "okno",
                 "opengarage",
+                "opentechschool",
                 "urlab",
                 "voidwarranties",
                 "whitespace",
                 "wolfplex",
+
             ]
 
         for source in sources:
@@ -82,7 +85,7 @@ def afpyro(options={}):
             start=datetime(*datetuple)
         )
         if not options['quiet']:
-            print "adding %s [%s]" % (event.title.encode("Utf-8"), event.source)
+            print "Adding %s [%s]" % (event.title.encode("Utf-8"), event.source)
 
 
 def agenda_du_libre_be(options):
@@ -101,7 +104,7 @@ def agenda_du_libre_be(options):
         )
 
         if not options["quiet"]:
-            print "adding %s [%s] (%s)..." % (event["SUMMARY"].encode("Utf-8"), "agenda_du_libre_be", event["LOCATION"].encode("Utf-8"))
+            print "Adding %s [%s] (%s)..." % (event["SUMMARY"].encode("Utf-8"), "agenda_du_libre_be", event["LOCATION"].encode("Utf-8"))
 
 
 def bhackspace(options):
@@ -128,7 +131,7 @@ def bhackspace(options):
         )
 
         if not options["quiet"]:
-            print "adding %s [%s] (%s)..." % (title.encode("Utf-8"), "bhackspace", location.encode("Utf-8"))
+            print "Adding %s [%s] (%s)..." % (title.encode("Utf-8"), "bhackspace", location.encode("Utf-8"))
 
 
 def bxlug(options):
@@ -150,7 +153,7 @@ def bxlug(options):
         )
 
         if not options["quiet"]:
-            print "adding %s [%s]" % (event.title, event.source)
+            print "Adding %s [%s]" % (event.title, event.source)
 
 
 def constantvzw(options):
@@ -193,7 +196,7 @@ def constantvzw(options):
         )
 
         if not options["quiet"]:
-            print "adding %s [%s] (%s)..." % (title.encode("Utf-8"), "constantvzw", location.encode("Utf-8") if location else "")
+            print "Adding %s [%s] (%s)..." % (title.encode("Utf-8"), "constantvzw", location.encode("Utf-8") if location else "")
 
 
 def foam(options):
@@ -242,7 +245,7 @@ def hsbxl(options):
         )
 
         if not options["quiet"]:
-            print "adding %s [%s] (%s)..." % (event["fulltext"].encode("Utf-8"), "hsbxl", event["printouts"]["Location"][0]["fulltext"].encode("Utf-8"))
+            print "Adding %s [%s] (%s)..." % (event["fulltext"].encode("Utf-8"), "hsbxl", event["printouts"]["Location"][0]["fulltext"].encode("Utf-8"))
 
 
 def incubhacker(options):
@@ -267,7 +270,7 @@ def incubhacker(options):
         )
 
         if not options["quiet"]:
-            print "adding %s [%s] (%s)..." % (title.encode("Utf-8"), "incubhacker", "")
+            print "Adding %s [%s] (%s)..." % (title.encode("Utf-8"), "incubhacker", "")
 
 
 def neutrinet(options):
@@ -294,7 +297,7 @@ def neutrinet(options):
         )
 
         if not options["quiet"]:
-            print "adding %s [%s] (%s)..." % (title.encode("Utf-8"), "neutrinet", location.encode("Utf-8"))
+            print "Adding %s [%s] (%s)..." % (title.encode("Utf-8"), "neutrinet", location.encode("Utf-8"))
 
 
 def okno(options):
@@ -317,27 +320,11 @@ def okno(options):
 
 
 def opengarage(options):
-    # clean events
-    Event.objects.filter(source="opengarage").delete()
+    return generic_meetup("opengarage", "OpenGarage", options)
 
-    soup = BeautifulSoup(urlopen("http://www.meetup.com/OpenGarage/").read())
 
-    for event in soup.find('ul', id='ajax-container')('li'):
-        if event.find('li', 'dateTime') is None or event.find('li', 'dateTime').time is None:
-            continue
-        title = event.a.text
-        url = event.a["href"]
-        start = parse(event.find('li', 'dateTime').time['datetime']).replace(tzinfo=None)
-
-        Event.objects.create(
-            title=title,
-            source="opengarage",
-            url=url,
-            start=start
-        )
-
-        if not options["quiet"]:
-            print "adding %s [%s] (%s)..." % (title.encode("Utf-8"), "opengarage", "")
+def opentechschool(options):
+    return generic_meetup("opentechschool", "OpenTechSchool-Brussels", options)
 
 
 def urlab(options):
@@ -364,7 +351,7 @@ def urlab(options):
         )
 
         if not options["quiet"]:
-            print "adding %s [%s] (%s)..." % (title.encode("Utf-8"), "urlab", location.encode("Utf-8"))
+            print "Adding %s [%s] (%s)..." % (title.encode("Utf-8"), "urlab", location.encode("Utf-8"))
 
 
 def voidwarranties(options):
@@ -388,7 +375,7 @@ def voidwarranties(options):
         )
 
         if not options["quiet"]:
-            print "adding %s [%s] (%s)..." % (title.encode("Utf-8"), "voidwarranties", "")
+            print "Adding %s [%s] (%s)..." % (title.encode("Utf-8"), "voidwarranties", "")
 
 
 def whitespace(options):
@@ -419,7 +406,7 @@ def whitespace(options):
         )
 
         if not options["quiet"]:
-            print "adding %s [%s] (%s)..." % (title.encode("Utf-8"), "whitespace", location.encode("Utf-8"))
+            print "Adding %s [%s] (%s)..." % (title.encode("Utf-8"), "whitespace", location.encode("Utf-8"))
 
 
 def wolfplex(options):
@@ -455,7 +442,7 @@ def wolfplex(options):
         )
 
         if not options["quiet"]:
-            print "adding %s [%s] (%s)..." % (title.encode("Utf-8"), "wolfplex", location.encode("Utf-8") if location else "")
+            print "Adding %s [%s] (%s)..." % (title.encode("Utf-8"), "wolfplex", location.encode("Utf-8") if location else "")
 
 
 def json_api(url):
@@ -478,4 +465,28 @@ def json_api(url):
             location=event['location'] if 'location' in event else None,
         )
 
-        print "adding %s [%s] (%s)..." % (event['title'].encode("Utf-8"), data['org'], event.get('location', '').encode("Utf-8"))
+        print "Adding %s [%s] (%s)..." % (event['title'].encode("Utf-8"), data['org'], event.get('location', '').encode("Utf-8"))
+
+
+def generic_meetup(source, meetup_name, options):
+    Event.objects.filter(source=source).delete()
+
+    data = Calendar.from_ical(urlopen("http://www.meetup.com/{}/events/ical/".format(meetup_name)).read())
+
+    for event in data.walk():
+        if not isinstance(event, icalendarEvent):
+            continue
+        title = event.get("SUMMARY", None)
+        start = event.get("DTSTART", None)
+        if None in (title, start):
+            continue
+        Event.objects.create(
+            title=title.encode("Utf-8"),
+            source=source,
+            url=event.get("URL", ""),
+            start=start.dt.replace(tzinfo=None),
+            location=event.get("LOCATION", "").encode("Utf-8")
+        )
+
+        if not options["quiet"]:
+            print "Adding %s [%s] (%s)..." % (title.encode("Utf-8"), source, event.get("LOCATION", "").encode("Utf-8"))

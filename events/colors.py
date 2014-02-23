@@ -14,4 +14,5 @@ COLORS = {
     "voidwarranties": {"bg": "#25272C", "fg": "#C58723"},
     "whitespace": {"bg": "white", "fg": "black"},
     "wolfplex": {"bg": "#666661", "fg": "black"},
+    "opentechschool": {"bg": "#3987CB", "fg": "white"},
 }
