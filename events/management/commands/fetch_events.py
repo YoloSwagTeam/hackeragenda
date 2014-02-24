@@ -56,7 +56,7 @@ class Command(BaseCommand):
             try:
                 with transaction.commit_on_success():
                     if source.startswith(('http://', 'https://')):
-                        json_api(source)
+                        json_api(source, options)
                         continue
 
                     if source not in globals():
@@ -418,7 +418,7 @@ def wolfplex(options):
             print "Adding %s [%s] (%s)..." % (title.encode("Utf-8"), "wolfplex", location.encode("Utf-8") if location else "")
 
 
-def json_api(url):
+def json_api(url, options):
     """
     Generic function to add events from an urls respecting the json api
     """
@@ -438,7 +438,8 @@ def json_api(url):
             location=event['location'] if 'location' in event else None,
         )
 
-        print "Adding %s [%s] (%s)..." % (event['title'].encode("Utf-8"), data['org'], event.get('location', '').encode("Utf-8"))
+        if not options["quiet"]:
+            print "Adding %s [%s] (%s)..." % (event['title'].encode("Utf-8"), data['org'], event.get('location', '').encode("Utf-8"))
 
 
 def generic_meetup(source, meetup_name, options):
