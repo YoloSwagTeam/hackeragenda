@@ -46,7 +46,7 @@ class Command(BaseCommand):
                 "okno",
                 "opengarage",
                 "opentechschool",
-                "urlab",
+                "https://urlab.be/hackeragenda.json",
                 "voidwarranties",
                 "whitespace",
                 "wolfplex",
@@ -324,33 +324,6 @@ def opengarage(options):
 
 def opentechschool(options):
     return generic_meetup("opentechschool", "OpenTechSchool-Brussels", options)
-
-
-def urlab(options):
-    # clean events
-    Event.objects.filter(source="urlab").delete()
-
-    soup = BeautifulSoup(urlopen("https://wiki.urlab.be/Main_Page").read())
-
-    if soup('table')[4].table is None:
-        return
-
-    for event in filter(lambda x: x, map(lambda x: x('td'), soup('table')[4].table('tr'))):
-        title = event[0].text
-        url = "https://wiki.urlab.be" + event[0].a["href"]
-        start = parse(event[1].text)
-        location = event[2].text
-
-        Event.objects.create(
-            title=title,
-            source="urlab",
-            url=url,
-            start=start,
-            location=location.strip() if location else None
-        )
-
-        if not options["quiet"]:
-            print "Adding %s [%s] (%s)..." % (title.encode("Utf-8"), "urlab", location.encode("Utf-8"))
 
 
 def voidwarranties(options):
