@@ -50,14 +50,13 @@ class Command(BaseCommand):
                 "voidwarranties",
                 "whitespace",
                 "wolfplex",
-
             ]
 
         for source in sources:
             try:
                 with transaction.commit_on_success():
                     if source not in globals():
-                        if source.startswith('http://') or source.startswith('https://'):
+                        if source.startswith(('http://', 'https://')):
                             json_api(source)
                         else:
                             print >>sys.stderr, "Error: %s is not an available source" % source
