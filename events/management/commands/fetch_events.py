@@ -55,14 +55,15 @@ class Command(BaseCommand):
         for source in sources:
             try:
                 with transaction.commit_on_success():
+                    if source.startswith(('http://', 'https://')):
+                        json_api(source)
+                        continue
+
                     if source not in globals():
-                        if source.startswith(('http://', 'https://')):
-                            json_api(source)
-                        else:
-                            print >>sys.stderr, "Error: %s is not an available source" % source
-                            return
-                    else:
-                        globals()[source](options)
+                        print >>sys.stderr, "Error: %s is not an available source" % source
+                        return
+
+                    globals()[source](options)
             except Exception as e:
                 import traceback
                 traceback.print_exc(file=sys.stdout)
