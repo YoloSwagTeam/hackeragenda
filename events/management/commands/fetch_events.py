@@ -458,8 +458,8 @@ def json_api(url):
             title=event['title'],
             source=data['org'],
             url=event['url'],
-            start=parse(event['start']),
-            end=parse(event['end']) if 'end' in event else None,
+            start=parse(event['start']).replace(tzinfo=None),
+            end=parse(event['end']).replace(tzinfo=None) if 'end' in event else None,
             all_day=event['all_day'] if 'all_day' in event else None,
             location=event['location'] if 'location' in event else None,
         )
