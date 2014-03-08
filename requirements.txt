@@ -12,3 +12,4 @@ feedparser
 icalendar
 django-tastypie
 mimeparse
+requests

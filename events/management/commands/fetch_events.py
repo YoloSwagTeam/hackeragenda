@@ -1,6 +1,7 @@
 import sys
 import json
 import calendar
+import requests
 
 from urllib2 import urlopen
 from datetime import datetime, date, timedelta
@@ -445,7 +446,7 @@ def json_api(url, options):
 def generic_meetup(source, meetup_name, options):
     Event.objects.filter(source=source).delete()
 
-    data = Calendar.from_ical(urlopen("http://www.meetup.com/{}/events/ical/".format(meetup_name)).read())
+    data = Calendar.from_ical(requests.get("http://www.meetup.com/{}/events/ical/".format(meetup_name)).content)
 
     for event in data.walk():
         if not isinstance(event, icalendarEvent):
