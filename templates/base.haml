@@ -41,9 +41,6 @@
 
     <!-- container -->
     #content.container.snap-content{style: 'background: url("{{ STATIC_URL }}images/white.png") no-repeat scroll center 75% #FFFFFF;'}
-      #toolbar
-        %a#open-left{href: "#"}
-
       .row
         .twelve.columns
           %h2
@@ -57,7 +54,6 @@
         .row
           .twelve.columns
             -block content
-
 
       %footer.row
         %div{"style": "text-align: center;"}
@@ -86,13 +82,4 @@
 
     <!-- Initialize JS Plugins -->
     %script{"src": "{{ STATIC_URL }}javascripts/app.js"}
-    %script{"type": "text/javascript", src: "{% static 'snapjs/snap.min.js' %}"}
-    :javascript
-      $(document).ready(function() {
-        console.log("pouet");
-        var snapper = new Snap({
-          element: document.getElementById('content'),
-          disable: 'right'
-        });
-      })
     -block javascript
