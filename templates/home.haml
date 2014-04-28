@@ -10,6 +10,14 @@
     }
 
 -block content
+  %hr
+
+  %div
+    %a#open_filter_tag_bar.button
+      Filters
+
+  %hr
+
   %dl.tabs
     %dd.active
       %a{href: "#table"}
@@ -205,6 +213,9 @@
         element: document.getElementById('content'),
         disable: 'right'
       });
+      $('#open_filter_tag_bar').click(function() {
+        snapper.open('left');
+      })
     })
   :css
     .faq {
