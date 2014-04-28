@@ -106,6 +106,7 @@ INSTALLED_APPS = (
 
 BOWER_INSTALLED_APPS = (
     'fullcalendar',
+    'snapjs',
 )
 
 if DEBUG:
