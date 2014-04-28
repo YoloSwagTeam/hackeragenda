@@ -36,10 +36,10 @@
   %body
 
     <!-- container -->
-    %div.container
+    .container
 
-      %div.row
-          %div.twelve.columns
+      .row
+          .twelve.columns
             %h2
               %a{"style": "color: black", "href": "{% url 'home' %}"}
                 %center
@@ -48,8 +48,8 @@
                   %span{"style": "color: pink"}❤
 
       -block container
-        %div.row
-          %div.twelve.columns
+        .row
+          .twelve.columns
             -block content
 
 
@@ -58,7 +58,6 @@
           %span{"style": "color: pink"}❤
           %a{href: "https://github.com/Psycojoker/hackeragenda"} sauce
           %span{"style": "color: pink"}❤
-
 
     <!-- Included JS Files (Uncompressed) -->
     <!--
