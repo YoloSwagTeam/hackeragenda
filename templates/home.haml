@@ -214,7 +214,10 @@
         disable: 'right'
       });
       $('#open_filter_tag_bar').click(function() {
-        snapper.open('left');
+        if (snapper.state().state == 'closed')
+          snapper.open('left');
+        else
+          snapper.close('left');
       })
     })
   :css
