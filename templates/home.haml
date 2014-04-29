@@ -187,13 +187,29 @@
   %hr
 
 -block filter_bar
-  #filter_bar.snap-drawers
-    .snap-drawer.snap-drawer-left
-      .row
-        %h4
-          pouet
-        %p
-          pouet
+  #filter_bar.snap-drawers.row
+    .snap-drawer.snap-drawer-left.twelve.columns
+      %h2
+        Filters
+      %hr
+      %h3
+        Prebuild selections
+      %ul
+        %li a
+        %li b
+        %li c
+      %h3
+        By sources
+      %ul
+        %li a
+        %li b
+        %li c
+      %h3
+        By tags
+      %ul
+        %li a
+        %li b
+        %li c
 
 -block javascript
   %script{type: "text/javascript", src: "{% static 'fullcalendar/fullcalendar.js' %}"}
