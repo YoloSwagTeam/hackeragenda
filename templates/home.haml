@@ -213,7 +213,7 @@
 
 -block javascript
   %script{type: "text/javascript", src: "{% static 'fullcalendar/fullcalendar.js' %}"}
-  %script{"type": "text/javascript", src: "{% static 'snapjs/snap.min.js' %}"}
+  %script{type: "text/javascript", src: "{% static 'snapjs/snap.min.js' %}"}
   :javascript
     $(document).ready(function() {
       $("#calendar").fullCalendar({
