@@ -1,6 +1,7 @@
 from django.db import models
 from events.colors import COLORS
 
+
 class Event(models.Model):
     title = models.CharField(max_length=255)
     source = models.CharField(max_length=255)
