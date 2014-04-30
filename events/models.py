@@ -1,4 +1,5 @@
 from django.db import models
+from taggit.managers import TaggableManager
 from events.colors import COLORS
 
 
@@ -13,6 +14,7 @@ class Event(models.Model):
     start = models.DateTimeField()
     end = models.DateTimeField(null=True, blank=True)
     location = models.CharField(max_length=255, null=True, blank=True)
+    tags = TaggableManager()
 
     def __unicode__(self):
         return "%s [%s]" % (self.title, self.source)
