@@ -102,6 +102,7 @@ INSTALLED_APPS = (
     'south',
     'djangobower',
     'events',
+    'taggit',
 )
 
 BOWER_INSTALLED_APPS = (
@@ -155,6 +156,11 @@ LOGGING = {
         },
     }
 }
+
+SOUTH_MIGRATION_MODULES = {
+    'taggit': 'taggit.south_migrations',
+}
+
 
 try:
     from settings_local import *
