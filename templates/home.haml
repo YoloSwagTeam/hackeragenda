@@ -13,8 +13,16 @@
   %hr
 
   %div
-    %a#open_filter_tag_bar.button
-      Filters
+    %center
+      %a#open_filter_tag_bar.button
+        Filters
+      %a.button.secondary Hackerspace
+      %a.button.secondary Code
+      %a.button.secondary Activism
+      %a.round.button.alert{href: "{% url 'events_rss' %}"}
+        RSS
+      %a.round.button.success{href: "{% url 'events_ics' %}"}
+        ICS
 
   %hr
 
@@ -29,12 +37,6 @@
   %ul.tabs-content
     %li#tableTab.active
       #calendar
-      .data
-        %center
-          %a.round.button.alert{href: "{% url 'events_rss' %}"}
-            RSS
-          %a.round.button.success{href: "{% url 'events_ics' %}"}
-            ICS
 
     %li#listTab
       #listFormat
@@ -192,12 +194,6 @@
       %h2
         Filters
       %hr
-      %h3
-        Prebuild selections
-      %ul
-        %li a
-        %li b
-        %li c
       %h3
         By sources
       %ul
