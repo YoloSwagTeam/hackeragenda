@@ -14,11 +14,13 @@
 
   %div
     %center
-      %a#open_filter_tag_bar.button
-        Filters
+      %a#open_filter_tag_bar.button Customize
+      %span{style: "margin: 10px"} -
+      %a.button.secondary Our selection
       %a.button.secondary Hackerspace
       %a.button.secondary Code
       %a.button.secondary Activism
+      %span{style: "margin: 10px"} -
       %a.round.button.alert{href: "{% url 'events_rss' %}"}
         RSS
       %a.round.button.success{href: "{% url 'events_ics' %}"}
