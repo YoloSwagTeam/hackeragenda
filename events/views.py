@@ -7,12 +7,15 @@ from django.views.generic import ListView
 from .models import Event
 from .colors import COLORS
 
+
 class EventListView(ListView):
     template_name = "home.haml"
     queryset = Event.objects.filter(start__gte=datetime.now).order_by("start")
 
+
 def get_events_in_json(request):
     return HttpResponse(json.dumps(map(event_to_fullcalendar_format, Event.objects.all())), mimetype="application/json")
+
 
 def event_to_fullcalendar_format(event):
     to_return = {
