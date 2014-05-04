@@ -10,9 +10,7 @@
     }
 
 -block content
-  %hr
-
-  %div
+  %div{style: "padding-bottom: 25px; padding-top: 30px"}
     %center
       %a#open_filter_tag_bar.button Customize
       %span{style: "margin: 10px"} -
@@ -25,8 +23,6 @@
         RSS
       %a.round.button.success{href: "{% url 'events_ics' %}"}
         ICS
-
-  %hr
 
   %dl.tabs
     %dd.active
