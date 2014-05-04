@@ -12,6 +12,10 @@ class EventListView(ListView):
     template_name = "home.haml"
     queryset = Event.objects.filter(start__gte=datetime.now).order_by("start")
 
+    def get_context_data(self, **kwargs):
+        context = super(EventListView, self).get_context_data(**kwargs)
+        context["sources"] = sorted(COLORS.items(), key=lambda x: x[0])
+        return context
 
 def get_events_in_json(request):
     return HttpResponse(json.dumps(map(event_to_fullcalendar_format, Event.objects.all())), mimetype="application/json")
