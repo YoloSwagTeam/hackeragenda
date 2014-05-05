@@ -236,7 +236,7 @@ def hsbxl(options):
     data = json.load(urlopen("https://hackerspace.be/Special:Ask/-5B-5BCategory:TechTue-7C-7CEvent-5D-5D-20-5B-5BEnd-20date::-3E%s-2D%s-2D%s-20-5D-5D/-3FStart-20date/-3FEnd-20date/-3FLocation/format%%3Djson/sort%%3D-5BStart-20date-5D/order%%3Dasc/offset%%3D0'" % (today.year, today.month, today.day)))
 
     for event in data["results"].values():
-        Event.objects.create(
+        db_event = Event.objects.create(
             title=event["fulltext"],
             source="hsbxl",
             url=event["fullurl"],
@@ -244,6 +244,9 @@ def hsbxl(options):
             end=datetime.fromtimestamp(int(event["printouts"]["End date"][0])),
             location=event["printouts"]["Location"][0]["fulltext"]
         )
+
+        if "TechTue" in event["fulltext"]:
+            db_event.tags.add("meeting")
 
         if not options["quiet"]:
             print "Adding %s [%s] (%s)..." % (event["fulltext"].encode("Utf-8"), "hsbxl", event["printouts"]["Location"][0]["fulltext"].encode("Utf-8"))
