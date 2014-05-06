@@ -4,6 +4,8 @@ from datetime import timedelta, datetime
 from django.http import HttpResponse
 from django.views.generic import ListView
 
+from taggit.models import Tag
+
 from .models import Event
 from .colors import COLORS
 
@@ -15,6 +17,7 @@ class EventListView(ListView):
     def get_context_data(self, **kwargs):
         context = super(EventListView, self).get_context_data(**kwargs)
         context["sources"] = sorted(COLORS.items(), key=lambda x: x[0])
+        context["tags"] = Tag.objects.order_by("name").values_list("name")
         return context
 
 def get_events_in_json(request):

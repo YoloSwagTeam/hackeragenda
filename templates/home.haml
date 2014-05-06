@@ -201,9 +201,8 @@
       %h3
         By tags
       %ul
-        %li a
-        %li b
-        %li c
+        -for name in tags
+          %li= name|first
 
 -block javascript
   %script{type: "text/javascript", src: "{% static 'fullcalendar/fullcalendar.js' %}"}
