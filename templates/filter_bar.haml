@@ -1,0 +1,18 @@
+-load events_tags
+
+#filter_bar.snap-drawers.row
+  .snap-drawer.snap-drawer-left.twelve.columns
+    %h2
+      Selection
+    %hr
+    %h3
+      By sources
+    %ul
+      -for source, options in sources
+        %li{style: "margin: 3px"}
+          %span{style: 'background-color: {{ options.bg|default:"black" }}; color: {{ options.fg|default:"white" }}; padding: 3px; padding-left: 6px; padding-right: 6px;'}= source|upper|underscore_to_space
+    %h3
+      By tags
+    %ul
+      -for name in tags
+        %li= name|first
