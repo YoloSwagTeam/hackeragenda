@@ -10,18 +10,18 @@ from .models import Event
 from .colors import COLORS
 
 
-def filter_events(request, context):
-    sources = request.GET.getlist("source", map(lambda x: x[0], context["sources"]))
-    context["object_list"] = context["object_list"].filter(source__in=sources)
+def filter_events(request, queryset):
+    if request.GET.getlist("source"):
+        queryset = queryset.filter(source__in=request.GET.getlist("source"))
 
     if request.GET.getlist("exclude_source"):
-        context["object_list"] = context["object_list"].exclude(source__in=request.GET.getlist("exclude_source"))
+        queryset = queryset.exclude(source__in=request.GET.getlist("exclude_source"))
 
     if request.GET.getlist("tag"):
-        context["object_list"] = context["object_list"].filter(tags__name__in=request.GET.getlist("tag"))
+        queryset = queryset.filter(tags__name__in=request.GET.getlist("tag"))
 
     if request.GET.getlist("exclude_tag"):
-        context["object_list"] = context["object_list"].exclude(tags__name__in=request.GET.getlist("exclude_tag"))
+        queryset = queryset.exclude(tags__name__in=request.GET.getlist("exclude_tag"))
 
 
 class EventListView(ListView):
@@ -32,7 +32,7 @@ class EventListView(ListView):
         context = super(EventListView, self).get_context_data(**kwargs)
         context["sources"] = sorted(COLORS.items(), key=lambda x: x[0])
         context["tags"] = map(lambda x: x[0], Tag.objects.order_by("name").values_list("name"))
-        filter_events(self.request, context)
+        filter_events(self.request, context["object_list"])
         return context
 
 
