@@ -10,6 +10,11 @@ from .models import Event
 from .colors import COLORS
 
 
+def filter_events(request, context):
+    sources = request.GET.getlist("source", map(lambda x: x[0], context["sources"]))
+    context["object_list"] = context["object_list"].filter(source__in=sources)
+
+
 class EventListView(ListView):
     template_name = "home.haml"
     queryset = Event.objects.filter(start__gte=datetime.now).order_by("start")
@@ -18,7 +23,9 @@ class EventListView(ListView):
         context = super(EventListView, self).get_context_data(**kwargs)
         context["sources"] = sorted(COLORS.items(), key=lambda x: x[0])
         context["tags"] = Tag.objects.order_by("name").values_list("name")
+        filter_events(self.request, context)
         return context
+
 
 def get_events_in_json(request):
     return HttpResponse(json.dumps(map(event_to_fullcalendar_format, Event.objects.all())), mimetype="application/json")
