@@ -13,8 +13,15 @@ from .colors import COLORS
 def filter_events(request, context):
     sources = request.GET.getlist("source", map(lambda x: x[0], context["sources"]))
     context["object_list"] = context["object_list"].filter(source__in=sources)
-    exclude_sources = request.GET.getlist("exclude_source", [])
-    context["object_list"] = context["object_list"].exclude(source__in=exclude_sources)
+
+    if request.GET.getlist("exclude_source"):
+        context["object_list"] = context["object_list"].exclude(source__in=request.GET.getlist("exclude_source"))
+
+    if request.GET.getlist("tag"):
+        context["object_list"] = context["object_list"].filter(tags__name__in=request.GET.getlist("tag"))
+
+    if request.GET.getlist("exclude_tag"):
+        context["object_list"] = context["object_list"].exclude(tags__name__in=request.GET.getlist("exclude_tag"))
 
 
 class EventListView(ListView):
