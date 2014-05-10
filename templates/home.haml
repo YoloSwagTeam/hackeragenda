@@ -193,7 +193,29 @@
   %script{type: "text/javascript", src: "{% static 'fullcalendar/fullcalendar.js' %}"}
   %script{type: "text/javascript", src: "{% static 'snapjs/snap.min.js' %}"}
   :javascript
+    get_url_values = function(){
+      // the current sate of javascript is miserable
+      var search_string = window.location.search.substring(1).split('&');
+      var to_return = {};
+      for(var i = 0; i < search_string.length; i++){
+        var KeyValuePair = search_string[i].split('=');
+        if (to_return[KeyValuePair[0]] === undefined) {
+          to_return[KeyValuePair[0]] = [];
+        }
+        to_return[KeyValuePair[0]].push(KeyValuePair[1]);
+      }
+      return to_return;
+    };
+
     $(document).ready(function() {
+      url_values = get_url_values();
+      default_filter_values = {
+        "source": url_values.source === undefined ? [{% for source, option in sources %}"{{ source }}", {% endfor %}] : url_values.source,
+        "exclude_source": url_values.exclude_source === undefined ? [] : url_values.exclude_source,
+        "tag": url_values.tag === undefined ? [] : url_values.tag,
+        "exclude_tag": url_values.exclude_tag === undefined ? [] : url_values.exclude_tag
+      };
+
       $("#calendar").fullCalendar({
         firstDay: 1,
         events: '{% url 'events_json' %}',
