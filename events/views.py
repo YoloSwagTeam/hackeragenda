@@ -24,7 +24,7 @@ class EventListView(ListView):
     def get_context_data(self, **kwargs):
         context = super(EventListView, self).get_context_data(**kwargs)
         context["sources"] = sorted(COLORS.items(), key=lambda x: x[0])
-        context["tags"] = Tag.objects.order_by("name").values_list("name")
+        context["tags"] = map(lambda x: x[0], Tag.objects.order_by("name").values_list("name"))
         filter_events(self.request, context)
         return context
 
