@@ -7,12 +7,12 @@
     %hr
     %h3
       By sources
-    %ul
+    %ul#sources
       -for source, options in sources
         %li{style: "margin: 3px"}
           %span{style: 'background-color: {{ options.bg|default:"black" }}; color: {{ options.fg|default:"white" }}; padding: 3px; padding-left: 6px; padding-right: 6px;'}= source|upper|underscore_to_space
     %h3
       By tags
-    %ul
+    %ul#tags
       -for name in tags
         %li= name

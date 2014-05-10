@@ -207,6 +207,34 @@
       return to_return;
     };
 
+    update_filter_bar = function(filter_values) {
+      var sources = document.getElementById("sources").children;
+      console.log(sources.length);
+      for (var i = 0; i < sources.length; i++) {
+        var item = sources[i].textContent.trim().toLowerCase();
+        if (filter_values.source.indexOf(item) != -1) {
+          console.log(item + " in sources");
+        } else if (filter_values.exclude_source.indexOf(item) != -1) {
+          console.log(item + " in exclude sources");
+        } else {
+          console.log(item + " is nowhere");
+        }
+      }
+
+      var tags = document.getElementById("tags").children;
+      console.log(tags.length);
+      for (var i = 0; i < tags.length; i++) {
+        var item = tags[i].textContent.trim().toLowerCase();
+        if (filter_values.tag.indexOf(item) != -1) {
+          console.log(item + " in tags");
+        } else if (filter_values.exclude_tag.indexOf(item) != -1) {
+          console.log(item + " in exclude tags");
+        } else {
+          console.log(item + " is nowhere");
+        }
+      }
+    };
+
     $(document).ready(function() {
       url_values = get_url_values();
       default_filter_values = {
@@ -215,6 +243,8 @@
         "tag": url_values.tag === undefined ? [] : url_values.tag,
         "exclude_tag": url_values.exclude_tag === undefined ? [] : url_values.exclude_tag
       };
+
+      update_filter_bar(default_filter_values);
 
       $("#calendar").fullCalendar({
         firstDay: 1,
