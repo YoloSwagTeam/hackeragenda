@@ -236,6 +236,10 @@
         set_inactive(filter);
         list_remove(default_filter_values["exclude_" + filter.attributes["data-type"].nodeValue], node_to_filter_name(filter));
       }
+      update_global_filtering_state();
+    }
+
+    update_global_filtering_state = function() {
       update_url();
       update_events();
     }
