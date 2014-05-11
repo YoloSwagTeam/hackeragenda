@@ -292,13 +292,16 @@ def neutrinet(options):
         start = parse(event[1].text)
         location = event[2].text
 
-        Event.objects.create(
+        event = Event.objects.create(
             title=title,
             source="neutrinet",
             url=url,
             start=start,
             location=location.strip() if location else None
         )
+
+        if "Meeting" in event.title:
+            event.tags.add("meeting")
 
         if not options["quiet"]:
             print "Adding %s [%s] (%s)..." % (title.encode("Utf-8"), "neutrinet", location.encode("Utf-8"))
