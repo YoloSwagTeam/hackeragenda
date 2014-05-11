@@ -81,7 +81,9 @@ MIDDLEWARE_CLASSES = (
 PREDEFINED_FILTERS = OrderedDict()
 PREDEFINED_FILTERS["default"] = {
     "source": [],
-    "exclude_source": [],
+    "exclude_source": [
+        "agile_belgium",
+    ],
     "tag": [],
     "exclude_tag": ["meeting"],
 }

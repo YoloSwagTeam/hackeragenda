@@ -1,6 +1,7 @@
 COLORS = {
     "afpyro": {"bg": "#133F52", "fg": "#FFFFFF"},
     "agenda_du_libre_be": {"bg": "#3A87AD", "fg": "white"},
+    "agile_belgium": {"bg": "#D2353A", "fg": "white"},
     "bhackspace": {"bg": "DarkGoldenRod", "fg": "white"},
     "bxlug": {"bg": "white", "fg": "#990000"},
     "constantvzw": {"bg": "#D2C7BA", "fg": "black"},

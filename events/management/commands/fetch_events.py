@@ -39,6 +39,7 @@ class Command(BaseCommand):
             sources = [
                 "afpyro",
                 "agenda_du_libre_be",
+                "agile_belgium",
                 "bhackspace",
                 "bxlug",
                 "constantvzw",
@@ -108,6 +109,10 @@ def agenda_du_libre_be(options):
 
         if not options["quiet"]:
             print "Adding %s [%s] (%s)..." % (event["SUMMARY"].encode("Utf-8"), "agenda_du_libre_be", event["LOCATION"].encode("Utf-8"))
+
+
+def agile_belgium(options):
+    return generic_meetup("agile_belgium", "Agile-Belgium", options)
 
 
 def bhackspace(options):
