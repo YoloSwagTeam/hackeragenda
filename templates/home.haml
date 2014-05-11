@@ -295,6 +295,7 @@
 
       $(".predefined_filter").click(function(from) {
         current_filter_values = predefined_filters[from.currentTarget.attributes["data-key"].value];
+        update_filter_bar(current_filter_values);
         update_global_filtering_state();
         $(from.currentTarget).removeClass("secondary");
         $(from.currentTarget).addClass("success");
