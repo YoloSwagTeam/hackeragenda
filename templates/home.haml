@@ -276,10 +276,10 @@
       url_values = get_url_values();
 
       current_filter_values = {
-        "source": url_values.source === undefined ? []  : url_values.source,
-        "exclude_source": url_values.exclude_source === undefined ? [] : url_values.exclude_source,
-        "tag": url_values.tag === undefined ? [] : url_values.tag,
-        "exclude_tag": url_values.exclude_tag === undefined ? ["meeting"] : url_values.exclude_tag
+        "source": url_values.source === undefined ? predefined_filters["default"].source  : url_values.source,
+        "exclude_source": url_values.exclude_source === undefined ? predefined_filters["default"].exclude_source : url_values.exclude_source,
+        "tag": url_values.tag === undefined ? predefined_filters["default"].tag : url_values.tag,
+        "exclude_tag": url_values.exclude_tag === undefined ? predefined_filters["default"].exclude_tag : url_values.exclude_tag
       };
 
       update_filter_bar(current_filter_values);
