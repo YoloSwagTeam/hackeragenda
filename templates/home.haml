@@ -207,6 +207,10 @@
       return to_return;
     };
 
+    node_to_filter_name = function(node) {
+      return node.textContent.trim().toLowerCase().replace(/ /g, "_");
+    }
+
     list_remove = function(list, item) {
       var index = list.indexOf(item);
       if (index != -1) {
@@ -247,7 +251,7 @@
     update_filter_bar = function(filter_values) {
       var sources = document.getElementById("sources").children;
       for (var i = 0; i < sources.length; i++) {
-        var item = sources[i].textContent.trim().toLowerCase();
+        var item = node_to_filter_name(sources[i]);
         var node = sources[i].children[0];
         if (filter_values.source.indexOf(item) != -1) {
           set_active(node);
@@ -260,7 +264,7 @@
 
       var tags = document.getElementById("tags").children;
       for (var i = 0; i < tags.length; i++) {
-        var item = tags[i].textContent.trim().toLowerCase();
+        var item = node_to_filter_name(tags[i]);
         var node = tags[i].children[0];
         if (filter_values.tag.indexOf(item) != -1) {
           set_active(node);
