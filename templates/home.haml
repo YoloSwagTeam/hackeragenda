@@ -273,7 +273,7 @@
         "source": url_values.source === undefined ? []  : url_values.source,
         "exclude_source": url_values.exclude_source === undefined ? [] : url_values.exclude_source,
         "tag": url_values.tag === undefined ? [] : url_values.tag,
-        "exclude_tag": url_values.exclude_tag === undefined ? [] : url_values.exclude_tag
+        "exclude_tag": url_values.exclude_tag === undefined ? ["meeting"] : url_values.exclude_tag
       };
 
       update_filter_bar(current_filter_values);
