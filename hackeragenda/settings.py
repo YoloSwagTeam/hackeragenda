@@ -83,6 +83,7 @@ PREDEFINED_FILTERS["default"] = {
     "source": [],
     "exclude_source": [
         "agile_belgium",
+        "bescala",
     ],
     "tag": [],
     "exclude_tag": ["meeting"],
@@ -114,6 +115,7 @@ PREDEFINED_FILTERS["code"] = {
     "source": [
         "afpyro",
         "agile_belgium",
+        "bescala",
         "opentechschool"
     ],
     "exclude_source": [],
