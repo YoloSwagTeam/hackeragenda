@@ -209,36 +209,58 @@
 
     update_filter_bar = function(filter_values) {
       var sources = document.getElementById("sources").children;
-      console.log(sources.length);
       for (var i = 0; i < sources.length; i++) {
         var item = sources[i].textContent.trim().toLowerCase();
+        var jq_item = $(sources[i].children[0]);
         if (filter_values.source.indexOf(item) != -1) {
-          console.log(item + " in sources");
+          jq_item[0].style = jq_item[0].attributes.data.nodeValue;
+          jq_item.removeClass("inactive_filter");
+          jq_item.removeClass("excluding_filter");
         } else if (filter_values.exclude_source.indexOf(item) != -1) {
-          console.log(item + " in exclude sources");
+          jq_item[0].style = "";
+          jq_item.removeClass("inactive_filter");
+          jq_item.addClass("excluding_filter");
         } else {
-          console.log(item + " is nowhere");
+          jq_item[0].style = "";
+          jq_item.addClass("inactive_filter");
+          jq_item.removeClass("excluding_filter");
         }
       }
 
       var tags = document.getElementById("tags").children;
-      console.log(tags.length);
       for (var i = 0; i < tags.length; i++) {
         var item = tags[i].textContent.trim().toLowerCase();
+        var jq_item = $(tags[i].children[0]);
         if (filter_values.tag.indexOf(item) != -1) {
-          console.log(item + " in tags");
+          jq_item.removeClass("inactive_filter");
+          jq_item.removeClass("excluding_filter");
         } else if (filter_values.exclude_tag.indexOf(item) != -1) {
-          console.log(item + " in exclude tags");
+          jq_item.removeClass("inactive_filter");
+          jq_item.addClass("excluding_filter");
         } else {
-          console.log(item + " is nowhere");
+          jq_item.addClass("inactive_filter");
+          jq_item.removeClass("excluding_filter");
         }
       }
     };
 
     $(document).ready(function() {
       url_values = get_url_values();
-      var default_filter_values = {
-        "source": url_values.source === undefined ? [{% for source, option in sources %}"{{ source }}", {% endfor %}] : url_values.source,
+
+      var default_sources = [{% for source, option in sources %}"{{ source }}", {% endfor %}];
+
+      if (url_values.exclude_source !== undefined) {
+        for (var i = 0; i < url_values.exclude_source.length; i++) {
+          var item = url_values.exclude_source[i];
+          var index = default_sources.indexOf(item);
+          if (index != -1) {
+            default_sources.splice(index, 1);
+          }
+        }
+      }
+
+      default_filter_values = {
+        "source": url_values.source === undefined ? default_sources  : url_values.source,
         "exclude_source": url_values.exclude_source === undefined ? [] : url_values.exclude_source,
         "tag": url_values.tag === undefined ? [] : url_values.tag,
         "exclude_tag": url_values.exclude_tag === undefined ? [] : url_values.exclude_tag
@@ -269,4 +291,13 @@
   :css
     .faq {
       margin-left: 14px;
+    }
+
+    .inactive_filter {
+      background-color: none;
+      color: #AAAAAA;
+    }
+
+    .excluding_filter {
+      text-decoration: line-through;
     }
