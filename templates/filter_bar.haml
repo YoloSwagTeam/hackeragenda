@@ -7,13 +7,13 @@
     %hr
     %h3
       By sources
-    %ul#sources
+    %ul#sources.filters
       -for source, options in sources
         %li{style: "margin: 3px"}
-          %span{data: 'background-color: {{ options.bg|default:"black" }}; color: {{ options.fg|default:"white" }}; padding: 3px; padding-left: 6px; padding-right: 6px;'}= source|upper|underscore_to_space
+          %a{data: 'background-color: {{ options.bg|default:"black" }}; color: {{ options.fg|default:"white" }}; padding: 3px; padding-left: 6px; padding-right: 6px;', href: "#", data-type: "source"}= source|upper|underscore_to_space
     %h3
       By tags
-    %ul#tags
+    %ul#tags.filters
       -for name in tags
         %li
-          %span= name
+          %a{href: "#", data-type: "tag"}= name

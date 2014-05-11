@@ -264,6 +264,16 @@
       }
     };
 
+    switch_filter_state = function(filter) {
+      if (filter.attributes["data-state"] == "active") {
+        set_exclude(filter);
+      } else if (filter.attributes["data-state"] == "inactive") {
+        set_active(filter);
+      } else { // exclude
+        set_inactive(filter);
+      }
+    }
+
     $(document).ready(function() {
       url_values = get_url_values();
 
@@ -287,6 +297,11 @@
       };
 
       update_filter_bar(default_filter_values);
+
+      $(".filters").find("a").click(function(from) {
+        switch_filter_state(from.currentTarget);
+        // update_url_and_filter_values();
+      });
 
       $("#calendar").fullCalendar({
         firstDay: 1,
@@ -313,6 +328,10 @@
       margin-left: 14px;
     }
 
+    .active_filter {
+      color: black;
+    }
+
     .inactive_filter {
       background-color: none;
       color: #AAAAAA;
@@ -320,4 +339,5 @@
 
     .excluding_filter {
       text-decoration: line-through;
+      color: black;
     }
