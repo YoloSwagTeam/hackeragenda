@@ -216,14 +216,17 @@
           jq_item[0].style = jq_item[0].attributes.data.nodeValue;
           jq_item.removeClass("inactive_filter");
           jq_item.removeClass("excluding_filter");
+          jq_item[0].attributes["data-state"] = "active";
         } else if (filter_values.exclude_source.indexOf(item) != -1) {
           jq_item[0].style = "";
           jq_item.removeClass("inactive_filter");
           jq_item.addClass("excluding_filter");
+          jq_item[0].attributes["data-state"] = "exclude";
         } else {
           jq_item[0].style = "";
           jq_item.addClass("inactive_filter");
           jq_item.removeClass("excluding_filter");
+          jq_item[0].attributes["data-state"] = "inactive";
         }
       }
 
@@ -234,12 +237,15 @@
         if (filter_values.tag.indexOf(item) != -1) {
           jq_item.removeClass("inactive_filter");
           jq_item.removeClass("excluding_filter");
+          jq_item[0].attributes["data-state"] = "active";
         } else if (filter_values.exclude_tag.indexOf(item) != -1) {
           jq_item.removeClass("inactive_filter");
           jq_item.addClass("excluding_filter");
+          jq_item[0].attributes["data-state"] = "exclude";
         } else {
           jq_item.addClass("inactive_filter");
           jq_item.removeClass("excluding_filter");
+          jq_item[0].attributes["data-state"] = "inactive";
         }
       }
     };
