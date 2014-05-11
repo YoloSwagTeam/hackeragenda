@@ -207,6 +207,14 @@
       return to_return;
     };
 
+    list_remove = function(list, item) {
+      var index = list.indexOf(item);
+      if (index != -1) {
+        list.splice(index, 1);
+      }
+      return list
+    }
+
     set_active = function(node) {
       if (node.attributes.data !== undefined) {
         node.style = node.attributes.data.nodeValue;
@@ -281,11 +289,7 @@
 
       if (url_values.exclude_source !== undefined) {
         for (var i = 0; i < url_values.exclude_source.length; i++) {
-          var item = url_values.exclude_source[i];
-          var index = default_sources.indexOf(item);
-          if (index != -1) {
-            default_sources.splice(index, 1);
-          }
+          list_remove(default_sources, url_values.exclude_source[i]);
         }
       }
 
