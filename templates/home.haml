@@ -292,6 +292,10 @@
     }
 
     update_url = function() {
+      window.history.pushState({}, "", "?" + generate_url_with_filters().substring(1));
+    }
+
+    generate_url_with_filters = function() {
       var new_url = "";
       for (var i = 0; i < default_filter_values.source.length; i++) {
         new_url += "&source=" + default_filter_values.source[i];
@@ -305,7 +309,7 @@
       for (var i = 0; i < default_filter_values.exclude_tag.length; i++) {
         new_url += "&exclude_tag=" + default_filter_values.exclude_tag[i];
       }
-      window.history.pushState({}, "", "?" + new_url.substring(1));
+      return new_url
     }
 
     $(document).ready(function() {
