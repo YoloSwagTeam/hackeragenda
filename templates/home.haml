@@ -289,6 +289,11 @@
         list_remove(default_filter_values["exclude_" + filter.attributes["data-type"].nodeValue], node_to_filter_name(filter));
       }
       update_url();
+      update_events();
+    }
+
+    update_events = function() {
+      $("#calendar").fullCalendar("refetchEvents");
     }
 
     update_url = function() {
@@ -321,7 +326,11 @@
 
       $("#calendar").fullCalendar({
         firstDay: 1,
-        events: '{% url 'events_json' %}',
+        events: {
+          url: '{% url 'events_json' %}',
+          data: function() { return default_filter_values },
+          traditional: true,
+        },
         header: {
           left: 'prev,next today',
           center: 'title',
