@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 import sys
 import json
 import calendar
@@ -216,13 +218,17 @@ def foam(options):
         else:
             start, end = dates[0], None
 
-        Event.objects.create(
+        event = Event.objects.create(
             title=title.text,
             source="foam",
             url='http://fo.am' + link,
             start=start,
             end=end
         )
+
+        if "FoAM Apéro" in event.title:
+            event.tags.add("meeting")
+
         if not options["quiet"]:
             print "Adding %s [foam]" % title.text.encode("Utf-8")
 
