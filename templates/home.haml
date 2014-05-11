@@ -279,10 +279,14 @@
     switch_filter_state = function(filter) {
       if (filter.attributes["data-state"] == "active") {
         set_exclude(filter);
+        list_remove(default_filter_values.source, node_to_filter_name(filter));
+        default_filter_values.exclude_source.push(node_to_filter_name(filter));
       } else if (filter.attributes["data-state"] == "inactive") {
         set_active(filter);
+        default_filter_values.source.push(node_to_filter_name(filter));
       } else { // exclude
         set_inactive(filter);
+        list_remove(default_filter_values.exclude_source, node_to_filter_name(filter));
       }
     }
 
