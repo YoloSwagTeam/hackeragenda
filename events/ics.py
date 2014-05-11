@@ -5,6 +5,7 @@ from icalendar import Calendar, Event as ICSEvent
 from django.http import HttpResponse
 from .models import Event
 
+
 def get_ics_of_events(request):
     cal = Calendar()
     cal.add('prodid', 'Hacker Agenda')
