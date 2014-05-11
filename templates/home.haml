@@ -19,9 +19,9 @@
       %a.button.secondary Hackerspace
       %a.button.secondary Code
       %span{style: "margin: 10px"} -
-      %a.round.button.alert{href: "{% url 'events_rss' %}"}
+      %a#rss.round.button.alert{href: "{% url 'events_rss' %}"}
         RSS
-      %a.round.button.success{href: "{% url 'events_ics' %}"}
+      %a#ics.round.button.success{href: "{% url 'events_ics' %}"}
         ICS
 
   %dl.tabs
@@ -242,6 +242,13 @@
     update_global_filtering_state = function() {
       update_url();
       update_events();
+      update_rss_ics_urls();
+    }
+
+    update_rss_ics_urls = function() {
+      document.getElementById("rss").href = "{% url 'events_rss' %}?" + $.param(default_filter_values, true);
+      document.getElementById("ics").href = "{% url 'events_ics' %}?" + $.param(default_filter_values, true);
+
     }
 
     update_events = function() {
@@ -279,6 +286,7 @@
 
       update_filter_bar(default_filter_values);
       update_list_format();
+      update_rss_ics_urls();
 
       $(".filters").find("a").click(function(from) {
         switch_filter_state(from.currentTarget);
