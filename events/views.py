@@ -23,6 +23,8 @@ def filter_events(request, queryset):
     if request.GET.getlist("exclude_tag"):
         queryset = queryset.exclude(tags__name__in=request.GET.getlist("exclude_tag"))
 
+    return queryset
+
 
 class EventListView(ListView):
     template_name = "home.haml"
@@ -37,7 +39,7 @@ class EventListView(ListView):
 
 
 def get_events_in_json(request):
-    return HttpResponse(json.dumps(map(event_to_fullcalendar_format, Event.objects.all())), mimetype="application/json")
+    return HttpResponse(json.dumps(map(event_to_fullcalendar_format, filter_events(request=request, queryset=Event.objects.all()))), mimetype="application/json")
 
 
 def event_to_fullcalendar_format(event):
