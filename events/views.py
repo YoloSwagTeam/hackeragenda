@@ -2,6 +2,7 @@ import json
 from datetime import timedelta, datetime
 
 from django.http import HttpResponse
+from django.conf import settings
 from django.views.generic import ListView, TemplateView
 
 from taggit.models import Tag
@@ -18,6 +19,7 @@ class HomeView(TemplateView):
         context = super(HomeView, self).get_context_data(**kwargs)
         context["sources"] = sorted(COLORS.items(), key=lambda x: x[0])
         context["tags"] = map(lambda x: x[0], Tag.objects.order_by("name").values_list("name"))
+        context["predefined_filters"] = settings.PREDEFINED_FILTERS
         return context
 
 
