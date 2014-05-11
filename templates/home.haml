@@ -15,7 +15,7 @@
       %a#open_filter_tag_bar.button Customize
       %span{style: "margin: 10px"} -
       -for filter in predefined_filters
-        %a.button.secondary= filter|capfirst
+        %a.button.secondary.predefined_filter{data-key: "{{ filter }}"}= filter|capfirst
       %span{style: "margin: 10px"} -
       %a#rss.round.button.alert{href: "{% url 'events_rss' %}"}
         RSS
@@ -268,6 +268,8 @@
       })
     }
 
+    predefined_filters = {{ predefined_filters_json|safe }};
+
     $(document).ready(function() {
       url_values = get_url_values();
 
@@ -285,6 +287,11 @@
       $(".filters").find("a").click(function(from) {
         switch_filter_state(from.currentTarget);
       });
+
+      $(".predefined_filter").click(function(from) {
+        current_filter_values = predefined_filters[from.currentTarget.attributes["data-key"].value];
+        update_global_filtering_state();
+      })
 
       $("#calendar").fullCalendar({
         firstDay: 1,
