@@ -227,14 +227,14 @@
     switch_filter_state = function(filter) {
       if (filter.attributes["data-state"] == "active") {
         set_exclude(filter);
-        list_remove(default_filter_values[filter.attributes["data-type"].nodeValue], node_to_filter_name(filter));
-        default_filter_values["exclude_" + filter.attributes["data-type"].nodeValue].push(node_to_filter_name(filter));
+        list_remove(current_filter_values[filter.attributes["data-type"].nodeValue], node_to_filter_name(filter));
+        current_filter_values["exclude_" + filter.attributes["data-type"].nodeValue].push(node_to_filter_name(filter));
       } else if (filter.attributes["data-state"] == "inactive") {
         set_active(filter);
-        default_filter_values[filter.attributes["data-type"].nodeValue].push(node_to_filter_name(filter));
+        current_filter_values[filter.attributes["data-type"].nodeValue].push(node_to_filter_name(filter));
       } else { // exclude
         set_inactive(filter);
-        list_remove(default_filter_values["exclude_" + filter.attributes["data-type"].nodeValue], node_to_filter_name(filter));
+        list_remove(current_filter_values["exclude_" + filter.attributes["data-type"].nodeValue], node_to_filter_name(filter));
       }
       update_global_filtering_state();
     }
@@ -246,8 +246,8 @@
     }
 
     update_rss_ics_urls = function() {
-      document.getElementById("rss").href = "{% url 'events_rss' %}?" + $.param(default_filter_values, true);
-      document.getElementById("ics").href = "{% url 'events_ics' %}?" + $.param(default_filter_values, true);
+      document.getElementById("rss").href = "{% url 'events_rss' %}?" + $.param(current_filter_values, true);
+      document.getElementById("ics").href = "{% url 'events_ics' %}?" + $.param(current_filter_values, true);
 
     }
 
@@ -257,11 +257,11 @@
     }
 
     update_url = function() {
-      window.history.pushState({}, "", "?" + $.param(default_filter_values, true));
+      window.history.pushState({}, "", "?" + $.param(current_filter_values, true));
     }
 
     update_list_format = function() {
-      $.get("events/events.html?" + $.param(default_filter_values, true), function(data) {
+      $.get("events/events.html?" + $.param(current_filter_values, true), function(data) {
         document.getElementById("listFormat").innerHTML = data;
       })
     }
@@ -277,14 +277,14 @@
         }
       }
 
-      default_filter_values = {
+      current_filter_values = {
         "source": url_values.source === undefined ? default_sources  : url_values.source,
         "exclude_source": url_values.exclude_source === undefined ? [] : url_values.exclude_source,
         "tag": url_values.tag === undefined ? [] : url_values.tag,
         "exclude_tag": url_values.exclude_tag === undefined ? [] : url_values.exclude_tag
       };
 
-      update_filter_bar(default_filter_values);
+      update_filter_bar(current_filter_values);
       update_list_format();
       update_rss_ics_urls();
 
@@ -296,7 +296,7 @@
         firstDay: 1,
         events: {
           url: '{% url 'events_json' %}',
-          data: function() { return default_filter_values },
+          data: function() { return current_filter_values },
           traditional: true,
         },
         header: {
