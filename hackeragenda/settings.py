@@ -110,6 +110,17 @@ PREDEFINED_FILTERS["hackerspaces"] = {
     "exclude_tag": [],
 }
 
+PREDEFINED_FILTERS["code"] = {
+    "source": [
+        "afpyro",
+        "agile_belgium",
+        "opentechschool"
+    ],
+    "exclude_source": [],
+    "tag": [],
+    "exclude_tag": [],
+}
+
 if DEBUG:
     MIDDLEWARE_CLASSES += (
         'debug_toolbar.middleware.DebugToolbarMiddleware',
