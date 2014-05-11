@@ -10,7 +10,7 @@
     }
 
 -block content
-  %div{style: "padding-bottom: 25px; padding-top: 30px"}
+  %div{style: "padding-bottom: 15px; padding-top: 30px"}
     %center
       %a#open_filter_tag_bar.button Customize
       %span{style: "margin: 10px"} -
@@ -23,6 +23,10 @@
         RSS
       %a#ics.round.button.success{href: "{% url 'events_ics' %}"}
         ICS
+
+  %div{style: "text-align: center; font-size: small; padding-bottom: 20px"}
+    %i
+      By default regular meetings aren't shown, click on 'All' or 'Customize' to see them
 
   %dl.tabs
     %dd.active
