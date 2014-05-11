@@ -286,8 +286,10 @@
       update_list_format();
       update_rss_ics_urls();
 
-      $(".predefined_filter").first().removeClass("secondary");
-      $(".predefined_filter").first().addClass("success");
+      if (window.location.search == "") {
+        $(".predefined_filter").first().removeClass("secondary");
+        $(".predefined_filter").first().addClass("success");
+      }
 
       $(".filters").find("a").click(function(from) {
         switch_filter_state(from.currentTarget);
