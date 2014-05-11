@@ -1,6 +1,9 @@
 # Django settings for hackeragenda project.
 
 import os
+
+from collections import OrderedDict
+
 PROJECT_PATH = os.path.abspath(os.path.split(__file__)[0])
 SUBPROJECT_PATH = os.path.split(PROJECT_PATH)[0]
 
@@ -74,6 +77,36 @@ MIDDLEWARE_CLASSES = (
     # Uncomment the next line for simple clickjacking protection:
     # 'django.middleware.clickjacking.XFrameOptionsMiddleware',
 )
+
+PREDEFINED_FILTERS = OrderedDict()
+PREDEFINED_FILTERS["default"] = {
+    "source": [],
+    "exclude_source": [],
+    "tag": [],
+    "exclude_tag": ["meeting"],
+}
+
+PREDEFINED_FILTERS["all"] = {
+    "source": [],
+    "exclude_source": [],
+    "tag": [],
+    "exclude_tag": [],
+}
+
+PREDEFINED_FILTERS["hackerspaces"] = {
+    "source": [
+        "bhackspace",
+        "hsbxl",
+        "incubhacker",
+        "urlab",
+        "voidwarranties",
+        "whitespace",
+        "wolfplex"
+    ],
+    "exclude_source": [],
+    "tag": [],
+    "exclude_tag": [],
+}
 
 if DEBUG:
     MIDDLEWARE_CLASSES += (
