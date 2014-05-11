@@ -38,58 +38,6 @@
 
     %li#listTab
       #listFormat
-          -regroup object_list by start.date|date:"F o" as event_list
-          -for group in event_list
-            -if forloop.first
-              %div{style: "padding-left: 30px"}
-                %h3= group.grouper
-            -else
-              %div{style: "padding-top: 45px"}
-                %center
-                  %h1
-                    ֮
-              %div{style: "padding-left: 30px;"}
-                %h3= group.grouper
-            %div{style: "padding-left: 30px"}
-              -regroup group.list by start|date:"l j" as group_list
-              -for event_list in group_list
-                -for event in event_list.list
-                  -if forloop.first
-                    .row
-                      .three.columns
-                        -if event.start.date == event.start.date.today
-                          %h4 Today
-                        -else
-                          %h4= event.start|date:"l j"
-                  .row
-                    .two.columns
-                      %center
-                        %h3
-                          %small
-                            -if not event.all_day and event.start.hour != 0
-                              -if event.end
-                                {{ event.start|date:"H:i" }} to {{ event.end|date:"H:i" }}
-                              -else
-                                =event.start|date:"H:i"
-                            -else
-                              All day
-                    .three.columns{style: "padding-top: 5px"}
-                      %center
-                        %h5
-                          %span{style: 'background-color: {{ event.background_color|default:"black" }}; color: {{ event.text_color|default:"white" }}; padding: 3px; padding-left: 6px; padding-right: 6px;'}= event.source|upper|underscore_to_space
-                    .seven.columns
-                      %h4
-                        %a{href: "{{ event.url }}"}= event.title
-                        -if event.location
-                          %br
-                          %small at
-                            =event.location
-                  -if forloop.last and not forloop.parentloop.last
-                    .row
-                      .three.columns
-                      .six.columns
-                        %hr
-                      .three.columns
 
   %hr
   %h2 FAQ
@@ -294,10 +242,17 @@
 
     update_events = function() {
       $("#calendar").fullCalendar("refetchEvents");
+      update_list_format();
     }
 
     update_url = function() {
-      window.history.pushState({}, "", "?" + $.param(default_filter_values));
+      window.history.pushState({}, "", "?" + $.param(default_filter_values, true));
+    }
+
+    update_list_format = function() {
+      $.get("events/events.html?" + $.param(default_filter_values, true), function(data) {
+        document.getElementById("listFormat").innerHTML = data;
+      })
     }
 
     $(document).ready(function() {
@@ -319,6 +274,7 @@
       };
 
       update_filter_bar(default_filter_values);
+      update_list_format();
 
       $(".filters").find("a").click(function(from) {
         switch_filter_state(from.currentTarget);

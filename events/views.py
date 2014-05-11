@@ -2,7 +2,7 @@ import json
 from datetime import timedelta, datetime
 
 from django.http import HttpResponse
-from django.views.generic import ListView
+from django.views.generic import ListView, TemplateView
 
 from taggit.models import Tag
 
@@ -26,15 +26,23 @@ def filter_events(request, queryset):
     return queryset
 
 
-class EventListView(ListView):
+class HomeView(TemplateView):
     template_name = "home.haml"
+
+    def get_context_data(self, **kwargs):
+        context = super(HomeView, self).get_context_data(**kwargs)
+        context["sources"] = sorted(COLORS.items(), key=lambda x: x[0])
+        context["tags"] = map(lambda x: x[0], Tag.objects.order_by("name").values_list("name"))
+        return context
+
+
+class EventListView(ListView):
+    template_name = "events.haml"
     queryset = Event.objects.filter(start__gte=datetime.now).order_by("start")
 
     def get_context_data(self, **kwargs):
         context = super(EventListView, self).get_context_data(**kwargs)
-        context["sources"] = sorted(COLORS.items(), key=lambda x: x[0])
-        context["tags"] = map(lambda x: x[0], Tag.objects.order_by("name").values_list("name"))
-        filter_events(self.request, context["object_list"])
+        context["object_list"] = filter_events(self.request, context["object_list"])
         return context
 
 
