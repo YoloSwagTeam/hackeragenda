@@ -3,6 +3,7 @@ from datetime import datetime
 from django.contrib.syndication.views import Feed
 
 from .models import Event
+from .utils import filter_events
 
 
 class NextEventsFeed(Feed):
@@ -11,7 +12,12 @@ class NextEventsFeed(Feed):
     description = "Next events"
 
     def items(self):
-        return Event.objects.filter(start__gte=datetime.now).order_by("start")
+        return filter_events(request=self.request, queryset=Event.objects.filter(start__gte=datetime.now).order_by("start"))
+
+    def get_object(self, request):
+        # youhou, dirty hack to have access to request in items()
+        self.request = request
+        return None
 
     def item_title(self, item):
         return "%s [%s]" % (item.title, item.source)
