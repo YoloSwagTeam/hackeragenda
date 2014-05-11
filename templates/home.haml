@@ -305,8 +305,7 @@
       for (var i = 0; i < default_filter_values.exclude_tag.length; i++) {
         new_url += "&exclude_tag=" + default_filter_values.exclude_tag[i];
       }
-      new_url[0] = "?";
-      window.history.pushState({}, "", new_url);
+      window.history.pushState({}, "", "?" + new_url.substring(1));
     }
 
     $(document).ready(function() {
