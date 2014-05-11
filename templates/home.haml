@@ -288,6 +288,25 @@
         set_inactive(filter);
         list_remove(default_filter_values.exclude_source, node_to_filter_name(filter));
       }
+      update_url();
+    }
+
+    update_url = function() {
+      var new_url = "";
+      for (var i = 0; i < default_filter_values.source.length; i++) {
+        new_url += "&source=" + default_filter_values.source[i];
+      }
+      for (var i = 0; i < default_filter_values.exclude_source.length; i++) {
+        new_url += "&exclude_source=" + default_filter_values.exclude_source[i];
+      }
+      for (var i = 0; i < default_filter_values.tag.length; i++) {
+        new_url += "&tag=" + default_filter_values.tag[i];
+      }
+      for (var i = 0; i < default_filter_values.exclude_tag.length; i++) {
+        new_url += "&exclude_tag=" + default_filter_values.exclude_tag[i];
+      }
+      new_url[0] = "?";
+      window.history.pushState({}, "", new_url);
     }
 
     $(document).ready(function() {
@@ -312,7 +331,6 @@
 
       $(".filters").find("a").click(function(from) {
         switch_filter_state(from.currentTarget);
-        // update_url_and_filter_values();
       });
 
       $("#calendar").fullCalendar({
