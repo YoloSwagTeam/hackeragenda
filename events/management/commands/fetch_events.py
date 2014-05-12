@@ -66,6 +66,7 @@ class Command(BaseCommand):
                 "ruby_burgers",
                 "https://urlab.be/hackeragenda.json",
                 "voidwarranties",
+                "webrtc",
                 "whitespace",
                 "wolfplex",
             ]
@@ -437,6 +438,10 @@ def voidwarranties(options):
 
         if not options["quiet"]:
             print "Adding %s [%s] (%s)..." % (title.encode("Utf-8"), "voidwarranties", "")
+
+
+def webrtc(options):
+    return generic_meetup("webrtc", "WebRTC-crossingborders", options)
 
 
 def whitespace(options):

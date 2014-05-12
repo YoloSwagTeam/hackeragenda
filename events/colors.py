@@ -28,6 +28,7 @@ COLORS = {
     "ruby_burgers": {"bg": "white", "fg": "#6F371F"},
     "urlab": {"bg": "pink", "fg": "black"},
     "voidwarranties": {"bg": "#25272C", "fg": "#C58723"},
+    "webrtc": {"bg": "#F99232", "fg": "white"},
     "whitespace": {"bg": "white", "fg": "black"},
     "wolfplex": {"bg": "#666661", "fg": "black"},
 }
