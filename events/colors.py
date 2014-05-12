@@ -9,6 +9,7 @@ COLORS = {
     "bxlug": {"bg": "white", "fg": "#990000"},
     "constantvzw": {"bg": "#D2C7BA", "fg": "black"},
     "docker_belgium": {"bg": "#008FC4", "fg": "white"},
+    "ember_js_brussels": {"bg": "#FC745D", "fg": "white"},
     "foam": {"bg": "#C9C4BF", "fg": "black"},
     "hsbxl": {"bg": "coral", "fg": "white"},
     "incubhacker": {"bg": "#296038", "fg": "#6FCE91"},

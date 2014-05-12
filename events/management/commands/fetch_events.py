@@ -46,6 +46,7 @@ class Command(BaseCommand):
                 "bxlug",
                 "constantvzw",
                 "docker_belgium",
+                "ember_js_brussels",
                 "foam",
                 "hsbxl",
                 "incubhacker",
@@ -227,6 +228,10 @@ def constantvzw(options):
 
 def docker_belgium(options):
     return generic_meetup("docker_belgium", "Docker-Belgium", options)
+
+
+def ember_js_brussels(options):
+    return generic_meetup("ember_js_brussels", "Ember-js-Brussels", options)
 
 
 def foam(options):
