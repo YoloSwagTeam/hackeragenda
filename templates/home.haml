@@ -15,7 +15,7 @@
       %a#open_filter_tag_bar.button Customize
       %span{style: "margin: 10px"} -
       -for filter in predefined_filters
-        %a.button.secondary.predefined_filter{data-key: "{{ filter }}"}= filter|capfirst
+        %a.button.secondary.predefined_filter{data-key: "{{ filter }}", id: "section_{{ filter }}"}= filter|capfirst
       %span{style: "margin: 10px"} -
       %a#rss.round.button.alert{href: "{% url 'events_rss' %}"}
         RSS
@@ -146,7 +146,7 @@
     get_url_values = function(){
       // the current sate of javascript is miserable
       var search_string = window.location.search.substring(1).split('&');
-      var to_return = {source: [], exclude_source: [], tag: [], exclude_tag: []};
+      var to_return = {source: [], exclude_source: [], tag: [], exclude_tag: [], section: undefined};
       for(var i = 0; i < search_string.length; i++){
         var KeyValuePair = search_string[i].split('=');
         if (to_return[KeyValuePair[0]] === undefined) {
@@ -273,7 +273,18 @@
 
     predefined_filters = {{ predefined_filters_json|safe }};
 
+    activate_filtering_section = function(dom_prefiltered_button) {
+      section = dom_prefiltered_button.attributes["data-key"].value;
+      current_filter_values = predefined_filters[section];
+      update_filter_bar(current_filter_values);
+      update_global_filtering_state();
+      window.history.pushState({}, "", "?section=" + section);
+      $(dom_prefiltered_button).removeClass("secondary");
+      $(dom_prefiltered_button).addClass("success");
+    }
+
     $(document).ready(function() {
+      url_content = get_url_values();
 
       if (window.location.search == "") {
         $(".predefined_filter").first().removeClass("secondary");
@@ -285,9 +296,12 @@
           "tag": predefined_filters["default"].tag,
           "exclude_tag": predefined_filters["default"].exclude_tag
         };
-      } else {
-        current_filter_values = get_url_values();
+      } else if (url_content.section === undefined) {
+        current_filter_values = url_content;
         console.log(current_filter_values);
+      } else {
+        // this function will set current_filter_values, this is very ugly
+        activate_filtering_section(document.getElementById("section_" + url_content.section[0]));
       }
 
       update_filter_bar(current_filter_values);
@@ -299,11 +313,7 @@
       });
 
       $(".predefined_filter").click(function(from) {
-        current_filter_values = predefined_filters[from.currentTarget.attributes["data-key"].value];
-        update_filter_bar(current_filter_values);
-        update_global_filtering_state();
-        $(from.currentTarget).removeClass("secondary");
-        $(from.currentTarget).addClass("success");
+        activate_filtering_section(from.currentTarget)
       })
 
       $("#calendar").fullCalendar({
