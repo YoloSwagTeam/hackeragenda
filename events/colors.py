@@ -12,6 +12,7 @@ COLORS = {
     "neutrinet": {"bg": "DarkBlue", "fg": "white"},
     "okno": {"bg": "#FFFFFF", "fg": "#00AA00"},
     "opengarage": {"bg": "DarkOrchid", "fg": "white"},
+    "ruby_burgers": {"bg": "white", "fg": "#6F371F"},
     "urlab": {"bg": "pink", "fg": "black"},
     "voidwarranties": {"bg": "#25272C", "fg": "#C58723"},
     "whitespace": {"bg": "white", "fg": "black"},
