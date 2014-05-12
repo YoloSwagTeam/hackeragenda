@@ -43,6 +43,7 @@ class Command(BaseCommand):
                 "aws_user_group_belgium",
                 "bescala",
                 "bhackspace",
+                "brussels_wordpress",
                 "bxlug",
                 "constantvzw",
                 "docker_belgium",
