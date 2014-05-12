@@ -502,10 +502,13 @@ def generic_meetup(source, meetup_name, options):
     for event in data.walk():
         if not isinstance(event, icalendarEvent):
             continue
+
         title = event.get("SUMMARY", None)
         start = event.get("DTSTART", None)
+
         if None in (title, start):
             continue
+
         Event.objects.create(
             title=title.encode("Utf-8"),
             source=source,
