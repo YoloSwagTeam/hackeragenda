@@ -57,6 +57,7 @@ class Command(BaseCommand):
                 "incubhacker",
                 "laravel_brussels",
                 "les_mardis_de_l_agile",
+                "mongodb_belgium",
                 "neutrinet",
                 "okno",
                 "opengarage",
@@ -343,6 +344,10 @@ def laravel_brussels(options):
 
 def les_mardis_de_l_agile(options):
     return generic_meetup("les_mardis_de_l_agile", "Les-mardis-de-lagile-Bruxelles", options)
+
+
+def mongodb_belgium(options):
+    return generic_meetup("mongodb_belgium", "MongoDB-Belgium", options)
 
 
 def neutrinet(options):

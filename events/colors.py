@@ -19,6 +19,7 @@ COLORS = {
     "incubhacker": {"bg": "#296038", "fg": "#6FCE91"},
     "laravel_brussels": {"bg": "#FFFFFF", "fg": "#FB503B"},
     "les_mardis_de_l_agile": {"bg": "#37C2F1", "fg": "black"},
+    "mongodb_belgium": {"bg": "#3EA86F", "fg": "white"},
     "neutrinet": {"bg": "DarkBlue", "fg": "white"},
     "okno": {"bg": "#FFFFFF", "fg": "#00AA00"},
     "opengarage": {"bg": "DarkOrchid", "fg": "white"},
