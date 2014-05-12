@@ -5,7 +5,7 @@ http://hackeragenda.be is a website that aggregate events in Belgium that are
 interesting for hackers of the hackerspace community. It does that by fetching
 data from other website (by scraping most of the time ...) *instead* of asking
 users to submit events on it. This is my modest attemp to answer the problem
-"eve ryone is doing shitload of things and no one is aware of that and that
+"everyone is doing shitload of things and no one is aware of that and that
 sucks".
 
 Installation
