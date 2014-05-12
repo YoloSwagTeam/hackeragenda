@@ -45,6 +45,7 @@ class Command(BaseCommand):
                 "bhackspace",
                 "bxlug",
                 "constantvzw",
+                "docker_belgium",
                 "foam",
                 "hsbxl",
                 "incubhacker",
@@ -222,6 +223,10 @@ def constantvzw(options):
 
         if not options["quiet"]:
             print "Adding %s [%s] (%s)..." % (title.encode("Utf-8"), "constantvzw", location.encode("Utf-8") if location else "")
+
+
+def docker_belgium(options):
+    return generic_meetup("docker_belgium", "Docker-Belgium", options)
 
 
 def foam(options):
