@@ -61,6 +61,7 @@ class Command(BaseCommand):
                 "okno",
                 "opengarage",
                 "opentechschool",
+                "phpbenelux",
                 "ruby_burgers",
                 "https://urlab.be/hackeragenda.json",
                 "voidwarranties",
@@ -399,6 +400,10 @@ def opengarage(options):
 
 def opentechschool(options):
     return generic_meetup("opentechschool", "OpenTechSchool-Brussels", options)
+
+
+def phpbenelux(options):
+    return generic_meetup("phpbenelux", "phpbenelux", options)
 
 
 def ruby_burgers(options):
