@@ -40,6 +40,7 @@ class Command(BaseCommand):
                 "afpyro",
                 "agenda_du_libre_be",
                 "agile_belgium",
+                "aws_user_group_belgium",
                 "bescala",
                 "bhackspace",
                 "bxlug",
@@ -117,6 +118,10 @@ def agenda_du_libre_be(options):
 
 def agile_belgium(options):
     return generic_meetup("agile_belgium", "Agile-Belgium", options)
+
+
+def aws_user_group_belgium(options):
+    return generic_meetup("aws_user_group_belgium", "AWS-User-Group-Belgium", options)
 
 
 def bescala(options):

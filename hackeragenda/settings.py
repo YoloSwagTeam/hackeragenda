@@ -83,6 +83,7 @@ PREDEFINED_FILTERS["default"] = {
     "source": [],
     "exclude_source": [
         "agile_belgium",
+        "aws_user_group_belgium",
         "bescala",
         "brussels_wordpress",
         "laravel_brussels",
@@ -119,6 +120,7 @@ PREDEFINED_FILTERS["code"] = {
     "source": [
         "afpyro",
         "agile_belgium",
+        "aws_user_group_belgium",
         "bescala",
         "brussels_wordpress",
         "laravel_brussels",
