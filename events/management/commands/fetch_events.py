@@ -42,6 +42,7 @@ class Command(BaseCommand):
                 "agile_belgium",
                 "aws_user_group_belgium",
                 "belgian_puppet_user_group",
+                "brussels_data_science_meetup",
                 "bescala",
                 "bhackspace",
                 "bigdata_be",
@@ -171,6 +172,10 @@ def bigdata_be(options):
 
 def brussels_cassandra_users(options):
     return generic_meetup("brussels_cassandra_users", "Brussels-Cassandra-Users", options)
+
+
+def brussels_data_science_meetup(options):
+    return generic_meetup("brussels_data_science_meetup", "Brussels-Data-Science-Community-Meetup", options)
 
 
 def brussels_wordpress(options):

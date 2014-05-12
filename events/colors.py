@@ -8,6 +8,7 @@ COLORS = {
     "bigdata_be": {"bg": "black", "fg": "white"},
     "bhackspace": {"bg": "DarkGoldenRod", "fg": "white"},
     "brussels_cassandra_users": {"bg": "#415A6C", "fg": "#CBE5F7"},
+    "brussels_data_science_meetup": {"bg": "#CAD9EC", "fg": "black"},
     "brussels_wordpress": {"bg": "#0324C1", "fg": "white"},
     "bxlug": {"bg": "white", "fg": "#990000"},
     "constantvzw": {"bg": "#D2C7BA", "fg": "black"},
