@@ -41,6 +41,7 @@ class Command(BaseCommand):
                 "agenda_du_libre_be",
                 "agile_belgium",
                 "aws_user_group_belgium",
+                "belgian_puppet_user_group",
                 "bescala",
                 "bhackspace",
                 "bigdata_be",
@@ -127,6 +128,10 @@ def agile_belgium(options):
 
 def aws_user_group_belgium(options):
     return generic_meetup("aws_user_group_belgium", "AWS-User-Group-Belgium", options)
+
+
+def belgian_puppet_user_group(options):
+    return generic_meetup("belgian_puppet_user_group", "Belgian-Puppet-User-Group", options)
 
 
 def bescala(options):
