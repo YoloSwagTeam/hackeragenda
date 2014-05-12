@@ -5,6 +5,7 @@ COLORS = {
     "agile_belgium": {"bg": "#D2353A", "fg": "white"},
     "bescala": {"bg": "#FEE63C", "fg": "#000000"},
     "bhackspace": {"bg": "DarkGoldenRod", "fg": "white"},
+    "brussels_cassandra_users": {"bg": "#415A6C", "fg": "#CBE5F7"},
     "brussels_wordpress": {"bg": "#0324C1", "fg": "white"},
     "bxlug": {"bg": "white", "fg": "#990000"},
     "constantvzw": {"bg": "#D2C7BA", "fg": "black"},

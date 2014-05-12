@@ -43,6 +43,7 @@ class Command(BaseCommand):
                 "aws_user_group_belgium",
                 "bescala",
                 "bhackspace",
+                "brussels_cassandra_users",
                 "brussels_wordpress",
                 "bxlug",
                 "constantvzw",
@@ -156,6 +157,10 @@ def bhackspace(options):
 
         if not options["quiet"]:
             print "Adding %s [%s] (%s)..." % (title.encode("Utf-8"), "bhackspace", location.encode("Utf-8"))
+
+
+def brussels_cassandra_users(options):
+    return generic_meetup("brussels_cassandra_users", "Brussels-Cassandra-Users", options)
 
 
 def brussels_wordpress(options):
