@@ -9,6 +9,7 @@ COLORS = {
     "foam": {"bg": "#C9C4BF", "fg": "black"},
     "hsbxl": {"bg": "coral", "fg": "white"},
     "incubhacker": {"bg": "#296038", "fg": "#6FCE91"},
+    "laravel_brussels": {"bg": "#FFFFFF", "fg": "#FB503B"},
     "neutrinet": {"bg": "DarkBlue", "fg": "white"},
     "okno": {"bg": "#FFFFFF", "fg": "#00AA00"},
     "opengarage": {"bg": "DarkOrchid", "fg": "white"},

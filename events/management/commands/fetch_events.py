@@ -47,6 +47,7 @@ class Command(BaseCommand):
                 "foam",
                 "hsbxl",
                 "incubhacker",
+                "laravel_brussels",
                 "neutrinet",
                 "okno",
                 "opengarage",
@@ -292,6 +293,10 @@ def incubhacker(options):
 
         if not options["quiet"]:
             print "Adding %s [%s] (%s)..." % (title.encode("Utf-8"), "incubhacker", "")
+
+
+def laravel_brussels(options):
+    return generic_meetup("laravel_brussels", "Laravel-Brussels", options)
 
 
 def neutrinet(options):
