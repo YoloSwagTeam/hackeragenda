@@ -155,6 +155,11 @@
         }
         to_return[KeyValuePair[0]].push(KeyValuePair[1]);
       }
+
+      if (to_return.section === undefined) {
+        delete to_return.section;
+      }
+
       return to_return;
     };
 
