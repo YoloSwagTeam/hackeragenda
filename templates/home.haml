@@ -146,10 +146,11 @@
     get_url_values = function(){
       // the current sate of javascript is miserable
       var search_string = window.location.search.substring(1).split('&');
-      var to_return = {};
+      var to_return = {source: [], exclude_source: [], tag: [], exclude_tag: []};
       for(var i = 0; i < search_string.length; i++){
         var KeyValuePair = search_string[i].split('=');
         if (to_return[KeyValuePair[0]] === undefined) {
+          console.log("Warning: shouldn't have this key: " + KeyValuePair[0])
           to_return[KeyValuePair[0]] = [];
         }
         to_return[KeyValuePair[0]].push(KeyValuePair[1]);
@@ -273,23 +274,25 @@
     predefined_filters = {{ predefined_filters_json|safe }};
 
     $(document).ready(function() {
-      url_values = get_url_values();
-
-      current_filter_values = {
-        "source": url_values.source === undefined ? predefined_filters["default"].source  : url_values.source,
-        "exclude_source": url_values.exclude_source === undefined ? predefined_filters["default"].exclude_source : url_values.exclude_source,
-        "tag": url_values.tag === undefined ? predefined_filters["default"].tag : url_values.tag,
-        "exclude_tag": url_values.exclude_tag === undefined ? predefined_filters["default"].exclude_tag : url_values.exclude_tag
-      };
-
-      update_filter_bar(current_filter_values);
-      update_list_format();
-      update_rss_ics_urls();
 
       if (window.location.search == "") {
         $(".predefined_filter").first().removeClass("secondary");
         $(".predefined_filter").first().addClass("success");
+
+        current_filter_values = {
+          "source": predefined_filters["default"].source,
+          "exclude_source": predefined_filters["default"].exclude_source,
+          "tag": predefined_filters["default"].tag,
+          "exclude_tag": predefined_filters["default"].exclude_tag
+        };
+      } else {
+        current_filter_values = get_url_values();
+        console.log(current_filter_values);
       }
+
+      update_filter_bar(current_filter_values);
+      update_list_format();
+      update_rss_ics_urls();
 
       $(".filters").find("a").click(function(from) {
         switch_filter_state(from.currentTarget);
