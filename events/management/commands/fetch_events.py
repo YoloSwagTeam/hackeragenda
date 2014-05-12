@@ -321,19 +321,22 @@ def incubhacker(options):
     now = calendar.timegm(datetime.now().utctimetuple())
 
     # 2 magics numbers are from a reverse of the incubhacker calendar api
-    for event in json.load(urlopen("http://www.incubhacker.be/index.php/agenda/jsonfeed?format=raw&gcid=2&start=%s&end=%s" % (now - 1187115, now + 2445265))):
+    for event in json.load(urlopen("http://www.incubhacker.be/index.php/component/gcalendar/jsonfeed?format=raw&gcid=2&start=%s&end=%s" % (now - 1187115, now + 2445265))):
         title = event["title"]
         url = "http://www.incubhacker.be" + event["url"]
         start = parse(event["start"]).replace(tzinfo=None)
         end = parse(event["end"]).replace(tzinfo=None)
 
-        Event.objects.create(
+        event = Event.objects.create(
             title=title,
             source="incubhacker",
             url=url,
             start=start,
             end=end
         )
+
+        if event.title.strip() in ("INCUBHACKER", "Réunion normale"):
+            event.tags.add("meeting")
 
         if not options["quiet"]:
             print "Adding %s [%s] (%s)..." % (title.encode("Utf-8"), "incubhacker", "")
