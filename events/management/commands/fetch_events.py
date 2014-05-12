@@ -48,6 +48,7 @@ class Command(BaseCommand):
                 "hsbxl",
                 "incubhacker",
                 "laravel_brussels",
+                "les_mardis_de_l_agile",
                 "neutrinet",
                 "okno",
                 "opengarage",
@@ -297,6 +298,10 @@ def incubhacker(options):
 
 def laravel_brussels(options):
     return generic_meetup("laravel_brussels", "Laravel-Brussels", options)
+
+
+def les_mardis_de_l_agile(options):
+    return generic_meetup("les_mardis_de_l_agile", "Les-mardis-de-lagile-Bruxelles", options)
 
 
 def neutrinet(options):

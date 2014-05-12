@@ -10,6 +10,7 @@ COLORS = {
     "hsbxl": {"bg": "coral", "fg": "white"},
     "incubhacker": {"bg": "#296038", "fg": "#6FCE91"},
     "laravel_brussels": {"bg": "#FFFFFF", "fg": "#FB503B"},
+    "les_mardis_de_l_agile": {"bg": "#37C2F1", "fg": "black"},
     "neutrinet": {"bg": "DarkBlue", "fg": "white"},
     "okno": {"bg": "#FFFFFF", "fg": "#00AA00"},
     "opengarage": {"bg": "DarkOrchid", "fg": "white"},
