@@ -84,6 +84,7 @@ PREDEFINED_FILTERS["default"] = {
     "exclude_source": [
         "agile_belgium",
         "bescala",
+        "brussels_wordpress",
         "laravel_brussels",
         "les_mardis_de_l_agile",
         "ruby_burgers",
@@ -119,6 +120,7 @@ PREDEFINED_FILTERS["code"] = {
         "afpyro",
         "agile_belgium",
         "bescala",
+        "brussels_wordpress",
         "laravel_brussels",
         "les_mardis_de_l_agile",
         "opentechschool",

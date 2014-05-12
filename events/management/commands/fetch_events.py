@@ -150,6 +150,10 @@ def bhackspace(options):
             print "Adding %s [%s] (%s)..." % (title.encode("Utf-8"), "bhackspace", location.encode("Utf-8"))
 
 
+def brussels_wordpress(options):
+    return generic_meetup("brussels_wordpress", "wp-bru", options)
+
+
 def bxlug(options):
     Event.objects.filter(source="bxlug").delete()
 
