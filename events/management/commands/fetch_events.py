@@ -58,7 +58,7 @@ class Command(BaseCommand):
                 "okno",
                 "opengarage",
                 "opentechschool",
-                "ruby_burgers"
+                "ruby_burgers",
                 "https://urlab.be/hackeragenda.json",
                 "voidwarranties",
                 "whitespace",
