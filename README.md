@@ -1,7 +1,7 @@
 Introduction
 ============
 
-ackeragenda is a website that aggregate events in Belgium that are interesting
+Hackeragenda is a website that aggregate events in Belgium that are interesting
 for hackers of the hackerspace community. It does that by fetching data from
 other website (by scraping most of the time ...) *instead* of asking users to
 submit events on it. This is my modest attemp to answer the problem "eve ryone
