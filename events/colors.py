@@ -4,6 +4,7 @@ COLORS = {
     "aws_user_group_belgium": {"bg": "#F8981D", "fg": "white"},
     "agile_belgium": {"bg": "#D2353A", "fg": "white"},
     "bescala": {"bg": "#FEE63C", "fg": "#000000"},
+    "bigdata_be": {"bg": "black", "fg": "white"},
     "bhackspace": {"bg": "DarkGoldenRod", "fg": "white"},
     "brussels_cassandra_users": {"bg": "#415A6C", "fg": "#CBE5F7"},
     "brussels_wordpress": {"bg": "#0324C1", "fg": "white"},
