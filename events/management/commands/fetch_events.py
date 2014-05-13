@@ -539,7 +539,7 @@ def json_api(url, options):
 
 
 def generic_meetup(source, meetup_name, options):
-    Event.objects.filter(source=source).delete()
+    Event.objects.filter(source=source, start__gte=datetime.now()).delete()
 
     data = Calendar.from_ical(requests.get("http://www.meetup.com/{}/events/ical/".format(meetup_name)).content)
 
