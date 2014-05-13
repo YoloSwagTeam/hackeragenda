@@ -3,6 +3,7 @@ COLORS = {
     "agenda_du_libre_be": {"bg": "#3A87AD", "fg": "white"},
     "aws_user_group_belgium": {"bg": "#F8981D", "fg": "white"},
     "agile_belgium": {"bg": "#D2353A", "fg": "white"},
+    "belgian_angularjs": {"bg": "#9D3532", "fg": "white"},
     "belgian_puppet_user_group": {"bg": "#7B6DB0", "fg": "white"},
     "bescala": {"bg": "#FEE63C", "fg": "#000000"},
     "bigdata_be": {"bg": "black", "fg": "white"},
