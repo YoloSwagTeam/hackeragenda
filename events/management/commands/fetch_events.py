@@ -558,6 +558,9 @@ def generic_meetup(source, meetup_name, options):
         if None in (title, start):
             continue
 
+        if event.get("URL") and Event.objects.filter(url=event["url"]):
+            continue
+
         Event.objects.create(
             title=title.encode("Utf-8"),
             source=source,
