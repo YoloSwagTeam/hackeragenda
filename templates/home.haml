@@ -339,6 +339,12 @@
           right: 'month,agendaWeek,agendaDay'
         },
       });
+
+      // try to hackhisly style things
+      $(".fc-header")[0].style.border = "none";
+      $(".fc-button").each(function(_, i) { i.className = "button secondary" });
+      $(".fc-text-arrow").each(function(_, i) { i.style.fontSize = "11px"} );
+
       var snapper = new Snap({
         element: document.getElementById('content'),
         disable: 'right'
