@@ -28,7 +28,7 @@ class Command(BaseCommand):
     def format_tweets(self, events):
         def format_title(x):
             return "\"%(title)s\" %(date)s%(time)s" % {
-                "date": x.start.strftime("%A") if x.start.date() != date.today() else "today",
+                "date": ("this %s" % x.start.strftime("%A")) if x.start.date() != date.today() else "today",
                 "time": (" at %s" % x.start.strftime("%H:%M")) if not x.all_day and (x.start.hour != 0 or x.start.minute != 0) else "",
                 "title": x.title
             }
