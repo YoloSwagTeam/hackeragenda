@@ -11,17 +11,21 @@ def tweet_size(tweet):
 
 class Command(BaseCommand):
     def handle(self, *args, **options):
+        for tweet in self.generate_tweets():
+            print tweet
+
+    def generate_tweets(self):
         today_events = Event.objects.filter(start__gte=date.today()).filter(start__lt=date.today() + timedelta(days=1))
         this_week_other_events = Event.objects.filter(start__gte=date.today() + timedelta(days=1)).filter(start__lt=date.today() + timedelta(days=7))
 
-        for tweet in self.generate_tweets(today_events):
-            print tweet
+        for tweet in self.format_tweets(today_events):
+            yield tweet
 
-        if date.today().weekday() == 0:
-            for tweet in self.generate_tweets(this_week_other_events):
-                print tweet
+        if date.today().weekday() == 3:
+            for tweet in self.format_tweets(this_week_other_events):
+                yield tweet
 
-    def generate_tweets(self, events):
+    def format_tweets(self, events):
         def format_title(x):
             return "\"%(title)s\" %(date)s%(time)s" % {
                 "date": x.start.strftime("%A") if x.start.date() != date.today() else "today",
