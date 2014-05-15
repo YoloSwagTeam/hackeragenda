@@ -14,3 +14,4 @@ django-tastypie
 mimeparse
 requests
 django-taggit
+tweepy
