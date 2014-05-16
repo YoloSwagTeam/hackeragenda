@@ -41,7 +41,7 @@ class Command(BaseCommand):
         else:
             self.twitter = connect_to_twitter()
 
-        for tweet in list(self.generate_tweets())[1:]:
+        for tweet in self.generate_tweets():
             if not options["run"]:
                 print tweet
             else:
