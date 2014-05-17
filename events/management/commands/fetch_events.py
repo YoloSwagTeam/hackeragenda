@@ -42,6 +42,7 @@ class Command(BaseCommand):
                 "agile_belgium",
                 "aws_user_group_belgium",
                 "belgian_angularjs",
+                "belgian_nodejs_user_group",
                 "belgian_puppet_user_group",
                 "brussels_data_science_meetup",
                 "bescala",
@@ -137,6 +138,10 @@ def aws_user_group_belgium(options):
 
 def belgian_angularjs(options):
     return generic_meetup("belgian_angularjs", "The-Belgian-AngularJS-Meetup-Group", options)
+
+
+def belgian_nodejs_user_group(options):
+    return generic_meetup("belgian_nodejs_user_group", "Belgian-node-js-User-Group", options)
 
 
 def belgian_puppet_user_group(options):
