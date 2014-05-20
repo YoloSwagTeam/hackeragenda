@@ -61,6 +61,7 @@ class Command(BaseCommand):
                 "les_mardis_de_l_agile",
                 "mongodb_belgium",
                 "neutrinet",
+                "okfnbe",
                 "okno",
                 "opengarage",
                 "opentechschool",
@@ -394,6 +395,33 @@ def neutrinet(options):
             print "Adding %s [%s] (%s)..." % (title.encode("Utf-8"), "neutrinet", location.encode("Utf-8"))
 
 
+def okfnbe(options):
+    data = Calendar.from_ical(urlopen("https://www.google.com/calendar/ical/sv07fu4vrit3l8nb0jlo8v7n80@group.calendar.google.com/public/basic.ics").read())
+    for event in data.walk()[1:]:
+        if event.get("DTSTAMP"):
+            title = str(event["SUMMARY"]) if event.get("SUMMARY") else  ""
+            url = "https://www.google.com/calendar/render?cid=%s" % (event["UID"])
+            start = str(event["DTSTART"].dt)  if event.get("DTSTART") else str(event["DTSTAMP"].dt)
+            end = str(event["DTEND"].dt) if event.get("DTEND") else None
+            location = event["LOCATION"]
+
+            #timezone removal, the crappy way
+            if len(start) > 10:
+                start = start[:-6]
+            if len(end) > 10:
+                end = end[:-6]
+
+            event = Event.objects.create(
+                title=title,
+                source="okfnbe",
+                url=url,
+                start=start,
+                end=end,
+                location=location
+            )
+
+            if not options["quiet"]:
+                print "Adding %s [%s] (%s)..." % (title, "okfnbe", location)
 def okno(options):
     Event.objects.filter(source="okno").delete()
     soup = BeautifulSoup(urlopen("http://www.okno.be/events/").read())
