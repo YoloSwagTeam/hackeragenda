@@ -26,6 +26,7 @@ COLORS = {
     "okno": {"bg": "#FFFFFF", "fg": "#00AA00"},
     "opengarage": {"bg": "DarkOrchid", "fg": "white"},
     "opentechschool": {"bg": "#3987CB", "fg": "white"},
+    "owaspbe" : {"bg" : "#4366AF", "fg" : "white"},
     "phpbenelux": {"bg": "#015074", "fg": "white"},
     "ruby_burgers": {"bg": "white", "fg": "#6F371F"},
     "urlab": {"bg": "pink", "fg": "black"},
