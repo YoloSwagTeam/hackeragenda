@@ -423,8 +423,9 @@ def opentechschool(options):
 
 
 def owaspbe(options):
-
+    Event.objects.filter(source="owaspbe").delete()
     soup = BeautifulSoup(urlopen("http://www.eventbrite.com/o/owasp-belgium-chapter-1865700117").read())
+
     for event in soup.findAll("div", attrs= {"class" : "event_row vevent clrfix"}):
         title = event.find("span", attrs = {"class" : "summary"}).string
         location = event.find("span", attrs = {"class" : "street-address microformats_only"}).text
