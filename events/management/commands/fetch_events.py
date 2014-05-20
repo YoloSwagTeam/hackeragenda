@@ -64,6 +64,7 @@ class Command(BaseCommand):
                 "okno",
                 "opengarage",
                 "opentechschool",
+                "owaspbe",
                 "phpbenelux",
                 "ruby_burgers",
                 "https://urlab.be/hackeragenda.json",
@@ -420,6 +421,27 @@ def opengarage(options):
 def opentechschool(options):
     return generic_meetup("opentechschool", "OpenTechSchool-Brussels", options)
 
+
+def owaspbe(options):
+
+    soup = BeautifulSoup(urlopen("http://www.eventbrite.com/o/owasp-belgium-chapter-1865700117").read())
+    for event in soup.findAll("div", attrs= { "class" : "event_row vevent clrfix" }):
+        title = event.find("span", "summary").string
+        location = event.find("span", attrs = { "class" : "street-address microformats_only"})
+        start = event.find("span", "dtstart microformats_only").text
+        end = event.find("span", "dtend microformats_only").text
+        url = event.find("a", attrs = { "class" : "url"})['href']
+
+        Event.objects.create(
+            title=title,
+            source="owaspbe",
+            start=start,
+            end=end,
+            url=url,
+            location=location
+        )
+        if not options["quiet"]:
+            print "Adding %s [owaspbe]" % (title.encode("Utf-8"))
 
 def phpbenelux(options):
     return generic_meetup("phpbenelux", "phpbenelux", options)
