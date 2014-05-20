@@ -24,6 +24,7 @@ COLORS = {
     "mongodb_belgium": {"bg": "#3EA86F", "fg": "white"},
     "neutrinet": {"bg": "DarkBlue", "fg": "white"},
     "okno": {"bg": "#FFFFFF", "fg": "#00AA00"},
+    "okfnbe" : {"bg" : "#299C8F", "fg" : "white"},
     "opengarage": {"bg": "DarkOrchid", "fg": "white"},
     "opentechschool": {"bg": "#3987CB", "fg": "white"},
     "phpbenelux": {"bg": "#015074", "fg": "white"},
