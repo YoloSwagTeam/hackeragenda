@@ -4,6 +4,7 @@ import sys
 import json
 import calendar
 import requests
+import time
 
 from urllib2 import urlopen
 from datetime import datetime, date, timedelta
@@ -50,6 +51,7 @@ class Command(BaseCommand):
                 "bigdata_be",
                 "brussels_cassandra_users",
                 "brussels_wordpress",
+                "budalab",
                 "bxlug",
                 "constantvzw",
                 "docker_belgium",
@@ -194,6 +196,33 @@ def brussels_data_science_meetup(options):
 
 def brussels_wordpress(options):
     return generic_meetup("brussels_wordpress", "wp-bru", options)
+
+
+def budalab(options):
+    Event.objects.filter(source="budalab").delete()
+
+    now = int(time.time())
+    then = now + (60 * 60 * 24 * 14)
+    location = "Designregio Kortrijk, Broelkaai 1B, 8500 KORTRIJK"
+    data = json.load(urlopen("http://budalab.fikket.com/api2/events/calendar.json?start=%s&end=%s"%(now, then)))
+
+    for entry in data:
+        title = entry["title"]
+        start = datetime.strptime(entry["start"][:-6], "%Y-%m-%dT%H:%M:%S")
+        end = datetime.strptime(entry["end"][:-6], "%Y-%m-%dT%H:%M:%S")
+
+        Event.objects.create(
+            title=title,
+            source="budalab",
+            location = location,
+            url=entry["url"],
+            start=start,
+            end=end
+        )
+
+        if not options["quiet"]:
+            print "Adding %s [%s] (%s)..." % (title.encode("Utf-8"), "budalab", location.encode("Utf-8"))
+
 
 
 def bxlug(options):

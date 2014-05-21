@@ -12,6 +12,7 @@ COLORS = {
     "brussels_cassandra_users": {"bg": "#415A6C", "fg": "#CBE5F7"},
     "brussels_data_science_meetup": {"bg": "#CAD9EC", "fg": "black"},
     "brussels_wordpress": {"bg": "#0324C1", "fg": "white"},
+    "budalab": {"bg": "#FEED01", "fg": "black"},
     "bxlug": {"bg": "white", "fg": "#990000"},
     "constantvzw": {"bg": "#D2C7BA", "fg": "black"},
     "docker_belgium": {"bg": "#008FC4", "fg": "white"},
