@@ -402,7 +402,7 @@ def okfnbe(options):
     for event in data.walk()[1:]:
         if event.get("DTSTAMP"):
             title = str(event["SUMMARY"]) if event.get("SUMMARY") else  ""
-            url = "https://www.google.com/calendar/render?cid=%s" % (event["UID"])
+            url = str(event["URL"]) if event.get("URL") else ""
             start = str(event["DTSTART"].dt)  if event.get("DTSTART") else str(event["DTSTAMP"].dt)
             end = str(event["DTEND"].dt) if event.get("DTEND") else None
             location = event["LOCATION"]
