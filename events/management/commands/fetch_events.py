@@ -65,6 +65,7 @@ class Command(BaseCommand):
                 "opengarage",
                 "opentechschool",
                 "phpbenelux",
+                "relab",
                 "ruby_burgers",
                 "https://urlab.be/hackeragenda.json",
                 "voidwarranties",
@@ -423,6 +424,34 @@ def opentechschool(options):
 
 def phpbenelux(options):
     return generic_meetup("phpbenelux", "phpbenelux", options)
+
+
+def relab(options):
+
+    Event.objects.filter(source="relab").delete()
+    data = Calendar.from_ical(urlopen("https://www.google.com/calendar/ical/utmnk71g19dcs2d0f88q3hf528%40group.calendar.google.com/public/basic.ics").read())
+    for event in data.walk()[1:]:
+        if event.get("DTSTAMP"):
+            title = str(event["SUMMARY"]) if event.get("SUMMARY") else  ""
+            url = str(event["URL"]) if event.get("URL") else ""
+            start = str(event["DTSTART"].dt)  if event.get("DTSTART") else str(event["DTSTAMP"].dt)
+            end = str(event["DTEND"].dt) if event.get("DTEND") else None
+            location = event["LOCATION"]
+            #timezone removal, the crappy way
+            if len(start) > 10:
+               start = start[:-6]
+            if len(end) > 10:
+               end = end[:-6]
+            event = Event.objects.create(
+                title=title,
+                source="relab",
+                url=url,
+                start=start,
+                end=end,
+                location=location
+            )
+            if not options["quiet"]:
+                print "Adding %s [%s] (%s)..." % (title, "relab", location)
 
 
 def ruby_burgers(options):

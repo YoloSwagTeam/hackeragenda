@@ -27,6 +27,7 @@ COLORS = {
     "opengarage": {"bg": "DarkOrchid", "fg": "white"},
     "opentechschool": {"bg": "#3987CB", "fg": "white"},
     "phpbenelux": {"bg": "#015074", "fg": "white"},
+    "relab": {"bg":"#2BC884", "fg": "white"},
     "ruby_burgers": {"bg": "white", "fg": "#6F371F"},
     "urlab": {"bg": "pink", "fg": "black"},
     "voidwarranties": {"bg": "#25272C", "fg": "#C58723"},
