@@ -207,8 +207,8 @@ def budalab(options):
 
     for entry in data:
         title = entry["title"]
-        start = datetime.strptime(entry["start"], "%Y-%m-%dT%H:%M:%S+02:00")
-        end = datetime.strptime(entry["end"], "%Y-%m-%dT%H:%M:%S+02:00")
+        start = datetime.strptime(entry["start"][:-6], "%Y-%m-%dT%H:%M:%S")
+        end = datetime.strptime(entry["end"][:-6], "%Y-%m-%dT%H:%M:%S")
 
         Event.objects.create(
             title=title,
