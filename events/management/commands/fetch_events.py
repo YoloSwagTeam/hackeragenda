@@ -403,7 +403,7 @@ def okfnbe(options):
     for event in data.walk()[1:]:
         if event.get("DTSTAMP"):
             title = str(event["SUMMARY"]) if event.get("SUMMARY") else  ""
-            url = str(event["URL"]) if event.get("URL") else ""
+            url = (str(event["URL"]) if str(event["URL"]).startswith("http") else "http://" + str(event["URL"])) if event.get("URL") else "http://okfn.be/"
             start = str(event["DTSTART"].dt)  if event.get("DTSTART") else str(event["DTSTAMP"].dt)
             end = str(event["DTEND"].dt) if event.get("DTEND") else None
             location = event["LOCATION"]
