@@ -224,7 +224,6 @@ def budalab(options):
             print "Adding %s [%s] (%s)..." % (title.encode("Utf-8"), "budalab", location.encode("Utf-8"))
 
 
-
 def bxlug(options):
     Event.objects.filter(source="bxlug").delete()
 
