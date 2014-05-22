@@ -8,6 +8,7 @@ COLORS = {
     "belgian_puppet_user_group": {"bg": "#7B6DB0", "fg": "white"},
     "bescala": {"bg": "#FEE63C", "fg": "#000000"},
     "bigdata_be": {"bg": "black", "fg": "white"},
+    "blender_brussels": {"bg": "#828282", "fg": "white"},
     "bhackspace": {"bg": "DarkGoldenRod", "fg": "white"},
     "brussels_cassandra_users": {"bg": "#415A6C", "fg": "#CBE5F7"},
     "brussels_data_science_meetup": {"bg": "#CAD9EC", "fg": "black"},

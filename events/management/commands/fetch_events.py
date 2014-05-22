@@ -49,6 +49,7 @@ class Command(BaseCommand):
                 "bescala",
                 "bhackspace",
                 "bigdata_be",
+                "blender_brussels",
                 "brussels_cassandra_users",
                 "brussels_wordpress",
                 "budalab",
@@ -184,6 +185,26 @@ def bhackspace(options):
 
 def bigdata_be(options):
     return generic_meetup("bigdata_be", "bigdatabe", options)
+
+
+def blender_brussels(options):
+    Event.objects.filter(source="blender_brussels").delete()
+    soup = BeautifulSoup(urlopen("https://blender-brussels.github.io/"))
+
+    for entry in soup("article", attrs={"class":None}):
+        start = entry.find("time")
+        title = entry.text
+        url = entry.find("a")["href"]
+        start = datetime.strptime(entry.find("time")["datetime"][:-6], "%Y-%m-%dT%H:%M:%S")
+
+        Event.objects.create(
+            title=title,
+            source="blender_brussels",
+            url=url,
+            start=start
+        )
+        if not options["quiet"]:
+            print "Adding %s [%s] ..." % (title.encode("Utf-8"), "blender_brussels")
 
 
 def brussels_cassandra_users(options):
