@@ -396,9 +396,10 @@ def neutrinet(options):
 
 
 def okfnbe(options):
-
     Event.objects.filter(source="okfnbe").delete()
+
     data = Calendar.from_ical(urlopen("https://www.google.com/calendar/ical/sv07fu4vrit3l8nb0jlo8v7n80@group.calendar.google.com/public/basic.ics").read())
+
     for event in data.walk()[1:]:
         if event.get("DTSTAMP"):
             title = str(event["SUMMARY"]) if event.get("SUMMARY") else  ""
@@ -424,6 +425,8 @@ def okfnbe(options):
 
             if not options["quiet"]:
                 print "Adding %s [%s] (%s)..." % (title, "okfnbe", location)
+
+
 def okno(options):
     Event.objects.filter(source="okno").delete()
     soup = BeautifulSoup(urlopen("http://www.okno.be/events/").read())
