@@ -8,6 +8,8 @@ import time
 
 from urllib2 import urlopen
 from datetime import datetime, date, timedelta
+from collections import OrderedDict
+
 from BeautifulSoup import BeautifulSoup
 from dateutil.parser import parse
 from icalendar import Calendar
@@ -19,10 +21,8 @@ from django.core.management.base import BaseCommand
 from django.db import transaction
 from events.models import Event
 
-# Needed for BxLUG
-reload(sys)
-sys.setdefaultencoding("utf-8")
 
+SOURCES_FUNCTIONS = OrderedDict()
 
 class Command(BaseCommand):
     option_list = BaseCommand.option_list + (
@@ -34,134 +34,128 @@ class Command(BaseCommand):
     )
 
     def handle(self, *args, **options):
-        if args:
-            sources = args
-        else:
-            sources = [
-                "afpyro",
-                "agenda_du_libre_be",
-                "agile_belgium",
-                "aws_user_group_belgium",
-                "belgian_angularjs",
-                "belgian_nodejs_user_group",
-                "belgian_puppet_user_group",
-                "brussels_data_science_meetup",
-                "bescala",
-                "bhackspace",
-                "bigdata_be",
-                "blender_brussels",
-                "brussels_cassandra_users",
-                "brussels_wordpress",
-                "budalab",
-                "bxlug",
-                "constantvzw",
-                "docker_belgium",
-                "ember_js_brussels",
-                "foam",
-                "hsbxl",
-                "incubhacker",
-                "laravel_brussels",
-                "les_mardis_de_l_agile",
-                "mongodb_belgium",
-                "neutrinet",
-                "okfnbe",
-                "okno",
-                "opengarage",
-                "opentechschool",
-                "owaspbe",
-                "phpbenelux",
-                "relab",
-                "ruby_burgers",
-                "https://urlab.be/hackeragenda.json",
-                "voidwarranties",
-                "webrtc",
-                "whitespace",
-                # "wolfplex",
-            ]
+        def create_event(**detail):
+            res = Event.objects.create(source=source, **detail)
+            if not options.get('quiet', True):
+                print "[%s] %s (%s)"%(res.source, res.title, res.start)
+            return res
+
+        sources = SOURCES_FUNCTIONS.keys() if not args else args
 
         for source in sources:
             try:
                 with transaction.commit_on_success():
-                    if source.startswith(('http://', 'https://')):
-                        json_api(source, options)
-                        continue
+                    Event.objects.filter(source=source).delete()
+                    SOURCES_FUNCTIONS[source](create_event)
+                    if not options.get('quiet', True):
+                        print " === Finished for " + source
 
-                    if source not in globals():
-                        print >>sys.stderr, "Error: %s is not an available source" % source
-                        return
-
-                    globals()[source](options)
             except Exception as e:
                 import traceback
                 traceback.print_exc(file=sys.stdout)
                 print e
 
 
-def afpyro(options={}):
-    # clean events
-    Event.objects.filter(source="afpyro").delete()
+def event_source(func, org_name=None):
+    """https://www.youtube.com/watch?v=8CoGDjtBtVE"""
+    if org_name is None:
+        org_name = func.__name__.lower()
 
+    print("Event source detected: " + org_name)
+    SOURCES_FUNCTIONS[org_name] = func
+    return func
+
+
+def json_api(org_name, url):
+    def fetch(create_event):
+        """
+        Generic function to add events from an urls respecting the json api
+        """
+        data = json.load(urlopen(url))
+        for event in data['events']:
+            create_event(
+                title=event['title'],
+                url=event['url'],
+                start=parse(event['start']).replace(tzinfo=None),
+                end=parse(event['end']).replace(tzinfo=None) if 'end' in event else None,
+                all_day=event['all_day'] if 'all_day' in event else None,
+                location=event['location'] if 'location' in event else None,
+            )
+    return event_source(fetch, org_name)
+
+
+def generic_meetup(org_name, meetup_name):
+    def fetch(create_event):
+        data = Calendar.from_ical(requests.get("http://www.meetup.com/{}/events/ical/".format(meetup_name)).content)
+
+        for event in data.walk():
+            if not isinstance(event, icalendarEvent):
+                continue
+
+            title = event.get("SUMMARY", None)
+            start = event.get("DTSTART", None)
+
+            if None in (title, start):
+                continue
+
+            if event.get("URL") and Event.objects.filter(url=event["url"]):
+                continue
+
+            create_event(
+                title=title.encode("Utf-8"),
+                url=event.get("URL", ""),
+                start=start.dt.replace(tzinfo=None),
+                location=event.get("LOCATION", "").encode("Utf-8")
+            )
+    return event_source(fetch, org_name)
+
+
+@event_source
+def afpyro(create_event):
     soup = BeautifulSoup(urlopen("http://afpyro.afpy.org/").read())
     filtering = lambda x: x['href'][:7] == '/dates/' and '(BE)' in x.text
     for link in filter(filtering, soup('a')):
         datetuple = map(int, link['href'].split('/')[-1].split('.')[0].split('_'))
-        event = Event.objects.create(
-            title=link.text,
-            source="afpyro",
-            url="http://afpyro.afpy.org" + link['href'],
-            start=datetime(*datetuple)
+        create_event(
+            title=link.text, 
+            start=datetime(*datetuple), 
+            url="http://afpyro.afpy.org" + link['href']
         )
-        if not options['quiet']:
-            print "Adding %s [%s]" % (event.title.encode("Utf-8"), event.source)
 
 
-def agenda_du_libre_be(options):
-    # clean events
-    Event.objects.filter(source="agenda_du_libre_be").delete()
-
+@event_source
+def agenda_du_libre_be(create_event):
     data = Calendar.from_ical(urlopen("http://www.agendadulibre.be/ical.php?region=all").read())
 
     for event in data.walk()[1:]:
-        Event.objects.create(
+        create_event(
             title=event["SUMMARY"].encode("Utf-8"),
-            source="agenda_du_libre_be",
             url=event["URL"],
             start=event["DTSTART"].dt.replace(tzinfo=None),
             location=event["LOCATION"].encode("Utf-8")
         )
 
-        if not options["quiet"]:
-            print "Adding %s [%s] (%s)..." % (event["SUMMARY"].encode("Utf-8"), "agenda_du_libre_be", event["LOCATION"].encode("Utf-8"))
+
+generic_meetup("agile_belgium", "Agile-Belgium")
 
 
-def agile_belgium(options):
-    return generic_meetup("agile_belgium", "Agile-Belgium", options)
+generic_meetup("aws_user_group_belgium", "AWS-User-Group-Belgium")
 
 
-def aws_user_group_belgium(options):
-    return generic_meetup("aws_user_group_belgium", "AWS-User-Group-Belgium", options)
+generic_meetup("belgian_angularjs", "The-Belgian-AngularJS-Meetup-Group")
 
 
-def belgian_angularjs(options):
-    return generic_meetup("belgian_angularjs", "The-Belgian-AngularJS-Meetup-Group", options)
+generic_meetup("belgian_nodejs_user_group", "Belgian-node-js-User-Group")
 
 
-def belgian_nodejs_user_group(options):
-    return generic_meetup("belgian_nodejs_user_group", "Belgian-node-js-User-Group", options)
+generic_meetup("belgian_puppet_user_group", "Belgian-Puppet-User-Group")
 
 
-def belgian_puppet_user_group(options):
-    return generic_meetup("belgian_puppet_user_group", "Belgian-Puppet-User-Group", options)
+generic_meetup("bescala", "BeScala")
 
 
-def bescala(options):
-    return generic_meetup("bescala", "BeScala", options)
-
-
-def bhackspace(options):
-    # clean events
-    Event.objects.filter(source="bhackspace").delete()
-
+@event_source
+def bhackspace(create_event):
     soup = BeautifulSoup(urlopen("http://wiki.bhackspace.be/index.php/Main_Page").read())
 
     if soup.table.find('table', 'table') is None:
@@ -173,24 +167,18 @@ def bhackspace(options):
         start = parse(event('td')[1].text)
         location = event('td')[2].text
 
-        Event.objects.create(
+        create_event(
             title=title,
-            source="bhackspace",
             url=url,
             start=start,
             location=location.strip() if location else None
         )
 
-        if not options["quiet"]:
-            print "Adding %s [%s] (%s)..." % (title.encode("Utf-8"), "bhackspace", location.encode("Utf-8"))
+generic_meetup("bigdata_be", "bigdatabe")
 
 
-def bigdata_be(options):
-    return generic_meetup("bigdata_be", "bigdatabe", options)
-
-
-def blender_brussels(options):
-    Event.objects.filter(source="blender_brussels").delete()
+@event_source
+def blender_brussels(create_event):
     soup = BeautifulSoup(urlopen("https://blender-brussels.github.io/"))
 
     for entry in soup("article", attrs={"class":None}):
@@ -199,31 +187,24 @@ def blender_brussels(options):
         url = entry.find("a")["href"]
         start = datetime.strptime(entry.find("time")["datetime"][:-6], "%Y-%m-%dT%H:%M:%S")
 
-        Event.objects.create(
+        create_event(
             title=title,
-            source="blender_brussels",
             url=url,
             start=start
         )
-        if not options["quiet"]:
-            print "Adding %s [%s] ..." % (title.encode("Utf-8"), "blender_brussels")
 
 
-def brussels_cassandra_users(options):
-    return generic_meetup("brussels_cassandra_users", "Brussels-Cassandra-Users", options)
+generic_meetup("brussels_cassandra_users", "Brussels-Cassandra-Users")
 
 
-def brussels_data_science_meetup(options):
-    return generic_meetup("brussels_data_science_meetup", "Brussels-Data-Science-Community-Meetup", options)
+generic_meetup("brussels_data_science_meetup", "Brussels-Data-Science-Community-Meetup")
 
 
-def brussels_wordpress(options):
-    return generic_meetup("brussels_wordpress", "wp-bru", options)
+generic_meetup("brussels_wordpress", "wp-bru")
 
 
-def budalab(options):
-    Event.objects.filter(source="budalab").delete()
-
+@event_source
+def budalab(create_event):
     now = int(time.time())
     then = now + (60 * 60 * 24 * 14)
     location = "Designregio Kortrijk, Broelkaai 1B, 8500 KORTRIJK"
@@ -234,22 +215,17 @@ def budalab(options):
         start = datetime.strptime(entry["start"][:-6], "%Y-%m-%dT%H:%M:%S")
         end = datetime.strptime(entry["end"][:-6], "%Y-%m-%dT%H:%M:%S")
 
-        Event.objects.create(
+        create_event(
             title=title,
-            source="budalab",
             location = location,
             url=entry["url"],
             start=start,
             end=end
         )
 
-        if not options["quiet"]:
-            print "Adding %s [%s] (%s)..." % (title.encode("Utf-8"), "budalab", location.encode("Utf-8"))
 
-
-def bxlug(options):
-    Event.objects.filter(source="bxlug").delete()
-
+@event_source
+def bxlug(create_event):
     soup = BeautifulSoup(urlopen("http://www.bxlug.be/spip.php?page=agenda-zpip"))
     for entry in soup('article', 'evenement'):
         # [:-1] => ignore timezones, because sqlite doesn't seem to like it
@@ -257,21 +233,16 @@ def bxlug(options):
         end = parse(entry('meta', itemprop='endDate')[0]['content'][:-1])
         title = entry('span', itemprop='name')[0].text
         url = "http://www.bxlug.be/" + entry('a', itemprop='url')[0]['href']
-        event = Event.objects.create(
+        create_event(
             title=title,
-            source="bxlug",
             url=url,
             start=start,
             end=end
         )
 
-        if not options["quiet"]:
-            print "Adding %s [%s]" % (event.title, event.source)
 
-
-def constantvzw(options):
-    Event.objects.filter(source="constantvzw").delete()
-
+@event_source
+def constantvzw(create_event):
     soup = BeautifulSoup(urlopen("http://www.constantvzw.org/site/").read())
 
     for event in soup.find("div", id="flow")("div", recursive=False)[:-1]:
@@ -299,30 +270,23 @@ def constantvzw(options):
             start = parse(time).replace(tzinfo=None)
             end = None
 
-        Event.objects.create(
+        create_event(
             title=title,
-            source="constantvzw",
             url=url,
             start=start,
             end=end,
             location=location.strip() if location else None
         )
 
-        if not options["quiet"]:
-            print "Adding %s [%s] (%s)..." % (title.encode("Utf-8"), "constantvzw", location.encode("Utf-8") if location else "")
+
+generic_meetup("docker_belgium", "Docker-Belgium")
 
 
-def docker_belgium(options):
-    return generic_meetup("docker_belgium", "Docker-Belgium", options)
+generic_meetup("ember_js_brussels", "Ember-js-Brussels")
 
 
-def ember_js_brussels(options):
-    return generic_meetup("ember_js_brussels", "Ember-js-Brussels", options)
-
-
-def foam(options):
-    Event.objects.filter(source="foam").delete()
-
+@event_source
+def foam(create_event):
     soup = BeautifulSoup(urlopen("http://fo.am/events/").read())
 
     for line in soup.find('table', 'eventlist')('tr')[1:]:
@@ -336,9 +300,8 @@ def foam(options):
         else:
             start, end = dates[0], None
 
-        event = Event.objects.create(
+        event = create_event(
             title=title.text,
-            source="foam",
             url='http://fo.am' + link,
             start=start,
             end=end
@@ -347,22 +310,16 @@ def foam(options):
         if "FoAM Apéro" in event.title:
             event.tags.add("meeting")
 
-        if not options["quiet"]:
-            print "Adding %s [foam]" % title.text.encode("Utf-8")
 
-
-def hsbxl(options):
-    # clean events
-    Event.objects.filter(source="hsbxl").delete()
-
+@event_source
+def hsbxl(create_event):
     today = date.today() - timedelta(days=6 * 30)
 
     data = json.load(urlopen("https://hackerspace.be/Special:Ask/-5B-5BCategory:TechTue-7C-7CEvent-5D-5D-20-5B-5BEnd-20date::-3E%s-2D%s-2D%s-20-5D-5D/-3FStart-20date/-3FEnd-20date/-3FLocation/format%%3Djson/sort%%3D-5BStart-20date-5D/order%%3Dasc/offset%%3D0'" % (today.year, today.month, today.day)))
 
     for event in data["results"].values():
-        db_event = Event.objects.create(
+        db_event = create_event(
             title=event["fulltext"],
-            source="hsbxl",
             url=event["fullurl"],
             start=datetime.fromtimestamp(int(event["printouts"]["Start date"][0])),
             end=datetime.fromtimestamp(int(event["printouts"]["End date"][0])),
@@ -372,14 +329,9 @@ def hsbxl(options):
         if "TechTue" in event["fulltext"]:
             db_event.tags.add("meeting")
 
-        if not options["quiet"]:
-            print "Adding %s [%s] (%s)..." % (event["fulltext"].encode("Utf-8"), "hsbxl", event["printouts"]["Location"][0]["fulltext"].encode("Utf-8"))
 
-
-def incubhacker(options):
-    # clean events
-    Event.objects.filter(source="incubhacker").delete()
-
+@event_source
+def incubhacker(create_event):
     now = calendar.timegm(datetime.now().utctimetuple())
 
     # 2 magics numbers are from a reverse of the incubhacker calendar api
@@ -389,9 +341,8 @@ def incubhacker(options):
         start = parse(event["start"]).replace(tzinfo=None)
         end = parse(event["end"]).replace(tzinfo=None)
 
-        event = Event.objects.create(
+        event = create_event(
             title=title,
-            source="incubhacker",
             url=url,
             start=start,
             end=end
@@ -400,26 +351,18 @@ def incubhacker(options):
         if event.title.strip() in ("INCUBHACKER", "Réunion normale"):
             event.tags.add("meeting")
 
-        if not options["quiet"]:
-            print "Adding %s [%s] (%s)..." % (title.encode("Utf-8"), "incubhacker", "")
+
+generic_meetup("laravel_brussels", "Laravel-Brussels")
 
 
-def laravel_brussels(options):
-    return generic_meetup("laravel_brussels", "Laravel-Brussels", options)
+generic_meetup("les_mardis_de_l_agile", "Les-mardis-de-lagile-Bruxelles")
 
 
-def les_mardis_de_l_agile(options):
-    return generic_meetup("les_mardis_de_l_agile", "Les-mardis-de-lagile-Bruxelles", options)
+generic_meetup("mongodb_belgium", "MongoDB-Belgium")
 
 
-def mongodb_belgium(options):
-    return generic_meetup("mongodb_belgium", "MongoDB-Belgium", options)
-
-
-def neutrinet(options):
-    # clean events
-    Event.objects.filter(source="neutrinet").delete()
-
+@event_source
+def neutrinet(create_event):
     soup = BeautifulSoup(urlopen("http://neutrinet.be/index.php?title=Main_Page").read())
 
     if not soup.table.table.tr.find('table', 'wikitable'):
@@ -431,9 +374,8 @@ def neutrinet(options):
         start = parse(event[1].text)
         location = event[2].text
 
-        event = Event.objects.create(
+        event = create_event(
             title=title,
-            source="neutrinet",
             url=url,
             start=start,
             location=location.strip() if location else None
@@ -442,13 +384,9 @@ def neutrinet(options):
         if "Meeting" in event.title:
             event.tags.add("meeting")
 
-        if not options["quiet"]:
-            print "Adding %s [%s] (%s)..." % (title.encode("Utf-8"), "neutrinet", location.encode("Utf-8"))
 
-
-def okfnbe(options):
-    Event.objects.filter(source="okfnbe").delete()
-
+@event_source
+def okfnbe(create_event):
     data = Calendar.from_ical(urlopen("https://www.google.com/calendar/ical/sv07fu4vrit3l8nb0jlo8v7n80@group.calendar.google.com/public/basic.ics").read())
 
     for event in data.walk()[1:]:
@@ -465,48 +403,38 @@ def okfnbe(options):
             if len(end) > 10:
                 end = end[:-6]
 
-            event = Event.objects.create(
+            event = create_event(
                 title=title,
-                source="okfnbe",
                 url=url,
                 start=start,
                 end=end,
                 location=location
             )
 
-            if not options["quiet"]:
-                print "Adding %s [%s] (%s)..." % (title, "okfnbe", location)
 
-
-def okno(options):
-    Event.objects.filter(source="okno").delete()
+@event_source
+def okno(create_event):
     soup = BeautifulSoup(urlopen("http://www.okno.be/events/").read())
 
     for entry in soup('div', 'switch-events'):
         datetuple = map(int, entry('span', 'date-display-single')[0].text.split('.'))
         title = entry('span', 'field-content')[0].text
         link = "http://www.okno.be" + entry('a')[0]['href']
-        Event.objects.create(
+        create_event(
             title=title,
-            source="okno",
             url=link,
             start=datetime(*datetuple)
         )
 
-        if not options["quiet"]:
-            print "Adding %s [okno]" % (title.encode("Utf-8"))
+
+generic_meetup("opengarage", "OpenGarage")
 
 
-def opengarage(options):
-    return generic_meetup("opengarage", "OpenGarage", options)
+generic_meetup("opentechschool", "OpenTechSchool-Brussels")
 
 
-def opentechschool(options):
-    return generic_meetup("opentechschool", "OpenTechSchool-Brussels", options)
-
-
-def owaspbe(options):
-    Event.objects.filter(source="owaspbe").delete()
+@event_source
+def owaspbe(create_event):
     soup = BeautifulSoup(urlopen("http://www.eventbrite.com/o/owasp-belgium-chapter-1865700117").read())
 
     for event in soup.findAll("div", attrs= {"class" : "event_row vevent clrfix"}):
@@ -516,24 +444,20 @@ def owaspbe(options):
         end = event.find("span", attrs = {"class" : "dtend microformats_only"}).text
         url = event.find("a", attrs = {"class" : "url"})['href']
 
-        Event.objects.create(
+        create_event(
             title=title,
-            source="owaspbe",
             start=start,
             end=end,
             url=url,
             location=location
         )
-        if not options["quiet"]:
-            print "Adding %s [owaspbe]" % (title.encode("Utf-8"))
-
-def phpbenelux(options):
-    return generic_meetup("phpbenelux", "phpbenelux", options)
 
 
-def relab(options):
+generic_meetup("phpbenelux", "phpbenelux")
 
-    Event.objects.filter(source="relab").delete()
+
+@event_source
+def relab(create_event):
     data = Calendar.from_ical(urlopen("https://www.google.com/calendar/ical/utmnk71g19dcs2d0f88q3hf528%40group.calendar.google.com/public/basic.ics").read())
     for event in data.walk()[1:]:
         if event.get("DTSTAMP"):
@@ -547,26 +471,23 @@ def relab(options):
                start = start[:-6]
             if len(end) > 10:
                end = end[:-6]
-            event = Event.objects.create(
+            event = create_event(
                 title=title,
-                source="relab",
                 url=url,
                 start=start,
                 end=end,
                 location=location
             )
-            if not options["quiet"]:
-                print "Adding %s [%s] (%s)..." % (title, "relab", location)
 
 
-def ruby_burgers(options):
-    return generic_meetup("ruby_burgers", "ruby_burgers-rb", options)
+generic_meetup("ruby_burgers", "ruby_burgers-rb")
 
 
-def voidwarranties(options):
-    # clean events
-    Event.objects.filter(source="voidwarranties").delete()
+json_api("urlab", "https://urlab.be/hackeragenda.json")
 
+
+@event_source
+def voidwarranties(create_event):
     data = Calendar.from_ical(urlopen("http://voidwarranties.be/index.php/Special:Ask/-5B-5BCategory:Events-5D-5D/-3FHas-20start-20date=start/-3FHas-20end-20date=end/-3FHas-20coordinates=location/format=icalendar/title=VoidWarranties/description=Events-20at-20http:-2F-2Fvoidwarranties.be/limit=500").read())
 
     for event in data.walk()[1:]:
@@ -575,26 +496,19 @@ def voidwarranties(options):
         start = event["DTSTART"].dt if event.get("DTSTART") else event["DTSTAMP"].dt
         end = event["DTEND"].dt if event.get("DTSTART") else None
 
-        Event.objects.create(
+        create_event(
             title=title,
-            source="voidwarranties",
             url=url,
             start=start,
             end=end
         )
 
-        if not options["quiet"]:
-            print "Adding %s [%s] (%s)..." % (title.encode("Utf-8"), "voidwarranties", "")
+
+generic_meetup("webrtc", "WebRTC-crossingborders")
 
 
-def webrtc(options):
-    return generic_meetup("webrtc", "WebRTC-crossingborders", options)
-
-
-def whitespace(options):
-    # clean events
-    Event.objects.filter(source="whitespace").delete()
-
+@event_source
+def whitespace(create_event):
     soup = BeautifulSoup(urlopen("http://www.0x20.be/Main_Page").read())
 
     for event in soup.ul('li'):
@@ -609,27 +523,19 @@ def whitespace(options):
             end = None
         location = event('a')[1].text
 
-        Event.objects.create(
+        create_event(
             title=title,
-            source="whitespace",
             url=url,
             start=start,
             end=end,
             location=location.strip() if location else None
         )
 
-        if not options["quiet"]:
-            print "Adding %s [%s] (%s)..." % (title.encode("Utf-8"), "whitespace", location.encode("Utf-8"))
 
-
-def wolfplex(options):
-    # clean events
-    Event.objects.filter(source="wolfplex").delete()
-
+@event_source
+def wolfplex(create_event):
     html_parser = HTMLParser()
-
     soup = BeautifulSoup(urlopen("http://www.wolfplex.org/wiki/Main_Page").read())
-
     events = soup.find("div", id="accueil-agenda").dl
 
     for date_info, event in zip(events('dt'), events('dd')[1::2]):
@@ -646,67 +552,9 @@ def wolfplex(options):
         else:
             location = None
 
-        Event.objects.create(
+        create_event(
             title=title,
-            source="wolfplex",
             url=url,
             start=start,
             location=location
         )
-
-        if not options["quiet"]:
-            print "Adding %s [%s] (%s)..." % (title.encode("Utf-8"), "wolfplex", location.encode("Utf-8") if location else "")
-
-
-def json_api(url, options):
-    """
-    Generic function to add events from an urls respecting the json api
-    """
-    data = json.load(urlopen(url))
-
-    # clean events
-    Event.objects.filter(source=data['org']).delete()
-
-    for event in data['events']:
-        Event.objects.create(
-            title=event['title'],
-            source=data['org'],
-            url=event['url'],
-            start=parse(event['start']).replace(tzinfo=None),
-            end=parse(event['end']).replace(tzinfo=None) if 'end' in event else None,
-            all_day=event['all_day'] if 'all_day' in event else None,
-            location=event['location'] if 'location' in event else None,
-        )
-
-        if not options["quiet"]:
-            print "Adding %s [%s] (%s)..." % (event['title'].encode("Utf-8"), data['org'], event.get('location', '').encode("Utf-8"))
-
-
-def generic_meetup(source, meetup_name, options):
-    Event.objects.filter(source=source, start__gte=datetime.now()).delete()
-
-    data = Calendar.from_ical(requests.get("http://www.meetup.com/{}/events/ical/".format(meetup_name)).content)
-
-    for event in data.walk():
-        if not isinstance(event, icalendarEvent):
-            continue
-
-        title = event.get("SUMMARY", None)
-        start = event.get("DTSTART", None)
-
-        if None in (title, start):
-            continue
-
-        if event.get("URL") and Event.objects.filter(url=event["url"]):
-            continue
-
-        Event.objects.create(
-            title=title.encode("Utf-8"),
-            source=source,
-            url=event.get("URL", ""),
-            start=start.dt.replace(tzinfo=None),
-            location=event.get("LOCATION", "").encode("Utf-8")
-        )
-
-        if not options["quiet"]:
-            print "Adding %s [%s] (%s)..." % (title.encode("Utf-8"), source, event.get("LOCATION", "").encode("Utf-8"))
