@@ -37,6 +37,12 @@ class Command(BaseCommand):
     )
 
     def handle(self, *args, **options):
+        def create_event(**detail):
+            res = Event.objects.create(source=source, **detail)
+            if not options.get('quiet', True):
+                print "[%s] %s (%s)"%(res.source, res.title, res.start)
+            return res
+
         if args:
             sources = args
         else:
@@ -44,7 +50,12 @@ class Command(BaseCommand):
 
         for source in sources:
             try:
-                SOURCES[source](options)
+                with transaction.commit_on_success():
+                    Event.objects.filter(source=source).delete()
+                    SOURCES[source](create_event)
+                    if not options.get('quiet', True):
+                        print " === Finished for " + source
+
             except Exception as e:
                 import traceback
                 traceback.print_exc(file=sys.stdout)
@@ -53,28 +64,12 @@ class Command(BaseCommand):
 
 def event_source(func, org_name=None):
     """https://www.youtube.com/watch?v=8CoGDjtBtVE"""
-
     if org_name is None:
         org_name = func.__name__.lower()
 
     print("Event source detected: "+org_name)
-
-    def wrapper(options={}):
-        def create_event(**detail):
-            res = Event.objects.create(source=org_name, **detail)
-            if not options.get('quiet', True):
-                print "[%s] %s (%s)"%(res.source, res.title, res.start)
-            return res
-
-        with transaction.commit_on_success():
-            Event.objects.filter(source=org_name).delete()
-            func(create_event)
-            if not options.get('quiet', True):
-                print " === Finished for "+org_name
-
-    SOURCES[org_name] = wrapper
-
-    return wrapper
+    SOURCES[org_name] = func
+    return func
 
 def json_api(org_name, url):
     def fetch(create_event):
