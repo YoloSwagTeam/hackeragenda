@@ -8,6 +8,8 @@ import time
 
 from urllib2 import urlopen
 from datetime import datetime, date, timedelta
+from collections import OrderedDict
+
 from BeautifulSoup import BeautifulSoup
 from dateutil.parser import parse
 from icalendar import Calendar
@@ -19,13 +21,10 @@ from django.core.management.base import BaseCommand
 from django.db import transaction
 from events.models import Event
 
-# Needed for BxLUG
-reload(sys)
-sys.setdefaultencoding("utf-8")
+
+SOURCES_FUNCTIONS = OrderedDict()
 
 class Command(BaseCommand):
-    SOURCES = {}
-
     option_list = BaseCommand.option_list + (
         make_option('--quiet',
             action='store_true',
@@ -35,14 +34,22 @@ class Command(BaseCommand):
     )
 
     def handle(self, *args, **options):
-        if args:
-            sources = args
-        else:
-            sources = self.SOURCES
+        def create_event(**detail):
+            res = Event.objects.create(source=source, **detail)
+            if not options.get('quiet', True):
+                print "[%s] %s (%s)"%(res.source, res.title, res.start)
+            return res
+
+        sources = SOURCES_FUNCTIONS.keys() if not args else args
 
         for source in sources:
             try:
-                self.SOURCES[source](options)
+                with transaction.commit_on_success():
+                    Event.objects.filter(source=source).delete()
+                    SOURCES_FUNCTIONS[source](create_event)
+                    if not options.get('quiet', True):
+                        print " === Finished for " + source
+
             except Exception as e:
                 import traceback
                 traceback.print_exc(file=sys.stdout)
@@ -51,22 +58,13 @@ class Command(BaseCommand):
 
 def event_source(func, org_name=None):
     """https://www.youtube.com/watch?v=8CoGDjtBtVE"""
-    if not org_name:
+    if org_name is None:
         org_name = func.__name__.lower()
-    print("Event source detected: "+org_name)
-    def wrapper(options={}):
-        def create_event(**detail):
-            res = Event.objects.create(source=org_name, **detail)
-            if not options.get('quiet', True):
-                print "[%s] %s (%s)"%(res.source, res.title, res.start)
-            return res
-        with transaction.commit_on_success():
-            Event.objects.filter(source=org_name).delete()
-            func(create_event)
-            if not options.get('quiet', True):
-                print " === Finished for "+org_name
-    Command.SOURCES[org_name] = wrapper
-    return wrapper
+
+    print("Event source detected: " + org_name)
+    SOURCES_FUNCTIONS[org_name] = func
+    return func
+
 
 def json_api(org_name, url):
     def fetch(create_event):
@@ -235,7 +233,7 @@ def bxlug(create_event):
         end = parse(entry('meta', itemprop='endDate')[0]['content'][:-1])
         title = entry('span', itemprop='name')[0].text
         url = "http://www.bxlug.be/" + entry('a', itemprop='url')[0]['href']
-        event = create_event(
+        create_event(
             title=title,
             url=url,
             start=start,
