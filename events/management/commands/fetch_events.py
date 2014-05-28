@@ -53,7 +53,7 @@ class Command(BaseCommand):
 
 def event_source(func, org_name=None):
     """https://www.youtube.com/watch?v=8CoGDjtBtVE"""
-    if not org_name:
+    if org_name is None:
         org_name = func.__name__.lower()
     print("Event source detected: "+org_name)
     def wrapper(options={}):
