@@ -8,6 +8,7 @@ import time
 
 from urllib2 import urlopen
 from datetime import datetime, date, timedelta
+
 from BeautifulSoup import BeautifulSoup
 from dateutil.parser import parse
 from icalendar import Calendar
