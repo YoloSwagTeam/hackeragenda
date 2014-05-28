@@ -64,7 +64,7 @@ def event_source(func, org_name=None):
     if org_name is None:
         org_name = func.__name__.lower()
 
-    print("Event source detected: "+org_name)
+    print("Event source detected: " + org_name)
     SOURCES_FUNCTIONS[org_name] = func
     return func
 
