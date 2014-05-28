@@ -40,10 +40,7 @@ class Command(BaseCommand):
                 print "[%s] %s (%s)"%(res.source, res.title, res.start)
             return res
 
-        if args:
-            sources = args
-        else:
-            sources = SOURCES_FUNCTIONS.keys()
+        sources = SOURCES_FUNCTIONS.keys() if not args else args
 
         for source in sources:
             try:
