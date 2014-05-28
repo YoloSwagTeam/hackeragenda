@@ -25,7 +25,7 @@ from events.models import Event
 reload(sys)
 sys.setdefaultencoding("utf-8")
 
-SOURCES = OrderedDict()
+SOURCES_FUNCTIONS = OrderedDict()
 
 class Command(BaseCommand):
     option_list = BaseCommand.option_list + (
@@ -46,13 +46,13 @@ class Command(BaseCommand):
         if args:
             sources = args
         else:
-            sources = SOURCES
+            sources = SOURCES_FUNCTIONS
 
         for source in sources:
             try:
                 with transaction.commit_on_success():
                     Event.objects.filter(source=source).delete()
-                    SOURCES[source](create_event)
+                    SOURCES_FUNCTIONS[source](create_event)
                     if not options.get('quiet', True):
                         print " === Finished for " + source
 
@@ -68,7 +68,7 @@ def event_source(func, org_name=None):
         org_name = func.__name__.lower()
 
     print("Event source detected: "+org_name)
-    SOURCES[org_name] = func
+    SOURCES_FUNCTIONS[org_name] = func
     return func
 
 
