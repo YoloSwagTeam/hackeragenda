@@ -8,6 +8,7 @@ import time
 
 from urllib2 import urlopen
 from datetime import datetime, date, timedelta
+from collections import OrderedDict
 
 from BeautifulSoup import BeautifulSoup
 from dateutil.parser import parse
@@ -24,9 +25,9 @@ from events.models import Event
 reload(sys)
 sys.setdefaultencoding("utf-8")
 
-class Command(BaseCommand):
-    SOURCES = {}
+SOURCES = OrderedDict()
 
+class Command(BaseCommand):
     option_list = BaseCommand.option_list + (
         make_option('--quiet',
             action='store_true',
@@ -39,11 +40,11 @@ class Command(BaseCommand):
         if args:
             sources = args
         else:
-            sources = self.SOURCES
+            sources = SOURCES
 
         for source in sources:
             try:
-                self.SOURCES[source](options)
+                SOURCES[source](options)
             except Exception as e:
                 import traceback
                 traceback.print_exc(file=sys.stdout)
@@ -66,7 +67,9 @@ def event_source(func, org_name=None):
             func(create_event)
             if not options.get('quiet', True):
                 print " === Finished for "+org_name
-    Command.SOURCES[org_name] = wrapper
+
+    SOURCES[org_name] = wrapper
+
     return wrapper
 
 def json_api(org_name, url):
