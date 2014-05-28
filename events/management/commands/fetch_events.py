@@ -46,7 +46,7 @@ class Command(BaseCommand):
         if args:
             sources = args
         else:
-            sources = SOURCES_FUNCTIONS
+            sources = SOURCES_FUNCTIONS.keys()
 
         for source in sources:
             try:
