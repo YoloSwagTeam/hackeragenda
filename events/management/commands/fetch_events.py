@@ -71,6 +71,7 @@ def event_source(func, org_name=None):
     SOURCES[org_name] = func
     return func
 
+
 def json_api(org_name, url):
     def fetch(create_event):
         """
