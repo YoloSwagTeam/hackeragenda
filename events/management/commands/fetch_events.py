@@ -236,7 +236,7 @@ def bxlug(create_event):
         end = parse(entry('meta', itemprop='endDate')[0]['content'][:-1])
         title = entry('span', itemprop='name')[0].text
         url = "http://www.bxlug.be/" + entry('a', itemprop='url')[0]['href']
-        event = create_event(
+        create_event(
             title=title,
             url=url,
             start=start,
