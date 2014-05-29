@@ -42,7 +42,7 @@ class Command(BaseCommand):
         def create_event(**detail):
             res = Event.objects.create(source=source, text_color=COLORS[source]["fg"], border_color=COLORS[source]["bg"], **detail)
             if not options.get('quiet', True):
-                print "[%s] %s (%s)"%(res.source, res.title, res.start)
+                print "[%s] %s (%s)" % (res.source, res.title, res.start)
             return res
 
         sources = SOURCES_FUNCTIONS.keys() if not args else args
