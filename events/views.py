@@ -8,7 +8,7 @@ from django.views.generic import ListView, TemplateView
 from taggit.models import Tag
 
 from .models import Event
-from .colors import COLORS
+from .management.commands.fetch_events import COLORS
 from .utils import filter_events
 
 
@@ -41,7 +41,7 @@ def get_events_in_json(request):
 def event_to_fullcalendar_format(event):
     to_return = {
         "title": "%s [%s]" % (event.title, event.source),
-        "color": event.background_color,
+        "color": event.border_color,
         "textColor": event.text_color,
         "url": event.url,
     }
