@@ -70,6 +70,7 @@ def event_source(background_color, text_color):
         SOURCES_FUNCTIONS[org_name] = func
         COLORS[org_name] = {"bg": background_color, "fg": text_color}
         return func
+
     return event_source_wrapper
 
 
@@ -92,6 +93,7 @@ def json_api(org_name, url, background_color, text_color):
                 border_color=COLORS[org_name]["bg"],
                 text_color=COLORS[org_name]["fg"],
             )
+
     return event_source(fetch, org_name)
 
 
