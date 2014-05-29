@@ -66,7 +66,6 @@ def event_source(background_color, text_color):
         if org_name is None:
             org_name = func.__name__.lower()
 
-        print("Event source detected: " + org_name)
         SOURCES_FUNCTIONS[org_name] = func
         COLORS[org_name] = {"bg": background_color, "fg": text_color}
         return func
