@@ -74,8 +74,6 @@ def event_source(background_color, text_color):
 
 
 def json_api(org_name, url, background_color, text_color):
-    COLORS[org_name] = {"bg": background_color, "fg": text_color}
-
     def fetch(create_event):
         """
         Generic function to add events from an urls respecting the json api
@@ -95,8 +93,6 @@ def json_api(org_name, url, background_color, text_color):
 
 
 def generic_meetup(org_name, meetup_name, background_color, text_color):
-    COLORS[org_name] = {"bg": background_color, "fg": text_color}
-
     def fetch(create_event):
         data = Calendar.from_ical(requests.get("http://www.meetup.com/{}/events/ical/".format(meetup_name)).content)
 
