@@ -73,7 +73,9 @@ def event_source(background_color, text_color):
     return event_source_wrapper
 
 
-def json_api(org_name, url):
+def json_api(org_name, url, background_color, text_color):
+    COLORS[org_name] = {"bg": background_color, "fg": text_color}
+
     def fetch(create_event):
         """
         Generic function to add events from an urls respecting the json api
@@ -87,11 +89,15 @@ def json_api(org_name, url):
                 end=parse(event['end']).replace(tzinfo=None) if 'end' in event else None,
                 all_day=event['all_day'] if 'all_day' in event else None,
                 location=event['location'] if 'location' in event else None,
+                border_color=COLORS[org_name]["bg"],
+                text_color=COLORS[org_name]["fg"],
             )
     return event_source(fetch, org_name)
 
 
-def generic_meetup(org_name, meetup_name):
+def generic_meetup(org_name, meetup_name, background_color, text_color):
+    COLORS[org_name] = {"bg": background_color, "fg": text_color}
+
     def fetch(create_event):
         data = Calendar.from_ical(requests.get("http://www.meetup.com/{}/events/ical/".format(meetup_name)).content)
 
@@ -143,22 +149,22 @@ def agenda_du_libre_be(create_event):
         )
 
 
-generic_meetup("agile_belgium", "Agile-Belgium")
+generic_meetup("agile_belgium", "Agile-Belgium", background_color="#D2353A", text_color="white")
 
 
-generic_meetup("aws_user_group_belgium", "AWS-User-Group-Belgium")
+generic_meetup("aws_user_group_belgium", "AWS-User-Group-Belgium", background_color="#F8981D", text_color="white")
 
 
-generic_meetup("belgian_angularjs", "The-Belgian-AngularJS-Meetup-Group")
+generic_meetup("belgian_angularjs", "The-Belgian-AngularJS-Meetup-Group", background_color="#9D3532", text_color="white")
 
 
-generic_meetup("belgian_nodejs_user_group", "Belgian-node-js-User-Group")
+generic_meetup("belgian_nodejs_user_group", "Belgian-node-js-User-Group", background_color="#1D1D1D", text_color="white")
 
 
-generic_meetup("belgian_puppet_user_group", "Belgian-Puppet-User-Group")
+generic_meetup("belgian_puppet_user_group", "Belgian-Puppet-User-Group", background_color="#7B6DB0", text_color="white")
 
 
-generic_meetup("bescala", "BeScala")
+generic_meetup("bescala", "BeScala", background_color="#FEE63C", text_color="#000000")
 
 
 @event_source(background_color="DarkGoldenRod", text_color="white")
@@ -181,7 +187,7 @@ def bhackspace(create_event):
             location=location.strip() if location else None
         )
 
-generic_meetup("bigdata_be", "bigdatabe")
+generic_meetup("bigdata_be", "bigdatabe", background_color="black", text_color="white")
 
 
 @event_source(background_color="#828282", text_color="white")
@@ -201,13 +207,13 @@ def blender_brussels(create_event):
         )
 
 
-generic_meetup("brussels_cassandra_users", "Brussels-Cassandra-Users")
+generic_meetup("brussels_cassandra_users", "Brussels-Cassandra-Users", background_color="#415A6C", text_color="#CBE5F7")
 
 
-generic_meetup("brussels_data_science_meetup", "Brussels-Data-Science-Community-Meetup")
+generic_meetup("brussels_data_science_meetup", "Brussels-Data-Science-Community-Meetup", background_color="#CAD9EC", text_color="black")
 
 
-generic_meetup("brussels_wordpress", "wp-bru")
+generic_meetup("brussels_wordpress", "wp-bru", background_color="#0324C1", text_color="white")
 
 
 @event_source(background_color="#FEED01", text_color="black")
@@ -286,10 +292,10 @@ def constantvzw(create_event):
         )
 
 
-generic_meetup("docker_belgium", "Docker-Belgium")
+generic_meetup("docker_belgium", "Docker-Belgium", background_color="#008FC4", text_color="white")
 
 
-generic_meetup("ember_js_brussels", "Ember-js-Brussels")
+generic_meetup("ember_js_brussels", "Ember-js-Brussels", background_color="#FC745D", text_color="white")
 
 
 @event_source(background_color="#C9C4BF", text_color="black")
@@ -359,13 +365,13 @@ def incubhacker(create_event):
             event.tags.add("meeting")
 
 
-generic_meetup("laravel_brussels", "Laravel-Brussels")
+generic_meetup("laravel_brussels", "Laravel-Brussels", background_color="#FFFFFF", text_color="#FB503B")
 
 
-generic_meetup("les_mardis_de_l_agile", "Les-mardis-de-lagile-Bruxelles")
+generic_meetup("les_mardis_de_l_agile", "Les-mardis-de-lagile-Bruxelles", background_color="#37C2F1", text_color="black")
 
 
-generic_meetup("mongodb_belgium", "MongoDB-Belgium")
+generic_meetup("mongodb_belgium", "MongoDB-Belgium", background_color="#3EA86F", text_color="white")
 
 
 @event_source(background_color="DarkBlue", text_color="white")
@@ -434,10 +440,10 @@ def okno(create_event):
         )
 
 
-generic_meetup("opengarage", "OpenGarage")
+generic_meetup("opengarage", "OpenGarage", background_color="DarkOrchid", text_color="white")
 
 
-generic_meetup("opentechschool", "OpenTechSchool-Brussels")
+generic_meetup("opentechschool", "OpenTechSchool-Brussels", background_color="#3987CB", text_color="white")
 
 
 @event_source(background_color="#4366AF", text_color="white")
@@ -460,7 +466,7 @@ def owaspbe(create_event):
         )
 
 
-generic_meetup("phpbenelux", "phpbenelux")
+generic_meetup("phpbenelux", "phpbenelux", background_color="#015074", text_color="white")
 
 
 @event_source(background_color="#2BC884", text_color="white")
@@ -491,10 +497,10 @@ def relab(create_event):
             )
 
 
-generic_meetup("ruby_burgers", "ruby_burgers-rb")
+generic_meetup("ruby_burgers", "ruby_burgers-rb", background_color="white", text_color="#6F371F")
 
 
-json_api("urlab", "https://urlab.be/hackeragenda.json")
+json_api("urlab", "https://urlab.be/hackeragenda.json", background_color="pink", text_color="black")
 
 
 @event_source(background_color="#25272C", text_color="#C58723")
@@ -515,7 +521,7 @@ def voidwarranties(create_event):
         )
 
 
-generic_meetup("webrtc", "WebRTC-crossingborders")
+generic_meetup("webrtc", "WebRTC-crossingborders", background_color="#F99232", text_color="white")
 
 
 @event_source(background_color="white", text_color="black")
