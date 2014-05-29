@@ -90,8 +90,6 @@ def json_api(org_name, url, background_color, text_color):
                 end=parse(event['end']).replace(tzinfo=None) if 'end' in event else None,
                 all_day=event['all_day'] if 'all_day' in event else None,
                 location=event['location'] if 'location' in event else None,
-                border_color=COLORS[org_name]["bg"],
-                text_color=COLORS[org_name]["fg"],
             )
 
     return event_source(fetch, org_name)
