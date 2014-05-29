@@ -92,7 +92,7 @@ def json_api(org_name, url, background_color, text_color):
                 location=event['location'] if 'location' in event else None,
             )
 
-    return event_source(fetch, org_name)
+    return event_source(background_color, text_color)(fetch, org_name)
 
 
 def generic_meetup(org_name, meetup_name, background_color, text_color):
@@ -120,7 +120,8 @@ def generic_meetup(org_name, meetup_name, background_color, text_color):
                 start=start.dt.replace(tzinfo=None),
                 location=event.get("LOCATION", "").encode("Utf-8")
             )
-    return event_source(fetch, org_name)
+
+    return event_source(background_color, text_color)(fetch, org_name)
 
 
 @event_source(background_color="#133F52", text_color="#FFFFFF")
