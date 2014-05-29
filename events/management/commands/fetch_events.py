@@ -39,21 +39,12 @@ class Command(BaseCommand):
     )
 
     def handle(self, *args, **options):
-        def create_event(**detail):
-            res = Event.objects.create(source=source, text_color=COLORS[source]["fg"], border_color=COLORS[source]["bg"], **detail)
-            if not options.get('quiet', True):
-                print "[%s] %s (%s)" % (res.source, res.title, res.start)
-            return res
-
         sources = SOURCES_FUNCTIONS.keys() if not args else args
 
         for source in sources:
             try:
                 with transaction.commit_on_success():
-                    Event.objects.filter(source=source).delete()
-                    SOURCES_FUNCTIONS[source](create_event)
-                    if not options.get('quiet', True):
-                        print " === Finished for " + source
+                    SOURCES_FUNCTIONS[source](options.get('quiet', True))
 
             except Exception as e:
                 import traceback
@@ -63,12 +54,25 @@ class Command(BaseCommand):
 
 def event_source(background_color, text_color):
     def event_source_wrapper(func, org_name=None):
+        def fetch_events(quiet):
+            def create_event(**detail):
+                res = Event.objects.create(source=org_name, text_color=COLORS[org_name]["fg"], border_color=COLORS[org_name]["bg"], **detail)
+                if not quiet:
+                    print "[%s] %s (%s)" % (res.source, res.title, res.start)
+                return res
+
+            Event.objects.filter(source=org_name).delete()
+            func(create_event)
+            if not quiet:
+                print " === Finished for " + org_name
+
         if org_name is None:
             org_name = func.__name__.lower()
 
         COLORS[org_name] = {"bg": background_color, "fg": text_color}
 
-        SOURCES_FUNCTIONS[org_name] = func
+        SOURCES_FUNCTIONS[org_name] = fetch_events
+
         return func
 
     return event_source_wrapper
