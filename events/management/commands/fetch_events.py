@@ -558,7 +558,7 @@ def whitespace(create_event):
         )
 
 
-@event_source(background_color="#666661", text_color="black")
+# @event_source(background_color="#666661", text_color="black")
 def wolfplex(create_event):
     html_parser = HTMLParser()
     soup = BeautifulSoup(urlopen("http://www.wolfplex.org/wiki/Main_Page").read())
