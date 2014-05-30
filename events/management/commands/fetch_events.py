@@ -68,6 +68,7 @@ def event_source(background_color, text_color, key="url"):
                 Event.objects.filter(source=org_name).delete()
             else:
                 Event.objects.filter(source=org_name, start__gte=datetime.now())
+                Event.objects.filter(source=org_name).update(border_color=COLORS[org_name]["bg"], text_color=COLORS[org_name]["fg"])
 
             func(create_event)
             if not quiet:
