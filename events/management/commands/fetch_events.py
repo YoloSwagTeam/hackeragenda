@@ -21,7 +21,7 @@ from django.core.management.base import BaseCommand
 from django.db import transaction
 from events.models import Event
 
-# Needed for BxLUG
+# instead of doing .encode("Utf-8") everywhere, easier for contributors
 reload(sys)
 sys.setdefaultencoding("utf-8")
 
