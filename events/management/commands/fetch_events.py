@@ -139,8 +139,8 @@ def afpyro(create_event):
     for link in filter(filtering, soup('a')):
         datetuple = map(int, link['href'].split('/')[-1].split('.')[0].split('_'))
         create_event(
-            title=link.text, 
-            start=datetime(*datetuple), 
+            title=link.text,
+            start=datetime(*datetuple),
             url="http://afpyro.afpy.org" + link['href']
         )
 
