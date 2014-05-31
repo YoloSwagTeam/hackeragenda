@@ -211,7 +211,7 @@ def blender_brussels(create_event):
 
         create_event(
             title=title,
-            url=url,
+            url="https:" + url,
             start=start
         )
 
