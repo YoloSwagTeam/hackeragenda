@@ -49,6 +49,7 @@ class Command(BaseCommand):
             except Exception as e:
                 import traceback
                 traceback.print_exc(file=sys.stdout)
+                print "While working on '%s', got this exception:" % source
                 print e
 
 
