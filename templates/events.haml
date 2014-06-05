@@ -37,7 +37,7 @@
                     All day
           .three.columns{style: "padding-top: 5px"}
             %center
-              %h5{style: 'background-color: {{ event.background_color|default:"black" }}; color: {{ event.text_color|default:"white" }}; padding: 3px; padding-left: 6px; padding-right: 6px; line-height: 1.5'}
+              %h5{style: 'background-color: {{ event.border_color|default:"black" }}; color: {{ event.text_color|default:"white" }}; padding: 3px; padding-left: 6px; padding-right: 6px; line-height: 1.5'}
                 %span= event.source|upper|underscore_to_space
           .seven.columns
             %h4
