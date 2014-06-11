@@ -30,6 +30,26 @@ sys.setdefaultencoding("utf-8")
 SOURCES_FUNCTIONS = OrderedDict()
 COLORS = {}
 
+month_convertor = (
+    ("Janvier", "January"),
+    ("Février", "February"),
+    ("Mars", "March"),
+    ("Avril", "April"),
+    ("Mai", "May"),
+    ("Juin", "June"),
+    ("Juillet", "July"),
+    ("Août", "August"),
+    ("Septembre", "September"),
+    ("Novembre", "November"),
+    ("Décembre", "December"),
+)
+
+
+def french_month_to_english_month(to_convert):
+    for i, j in month_convertor:
+        to_convert = to_convert.replace(i, j)
+    return to_convert
+
 
 class Command(BaseCommand):
     option_list = BaseCommand.option_list + (
@@ -168,12 +188,9 @@ generic_meetup("agile_belgium", "Agile-Belgium", background_color="#D2353A", tex
 def april(create_event):
     data = feedparser.parse("https://www.april.org/fr/event/feed")
 
-    locale.setlocale(locale.LC_ALL, "")  # meeeeh, seems very weak
-                                         # this is needed for strptime to match french month
-
     for event in data.entries:
         soup = BeautifulSoup(event["summary"])
-        start, end = map(lambda x: datetime.strptime(x.contents[-1], "%d %B %Y - %H:%M"), soup("div", "event-start"))
+        start, end = map(lambda x: datetime.strptime(french_month_to_english_month(x.contents[-1]), "%d %B %Y - %H:%M"), soup("div", "event-start"))
         url = event["link"]
         title = event["title"]
 
