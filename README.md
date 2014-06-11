@@ -14,21 +14,25 @@ Installation
 You need [bower](http://bower.io/)! You'll probably need to have a recent 
 version of nodejs to install it.
 
-    git clone https://github.com/Psycojoker/hackeragenda.git
-    cd hackeragenda
-    virtualenv ve
-    source ve/bin/activate
-    pip install -r requirements.txt
-    python manage.py syncdb --noinput
-    python manage.py migrate
-    python manage.py bower_install
+``` shell
+git clone https://github.com/Psycojoker/hackeragenda.git
+cd hackeragenda
+virtualenv ve
+source ve/bin/activate
+pip install -r requirements.txt
+python manage.py syncdb --noinput
+python manage.py migrate
+python manage.py bower_install
+```
 
 Usage
 =====
 
 To update the events:
 
-    python manage.py fetch_events
+``` shell
+python manage.py fetch_events
+```
 
 In production, this command is in a crontab that run every one hour.
 
@@ -44,49 +48,57 @@ function should take 1 argument: a function to add events to the database.
 
 Here's a small fetcher example:
 
-    @event_source(background_color="#424242", text_color="#777", agenda="be")
-    def my_organisation(create_event):
-        events = json.loads(urlopen("https://my.organisat.io/n").read())
-        for ev in events:
-            create_event(
-                title=ev.name,
-                start=ev.start_time,
-                end=ev.end_time,
-                url=ev.href
-            )
+```python
+@event_source(background_color="#424242", text_color="#777", agenda="be")
+def my_organisation(create_event):
+    events = json.loads(urlopen("https://my.organisat.io/n").read())
+    for ev in events:
+        create_event(
+            title=ev.name,
+            start=ev.start_time,
+            end=ev.end_time,
+            url=ev.href
+        )
+```
 
 If your organisation use Meetup to schedule its events, you just have to add
 this unique line at toplevel:
 
-    generic_meetup("my_org_name_on_hackeragenda", "my_org_name_on_Meetup", background_color="#424242", text_color="#777", agenda="be")
+```python
+generic_meetup("my_org_name_on_hackeragenda", "my_org_name_on_Meetup", background_color="#424242", text_color="#777", agenda="be")
+```
 
 Moreover, you can also implement the hackeragenda JSON api on your side, and add
 the following line at toplevel in `events/management/commands/fetch_events.py`:
 
-    json_api("my_org", "https://my.organisat.io/n/hackeragenda.json", background_color="#424242", text_color="#777", agenda="be")
+```python
+json_api("my_org", "https://my.organisat.io/n/hackeragenda.json", background_color="#424242", text_color="#777", agenda="be")
+```
 
-A `GET` on provided url should return something like this:
-    
-    {
-        "org": "my_organisation",
-        "api" : 0.1,
-        "events" : [
-            {
-               "title": "Small conf",
-               "start": "2012-05-23 12:00",
-               "end": "2012-05-23 18:23",
-               "all_day": false,
-               "url": "https://my.organisat.io/n/LearnRubyWithSinatra"
-            },
-            {
-               "title": "Marvelous conference",
-               "start": "2012-05-23 12:00",
-               "all_day": true,
-               "location": "123 avenue du soleil",
-               "url": "https://my.organisat.io/n/PwnGoogleWithx86_64Assembly"
-            }
-        ]
-    }
+A `GET` on the provided url should return something like this:
+
+```json
+{
+    "org": "my_organisation",
+    "api" : 0.1,
+    "events" : [
+        {
+           "title": "Small conf",
+           "start": "2012-05-23 12:00",
+           "end": "2012-05-23 18:23",
+           "all_day": false,
+           "url": "https://my.organisat.io/n/LearnRubyWithSinatra"
+        },
+        {
+           "title": "Marvelous conference",
+           "start": "2012-05-23 12:00",
+           "all_day": true,
+           "location": "123 avenue du soleil",
+           "url": "https://my.organisat.io/n/PwnGoogleWithx86_64Assembly"
+        }
+    ]
+}
+```
 
 The following attributes are **required**:
 
