@@ -181,6 +181,19 @@ def agenda_du_libre_be(create_event):
         )
 
 
+# @event_source(background_color="#3A87AD", text_color="white", agenda="fr")
+# def agenda_du_libre_fr(create_event):
+#     data = Calendar.from_ical(urlopen("http://www.agendadulibre.org/ical.php?region=all").read())
+# 
+#     for event in data.walk()[1:]:
+#         create_event(
+#             title=event["SUMMARY"].encode("Utf-8"),
+#             url=event["URL"],
+#             start=event["DTSTART"].dt.replace(tzinfo=None),
+#             location=event["LOCATION"].encode("Utf-8")
+#         )
+
+
 generic_meetup("agile_belgium", "Agile-Belgium", background_color="#D2353A", text_color="white", agenda="be")
 
 
