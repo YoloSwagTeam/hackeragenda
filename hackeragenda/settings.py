@@ -184,6 +184,7 @@ INSTALLED_APPS = (
     'djangobower',
     'events',
     'taggit',
+    'gunicorn',
 )
 
 BOWER_INSTALLED_APPS = (
