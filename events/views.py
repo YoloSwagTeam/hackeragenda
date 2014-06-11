@@ -13,7 +13,7 @@ from .utils import filter_events
 
 
 class HomeView(TemplateView):
-    template_name = "home.haml"
+    template_name = "home-%s.haml" % settings.AGENDA
 
     def get_context_data(self, **kwargs):
         context = super(HomeView, self).get_context_data(**kwargs)
