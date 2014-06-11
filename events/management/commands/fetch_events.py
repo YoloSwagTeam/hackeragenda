@@ -3,7 +3,9 @@
 import sys
 import json
 import calendar
+import locale
 import requests
+import feedparser
 import time
 
 from urllib2 import urlopen
@@ -160,6 +162,27 @@ def agenda_du_libre_be(create_event):
 
 
 generic_meetup("agile_belgium", "Agile-Belgium", background_color="#D2353A", text_color="white", agenda="be")
+
+
+@event_source(background_color="#005184", text_color="white", agenda="fr")
+def april(create_event):
+    data = feedparser.parse("https://www.april.org/fr/event/feed")
+
+    locale.setlocale(locale.LC_ALL, "")  # meeeeh, seems very weak
+                                         # this is needed for strptime to match french month
+
+    for event in data.entries:
+        soup = BeautifulSoup(event["summary"])
+        start, end = map(lambda x: datetime.strptime(x.contents[-1], "%d %B %Y - %H:%M"), soup("div", "event-start"))
+        url = event["link"]
+        title = event["title"]
+
+        create_event(
+            title=title,
+            url=url,
+            start=start,
+            end=end,
+        )
 
 
 generic_meetup("aws_user_group_belgium", "AWS-User-Group-Belgium", background_color="#F8981D", text_color="white", agenda="be")
