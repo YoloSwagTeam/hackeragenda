@@ -227,7 +227,7 @@ generic_meetup("bigdata_be", "bigdatabe", background_color="black", text_color="
 def blender_brussels(create_event):
     soup = BeautifulSoup(urlopen("https://blender-brussels.github.io/"))
 
-    for entry in soup("article", attrs={"class":None}):
+    for entry in soup("article", attrs={"class": None}):
         start = entry.find("time")
         title = entry.text
         url = entry.find("a")["href"]
@@ -263,7 +263,7 @@ def budalab(create_event):
 
         create_event(
             title=title,
-            location = location,
+            location=location,
             url=entry["url"],
             start=start,
             end=end
@@ -330,7 +330,7 @@ generic_meetup("docker_belgium", "Docker-Belgium", background_color="#008FC4", t
 
 @event_source(background_color="#2C2C29", text_color="#89DD00", agenda="fr")
 def electrolab(create_event):
-    data = Calendar.from_ical(urlopen("http://www.electrolab.fr/?plugin=all-in-one-event-calendar&controller=ai1ec_exporter_controller&action=export_events&cb=493067527" ).read())
+    data = Calendar.from_ical(urlopen("http://www.electrolab.fr/?plugin=all-in-one-event-calendar&controller=ai1ec_exporter_controller&action=export_events&cb=493067527").read())
 
     for event in data.walk()[4:]:
         title = str(event["SUMMARY"])
@@ -459,13 +459,13 @@ def okfnbe(create_event):
         if not event.get("DTSTAMP"):
             continue
 
-        title = str(event["SUMMARY"]) if event.get("SUMMARY") else  ""
+        title = str(event["SUMMARY"]) if event.get("SUMMARY") else ""
         url = (str(event["URL"]) if str(event["URL"]).startswith("http") else "http://" + str(event["URL"])) if event.get("URL") else "http://okfn.be/"
-        start = str(event["DTSTART"].dt)  if event.get("DTSTART") else str(event["DTSTAMP"].dt)
+        start = str(event["DTSTART"].dt) if event.get("DTSTART") else str(event["DTSTAMP"].dt)
         end = str(event["DTEND"].dt) if event.get("DTEND") else None
         location = event["LOCATION"]
 
-        #timezone removal, the crappy way
+        # timezone removal, the crappy way
         if len(start) > 10:
             start = start[:-6]
         if len(end) > 10:
@@ -505,12 +505,12 @@ generic_meetup("opentechschool", "OpenTechSchool-Brussels", background_color="#3
 def owaspbe(create_event):
     soup = BeautifulSoup(urlopen("http://www.eventbrite.com/o/owasp-belgium-chapter-1865700117").read())
 
-    for event in soup.findAll("div", attrs= {"class" : "event_row vevent clrfix"}):
-        title = event.find("span", attrs = {"class" : "summary"}).string
-        location = event.find("span", attrs = {"class" : "street-address microformats_only"}).text
-        start = event.find("span", attrs = {"class" : "dtstart microformats_only"}).text
-        end = event.find("span", attrs = {"class" : "dtend microformats_only"}).text
-        url = event.find("a", attrs = {"class" : "url"})['href']
+    for event in soup.findAll("div", attrs={"class": "event_row vevent clrfix"}):
+        title = event.find("span", attrs={"class": "summary"}).string
+        location = event.find("span", attrs={"class": "street-address microformats_only"}).text
+        start = event.find("span", attrs={"class": "dtstart microformats_only"}).text
+        end = event.find("span", attrs={"class": "dtend microformats_only"}).text
+        url = event.find("a", attrs={"class": "url"})['href']
 
         create_event(
             title=title,
@@ -560,18 +560,18 @@ def relab(create_event):
 
     for event in data.walk()[1:]:
         if event.get("DTSTAMP"):
-            title = str(event["SUMMARY"]) if event.get("SUMMARY") else  ""
+            title = str(event["SUMMARY"]) if event.get("SUMMARY") else ""
             url = str(event["URL"]) if event.get("URL") else "http://relab.be"
-            start = str(event["DTSTART"].dt)  if event.get("DTSTART") else str(event["DTSTAMP"].dt)
+            start = str(event["DTSTART"].dt) if event.get("DTSTART") else str(event["DTSTAMP"].dt)
             end = str(event["DTEND"].dt) if event.get("DTEND") else None
 
             location = event["LOCATION"]
 
-            #timezone removal, the crappy way
+            # timezone removal, the crappy way
             if len(start) > 10:
-               start = start[:-6]
+                start = start[:-6]
             if len(end) > 10:
-               end = end[:-6]
+                end = end[:-6]
 
             event = create_event(
                 title=title,
