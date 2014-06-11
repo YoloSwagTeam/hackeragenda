@@ -498,6 +498,36 @@ def owaspbe(create_event):
         )
 
 
+@event_source(background_color="white", text_color="#B92037", key=None, agenda="fr")
+def ping(create_event):
+    now = calendar.timegm(datetime.now().utctimetuple())
+
+    # 2 magics numbers are from a reverse of the incubhacker calendar api
+    for event in requests.post("http://www.pingbase.net/wp-admin/admin-ajax.php",
+                               data={"action": "get_events",
+                                     "readonly": True,
+                                     "categories": 0,
+                                     "excluded": 0,
+                                     "start": now - 1187115,
+                                     "end": now + 2445265}).json():
+
+        event_data = requests.post("http://www.pingbase.net/wp-admin/admin-ajax.php", data={"action": "get_event", "id": event["id"]}).json()
+
+        event_horrible_inline_content = BeautifulSoup(event_data["content"])
+
+        url = event_horrible_inline_content('a')[-1]["href"] if event_horrible_inline_content.a else "http://www.pingbase.net"
+
+        in_db_event = create_event(
+            title=event["title"],
+            url=url,
+            start=parse(event["start"]),
+            end=parse(event["end"]),
+        )
+
+        if "aec-repeating" in event["className"]:
+            in_db_event.tags.add("meeting")
+
+
 generic_meetup("phpbenelux", "phpbenelux", background_color="#015074", text_color="white", agenda="be")
 
 
