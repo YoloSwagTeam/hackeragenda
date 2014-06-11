@@ -53,14 +53,14 @@ class Command(BaseCommand):
                 print e
 
 
-def event_source(background_color, text_color, key="url"):
+def event_source(background_color, text_color, agenda, key="url"):
     def event_source_wrapper(func, org_name=None):
         def fetch_events(quiet):
             def create_event(**detail):
                 if key not in (None, False) and Event.objects.filter(**{key: detail[key]}):
                     Event.objects.filter(**{key: detail[key]}).delete()
 
-                res = Event.objects.create(source=org_name, text_color=COLORS[org_name]["fg"], border_color=COLORS[org_name]["bg"], **detail)
+                res = Event.objects.create(source=org_name, text_color=COLORS[org_name]["fg"], border_color=COLORS[org_name]["bg"], agenda=agenda, **detail)
                 if not quiet:
                     print "[%s] %s (%s)" % (res.source, res.title, res.start)
                 return res
@@ -87,7 +87,7 @@ def event_source(background_color, text_color, key="url"):
     return event_source_wrapper
 
 
-def json_api(org_name, url, background_color, text_color):
+def json_api(org_name, url, background_color, text_color, agenda):
     def fetch(create_event):
         """
         Generic function to add events from an urls respecting the json api
@@ -103,10 +103,10 @@ def json_api(org_name, url, background_color, text_color):
                 location=event['location'] if 'location' in event else None,
             )
 
-    return event_source(background_color, text_color, key=None)(fetch, org_name)
+    return event_source(background_color, text_color, agenda=agenda, key=None)(fetch, org_name)
 
 
-def generic_meetup(org_name, meetup_name, background_color, text_color):
+def generic_meetup(org_name, meetup_name, background_color, text_color, agenda):
     def fetch(create_event):
         data = Calendar.from_ical(requests.get("http://www.meetup.com/{}/events/ical/".format(meetup_name)).content)
 
@@ -127,13 +127,13 @@ def generic_meetup(org_name, meetup_name, background_color, text_color):
                 title=title.encode("Utf-8"),
                 url=event.get("URL", ""),
                 start=start.dt.replace(tzinfo=None),
-                location=event.get("LOCATION", "").encode("Utf-8")
+                location=event.get("LOCATION", "").encode("Utf-8"),
             )
 
-    return event_source(background_color, text_color)(fetch, org_name)
+    return event_source(background_color, text_color, agenda=agenda)(fetch, org_name)
 
 
-@event_source(background_color="#133F52", text_color="#FFFFFF", key=None)
+@event_source(background_color="#133F52", text_color="#FFFFFF", key=None, agenda="be")
 def afpyro(create_event):
     soup = BeautifulSoup(urlopen("http://afpyro.afpy.org/").read())
     filtering = lambda x: x['href'][:7] == '/dates/' and '(BE)' in x.text
@@ -146,7 +146,7 @@ def afpyro(create_event):
         )
 
 
-@event_source(background_color="#3A87AD", text_color="white")
+@event_source(background_color="#3A87AD", text_color="white", agenda="be")
 def agenda_du_libre_be(create_event):
     data = Calendar.from_ical(urlopen("http://www.agendadulibre.be/ical.php?region=all").read())
 
@@ -159,25 +159,25 @@ def agenda_du_libre_be(create_event):
         )
 
 
-generic_meetup("agile_belgium", "Agile-Belgium", background_color="#D2353A", text_color="white")
+generic_meetup("agile_belgium", "Agile-Belgium", background_color="#D2353A", text_color="white", agenda="be")
 
 
-generic_meetup("aws_user_group_belgium", "AWS-User-Group-Belgium", background_color="#F8981D", text_color="white")
+generic_meetup("aws_user_group_belgium", "AWS-User-Group-Belgium", background_color="#F8981D", text_color="white", agenda="be")
 
 
-generic_meetup("belgian_angularjs", "The-Belgian-AngularJS-Meetup-Group", background_color="#9D3532", text_color="white")
+generic_meetup("belgian_angularjs", "The-Belgian-AngularJS-Meetup-Group", background_color="#9D3532", text_color="white", agenda="be")
 
 
-generic_meetup("belgian_nodejs_user_group", "Belgian-node-js-User-Group", background_color="#1D1D1D", text_color="white")
+generic_meetup("belgian_nodejs_user_group", "Belgian-node-js-User-Group", background_color="#1D1D1D", text_color="white", agenda="be")
 
 
-generic_meetup("belgian_puppet_user_group", "Belgian-Puppet-User-Group", background_color="#7B6DB0", text_color="white")
+generic_meetup("belgian_puppet_user_group", "Belgian-Puppet-User-Group", background_color="#7B6DB0", text_color="white", agenda="be")
 
 
-generic_meetup("bescala", "BeScala", background_color="#FEE63C", text_color="#000000")
+generic_meetup("bescala", "BeScala", background_color="#FEE63C", text_color="#000000", agenda="be")
 
 
-@event_source(background_color="DarkGoldenRod", text_color="white")
+@event_source(background_color="DarkGoldenRod", text_color="white", agenda="be")
 def bhackspace(create_event):
     soup = BeautifulSoup(urlopen("http://wiki.bhackspace.be/index.php/Main_Page").read())
 
@@ -197,10 +197,10 @@ def bhackspace(create_event):
             location=location.strip() if location else None
         )
 
-generic_meetup("bigdata_be", "bigdatabe", background_color="black", text_color="white")
+generic_meetup("bigdata_be", "bigdatabe", background_color="black", text_color="white", agenda="be")
 
 
-@event_source(background_color="#828282", text_color="white", key=None)
+@event_source(background_color="#828282", text_color="white", key=None, agenda="be")
 def blender_brussels(create_event):
     soup = BeautifulSoup(urlopen("https://blender-brussels.github.io/"))
 
@@ -217,16 +217,16 @@ def blender_brussels(create_event):
         )
 
 
-generic_meetup("brussels_cassandra_users", "Brussels-Cassandra-Users", background_color="#415A6C", text_color="#CBE5F7")
+generic_meetup("brussels_cassandra_users", "Brussels-Cassandra-Users", background_color="#415A6C", text_color="#CBE5F7", agenda="be")
 
 
-generic_meetup("brussels_data_science_meetup", "Brussels-Data-Science-Community-Meetup", background_color="#CAD9EC", text_color="black")
+generic_meetup("brussels_data_science_meetup", "Brussels-Data-Science-Community-Meetup", background_color="#CAD9EC", text_color="black", agenda="be")
 
 
-generic_meetup("brussels_wordpress", "wp-bru", background_color="#0324C1", text_color="white")
+generic_meetup("brussels_wordpress", "wp-bru", background_color="#0324C1", text_color="white", agenda="be")
 
 
-@event_source(background_color="#FEED01", text_color="black")
+@event_source(background_color="#FEED01", text_color="black", agenda="be")
 def budalab(create_event):
     now = int(time.time())
     then = now + (60 * 60 * 24 * 14)
@@ -247,7 +247,7 @@ def budalab(create_event):
         )
 
 
-@event_source(background_color="white", text_color="#990000")
+@event_source(background_color="white", text_color="#990000", agenda="be")
 def bxlug(create_event):
     soup = BeautifulSoup(urlopen("http://www.bxlug.be/spip.php?page=agenda-zpip"))
     for entry in soup('article', 'evenement'):
@@ -264,7 +264,7 @@ def bxlug(create_event):
         )
 
 
-@event_source(background_color="#D2C7BA", text_color="black", key=None)
+@event_source(background_color="#D2C7BA", text_color="black", key=None, agenda="be")
 def constantvzw(create_event):
     soup = BeautifulSoup(urlopen("http://www.constantvzw.org/site/").read())
 
@@ -302,13 +302,13 @@ def constantvzw(create_event):
         )
 
 
-generic_meetup("docker_belgium", "Docker-Belgium", background_color="#008FC4", text_color="white")
+generic_meetup("docker_belgium", "Docker-Belgium", background_color="#008FC4", text_color="white", agenda="be")
 
 
-generic_meetup("ember_js_brussels", "Ember-js-Brussels", background_color="#FC745D", text_color="white")
+generic_meetup("ember_js_brussels", "Ember-js-Brussels", background_color="#FC745D", text_color="white", agenda="be")
 
 
-@event_source(background_color="#C9C4BF", text_color="black", key=None)
+@event_source(background_color="#C9C4BF", text_color="black", key=None, agenda="be")
 def foam(create_event):
     soup = BeautifulSoup(urlopen("http://fo.am/events/").read())
 
@@ -334,7 +334,7 @@ def foam(create_event):
             event.tags.add("meeting")
 
 
-@event_source(background_color="coral", text_color="white", key=None)
+@event_source(background_color="coral", text_color="white", key=None, agenda="be")
 def hsbxl(create_event):
     today = date.today() - timedelta(days=6 * 30)
 
@@ -353,7 +353,7 @@ def hsbxl(create_event):
             db_event.tags.add("meeting")
 
 
-@event_source(background_color="#296038", text_color="#6FCE91")
+@event_source(background_color="#296038", text_color="#6FCE91", agenda="be")
 def incubhacker(create_event):
     now = calendar.timegm(datetime.now().utctimetuple())
 
@@ -375,16 +375,16 @@ def incubhacker(create_event):
             event.tags.add("meeting")
 
 
-generic_meetup("laravel_brussels", "Laravel-Brussels", background_color="#FFFFFF", text_color="#FB503B")
+generic_meetup("laravel_brussels", "Laravel-Brussels", background_color="#FFFFFF", text_color="#FB503B", agenda="be")
 
 
-generic_meetup("les_mardis_de_l_agile", "Les-mardis-de-lagile-Bruxelles", background_color="#37C2F1", text_color="black")
+generic_meetup("les_mardis_de_l_agile", "Les-mardis-de-lagile-Bruxelles", background_color="#37C2F1", text_color="black", agenda="be")
 
 
-generic_meetup("mongodb_belgium", "MongoDB-Belgium", background_color="#3EA86F", text_color="white")
+generic_meetup("mongodb_belgium", "MongoDB-Belgium", background_color="#3EA86F", text_color="white", agenda="be")
 
 
-@event_source(background_color="DarkBlue", text_color="white")
+@event_source(background_color="DarkBlue", text_color="white", agenda="be")
 def neutrinet(create_event):
     soup = BeautifulSoup(urlopen("http://neutrinet.be/index.php?title=Main_Page").read())
 
@@ -408,7 +408,7 @@ def neutrinet(create_event):
             event.tags.add("meeting")
 
 
-@event_source(background_color="#299C8F", text_color="white", key=None)
+@event_source(background_color="#299C8F", text_color="white", key=None, agenda="be")
 def okfnbe(create_event):
     data = Calendar.from_ical(urlopen("https://www.google.com/calendar/ical/sv07fu4vrit3l8nb0jlo8v7n80@group.calendar.google.com/public/basic.ics").read())
 
@@ -435,7 +435,7 @@ def okfnbe(create_event):
             )
 
 
-@event_source(background_color="#FFFFFF", text_color="#00AA00")
+@event_source(background_color="#FFFFFF", text_color="#00AA00", agenda="be")
 def okno(create_event):
     soup = BeautifulSoup(urlopen("http://www.okno.be/events/").read())
 
@@ -450,13 +450,13 @@ def okno(create_event):
         )
 
 
-generic_meetup("opengarage", "OpenGarage", background_color="DarkOrchid", text_color="white")
+generic_meetup("opengarage", "OpenGarage", background_color="DarkOrchid", text_color="white", agenda="be")
 
 
-generic_meetup("opentechschool", "OpenTechSchool-Brussels", background_color="#3987CB", text_color="white")
+generic_meetup("opentechschool", "OpenTechSchool-Brussels", background_color="#3987CB", text_color="white", agenda="be")
 
 
-@event_source(background_color="#4366AF", text_color="white")
+@event_source(background_color="#4366AF", text_color="white", agenda="be")
 def owaspbe(create_event):
     soup = BeautifulSoup(urlopen("http://www.eventbrite.com/o/owasp-belgium-chapter-1865700117").read())
 
@@ -476,10 +476,10 @@ def owaspbe(create_event):
         )
 
 
-generic_meetup("phpbenelux", "phpbenelux", background_color="#015074", text_color="white")
+generic_meetup("phpbenelux", "phpbenelux", background_color="#015074", text_color="white", agenda="be")
 
 
-@event_source(background_color="#2BC884", text_color="white", key=None)
+@event_source(background_color="#2BC884", text_color="white", key=None, agenda="be")
 def relab(create_event):
     data = Calendar.from_ical(urlopen("https://www.google.com/calendar/ical/utmnk71g19dcs2d0f88q3hf528%40group.calendar.google.com/public/basic.ics").read())
 
@@ -507,13 +507,13 @@ def relab(create_event):
             )
 
 
-generic_meetup("ruby_burgers", "ruby_burgers-rb", background_color="white", text_color="#6F371F")
+generic_meetup("ruby_burgers", "ruby_burgers-rb", background_color="white", text_color="#6F371F", agenda="be")
 
 
-json_api("urlab", "https://urlab.be/hackeragenda.json", background_color="pink", text_color="black")
+json_api("urlab", "https://urlab.be/hackeragenda.json", background_color="pink", text_color="black", agenda="be")
 
 
-@event_source(background_color="#25272C", text_color="#C58723", key=None)
+@event_source(background_color="#25272C", text_color="#C58723", key=None, agenda="be")
 def voidwarranties(create_event):
     data = Calendar.from_ical(urlopen("http://voidwarranties.be/index.php/Special:Ask/-5B-5BCategory:Events-5D-5D/-3FHas-20start-20date=start/-3FHas-20end-20date=end/-3FHas-20coordinates=location/format=icalendar/title=VoidWarranties/description=Events-20at-20http:-2F-2Fvoidwarranties.be/limit=500").read())
 
@@ -531,10 +531,10 @@ def voidwarranties(create_event):
         )
 
 
-generic_meetup("webrtc", "WebRTC-crossingborders", background_color="#F99232", text_color="white")
+generic_meetup("webrtc", "WebRTC-crossingborders", background_color="#F99232", text_color="white", agenda="be")
 
 
-@event_source(background_color="white", text_color="black")
+@event_source(background_color="white", text_color="black", agenda="be")
 def whitespace(create_event):
     soup = BeautifulSoup(urlopen("http://www.0x20.be/Main_Page").read())
 
