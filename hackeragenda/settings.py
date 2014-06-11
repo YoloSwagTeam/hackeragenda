@@ -191,6 +191,8 @@ BOWER_INSTALLED_APPS = (
     'snapjs',
 )
 
+AGENDA="be"
+
 if DEBUG:
     INSTALLED_APPS += (
         'debug_toolbar',

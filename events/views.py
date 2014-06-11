@@ -26,7 +26,7 @@ class HomeView(TemplateView):
 
 class EventListView(ListView):
     template_name = "events.haml"
-    queryset = Event.objects.filter(start__gte=datetime.now).order_by("start")
+    queryset = Event.objects.filter(start__gte=datetime.now, agenda=settings.AGENDA).order_by("start")
 
     def get_context_data(self, **kwargs):
         context = super(EventListView, self).get_context_data(**kwargs)
@@ -35,7 +35,7 @@ class EventListView(ListView):
 
 
 def get_events_in_json(request):
-    return HttpResponse(json.dumps(map(event_to_fullcalendar_format, filter_events(request=request, queryset=Event.objects.all()))), mimetype="application/json")
+    return HttpResponse(json.dumps(map(event_to_fullcalendar_format, filter_events(request=request, queryset=Event.objects.filter(agenda=settings.AGENDA)))), mimetype="application/json")
 
 
 def event_to_fullcalendar_format(event):
