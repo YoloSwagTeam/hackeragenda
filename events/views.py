@@ -17,7 +17,7 @@ class HomeView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super(HomeView, self).get_context_data(**kwargs)
-        context["sources"] = sorted(COLORS.items(), key=lambda x: x[0])
+        context["sources"] = sorted(filter(lambda x: x[1]["agenda"] == settings.AGENDA, COLORS.items()), key=lambda x: x[0])
         context["tags"] = map(lambda x: x[0], Tag.objects.order_by("name").values_list("name"))
         context["predefined_filters"] = settings.PREDEFINED_FILTERS
         context["predefined_filters_json"] = dict(settings.PREDEFINED_FILTERS)
