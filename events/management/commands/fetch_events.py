@@ -305,6 +305,26 @@ def constantvzw(create_event):
 generic_meetup("docker_belgium", "Docker-Belgium", background_color="#008FC4", text_color="white", agenda="be")
 
 
+@event_source(background_color="#2C2C29", text_color="#89DD00", agenda="fr")
+def electrolab(create_event):
+    data = Calendar.from_ical(urlopen("http://www.electrolab.fr/?plugin=all-in-one-event-calendar&controller=ai1ec_exporter_controller&action=export_events&cb=493067527" ).read())
+
+    for event in data.walk()[4:]:
+        title = str(event["SUMMARY"])
+        location = str(event["LOCATION"])
+        url = event["URL"]
+        start = datetime.combine(event["DTSTART"].dt, datetime.min.time()).replace(tzinfo=None)
+        end = datetime.combine(event["DTEND"].dt, datetime.min.time()).replace(tzinfo=None) if event.get("DTEND") else None
+
+        create_event(
+            title=title,
+            location=location,
+            url=url,
+            start=start,
+            end=end,
+        )
+
+
 generic_meetup("ember_js_brussels", "Ember-js-Brussels", background_color="#FC745D", text_color="white", agenda="be")
 
 
