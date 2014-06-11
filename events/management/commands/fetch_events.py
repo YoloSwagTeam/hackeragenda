@@ -413,26 +413,28 @@ def okfnbe(create_event):
     data = Calendar.from_ical(urlopen("https://www.google.com/calendar/ical/sv07fu4vrit3l8nb0jlo8v7n80@group.calendar.google.com/public/basic.ics").read())
 
     for event in data.walk()[1:]:
-        if event.get("DTSTAMP"):
-            title = str(event["SUMMARY"]) if event.get("SUMMARY") else  ""
-            url = (str(event["URL"]) if str(event["URL"]).startswith("http") else "http://" + str(event["URL"])) if event.get("URL") else "http://okfn.be/"
-            start = str(event["DTSTART"].dt)  if event.get("DTSTART") else str(event["DTSTAMP"].dt)
-            end = str(event["DTEND"].dt) if event.get("DTEND") else None
-            location = event["LOCATION"]
+        if not event.get("DTSTAMP"):
+            continue
 
-            #timezone removal, the crappy way
-            if len(start) > 10:
-                start = start[:-6]
-            if len(end) > 10:
-                end = end[:-6]
+        title = str(event["SUMMARY"]) if event.get("SUMMARY") else  ""
+        url = (str(event["URL"]) if str(event["URL"]).startswith("http") else "http://" + str(event["URL"])) if event.get("URL") else "http://okfn.be/"
+        start = str(event["DTSTART"].dt)  if event.get("DTSTART") else str(event["DTSTAMP"].dt)
+        end = str(event["DTEND"].dt) if event.get("DTEND") else None
+        location = event["LOCATION"]
 
-            event = create_event(
-                title=title,
-                url=url,
-                start=start,
-                end=end,
-                location=location
-            )
+        #timezone removal, the crappy way
+        if len(start) > 10:
+            start = start[:-6]
+        if len(end) > 10:
+            end = end[:-6]
+
+        event = create_event(
+            title=title,
+            url=url,
+            start=start,
+            end=end,
+            location=location
+        )
 
 
 @event_source(background_color="#FFFFFF", text_color="#00AA00", agenda="be")
