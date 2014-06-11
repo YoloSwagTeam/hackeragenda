@@ -15,7 +15,7 @@
 -block content
   %div{style: "padding-bottom: 15px; padding-top: 10px"}
     %center
-      %a#open_filter_tag_bar.button Customize
+      %a#open_filter_tag_bar.button Personnaliser
       %span{style: "margin: 10px"} -
       -for filter in predefined_filters
         %a.button.secondary.predefined_filter{data-key: "{{ filter }}", id: "section_{{ filter }}"}= filter|capfirst
@@ -27,20 +27,16 @@
       %a.round.button{href: "https://twitter.com/hackeragenda_be"}
         Twitter
 
-  %div{style: "text-align: center; font-size: small; padding-bottom: 20px"}
-    %i
-      By default regular hackerspaces meetings aren't shown, click on 'Customize' and see the section 'tag' to enable them
-
   %dl.tabs.pill
     %dd.active
       %a{href: "#table"}
-        Table
+        Calendrier
     %dd
       %a{href: "#list"}
-        List
+        Liste
     %dd
       %a{href: "#faq"}
-        FAQ
+        F.A.Q.
 
   %ul.tabs-content
     %li#tableTab.active
