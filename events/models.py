@@ -13,6 +13,7 @@ class Event(models.Model):
     start = models.DateTimeField()
     end = models.DateTimeField(null=True, blank=True)
     location = models.CharField(max_length=255, null=True, blank=True)
+    agenda = models.CharField(max_length=255)
     tags = TaggableManager()
 
     def __unicode__(self):
