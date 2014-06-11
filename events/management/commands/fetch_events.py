@@ -78,7 +78,7 @@ def event_source(background_color, text_color, agenda, key="url"):
         if org_name is None:
             org_name = func.__name__.lower()
 
-        COLORS[org_name] = {"bg": background_color, "fg": text_color}
+        COLORS[org_name] = {"bg": background_color, "fg": text_color, "agenda": agenda}
 
         SOURCES_FUNCTIONS[org_name] = fetch_events
 
