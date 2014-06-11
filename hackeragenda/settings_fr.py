@@ -10,6 +10,13 @@ PREDEFINED_FILTERS["default"] = {
     "source": [],
     "exclude_source": [],
     "tag": [],
+    "exclude_tag": ["meeting"],
+}
+
+PREDEFINED_FILTERS["tout"] = {
+    "source": [],
+    "exclude_source": [],
+    "tag": [],
     "exclude_tag": [],
 }
 
