@@ -6,7 +6,7 @@ from settings import *
 LANGUAGE_CODE = 'fr-fr'
 
 PREDEFINED_FILTERS = OrderedDict()
-PREDEFINED_FILTERS["tout"] = {
+PREDEFINED_FILTERS["default"] = {
     "source": [],
     "exclude_source": [],
     "tag": [],
