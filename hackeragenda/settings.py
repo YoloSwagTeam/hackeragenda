@@ -189,7 +189,7 @@ INSTALLED_APPS = (
 )
 
 BOWER_INSTALLED_APPS = (
-    'fullcalendar',
+    'fullcalendar#1.6.4',
     'snapjs',
 )
 
