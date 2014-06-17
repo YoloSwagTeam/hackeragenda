@@ -53,8 +53,8 @@ class Command(BaseCommand):
         time.sleep(10)
 
     def generate_tweets(self):
-        today_events = Event.objects.filter(start__gte=date.today()).filter(start__lt=date.today() + timedelta(days=1))
-        this_week_other_events = Event.objects.filter(start__gte=date.today() + timedelta(days=1)).filter(start__lt=date.today() + timedelta(days=7))
+        today_events = Event.objects.filter(agenda=settings.AGENDA).filter(start__gte=date.today()).filter(start__lt=date.today() + timedelta(days=1))
+        this_week_other_events = Event.objects.filter(agenda=settings.AGENDA).filter(start__gte=date.today() + timedelta(days=1)).filter(start__lt=date.today() + timedelta(days=7))
 
         for tweet in self.format_tweets(today_events):
             yield tweet.encode("Utf-8")
