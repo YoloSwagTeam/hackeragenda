@@ -75,7 +75,7 @@ class Command(BaseCommand):
             tweet = [format_title(event), event.url, "#" + "".join(event.source.replace("_", " ").title().split())]
             if tweet_size(" ".join(tweet)) > 141:
                 to_remove = tweet_size(" ".join(tweet)) - 140
-                title = event.title[to_remove + 3:] + "..."
+                event.title = event.title[to_remove + 3:] + "..."
                 tweet[0] = format_title(event)
 
             tweet = " ".join(tweet)
