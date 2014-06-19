@@ -146,7 +146,7 @@ def generic_eventbrite(org_name, eventbrite_id, background_color, text_color, ag
                 url=url,
                 location=location
             )
-    return event_source(background_color, text_color, agenda=agenda, key=None)(fetch, org_name)
+    return event_source(background_color, text_color, agenda=agenda)(fetch, org_name)
 
 def generic_meetup(org_name, meetup_name, background_color, text_color, agenda):
     def fetch(create_event):
