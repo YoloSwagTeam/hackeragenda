@@ -586,6 +586,7 @@ def ping(create_event):
 
 generic_meetup("phpbenelux", "phpbenelux", background_color="#015074", text_color="white", agenda="be")
 
+generic_eventbrite("realize", "realize-6130306851", background_color="#36c0cb", text_color="black", agenda="be")
 
 @event_source(background_color="#2BC884", text_color="white", key=None, agenda="be")
 def relab(create_event):
