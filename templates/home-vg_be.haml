@@ -1,0 +1,334 @@
+-extends "base.haml"
+-load static
+-load events_tags
+
+-block head
+  %link{rel: "stylesheet", type: "text/css", href: "{% static 'fullcalendar/fullcalendar.css' %}"}
+  :css
+    .fc-state-highlight {
+      background: none repeat scroll 0 0 #FCEB8F;
+    }
+
+    .love:before {
+      content: "Ⓥ";
+      color: green;
+    }
+    .love:after {
+      content: "Ⓥ";
+      color: green;
+    }
+
+-block title
+  Ⓥ Veggie Agenda Belgium Ⓥ
+
+-block h1_title
+  Veggie Agenda Belgium
+
+-block content
+  %div{style: "padding-bottom: 15px; padding-top: 10px"}
+    %center
+      %a#open_filter_tag_bar.button Personnaliser
+      %span{style: "margin: 10px"} -
+      -for filter in predefined_filters
+        %a.button.secondary.predefined_filter{data-key: "{{ filter }}", id: "section_{{ filter }}"}= filter|capfirst
+      %span{style: "margin: 10px"} -
+      %a#rss.round.button.alert{href: "{% url 'events_rss' %}"}
+        RSS
+      %a#ics.round.button.success{href: "{% url 'events_ics' %}"}
+        ICS
+      %a.round.button{href: "https://twitter.com/hackeragenda_be"}
+        Twitter
+
+  %dl.tabs.pill
+    %dd.active
+      %a{href: "#table"}
+        Calendrier
+    %dd
+      %a{href: "#list"}
+        Liste
+    %dd
+      %a{href: "#sources"}
+        Events sources list
+
+  %ul.tabs-content
+    %li#tableTab.active
+      #calendar
+
+    %li#listTab
+      #listFormat
+
+    %li#sourcesTab
+      .row
+        -for name, details in sources
+          {% cycle '<div class="row">' '' '' %}
+          .four.columns
+            %center
+              %h3{style: 'background-color: {{ details.bg|default:"black" }}; color: {{ details.fg|default:"white" }}; padding: 3px; padding-left: 6px; padding-right: 6px;'}= name|underscore_to_space|title
+            %p= details.description|safe
+            %ul
+              %li
+                %b
+                  %a{href: "{{ details.url }}"}
+                    =details.url
+          {% cycle '' '' '</div>' %}
+
+  %center
+    %a{href: "http://thecatapi.com/"}
+      %img{src: "http://thecatapi.com/api/images/get?format=src&size=small"}
+
+  %hr
+
+-block footer
+  %p
+    Feel free to
+    %a{href: "mailto:guillaume@desmottes.be"} contact me
+    if you'd like to see your organisation here.
+  %p
+    %a{href: "https://github.com/Psycojoker/hackeragenda"} HackerAgenda
+
+-block filter_bar
+  -include "filter_bar.haml"
+
+-block javascript
+  %script{type: "text/javascript", src: "{% static 'fullcalendar/fullcalendar.js' %}"}
+  %script{type: "text/javascript", src: "{% static 'snapjs/snap.min.js' %}"}
+  :javascript
+    get_url_values = function(){
+      // the current sate of javascript is miserable
+      var search_string = window.location.search.substring(1).split('&');
+      var to_return = {source: [], exclude_source: [], tag: [], exclude_tag: [], section: undefined};
+      for(var i = 0; i < search_string.length; i++){
+        var KeyValuePair = search_string[i].split('=');
+        if (to_return[KeyValuePair[0]] === undefined) {
+          console.log("Warning: shouldn't have this key: " + KeyValuePair[0])
+          to_return[KeyValuePair[0]] = [];
+        }
+        to_return[KeyValuePair[0]].push(KeyValuePair[1]);
+      }
+
+      if (to_return.section === undefined) {
+        delete to_return.section;
+      }
+
+      return to_return;
+    };
+
+    node_to_filter_name = function(node) {
+      return node.textContent.trim().toLowerCase().replace(/ /g, "_");
+    }
+
+    list_remove = function(list, item) {
+      var index = list.indexOf(item);
+      if (index != -1) {
+        list.splice(index, 1);
+      }
+      return list
+    }
+
+    set_active = function(node) {
+      if (node.attributes.data !== undefined) {
+        node.style = node.attributes.data.nodeValue;
+      } else {
+        $(node).addClass("active_filter");
+      }
+      $(node).removeClass("inactive_filter");
+      $(node).removeClass("excluding_filter");
+      node.attributes["data-state"] = "active";
+    }
+
+    set_inactive = function(node) {
+      node.style = "";
+      $(node).addClass("inactive_filter");
+      $(node).removeClass("excluding_filter");
+      node.attributes["data-state"] = "inactive";
+    }
+
+    set_exclude = function(node) {
+      if (node.attributes.data !== undefined) {
+        node.style = "";
+      } else {
+        $(node).removeClass("active_filter");
+      }
+      $(node).removeClass("inactive_filter");
+      $(node).addClass("excluding_filter");
+      node.attributes["data-state"] = "exclude";
+    }
+
+    update_filter_bar = function(filter_values) {
+      var sources = document.getElementById("sources").children;
+      for (var i = 0; i < sources.length; i++) {
+        var item = node_to_filter_name(sources[i]);
+        var node = sources[i].children[0];
+        if (filter_values.source.indexOf(item) != -1) {
+          set_active(node);
+        } else if (filter_values.exclude_source.indexOf(item) != -1) {
+          set_exclude(node);
+        } else {
+          set_inactive(node);
+        }
+      }
+
+      var tags = document.getElementById("tags").children;
+      for (var i = 0; i < tags.length; i++) {
+        var item = node_to_filter_name(tags[i]);
+        var node = tags[i].children[0];
+        if (filter_values.tag.indexOf(item) != -1) {
+          set_active(node);
+        } else if (filter_values.exclude_tag.indexOf(item) != -1) {
+          set_exclude(node);
+        } else {
+          set_inactive(node);
+        }
+      }
+    };
+
+    switch_filter_state = function(filter) {
+      if (filter.attributes["data-state"] == "active") {
+        set_exclude(filter);
+        list_remove(current_filter_values[filter.attributes["data-type"].nodeValue], node_to_filter_name(filter));
+        current_filter_values["exclude_" + filter.attributes["data-type"].nodeValue].push(node_to_filter_name(filter));
+      } else if (filter.attributes["data-state"] == "inactive") {
+        set_active(filter);
+        current_filter_values[filter.attributes["data-type"].nodeValue].push(node_to_filter_name(filter));
+      } else { // exclude
+        set_inactive(filter);
+        list_remove(current_filter_values["exclude_" + filter.attributes["data-type"].nodeValue], node_to_filter_name(filter));
+      }
+      update_global_filtering_state();
+    }
+
+    update_global_filtering_state = function() {
+      update_url();
+      update_events();
+      update_rss_ics_urls();
+      $(".predefined_filter").removeClass("success");
+      $(".predefined_filter").addClass("secondary");
+    }
+
+    update_rss_ics_urls = function() {
+      document.getElementById("rss").href = "{% url 'events_rss' %}?" + $.param(current_filter_values, true);
+      document.getElementById("ics").href = "{% url 'events_ics' %}?" + $.param(current_filter_values, true);
+    }
+
+    update_rss_ics_urls_with_section = function() {
+      document.getElementById("rss").href = "{% url 'events_rss' %}?section=" + section;
+      document.getElementById("ics").href = "{% url 'events_ics' %}?section=" + section;
+    }
+
+    update_events = function() {
+      $("#calendar").fullCalendar("refetchEvents");
+      update_list_format();
+    }
+
+    update_url = function() {
+      window.history.pushState({}, "", "?" + $.param(current_filter_values, true));
+    }
+
+    update_list_format = function() {
+      $.get("events/events.html?" + $.param(current_filter_values, true), function(data) {
+        document.getElementById("listFormat").innerHTML = data;
+      })
+    }
+
+    predefined_filters = {{ predefined_filters_json|safe }};
+
+    activate_filtering_section = function(dom_prefiltered_button) {
+      section = dom_prefiltered_button.attributes["data-key"].value;
+      current_filter_values = predefined_filters[section];
+      update_filter_bar(current_filter_values);
+      update_global_filtering_state();
+      window.history.pushState({}, "", "?section=" + section);
+      $(dom_prefiltered_button).removeClass("secondary");
+      $(dom_prefiltered_button).addClass("success");
+      update_rss_ics_urls_with_section(section);
+    }
+
+    $(document).ready(function() {
+      url_content = get_url_values();
+
+      if (window.location.search == "") {
+        $(".predefined_filter").first().removeClass("secondary");
+        $(".predefined_filter").first().addClass("success");
+
+        current_filter_values = {
+          "source": predefined_filters["default"].source,
+          "exclude_source": predefined_filters["default"].exclude_source,
+          "tag": predefined_filters["default"].tag,
+          "exclude_tag": predefined_filters["default"].exclude_tag
+        };
+      } else if (url_content.section === undefined) {
+        current_filter_values = url_content;
+        console.log(current_filter_values);
+      } else {
+        // this function will set current_filter_values, this is very ugly
+        activate_filtering_section(document.getElementById("section_" + url_content.section[0]));
+      }
+
+      update_filter_bar(current_filter_values);
+      update_list_format();
+      update_rss_ics_urls();
+
+      $(".filters").find("a").click(function(from) {
+        switch_filter_state(from.currentTarget);
+      });
+
+      $(".predefined_filter").click(function(from) {
+        activate_filtering_section(from.currentTarget)
+      })
+
+      $("#calendar").fullCalendar({
+        firstDay: 1,
+        events: {
+          url: '{% url 'events_json' %}',
+          data: function() { return current_filter_values },
+          traditional: true,
+        },
+        header: {
+          left: 'prev,next today',
+          center: 'title',
+          right: 'month,agendaWeek,agendaDay'
+        },
+      });
+
+      // try to hackhisly style things
+      $(".fc-header")[0].style.border = "none";
+      $(".fc-button").each(function(_, i) { i.className = "button secondary" });
+      $(".fc-text-arrow").each(function(_, i) { i.style.fontSize = "11px"} );
+
+      var snapper = new Snap({
+        element: document.getElementById('content'),
+        disable: 'right'
+      });
+      $('#open_filter_tag_bar').click(function() {
+        if (snapper.state().state == 'closed')
+          snapper.open('left');
+        else
+          snapper.close('left');
+      })
+    })
+  :css
+    .faq {
+      margin-left: 14px;
+    }
+
+    .active_filter {
+      color: black;
+    }
+
+    .inactive_filter {
+      background-color: none;
+      color: #AAAAAA;
+    }
+
+    .excluding_filter {
+      text-decoration: line-through;
+      color: black;
+    }
+
+    .fc-event-time {
+      font-size: 12px;
+    }
+
+    .fc-event-title {
+      font-size: 12px;
+    }
