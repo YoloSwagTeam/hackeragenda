@@ -127,6 +127,26 @@ def json_api(org_name, url, background_color, text_color, agenda):
 
     return event_source(background_color, text_color, agenda=agenda, key=None)(fetch, org_name)
 
+def generic_eventbrite(org_name, eventbrite_id, background_color, text_color, agenda):
+    def fetch(create_event):
+        src_url = "http://www.eventbrite.com/o/{}".format(eventbrite_id)
+        soup = BeautifulSoup(urlopen(src_url).read())
+
+        for event in soup.findAll("div", attrs={"class": "event_row vevent clrfix"}):
+            title = event.find("span", attrs={"class": "summary"}).string
+            location = event.find("span", attrs={"class": "street-address microformats_only"}).text
+            start = event.find("span", attrs={"class": "dtstart microformats_only"}).text
+            end = event.find("span", attrs={"class": "dtend microformats_only"}).text
+            url = event.find("a", attrs={"class": "url"})['href']
+
+            create_event(
+                title=title,
+                start=start,
+                end=end,
+                url=url,
+                location=location
+            )
+    return event_source(background_color, text_color, agenda=agenda)(fetch, org_name)
 
 def generic_meetup(org_name, meetup_name, background_color, text_color, agenda):
     def fetch(create_event):
@@ -184,7 +204,7 @@ def agenda_du_libre_be(create_event):
 # @event_source(background_color="#3A87AD", text_color="white", agenda="fr")
 # def agenda_du_libre_fr(create_event):
 #     data = Calendar.from_ical(urlopen("http://www.agendadulibre.org/ical.php?region=all").read())
-# 
+#
 #     for event in data.walk()[1:]:
 #         create_event(
 #             title=event["SUMMARY"].encode("Utf-8"),
@@ -531,24 +551,7 @@ generic_meetup("opengarage", "OpenGarage", background_color="DarkOrchid", text_c
 generic_meetup("opentechschool", "OpenTechSchool-Brussels", background_color="#3987CB", text_color="white", agenda="be")
 
 
-@event_source(background_color="#4366AF", text_color="white", agenda="be")
-def owaspbe(create_event):
-    soup = BeautifulSoup(urlopen("http://www.eventbrite.com/o/owasp-belgium-chapter-1865700117").read())
-
-    for event in soup.findAll("div", attrs={"class": "event_row vevent clrfix"}):
-        title = event.find("span", attrs={"class": "summary"}).string
-        location = event.find("span", attrs={"class": "street-address microformats_only"}).text
-        start = event.find("span", attrs={"class": "dtstart microformats_only"}).text
-        end = event.find("span", attrs={"class": "dtend microformats_only"}).text
-        url = event.find("a", attrs={"class": "url"})['href']
-
-        create_event(
-            title=title,
-            start=start,
-            end=end,
-            url=url,
-            location=location
-        )
+generic_eventbrite("owaspbe", "owasp-belgium-chapter-1865700117", background_color="#4366AF", text_color="white", agenda="be")
 
 
 @event_source(background_color="white", text_color="#B92037", key=None, agenda="fr")
@@ -583,6 +586,7 @@ def ping(create_event):
 
 generic_meetup("phpbenelux", "phpbenelux", background_color="#015074", text_color="white", agenda="be")
 
+generic_eventbrite("realize", "realize-6130306851", background_color="#36c0cb", text_color="black", agenda="be")
 
 @event_source(background_color="#2BC884", text_color="white", key=None, agenda="be")
 def relab(create_event):
