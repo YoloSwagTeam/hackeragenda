@@ -131,7 +131,7 @@ def generic_eventbrite(org_name, eventbrite_id, background_color, text_color, ag
     def fetch(create_event):
         src_url = "http://www.eventbrite.com/o/{}".format(eventbrite_id)
         soup = BeautifulSoup(urlopen(src_url).read())
-        
+
         for event in soup.findAll("div", attrs={"class": "event_row vevent clrfix"}):
             title = event.find("span", attrs={"class": "summary"}).string
             location = event.find("span", attrs={"class": "street-address microformats_only"}).text
@@ -204,7 +204,7 @@ def agenda_du_libre_be(create_event):
 # @event_source(background_color="#3A87AD", text_color="white", agenda="fr")
 # def agenda_du_libre_fr(create_event):
 #     data = Calendar.from_ical(urlopen("http://www.agendadulibre.org/ical.php?region=all").read())
-# 
+#
 #     for event in data.walk()[1:]:
 #         create_event(
 #             title=event["SUMMARY"].encode("Utf-8"),
