@@ -31,6 +31,17 @@
     %link{"rel": "stylesheet", "href": "{{ STATIC_URL }}stylesheets/foundation.min.css"}
     %link{"rel": "stylesheet", "href": "{{ STATIC_URL }}stylesheets/app.css"}
     %link{"rel": "stylesheet", "href": "{% static 'snapjs/snap.css' %}"}
+
+    :css
+      .love:before {
+        content: "❤";
+        color: pink;
+      }
+      .love:after {
+        content: "❤";
+        color: pink;
+      }
+
     -block head
 
     <!-- IE Fix for HTML5 Tags -->
@@ -48,11 +59,9 @@
         .twelve.columns
           %h2
             %a{"style": "color: black", "href": "{% url 'home' %}"}
-              %center
-                %span{"style": "color: pink"}❤
+              %center.love
                 -block h1_title
                   Belgium Hacker Agenda
-                %span{"style": "color: pink"}❤
 
       -block container
         .row
@@ -62,18 +71,16 @@
       %footer.row
         %div{"style": "text-align: center;"}
           -block footer
-            %span{"style": "color: pink"}❤
-            Made with
-            %span{"style": "color: pink"}❤
-            by
-            %a{href: "http://worlddomination.be"} Bram
-            with the help of
-            %a{href: "https://github.com/Psycojoker/hackeragenda/graphs/contributors"} awesome contributors
-            %span{"style": "color: pink"}❤
+            %span.love
+              Made with
+              %span{"style": "color: pink"}❤
+              by
+              %a{href: "http://worlddomination.be"} Bram
+              with the help of
+              %a{href: "https://github.com/Psycojoker/hackeragenda/graphs/contributors"} awesome contributors
             %br
-            %span{"style": "color: pink"}❤
-            %a{href: "https://github.com/Psycojoker/hackeragenda"} sauce
-            %span{"style": "color: pink"}❤
+            %span.love
+              %a{href: "https://github.com/Psycojoker/hackeragenda"} sauce
 
     <!-- Included JS Files (Uncompressed) -->
     <!--
