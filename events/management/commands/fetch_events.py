@@ -1063,3 +1063,48 @@ def eva(create_event):
 
                 for tag in tags:
                     event.tags.add(tag)
+
+@event_source(background_color="#66b822", text_color="#FFFFFF", agenda="vg_be", url="http://www.jeudiveggie.be")
+def jeudi_veggie(create_event):
+    """Le Jeudi Veggie est une campagne qui nous invite à découvrir un jour par semaine, une assiette plus équilibrée, qui fait la part belle aux céréales, aux fruits et aux légumes. Une assiette sans viande ni poisson, mais avec plein de fruits et légumes."""
+    tags_mapping = {
+            'cours de cuisine': 'cooking class',
+            'diner': 'eating',
+            }
+
+    # request events from today to next year
+    today = datetime.now().strftime("%d-%m-%Y")
+    next_year = (datetime.now() + timedelta(weeks=52)).strftime("%d-%m-%Y")
+
+    src_url = "http://www.jeudiveggie.be/kalender/zoeken/%s_%s/" % (today, next_year)
+    soup = BeautifulSoup(requests.get(src_url).content)
+
+    main = soup.find(id='itemtag')
+    for d in main(attrs={'class': 'date'}):
+        full_date = d['href'].split('/')[2]
+        day, month, year = full_date.split('-')
+
+        url = 'http://www.jeudiveggie.be' + d['href']
+        if d.text[2] == ':':
+            time, title = d.text.split(' ', 1)
+            hour, minute = time.split(':')
+
+            start = datetime(int(year), int(month), int(day), int(hour), int(minute))
+        else:
+            title = d.text
+            start = datetime(int(year), int(month), int(day))
+
+        event = create_event(
+            title=title,
+            url=url,
+            start=start,
+        )
+
+        # tags
+        span = d.findNextSibling()
+        if span.name == 'span':
+            tags = span.text[1:-1].split(',')
+            for tag in map(unicode.strip, tags):
+                t = tags_mapping.get(tag)
+                if t is not None:
+                    event.tags.add(t)
