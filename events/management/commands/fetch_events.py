@@ -26,7 +26,7 @@ reload(sys)
 sys.setdefaultencoding("utf-8")
 
 SOURCES_FUNCTIONS = OrderedDict()
-COLORS = {}
+SOURCES_OPTIONS = {}
 
 month_convertor = (
     ("Janvier", "January"),
@@ -80,7 +80,7 @@ def event_source(background_color, text_color, agenda, key="url"):
                 if key not in (None, False) and Event.objects.filter(**{key: detail[key]}):
                     Event.objects.filter(**{key: detail[key]}).delete()
 
-                res = Event.objects.create(source=org_name, text_color=COLORS[org_name]["fg"], border_color=COLORS[org_name]["bg"], agenda=agenda, **detail)
+                res = Event.objects.create(source=org_name, text_color=SOURCES_OPTIONS[org_name]["fg"], border_color=SOURCES_OPTIONS[org_name]["bg"], agenda=agenda, **detail)
                 if not quiet:
                     print "[%s] %s (%s)" % (res.source, res.title, res.start)
                 return res
@@ -89,7 +89,7 @@ def event_source(background_color, text_color, agenda, key="url"):
                 Event.objects.filter(source=org_name).delete()
             else:
                 Event.objects.filter(source=org_name, start__gte=datetime.now())
-                Event.objects.filter(source=org_name).update(border_color=COLORS[org_name]["bg"], text_color=COLORS[org_name]["fg"])
+                Event.objects.filter(source=org_name).update(border_color=SOURCES_OPTIONS[org_name]["bg"], text_color=SOURCES_OPTIONS[org_name]["fg"])
 
             func(create_event)
             if not quiet:
@@ -98,7 +98,7 @@ def event_source(background_color, text_color, agenda, key="url"):
         if org_name is None:
             org_name = func.__name__.lower()
 
-        COLORS[org_name] = {"bg": background_color, "fg": text_color, "agenda": agenda}
+        SOURCES_OPTIONS[org_name] = {"bg": background_color, "fg": text_color, "agenda": agenda}
 
         SOURCES_FUNCTIONS[org_name] = fetch_events
 

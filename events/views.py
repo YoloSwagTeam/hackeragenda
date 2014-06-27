@@ -8,7 +8,7 @@ from django.views.generic import ListView, TemplateView
 from taggit.models import Tag
 
 from .models import Event
-from .management.commands.fetch_events import COLORS
+from .management.commands.fetch_events import SOURCES_OPTIONS
 from .utils import filter_events
 
 
@@ -17,7 +17,7 @@ class HomeView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super(HomeView, self).get_context_data(**kwargs)
-        context["sources"] = sorted(filter(lambda x: x[1]["agenda"] == settings.AGENDA, COLORS.items()), key=lambda x: x[0])
+        context["sources"] = sorted(filter(lambda x: x[1]["agenda"] == settings.AGENDA, SOURCES_OPTIONS.items()), key=lambda x: x[0])
         context["tags"] = [x[0] for x in Tag.objects.filter(taggit_taggeditem_items__object_id__in=[x[0] for x in Event.objects.filter(agenda=settings.AGENDA).values_list("id")]).distinct().values_list("name").order_by("name")]
         context["predefined_filters"] = settings.PREDEFINED_FILTERS
         context["predefined_filters_json"] = dict(settings.PREDEFINED_FILTERS)
