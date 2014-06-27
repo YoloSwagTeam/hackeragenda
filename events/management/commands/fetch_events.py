@@ -266,7 +266,7 @@ def bhackspace(create_event):
             title=title,
             url=url,
             start=start,
-            location=location.strip() if location else None
+            location=location.strip() if location else "Bastogne"
         )
 
 generic_meetup("bigdata_be", "bigdatabe", background_color="black", text_color="white", agenda="be")
