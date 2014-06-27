@@ -71,7 +71,6 @@ class Command(BaseCommand):
                 traceback.print_exc(file=sys.stdout)
                 print "While working on '%s', got this exception:" % source
                 print e
-                sys.exit(1)
 
 
 def event_source(background_color, text_color, agenda, key="url"):
