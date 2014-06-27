@@ -392,7 +392,7 @@ def bxlug(create_event):
 @event_source(background_color="#D2C7BA", text_color="black", key=None, agenda="be")
 def constantvzw(create_event):
     """
-    <p><strong>Constant is a non-profit association, an interdisciplinary arts-lab based and active in Brussels since 1997.</strong></p><strong>
+    <p><strong>Constant is a non-profit association, an interdisciplinary arts-lab based and active in Brussels since 1997.</strong></p>
 
     <p>Constant works in-between media and art and is interested in the culture and ethics of the World Wide Web. The artistic practice of Constant is inspired by the way that technological infrastructures, data-exchange and software determine our daily life. Free software, copyright alternatives and (cyber)feminism are important threads running through the activities of Constant.</p>
 
