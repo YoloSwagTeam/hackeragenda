@@ -8,7 +8,6 @@ import requests
 import feedparser
 import time
 
-from urllib2 import urlopen
 from datetime import datetime, date, timedelta
 from collections import OrderedDict
 
@@ -114,7 +113,7 @@ def json_api(org_name, url, background_color, text_color, agenda):
         """
         Generic function to add events from an urls respecting the json api
         """
-        data = json.load(urlopen(url))
+        data = requests.get(url, verify=False).json()
         for event in data['events']:
             create_event(
                 title=event['title'],
@@ -130,7 +129,7 @@ def json_api(org_name, url, background_color, text_color, agenda):
 def generic_eventbrite(org_name, eventbrite_id, background_color, text_color, agenda):
     def fetch(create_event):
         src_url = "http://www.eventbrite.com/o/{}".format(eventbrite_id)
-        soup = BeautifulSoup(urlopen(src_url).read())
+        soup = BeautifulSoup(requests.get(src_url).content)
 
         for event in soup.findAll("div", attrs={"class": "event_row vevent clrfix"}):
             title = event.find("span", attrs={"class": "summary"}).string
@@ -177,7 +176,7 @@ def generic_meetup(org_name, meetup_name, background_color, text_color, agenda):
 
 @event_source(background_color="#133F52", text_color="#FFFFFF", key=None, agenda="be")
 def afpyro(create_event):
-    soup = BeautifulSoup(urlopen("http://afpyro.afpy.org/").read())
+    soup = BeautifulSoup(requests.get("http://afpyro.afpy.org/").content)
     filtering = lambda x: x['href'][:7] == '/dates/' and '(BE)' in x.text
     for link in filter(filtering, soup('a')):
         datetuple = map(int, link['href'].split('/')[-1].split('.')[0].split('_'))
@@ -190,7 +189,7 @@ def afpyro(create_event):
 
 @event_source(background_color="#3A87AD", text_color="white", agenda="be")
 def agenda_du_libre_be(create_event):
-    data = Calendar.from_ical(urlopen("http://www.agendadulibre.be/ical.php?region=all").read())
+    data = Calendar.from_ical(requests.get("http://www.agendadulibre.be/ical.php?region=all").content)
 
     for event in data.walk()[1:]:
         create_event(
@@ -203,7 +202,7 @@ def agenda_du_libre_be(create_event):
 
 # @event_source(background_color="#3A87AD", text_color="white", agenda="fr")
 # def agenda_du_libre_fr(create_event):
-#     data = Calendar.from_ical(urlopen("http://www.agendadulibre.org/ical.php?region=all").read())
+#     data = Calendar.from_ical(urlopen("http://www.agendadulibre.org/ical.php?region=all"))
 #
 #     for event in data.walk()[1:]:
 #         create_event(
@@ -252,7 +251,7 @@ generic_meetup("bescala", "BeScala", background_color="#FEE63C", text_color="#00
 
 @event_source(background_color="DarkGoldenRod", text_color="white", agenda="be")
 def bhackspace(create_event):
-    soup = BeautifulSoup(urlopen("http://wiki.bhackspace.be/index.php/Main_Page").read())
+    soup = BeautifulSoup(requests.get("http://wiki.bhackspace.be/index.php/Main_Page").content)
 
     if soup.table.find('table', 'table') is None:
         return
@@ -275,7 +274,7 @@ generic_meetup("bigdata_be", "bigdatabe", background_color="black", text_color="
 
 @event_source(background_color="#828282", text_color="white", key=None, agenda="be")
 def blender_brussels(create_event):
-    soup = BeautifulSoup(urlopen("https://blender-brussels.github.io/"))
+    soup = BeautifulSoup(requests.get("https://blender-brussels.github.io/").content)
 
     for entry in soup("article", attrs={"class": None}):
         start = entry.find("time")
@@ -304,7 +303,7 @@ def budalab(create_event):
     now = int(time.time())
     then = now + (60 * 60 * 24 * 14)
     location = "Designregio Kortrijk, Broelkaai 1B, 8500 KORTRIJK"
-    data = json.load(urlopen("http://budalab.fikket.com/api2/events/calendar.json?start=%s&end=%s"%(now, then)))
+    data = requests.get("http://budalab.fikket.com/api2/events/calendar.json?start=%s&end=%s"%(now, then)).json()
 
     for entry in data:
         title = entry["title"]
@@ -322,7 +321,7 @@ def budalab(create_event):
 
 @event_source(background_color="white", text_color="#990000", agenda="be")
 def bxlug(create_event):
-    soup = BeautifulSoup(urlopen("http://www.bxlug.be/spip.php?page=agenda-zpip"))
+    soup = BeautifulSoup(requests.get("http://www.bxlug.be/spip.php?page=agenda-zpip").content)
     for entry in soup('article', 'evenement'):
         # [:-1] => ignore timezones, because sqlite doesn't seem to like it
         start = parse(entry('meta', itemprop='startDate')[0]['content'][:-1])
@@ -339,7 +338,7 @@ def bxlug(create_event):
 
 @event_source(background_color="#D2C7BA", text_color="black", key=None, agenda="be")
 def constantvzw(create_event):
-    soup = BeautifulSoup(urlopen("http://www.constantvzw.org/site/").read())
+    soup = BeautifulSoup(requests.get("http://www.constantvzw.org/site/").content)
 
     for event in soup.find("div", id="flow")("div", recursive=False)[:-1]:
         title = event('a')[1].text
@@ -380,7 +379,7 @@ generic_meetup("docker_belgium", "Docker-Belgium", background_color="#008FC4", t
 
 @event_source(background_color="#2C2C29", text_color="#89DD00", agenda="fr")
 def electrolab(create_event):
-    data = Calendar.from_ical(urlopen("http://www.electrolab.fr/?plugin=all-in-one-event-calendar&controller=ai1ec_exporter_controller&action=export_events&cb=493067527").read())
+    data = Calendar.from_ical(requests.get("http://www.electrolab.fr/?plugin=all-in-one-event-calendar&controller=ai1ec_exporter_controller&action=export_events&cb=493067527").content)
 
     for event in data.walk()[4:]:
         title = str(event["SUMMARY"])
@@ -403,7 +402,7 @@ generic_meetup("ember_js_brussels", "Ember-js-Brussels", background_color="#FC74
 
 @event_source(background_color="#C9C4BF", text_color="black", key=None, agenda="be")
 def foam(create_event):
-    soup = BeautifulSoup(urlopen("http://fo.am/events/").read())
+    soup = BeautifulSoup(requests.get("http://fo.am/events/").content)
 
     for line in soup.find('table', 'eventlist')('tr')[1:]:
         title, event_date = line('td')
@@ -431,7 +430,7 @@ def foam(create_event):
 def hsbxl(create_event):
     today = date.today() - timedelta(days=6 * 30)
 
-    data = json.load(urlopen("https://hackerspace.be/Special:Ask/-5B-5BCategory:TechTue-7C-7CEvent-5D-5D-20-5B-5BEnd-20date::-3E%s-2D%s-2D%s-20-5D-5D/-3FStart-20date/-3FEnd-20date/-3FLocation/format%%3Djson/sort%%3D-5BStart-20date-5D/order%%3Dasc/offset%%3D0'" % (today.year, today.month, today.day)))
+    data = requests.get("https://hackerspace.be/Special:Ask/-5B-5BCategory:TechTue-7C-7CEvent-5D-5D-20-5B-5BEnd-20date::-3E%s-2D%s-2D%s-20-5D-5D/-3FStart-20date/-3FEnd-20date/-3FLocation/format%%3Djson/sort%%3D-5BStart-20date-5D/order%%3Dasc/offset%%3D0'" % (today.year, today.month, today.day), verify=False).json()
 
     for event in data["results"].values():
         db_event = create_event(
@@ -451,7 +450,7 @@ def incubhacker(create_event):
     now = calendar.timegm(datetime.now().utctimetuple())
 
     # 2 magics numbers are from a reverse of the incubhacker calendar api
-    for event in json.load(urlopen("http://www.incubhacker.be/index.php/component/gcalendar/jsonfeed?format=raw&gcid=2&start=%s&end=%s" % (now - 1187115, now + 2445265))):
+    for event in requests.get("http://www.incubhacker.be/index.php/component/gcalendar/jsonfeed?format=raw&gcid=2&start=%s&end=%s" % (now - 1187115, now + 2445265)).json():
         title = event["title"]
         url = "http://www.incubhacker.be" + event["url"]
         start = parse(event["start"]).replace(tzinfo=None)
@@ -479,7 +478,7 @@ generic_meetup("mongodb_belgium", "MongoDB-Belgium", background_color="#3EA86F",
 
 @event_source(background_color="DarkBlue", text_color="white", agenda="be")
 def neutrinet(create_event):
-    soup = BeautifulSoup(urlopen("http://neutrinet.be/index.php?title=Main_Page").read())
+    soup = BeautifulSoup(requests.get("http://neutrinet.be/index.php?title=Main_Page").content)
 
     if not soup.table.table.tr.find('table', 'wikitable'):
         return
@@ -503,7 +502,7 @@ def neutrinet(create_event):
 
 @event_source(background_color="#299C8F", text_color="white", key=None, agenda="be")
 def okfnbe(create_event):
-    data = Calendar.from_ical(urlopen("https://www.google.com/calendar/ical/sv07fu4vrit3l8nb0jlo8v7n80@group.calendar.google.com/public/basic.ics").read())
+    data = Calendar.from_ical(requests.get("https://www.google.com/calendar/ical/sv07fu4vrit3l8nb0jlo8v7n80@group.calendar.google.com/public/basic.ics").content)
 
     for event in data.walk()[1:]:
         if not event.get("DTSTAMP"):
@@ -532,7 +531,7 @@ def okfnbe(create_event):
 
 @event_source(background_color="#FFFFFF", text_color="#00AA00", agenda="be")
 def okno(create_event):
-    soup = BeautifulSoup(urlopen("http://www.okno.be/events/").read())
+    soup = BeautifulSoup(requests.get("http://www.okno.be/events/").content)
 
     for entry in soup('div', 'switch-events'):
         datetuple = map(int, entry('span', 'date-display-single')[0].text.split('.'))
@@ -590,7 +589,7 @@ generic_eventbrite("realize", "realize-6130306851", background_color="#36c0cb", 
 
 @event_source(background_color="#2BC884", text_color="white", key=None, agenda="be")
 def relab(create_event):
-    data = Calendar.from_ical(urlopen("https://www.google.com/calendar/ical/utmnk71g19dcs2d0f88q3hf528%40group.calendar.google.com/public/basic.ics").read())
+    data = Calendar.from_ical(requests.get("https://www.google.com/calendar/ical/utmnk71g19dcs2d0f88q3hf528%40group.calendar.google.com/public/basic.ics").content)
 
     for event in data.walk()[1:]:
         if event.get("DTSTAMP"):
@@ -624,7 +623,7 @@ json_api("urlab", "https://urlab.be/hackeragenda.json", background_color="pink",
 
 @event_source(background_color="#25272C", text_color="#C58723", key=None, agenda="be")
 def voidwarranties(create_event):
-    data = Calendar.from_ical(urlopen("http://voidwarranties.be/index.php/Special:Ask/-5B-5BCategory:Events-5D-5D/-3FHas-20start-20date=start/-3FHas-20end-20date=end/-3FHas-20coordinates=location/format=icalendar/title=VoidWarranties/description=Events-20at-20http:-2F-2Fvoidwarranties.be/limit=500").read())
+    data = Calendar.from_ical(requests.get("http://voidwarranties.be/index.php/Special:Ask/-5B-5BCategory:Events-5D-5D/-3FHas-20start-20date=start/-3FHas-20end-20date=end/-3FHas-20coordinates=location/format=icalendar/title=VoidWarranties/description=Events-20at-20http:-2F-2Fvoidwarranties.be/limit=500").content)
 
     for event in data.walk()[1:]:
         title = str(event["SUMMARY"])
@@ -645,7 +644,7 @@ generic_meetup("webrtc", "WebRTC-crossingborders", background_color="#F99232", t
 
 @event_source(background_color="white", text_color="black", agenda="be")
 def whitespace(create_event):
-    soup = BeautifulSoup(urlopen("http://www.0x20.be/Main_Page").read())
+    soup = BeautifulSoup(requests.get("http://www.0x20.be/Main_Page").content)
 
     for event in soup.ul('li'):
         if event.text == 'More...':
@@ -671,7 +670,7 @@ def whitespace(create_event):
 # @event_source(background_color="#666661", text_color="black")
 def wolfplex(create_event):
     html_parser = HTMLParser()
-    soup = BeautifulSoup(urlopen("http://www.wolfplex.org/wiki/Main_Page").read())
+    soup = BeautifulSoup(requests.get("http://www.wolfplex.org/wiki/Main_Page").content)
     events = soup.find("div", id="accueil-agenda").dl
 
     for date_info, event in zip(events('dt'), events('dd')[1::2]):
