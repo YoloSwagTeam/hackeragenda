@@ -369,7 +369,6 @@ def bxlug(create_event):
     <p><a href="spip.php?rubrique4" class="spip_out">Nos rencontres aident tout un chacun à installer et configurer des systèmes libres, à approfondir leurs connaissances et à découvrir de nouveaux horizons</a></p>
 
     <p>Le BxLUG est partenaire bénévole avec<br><img src="squelettes-dist/puce.gif" class="puce" alt="-" height="11" width="8">&nbsp;<a href="http://www.lefourquet.be/Accueil_-_A_la_Une.html" class="spip_out" rel="external">Le Fourquet</a><br><img src="squelettes-dist/puce.gif" class="puce" alt="-" height="11" width="8">&nbsp;<a href="http://www.fij.be/" class="spip_out" rel="external">Formation Insertion Jeune FIJ</a><br><img src="squelettes-dist/puce.gif" class="puce" alt="-" height="11" width="8">&nbsp;<a href="http://www.bxlug.be/spip.php?article10&amp;id_evenement=121" class="spip_out">Info Linux, Atelier du Web</a></p>
-    <h3 class="spip"> <a href="spip.php?rubrique4" class="spip_out">Pour les détails, consultez notre AGENDA</a> </h3>
     <p>N’hésitez pas à adresser vos éventuelles questions à info@bxlug.be.</p>
     """
     soup = BeautifulSoup(requests.get("http://www.bxlug.be/spip.php?page=agenda-zpip").content)
