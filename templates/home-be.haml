@@ -36,6 +36,9 @@
       %a{href: "#list"}
         Event list view
     %dd
+      %a{href: "#sources"}
+        Events sources list
+    %dd
       %a{href: "#faq"}
         FAQ
 
@@ -45,6 +48,16 @@
 
     %li#listTab
       #listFormat
+
+    %li#sourcesTab
+      .row
+        -for name, details in sources
+          {% cycle '<div class="row">' '' '' %}
+          .four.columns
+            %center
+              %h3{style: 'background-color: {{ details.bg|default:"black" }}; color: {{ details.fg|default:"white" }}; padding: 3px; padding-left: 6px; padding-right: 6px;'}= name|underscore_to_space|title
+            %p= details.description|safe
+          {% cycle '' '' '</div>' %}
 
     %li#faqTab
       %hr
