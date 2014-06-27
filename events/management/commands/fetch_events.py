@@ -187,6 +187,7 @@ def generic_meetup(org_name, meetup_name, background_color, text_color, agenda, 
 
 @event_source(background_color="#133F52", text_color="#FFFFFF", key=None, agenda="be")
 def afpyro(create_event):
+    '<p>Les apéros des amateurs du langage de programmation <a href="https://www.python.org/">python</a>.</p>'
     soup = BeautifulSoup(requests.get("http://afpyro.afpy.org/").content)
     filtering = lambda x: x['href'][:7] == '/dates/' and '(BE)' in x.text
     for link in filter(filtering, soup('a')):
