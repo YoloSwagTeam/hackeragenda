@@ -1,9 +1,7 @@
 # encoding: utf-8
 
 import sys
-import json
 import calendar
-import locale
 import requests
 import feedparser
 import time
