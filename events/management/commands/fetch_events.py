@@ -510,14 +510,14 @@ def foam(create_event):
 def hsbxl(create_event):
     '''
     <p>
-    <b>Hacker Space Brussels (HSBXL) is a space, dedicated to various aspects
+    Hacker Space Brussels (HSBXL) is a space, dedicated to various aspects
     of constructive &amp; creative <a href="/Hacking"
     title="Hacking">hacking</a>, <a href="/Location" title="Location"
     class="mw-redirect"> located</a> in St-Josse. The space is about 300 square
     meters, there is a little electronics lab with over 9000 components, a
     library,and lots of tools. You\'re always welcome to follow one of the
     workshops or come to the weekly <a href="/TechTueList" title="TechTueList">
-    Tuesday meetings</a>, hack nights or other get-together events.</b>
+    Tuesday meetings</a>, hack nights or other get-together events.
     </p>
     '''
 
