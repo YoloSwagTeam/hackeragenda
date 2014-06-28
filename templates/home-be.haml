@@ -57,6 +57,11 @@
             %center
               %h3{style: 'background-color: {{ details.bg|default:"black" }}; color: {{ details.fg|default:"white" }}; padding: 3px; padding-left: 6px; padding-right: 6px;'}= name|underscore_to_space|title
             %p= details.description|safe
+            %ul
+              %li
+                %b
+                  %a{href: "{{ detail.url }}"}
+                    =details.url
           {% cycle '' '' '</div>' %}
 
     %li#faqTab

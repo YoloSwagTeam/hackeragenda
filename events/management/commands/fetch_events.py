@@ -73,7 +73,7 @@ class Command(BaseCommand):
                 print e
 
 
-def event_source(background_color, text_color, agenda, key="url", description=""):
+def event_source(background_color, text_color, agenda, url, key="url", description=""):
     def event_source_wrapper(func, org_name=None):
         def fetch_events(quiet):
             def create_event(**detail):
@@ -98,7 +98,7 @@ def event_source(background_color, text_color, agenda, key="url", description=""
         if org_name is None:
             org_name = func.__name__.lower()
 
-        SOURCES_OPTIONS[org_name] = {"bg": background_color, "fg": text_color, "agenda": agenda, "description": func.__doc__ if not description and func.__doc__ else description}
+        SOURCES_OPTIONS[org_name] = {"bg": background_color, "fg": text_color, "agenda": agenda, "description": func.__doc__ if not description and func.__doc__ else description, "url": url}
 
         SOURCES_FUNCTIONS[org_name] = fetch_events
 
@@ -107,7 +107,7 @@ def event_source(background_color, text_color, agenda, key="url", description=""
     return event_source_wrapper
 
 
-def json_api(org_name, url, background_color, text_color, agenda, tags=None, description=""):
+def json_api(org_name, url, background_color, text_color, agenda, source_url, tags=None, description=""):
     def fetch(create_event):
         """
         Generic function to add events from an urls respecting the json api
@@ -126,10 +126,10 @@ def json_api(org_name, url, background_color, text_color, agenda, tags=None, des
             if tags:
                 db_event.tags.add(*tags)
 
-    return event_source(background_color, text_color, agenda=agenda, key=None, description=description)(fetch, org_name)
+    return event_source(background_color, text_color, agenda=agenda, key=None, description=description, url=url)(fetch, org_name)
 
 
-def generic_eventbrite(org_name, eventbrite_id, background_color, text_color, agenda, tags=None, description=""):
+def generic_eventbrite(org_name, eventbrite_id, background_color, text_color, agenda, url, tags=None, description=""):
     def fetch(create_event):
         src_url = "http://www.eventbrite.com/o/{}".format(eventbrite_id)
         soup = BeautifulSoup(requests.get(src_url).content)
@@ -152,7 +152,7 @@ def generic_eventbrite(org_name, eventbrite_id, background_color, text_color, ag
             if tags:
                 db_event.tags.add(*tags)
 
-    return event_source(background_color, text_color, agenda=agenda, description=description)(fetch, org_name)
+    return event_source(background_color, text_color, agenda=agenda, description=description, url=url)(fetch, org_name)
 
 
 def generic_meetup(org_name, meetup_name, background_color, text_color, agenda, tags=None, description=""):
@@ -182,10 +182,10 @@ def generic_meetup(org_name, meetup_name, background_color, text_color, agenda, 
             if tags:
                 db_event.tags.add(*tags)
 
-    return event_source(background_color, text_color, agenda=agenda, description=description)(fetch, org_name)
+    return event_source(background_color, text_color, agenda=agenda, description=description, url="https://meetup.com/" + meetup_name)(fetch, org_name)
 
 
-@event_source(background_color="#133F52", text_color="#FFFFFF", key=None, agenda="be")
+@event_source(background_color="#133F52", text_color="#FFFFFF", key=None, agenda="be", url="https://groups.google.com/d/forum/afpyro-be")
 def afpyro(create_event):
     '<p>Les apéros des amateurs du langage de programmation <a href="https://www.python.org/">python</a>.</p>'
     soup = BeautifulSoup(requests.get("http://afpyro.afpy.org/").content)
@@ -201,7 +201,7 @@ def afpyro(create_event):
         event.tags.add("python", "programming", "drink")
 
 
-@event_source(background_color="#3A87AD", text_color="white", agenda="be")
+@event_source(background_color="#3A87AD", text_color="white", agenda="be", url="http://www.agendadulibre.be")
 def agenda_du_libre_be(create_event):
     "<p>L'agenda des évènements du Logiciel Libre en Belgique.</p>"
     data = Calendar.from_ical(requests.get("http://www.agendadulibre.be/ical.php?region=all").content)
@@ -233,7 +233,7 @@ def agenda_du_libre_be(create_event):
 generic_meetup("agile_belgium", "Agile-Belgium", background_color="#D2353A", text_color="white", agenda="be", description="<p>This is the meetup group of the Agile Belgium community. We organize regular drinkups and user group meetings. Come after work and meet people you usually only meet at conferences. Anyone interested in Agile or Lean can join.</p>")
 
 
-@event_source(background_color="#005184", text_color="white", agenda="fr")
+@event_source(background_color="#005184", text_color="white", agenda="fr", url="https//www.april.org")
 def april(create_event):
     '<p>Pionnière du <strong><a href="http://www.april.org/articles/intro/ll.html" title="Lien vers la page Qu\'est-ce qu\'un logiciel libre ?">logiciel libre</a></strong> en France, l\'April, constituée de 4063 adhérents (3676 individus, 387 entreprises, associations et organisations), est depuis 1996 un acteur majeur de la <strong>démocratisation</strong> et de la <strong>diffusion</strong> du logiciel libre et des <strong>standards ouverts</strong> auprès du grand public, des professionnels et des institutions dans l\'espace francophone. <a href="http://www.april.org/fr/association/" title="En savoir plus sur l\'April">En savoir plus...</a>.</p>'
     data = feedparser.parse("https://www.april.org/fr/event/feed")
@@ -269,7 +269,7 @@ generic_meetup("belgian_puppet_user_group", "Belgian-Puppet-User-Group", backgro
 generic_meetup("bescala", "BeScala", background_color="#FEE63C", text_color="#000000", agenda="be", tags=["java", "scala", "jvm", "programming"], description="<p>The Belgian Scala User Group.</p>")
 
 
-@event_source(background_color="DarkGoldenRod", text_color="white", agenda="be")
+@event_source(background_color="DarkGoldenRod", text_color="white", agenda="be", url="http://bhackspace.be")
 def bhackspace(create_event):
     "<p>The BHackspace is a hackerspace located in Bastogne, Belgium.</p>"
     soup = BeautifulSoup(requests.get("http://wiki.bhackspace.be/index.php/Main_Page").content)
@@ -296,7 +296,7 @@ def bhackspace(create_event):
 generic_meetup("bigdata_be", "bigdatabe", background_color="black", text_color="white", agenda="be", tags=["bigdata", "programming", "nosql"], description="<p>Welcome to our Belgian community about bigdata, NoSQL and anything data. If you live or work in Belgium and are interested in any of these technologies, please join! We want you!</p>")
 
 
-@event_source(background_color="#828282", text_color="white", key=None, agenda="be")
+@event_source(background_color="#828282", text_color="white", key=None, agenda="be", url="https://blender-brussels.github.io/")
 def blender_brussels(create_event):
     '<p>The <strong>Blender-Brussels</strong> − also known as <strong>Blender BPY/BGE workshops</strong> − are a series of monthly work sessions organized by <a href="http://xuv.be">Julien Deswaef</a> (<a href="https://github.com/xuv" class="user-mention">@xuv</a>) and <a href="http://frankiezafe.org">François Zajéga</a> (<a href="https://github.com/frankiezafe" class="user-mention">@frankiezafe</a>) with the aim of providing a regular gathering and knowledge sharing space for artists and coders interested in Python scripting in the context of Blender.</p>'
 
@@ -326,7 +326,7 @@ generic_meetup("brussels_data_science_meetup", "Brussels-Data-Science-Community-
 generic_meetup("brussels_wordpress", "wp-bru", background_color="#0324C1", text_color="white", agenda="be", tags=["bruxelles", "wordpress", "cms", "php", "webdev"], description='<p>A gathering of WordPress users and professionals of all levels.<br><br>Whether you\'re a site owner, designer, developer, plug-in creator all are welcome to attend to learn, share and expand their knowledge of WordPress.<br><br>Have a look at <a href="http://www.meetup.com/wp-bru/about/">our about page</a> for a idea of the type of activities I\'d like to see organised.</p>')
 
 
-@event_source(background_color="#FEED01", text_color="black", agenda="be")
+@event_source(background_color="#FEED01", text_color="black", agenda="be", url="http://budalab.fikket.com")
 def budalab(create_event):
     """
     <p>
@@ -358,7 +358,7 @@ def budalab(create_event):
         db_event.tags.add("fablab")
 
 
-@event_source(background_color="white", text_color="#990000", agenda="be")
+@event_source(background_color="white", text_color="#990000", agenda="be", url="http://www.bxlug.be")
 def bxlug(create_event):
     """
     <p>Le BxLUG est une association d’utilisateurs de logiciels libres créée en 1999 et dont l’objectif est la promotion de GNU/Linux et autres logiciels libres dans la région de Bruxelles.</p>
@@ -389,7 +389,7 @@ def bxlug(create_event):
         db_event.tags.add("lug", "bruxelles", "libre")
 
 
-@event_source(background_color="#D2C7BA", text_color="black", key=None, agenda="be")
+@event_source(background_color="#D2C7BA", text_color="black", key=None, agenda="be", url="http://www.constantvzw.org")
 def constantvzw(create_event):
     """
     <p><strong>Constant is a non-profit association, an interdisciplinary arts-lab based and active in Brussels since 1997.</strong></p>
@@ -439,7 +439,7 @@ def constantvzw(create_event):
 generic_meetup("docker_belgium", "Docker-Belgium", background_color="#008FC4", text_color="white", agenda="be", tags=["docker", "lxc", "sysadmin", "devops"], description='<p>Meet other developers and ops engineers using Docker.&nbsp;Docker is an open platform for developers and sysadmins to build, ship, and run distributed applications. Consisting of Docker Engine, a portable, lightweight runtime and packaging tool, and Docker Hub, a cloud service for sharing applications and automating workflows, Docker enables apps to be quickly assembled from components and eliminates the friction between development, QA, and production environments. As a result, IT can ship faster and run the same app, unchanged, on laptops, data center VMs, and any cloud.</p><p>Learn more about Docker at&nbsp;<a href="http://www.docker.com/">http://www.docker.com</a></p>')
 
 
-@event_source(background_color="#2C2C29", text_color="#89DD00", agenda="fr")
+@event_source(background_color="#2C2C29", text_color="#89DD00", agenda="fr", url="http://www.electrolab.fr")
 def electrolab(create_event):
     '<p><a title="Electrolab" href="../" target="_blank">L’Electrolab</a> est un hacker space dans la zone industrielle de Nanterre. À quelques stations de RER du centre de Paris, Ce nouveau Fablab de la région parisienne est, comme son nom l’indique, dédié aux projets ayant une forte connotation électronique et / ou mécanique.</p>'
 
@@ -466,7 +466,7 @@ def electrolab(create_event):
 generic_meetup("ember_js_brussels", "Ember-js-Brussels", background_color="#FC745D", text_color="white", agenda="be", tags=["emberjs", "javascript", "programming", "webdev"], description="This is a group for anyone interested in developing web applications in Ember.js. I created this group because it's nice to have a local community for sharing knowledge, ideas and inspiration about this awesome web framework. The learning curve for Ember.js is not the lightest so it will also be a place to share your frustrations! Beginner or expert, everyone is welcome.")
 
 
-@event_source(background_color="#C9C4BF", text_color="black", key=None, agenda="be")
+@event_source(background_color="#C9C4BF", text_color="black", key=None, agenda="be", url="http://fo.am")
 def foam(create_event):
     """
     <p>
@@ -507,7 +507,7 @@ def foam(create_event):
             event.tags.add("meeting")
 
 
-@event_source(background_color="coral", text_color="white", key=None, agenda="be")
+@event_source(background_color="coral", text_color="white", key=None, agenda="be", url="https://hackerspace.be")
 def hsbxl(create_event):
     '''
     <p>
@@ -541,7 +541,7 @@ def hsbxl(create_event):
         db_event.tags.add("hackerspace")
 
 
-@event_source(background_color="#296038", text_color="#6FCE91", agenda="be")
+@event_source(background_color="#296038", text_color="#6FCE91", agenda="be", url="http://www.incubhacker.be")
 def incubhacker(create_event):
     "<p>Incubhacker est un hackerspace basé dans la région namuroise, c'est un espace de rencontre et de création interdisciplinaire.</p>"
 
@@ -576,7 +576,7 @@ generic_meetup("les_mardis_de_l_agile", "Les-mardis-de-lagile-Bruxelles", backgr
 generic_meetup("mongodb_belgium", "MongoDB-Belgium", background_color="#3EA86F", text_color="white", agenda="be", tags=["mongodb", "database", "programming"], description="<p>The first countrywide MongoDB user group in Belgium. Meetups will be held every 3 months. Talk proposals can be sent to hannes@showpad.com.</p>")
 
 
-@event_source(background_color="DarkBlue", text_color="white", agenda="be")
+@event_source(background_color="DarkBlue", text_color="white", agenda="be", url="http://neutrinet.be")
 def neutrinet(create_event):
     '''
     <p>Neutrinet is a project dedicated to build associative Internet Service Provider(s) in Belgium.
@@ -609,7 +609,7 @@ def neutrinet(create_event):
         event.tags.add("network", "isp")
 
 
-@event_source(background_color="#299C8F", text_color="white", key=None, agenda="be")
+@event_source(background_color="#299C8F", text_color="white", key=None, agenda="be", url="https://www.google.com")
 def okfnbe(create_event):
     """
     <p>Open Knowledge Belgium is a not for profit organisation (vzw/asbl) ran
@@ -649,7 +649,7 @@ def okfnbe(create_event):
         event.tags.add("opendata")
 
 
-@event_source(background_color="#FFFFFF", text_color="#00AA00", agenda="be")
+@event_source(background_color="#FFFFFF", text_color="#00AA00", agenda="be", url="http://www.okno.be")
 def okno(create_event):
     """
     <p>OKNO is an artist-run organisation connecting new media and ecology. It
@@ -754,10 +754,10 @@ href="https://lists.owasp.org/mailman/listinfo">mailing lists</a></b> or
 directed to the <a rel="nofollow" class="external text"
 href="http://owasp4.owasp.org/contactus.html">OWASP Contact Us Form</a>.
 </p>
-''')
+''', url="https://www.owasp.org/index.php/Belgium")
 
 
-@event_source(background_color="white", text_color="#B92037", key=None, agenda="fr")
+@event_source(background_color="white", text_color="#B92037", key=None, agenda="fr", url="http://www.pingbase.net")
 def ping(create_event):
     """
     <p>
@@ -819,9 +819,9 @@ generic_meetup("phpbenelux", "phpbenelux", background_color="#015074", text_colo
 
 generic_eventbrite("realize", "realize-6130306851", background_color="#36c0cb", text_color="black", agenda="be", tags=["makerspace", "bruxelles"], description="""
 <p><strong>Realize</strong> est un atelier partagé<a title="plan" href="https://www.google.be/maps/preview#!q=Rue+du+M%C3%A9tal+32%2C+Saint-Gilles&amp;data=!4m10!1m9!4m8!1m3!1d23940!2d4.802835!3d50.988438!3m2!1i1920!2i912!4f13.1" target="_blank"> situé à Saint-Gilles</a>, à deux pas du Parvis. Tous ceux qui veulent réaliser des objets peuvent y accéder grâce à diverses <a href="http://realizebxl.be/inscription/">formules d’abonnement</a>.</p>
-""")
+""", url="http://realizebxl.be/")
 
-@event_source(background_color="#2BC884", text_color="white", key=None, agenda="be")
+@event_source(background_color="#2BC884", text_color="white", key=None, agenda="be", url="https://www.google.com")
 def relab(create_event):
     """
     <p><strong>Le RElab, premier Fab Lab de Wallonie, est un atelier numérique ouvert au public et une structure de développement créatif local.</strong> La spécificité du RElab réside dans l’utilisation de matériaux de récupération comme matière première et dans l’étude de nouveaux procédés sociaux, créatifs et économiques d’upcycling, en liaison avec les nouveaux moyens&nbsp;de fabrication et de communication numérique.</p>
@@ -874,10 +874,10 @@ thèmes abordés peuvent avoir un lien direct avec les cours mais pas
 nécessairement, le but étant d’explorer d’autres domaines, ou d’en approfondir.
 Quelques exemples sont présentés sur la page <a href="/projects">projets</a>
 </p>
-""")
+""", source_url="http://urlab.be")
 
 
-@event_source(background_color="#25272C", text_color="#C58723", key=None, agenda="be")
+@event_source(background_color="#25272C", text_color="#C58723", key=None, agenda="be", url="http://voidwarranties.be")
 def voidwarranties(create_event):
     """
     <p>
@@ -940,7 +940,7 @@ class="linkified">https://twitter.com/WebRTCmeetup</a> .
 """)
 
 
-@event_source(background_color="white", text_color="black", agenda="be")
+@event_source(background_color="white", text_color="black", agenda="be", url="http://www.0x20.be")
 def whitespace(create_event):
     """
     <p>
