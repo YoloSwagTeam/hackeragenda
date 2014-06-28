@@ -180,7 +180,8 @@
   %script{type: "text/javascript", src: "{% static 'snapjs/snap.min.js' %}"}
   :javascript
     tab = function(name) {
-      $("a[href|='#" + name + "']")[0].click();
+      window.location = "?#" + name;
+      window.location.reload();
     }
     get_url_values = function(){
       // the current sate of javascript is miserable
