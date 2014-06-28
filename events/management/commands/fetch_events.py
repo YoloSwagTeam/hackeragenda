@@ -370,7 +370,6 @@ def bxlug(create_event):
     <p><a href="spip.php?rubrique4" class="spip_out">Nos rencontres aident tout un chacun à installer et configurer des systèmes libres, à approfondir leurs connaissances et à découvrir de nouveaux horizons</a></p>
 
     <p>Le BxLUG est partenaire bénévole avec<br><img src="squelettes-dist/puce.gif" class="puce" alt="-" height="11" width="8">&nbsp;<a href="http://www.lefourquet.be/Accueil_-_A_la_Une.html" class="spip_out" rel="external">Le Fourquet</a><br><img src="squelettes-dist/puce.gif" class="puce" alt="-" height="11" width="8">&nbsp;<a href="http://www.fij.be/" class="spip_out" rel="external">Formation Insertion Jeune FIJ</a><br><img src="squelettes-dist/puce.gif" class="puce" alt="-" height="11" width="8">&nbsp;<a href="http://www.bxlug.be/spip.php?article10&amp;id_evenement=121" class="spip_out">Info Linux, Atelier du Web</a></p>
-    <p>N’hésitez pas à adresser vos éventuelles questions à info@bxlug.be.</p>
     """
     soup = BeautifulSoup(requests.get("http://www.bxlug.be/spip.php?page=agenda-zpip").content)
     for entry in soup('article', 'evenement'):
@@ -570,7 +569,7 @@ def incubhacker(create_event):
 generic_meetup("laravel_brussels", "Laravel-Brussels", background_color="#FFFFFF", text_color="#FB503B", agenda="be", tags=["bruxelles", "laravel", "php", "webdev", "programming"], description='<p>A group for anyone interested in learning about and sharing knowledge on Laravel, the "PHP framework for web artisans". The group welcomes beginners and experts, amateurs and pros, young and old, etc. Laravel is an accessible, yet powerful framework for web application development. Its expressive, elegant syntax and its clean structure make PHP development a real joy. As the Laravel community keeps growing, this group is an attempt to get Belgium-based users to know each other, and to spread the word!</p>')
 
 
-generic_meetup("les_mardis_de_l_agile", "Les-mardis-de-lagile-Bruxelles", background_color="#37C2F1", text_color="black", agenda="be", tags=["bruxelles", "agile", "programming", "drink"], description="<p>Appel à la communauté agile de Bruxelles ! Que vous soyez un fervent agiliste ou tout simplement intéressé par l'agilité, venez découvrir de nouvelles approches, vous enrichir à travers les nombreuses sessions proposées, participer à des innovation games et partager vos retours d'expérience lors de nos meetups \"Les Mardis de l'agile\" !<br><br>Ceci est un groupe Nous sommes extrêmement heureux de vous inviter à notre tout premier Agile Afterwork, un rendez-vous où nous voulons échanger avec vous sur ce qui nous passionne le plus : l'agilité !</p>")
+generic_meetup("les_mardis_de_l_agile", "Les-mardis-de-lagile-Bruxelles", background_color="#37C2F1", text_color="black", agenda="be", tags=["bruxelles", "agile", "programming", "drink"], description="<p>Appel à la communauté agile de Bruxelles ! Que vous soyez un fervent agiliste ou tout simplement intéressé par l'agilité, venez découvrir de nouvelles approches, vous enrichir à travers les nombreuses sessions proposées, participer à des innovation games et partager vos retours d'expérience lors de nos meetups \"Les Mardis de l'agile\" !</p>")
 
 
 generic_meetup("mongodb_belgium", "MongoDB-Belgium", background_color="#3EA86F", text_color="white", agenda="be", tags=["mongodb", "database", "programming"], description="<p>The first countrywide MongoDB user group in Belgium. Meetups will be held every 3 months. Talk proposals can be sent to hannes@showpad.com.</p>")
@@ -582,7 +581,7 @@ def neutrinet(create_event):
     <p>Neutrinet is a project dedicated to build associative Internet Service Provider(s) in Belgium.
     </p><p>We want to preserve the Internet as it was designed to be&nbsp;: a decentralized system of interconnected computer networks. We want to bring users back into the network by empowering them, from a technical and knowledge perspective. Neutrinet does not have customers, we have members that contribute to the project as much as they want and/or are able to.
     </p><p>Human rights, Net neutrality, privacy, transparency are our core values.
-    </p><p>We face many exciting challenges. <a href="/index.php?title=How-to-become-a-member" title="How-to-become-a-member">Join us!</a></p>
+    </p>
     '''
 
     soup = BeautifulSoup(requests.get("http://neutrinet.be/index.php?title=Main_Page").content)
@@ -666,13 +665,6 @@ def okno(create_event):
     closed in 2012. In 2013, OKNO started on ALOTOF [A Laboratory On The Open
     Fields], a collaborative exploration into the potential of open-air modes of
     creation.</p>
-
-    <p>On a daily basis, OKNO is taken care of by Ada Ceuppens, Annemie Maes,
-    Astrid Wijnants, Balthazar de Tonnac, Guy Van Belle and Nino Hybal.</p>
-
-    <p>The organisation is supported by the Flemish authorities, the VGC
-    (Vlaamse Gemeenschapscommissie) and the European Commission’s Culture
-    Programme.</p>
     """
     soup = BeautifulSoup(requests.get("http://www.okno.be/events/").content)
 
@@ -727,33 +719,6 @@ organizations</a> worldwide can make informed decisions about true software
 security risks.
 </p>
 <p></p>
-<p>
-Everyone is free to participate in OWASP and <u>all of our materials</u> are
-available under a free and open software license.  You'll find everything <b><a
-href="/index.php/About_OWASP" title="About OWASP" class="mw-redirect">about
-OWASP</a></b> here on or linked from our wiki and current information on our <a
-rel="nofollow" class="external text" href="http://owasp.blogspot.com">OWASP
-Blog</a>. OWASP <b>does not endorse or recommend commercial products or
-services</b>, allowing our community to remain vendor neutral with the
-collective wisdom of the best minds in software security worldwide.  We ask
-that the community look out for <a rel="nofollow" class="external text"
-href="https://www.owasp.org/index.php?title=OWASP_brand_usage_rules">inappropriate</a>
-uses of the OWASP brand including use of our name, logos, project names and
-other trademark issues.
-</p>
-<p>
-There are thousands of <a rel="nofollow" class="external text"
-href="https://www.owasp.org/index.php?title=Special:ActiveUsers&amp;limit=500">active
-wiki users</a> around the globe who review the changes to the site to help
-ensure quality. If you're new, you may want to check out our <b><a
-href="/index.php/Getting_Started" title="Getting Started">getting
-started</a></b> page. As a global group of volunteers with over 36,000
-participants, questions or comments should be sent to one of our many <b><a
-rel="nofollow" class="external text"
-href="https://lists.owasp.org/mailman/listinfo">mailing lists</a></b> or
-directed to the <a rel="nofollow" class="external text"
-href="http://owasp4.owasp.org/contactus.html">OWASP Contact Us Form</a>.
-</p>
 ''', url="https://www.owasp.org/index.php/Belgium")
 
 
@@ -825,9 +790,6 @@ generic_eventbrite("realize", "realize-6130306851", background_color="#36c0cb", 
 def relab(create_event):
     """
     <p><strong>Le RElab, premier Fab Lab de Wallonie, est un atelier numérique ouvert au public et une structure de développement créatif local.</strong> La spécificité du RElab réside dans l’utilisation de matériaux de récupération comme matière première et dans l’étude de nouveaux procédés sociaux, créatifs et économiques d’upcycling, en liaison avec les nouveaux moyens&nbsp;de fabrication et de communication numérique.</p>
-    <p>Une équipe pluridisciplinaire entoure le RElab. Cette équipe se compose d’artistes numériques, de designers, de web developers, d’électroniciens,…; tous connectés via leur passion pour les nouvelles technologies et encadrés par la structure administrative de l’asbl <a title="Visiter le site d'Etnik'Art" href="http://etnikart.be" target="_blank">ETNIK’Art</a>.</p>
-    <p>Le RElab est ouvert le mardi de 13h à 17h, mercredi de 13h à 19h, vendredi de 17h à 21h et le samedi de 11h à 18h pour l’open lab. Venez à notre rencontre lors de nos permanences en semaine afin de découvrir les opportunités et les enjeux de la fabrication numérique.</p>
-    <p><strong>L’adresse:</strong>&nbsp;1, Place Saint-Etienne – 4000 Liege.</p>
     """
     data = Calendar.from_ical(requests.get("https://www.google.com/calendar/ical/utmnk71g19dcs2d0f88q3hf528%40group.calendar.google.com/public/basic.ics").content)
 
@@ -865,14 +827,6 @@ json_api("urlab", "https://urlab.be/hackeragenda.json", background_color="pink",
 UrLab est le hackerspace de l’ULB. Il s’agit d'un laboratoire ouvert par et
 pour les étudiants, où l’on met à disposition une infrastructure pour qu’ils
 puissent y exprimer leur créativité de manière collaborative.
-</p>
-<p>
-UrLab permet aux étudiants de l’ULB ayant un intérêt pour l’informatique,
-l’électronique ou d’une manière générale la technologie, de se rencontrer,
-partager et collaborer. Il peut être comparé à un laboratoire ouvert. Les
-thèmes abordés peuvent avoir un lien direct avec les cours mais pas
-nécessairement, le but étant d’explorer d’autres domaines, ou d’en approfondir.
-Quelques exemples sont présentés sur la page <a href="/projects">projets</a>
 </p>
 """, source_url="http://urlab.be")
 
@@ -920,23 +874,6 @@ to apply this new future focused browser-to-browser technology.<br>
 Join the enthousiasts about new technologies and business related
 opportunities.&nbsp;
 </p>
-
-<p><br>
-This P2P communication in the browser is conquering EU; we zoom in on Belgium &amp; Spain!<br>
-
-Only +/- 3 hours seperates us from Amsterdam, Berlin, Paris, Madrid and London.<br>
-
-Let’s cross the borders &amp; launch an open (EU-&gt;global) ecosystem!<br>
-
-Ambitious as we are, we invite you to get connected. Meetups can be held in
-Europe ; we kickoff on a boat in Gent, Antwerp and Brussels will follow; next
-pitstop will be a bar in Madrid ;)
-</p>
-<p>
-You can follow the latest updates on&nbsp;<a
-href="https://twitter.com/WebRTCmeetup"
-class="linkified">https://twitter.com/WebRTCmeetup</a> .
-</p>
 """)
 
 
@@ -954,28 +891,6 @@ def whitespace(create_event):
     text" href="http://we.voidwarranties.be">Antwerp</a>, <a class="external text"
     href="http://hackerspace.be/">Brussels</a> and <a class="external text"
     href="http://www.wolfplex.org/">Charleroi</a>.
-    </p>
-    <p>
-    You're always welcome to attend one of the workshops or join the weekly
-    Thursday meetings, the hack nights or the other <b>awesome</b> get-together
-    events. Want to get involved? See the <a href="/Contact"
-    title="Contact">contact page</a> for our location, <a class="external text"
-    href="http://discuss.hackerspaces.be/listinfo.cgi/ghent-hackerspaces.be">mailing
-    list</a>, <a class="external text" href="https://twitter.com/HSGhent">twitter
-    bird</a>, irc channel <span class="plainlinks" style="white-space: nowrap;"><a
-    class="external text"
-    href="irc://irc.freenode.net/0x20"><tt>#0x20</tt></a><sup><a class="external
-    text" href="https://webchat.freenode.net/?channels=0x20"><span style="color:
-    green;">connect</span></a></sup></span>, <a class="external text"
-    href="https://www.facebook.com/0x20.be">facebook page</a>, <a
-    href="https://plus.google.com/111440983315819252895"
-    rel="publisher">Google+</a>, <a class="external text"
-    href="http://blog.0x20.be/">blog</a> and much more.
-    </p>
-    <p>
-    Since you arrived on the front page, you probably know what a hackerspace
-    is, in case you don't, see <a href="/Documentation" title="Documentation">this
-    page</a>.
     </p>
     """
     soup = BeautifulSoup(requests.get("http://www.0x20.be/Main_Page").content)
