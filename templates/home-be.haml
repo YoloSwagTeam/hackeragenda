@@ -46,6 +46,19 @@
     %li#tableTab.active
       #calendar
 
+      %h2
+        Want more?
+
+      %p You can take a look at:
+      %ul
+        %li the <a href="javascript: tab('faq');">FAQ</a> for more informations.
+        %li the events displayed in a <a href="javascript: tab('list');">list fashion</a>.
+        %li the RSS, ICs (ical) export at the top of the page, next to the section selection button and the <a class="open_filter_tag_bar" href="Customize">Customize</a> to make your own selection of events
+        %li subscribe to the <a href="https://twitter.com/hackeragenda_be">twitter account</a> to be inform about the events of the day
+        %li <a href="javascript: tab('sources');">a page listing the sources of events of this agenda</a>, with description link to their website.
+        %li look at the <a href="https://github.com/psycojoker/hackeragenda">source code</a> (python/django) of HackerAgenda because you are curious and/or wants to contribute
+        %li if you want to reuse HackerAgenda, <b>you don't need to fork it</b>, the code base is though to supports several different agendas without needed to fork it. <a href="mailto: brain at worlddomination dot be">Contact me</a> and we'll discuss about it (or you can't send pull requests directly, just look at how this is done for <a href="http://hackeragenda.fr">HackerAgenda.Fr</a>).
+
     %li#listTab
       #listFormat
 
@@ -166,6 +179,9 @@
   %script{type: "text/javascript", src: "{% static 'fullcalendar/fullcalendar.js' %}"}
   %script{type: "text/javascript", src: "{% static 'snapjs/snap.min.js' %}"}
   :javascript
+    tab = function(name) {
+      $("a[href|='#" + name + "']")[0].click();
+    }
     get_url_values = function(){
       // the current sate of javascript is miserable
       var search_string = window.location.search.substring(1).split('&');
