@@ -12,7 +12,7 @@
 -block content
   %div{style: "padding-bottom: 15px; padding-top: 10px"}
     %center
-      %a#open_filter_tag_bar.button Customize
+      %a.open_filter_tag_bar.button Customize
       %span{style: "margin: 10px"} -
       -for filter in predefined_filters
         %a.button.secondary.predefined_filter{data-key: "{{ filter }}", id: "section_{{ filter }}"}= filter|capfirst
@@ -53,7 +53,7 @@
       %ul
         %li the <a href="javascript: tab('faq');">FAQ</a> for more informations.
         %li the events displayed in a <a href="javascript: tab('list');">list fashion</a>.
-        %li the RSS, ICs (ical) export at the top of the page, next to the section selection button and the <a class="open_filter_tag_bar" href="Customize">Customize</a> to make your own selection of events
+        %li the RSS, ICs (ical) export at the top of the page, next to the section selection button and at the <a class="open_filter_tag_bar button small">Customize</a> button to make your own selection of events
         %li subscribe to the <a href="https://twitter.com/hackeragenda_be">twitter account</a> to be inform about the events of the day
         %li <a href="javascript: tab('sources');">a page listing the sources of events of this agenda</a>, with description link to their website.
         %li look at the <a href="https://github.com/psycojoker/hackeragenda">source code</a> (python/django) of HackerAgenda because you are curious and/or wants to contribute
@@ -391,7 +391,7 @@
         element: document.getElementById('content'),
         disable: 'right'
       });
-      $('#open_filter_tag_bar').click(function() {
+      $('.open_filter_tag_bar').click(function() {
         if (snapper.state().state == 'closed')
           snapper.open('left');
         else
