@@ -142,3 +142,8 @@ know it.
 
 My objective is to end up with Hackeragenda all over the world and
 meta-hackeragenda like hackeragenda.eu.
+
+Current public instance (known to me):
+
+* http://hackeragenda.be
+* http://hackeragenda.fr
