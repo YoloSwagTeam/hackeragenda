@@ -946,3 +946,18 @@ def wolfplex(create_event):
         )
 
         db_event.tags.add("hackerspace")
+
+@event_source(background_color="#82FEA9", text_color="#DC0000", agenda="be", url="https://www.hackerspace.lu/")
+def agenda_du_libre_be(create_event):
+    "<p>L'agenda du Syn2Cat, hackerspace Luxembourgeois</p>"
+    data = Calendar.from_ical(requests.get("https://wiki.hackerspace.lu/wiki/Special:Ask/-5B-5BCategory:Event-5D-5D-20-5B-5BStartDate::%2B-5D-5D-20-5B-5BStartDate::-3E2014-2D06-2D30-5D-5D/-3FStartDate%3Dstart/-3FEndDate%3Dend/-3FHas-20location/-5B-5BCategory:Event-5D-5D-20-5B-5BStartDate::%2B-5D-5D-20-5B-5BStartDate::-3E2014-2D06-2D30-5D-5D/-3FStartDate%3Dstart/-3FEndDate%3Dend/-3FHas-20location/mainlabel%3D/limit%3D50/order%3DASC/sort%3DStartDate/format%3Dicalendar").content)
+
+    for event in data.walk()[1:]:
+        db_event = create_event(
+            title=event["SUMMARY"].encode("Utf-8"),
+            start=event["DTSTART"].dt.replace(tzinfo=None),
+            end=event["DTEND"].dt.replace(tzinfo=None),
+            url=event["URL"],
+        )
+
+        db_event.tags.add("hackerspace")
