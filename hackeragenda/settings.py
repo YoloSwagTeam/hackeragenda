@@ -117,6 +117,7 @@ PREDEFINED_FILTERS["hackerspaces"] = {
         "hsbxl",
         "incubhacker",
         "opengarage",
+        "syn2cat",
         "urlab",
         "voidwarranties",
         "whitespace",
