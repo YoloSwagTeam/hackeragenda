@@ -845,7 +845,7 @@ def syn2cat(create_event):
             url=event["URL"],
         )
 
-        db_event.tags.add("hackerspace")
+        db_event.tags.add("hackerspace", "luxembourg")
 
 
 @event_source(background_color="#25272C", text_color="#C58723", key=None, agenda="be", url="http://voidwarranties.be")
