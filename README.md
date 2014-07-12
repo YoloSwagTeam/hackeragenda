@@ -81,6 +81,16 @@ this unique line at toplevel:
 generic_meetup("my_org_name_on_hackeragenda", "my_org_name_on_Meetup", background_color="#424242", text_color="#777", agenda="be")
 ```
 
+Adding events from a Facebook group or page is pretty easy as well:
+
+```python
+generic_facebook("my_org_name_on_hackeragenda", "facebook_id", background_color="#424242", text_color="#777", agenda="be")
+```
+
+This requires to have FACEBOOK_APP_ID and FACEBOOK_APP_SECRET defined in the
+settings file of your agenda with the credentials of your Facebook
+application.
+
 Moreover, you can also implement the hackeragenda JSON api on your side, and add
 the following line at toplevel in `events/management/commands/fetch_events.py`:
 

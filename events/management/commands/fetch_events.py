@@ -15,11 +15,13 @@ from icalendar import Calendar
 from icalendar import Event as icalendarEvent
 from optparse import make_option
 from HTMLParser import HTMLParser
+import facepy
 
 from django.core.management.base import BaseCommand
 from django.db import transaction
 from django.template.defaultfilters import slugify
 from events.models import Event
+from django.conf import settings
 
 # instead of doing .encode("Utf-8") everywhere, easier for contributors
 reload(sys)
@@ -184,6 +186,32 @@ def generic_meetup(org_name, meetup_name, background_color, text_color, agenda, 
 
     return event_source(background_color, text_color, agenda=agenda, description=description, url="https://meetup.com/" + meetup_name)(fetch, org_name)
 
+def generic_facebook(org_name, fb_group, background_color, text_color, agenda, tags=None, description=""):
+    if not hasattr(settings, "FACEBOOK_APP_ID") or not hasattr(settings, "FACEBOOK_APP_SECRET"):
+        print "ERROR: %s disabled, please define FACEBOOK_APP_ID and FACEBOOK_APP_SECRET in your agenda settings file" % org_name
+        return
+
+    graph = facepy.GraphAPI.for_application(settings.FACEBOOK_APP_ID, settings.FACEBOOK_APP_SECRET)
+
+    def fetch(create_event):
+        for page in graph.get('%s/events?since=0' % fb_group, page=True):
+            for event in page['data']:
+                db_event = create_event(
+                            title=event['name'],
+                            url='http://www.facebook.com/%s' % event['id'],
+                            start=parse(event['start_time']).replace(tzinfo=None),
+                            location=event.get('location'),
+                        )
+
+                if tags:
+                    db_event.tags.add(*tags)
+
+    if not description:
+        # Use the FB group description
+        group = graph.get(fb_group)
+        description = group['about']
+
+    return event_source(background_color, text_color, agenda=agenda, description=description, url="https://www.facebook.com/" + fb_group)(fetch, org_name)
 
 @event_source(background_color="#133F52", text_color="#FFFFFF", key=None, agenda="be", url="https://groups.google.com/d/forum/afpyro-be")
 def afpyro(create_event):
