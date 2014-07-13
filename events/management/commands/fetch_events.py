@@ -209,7 +209,10 @@ def generic_facebook(org_name, fb_group, background_color, text_color, agenda, t
     if not description:
         # Use the FB group description
         group = graph.get(fb_group)
-        description = group['about']
+        if 'about' in group:
+            description = group['about']
+        elif 'description' in group:
+            description = group['description']
 
     return event_source(background_color, text_color, agenda=agenda, description=description, url="https://www.facebook.com/" + fb_group)(fetch, org_name)
 
