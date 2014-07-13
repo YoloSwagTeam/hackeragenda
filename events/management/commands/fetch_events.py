@@ -1108,3 +1108,6 @@ def jeudi_veggie(create_event):
                 t = tags_mapping.get(tag)
                 if t is not None:
                     event.tags.add(t)
+
+generic_facebook("bite_back", "BiteBackOrg", background_color="#db0c38", text_color="#FFFFFF", agenda="vg_be", tags=["animal-rights"])
+generic_facebook("gaia", "gaia.be", background_color="#fdfafa", text_color="#5d3b80", agenda="vg_be", tags=["animal-rights"])
