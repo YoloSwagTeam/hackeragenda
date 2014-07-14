@@ -677,6 +677,7 @@ def incubhacker(create_event):
 def jeudi_veggie(create_event):
     """Le Jeudi Veggie est une campagne qui nous invite à découvrir un jour par semaine, une assiette plus équilibrée, qui fait la part belle aux céréales, aux fruits et aux légumes. Une assiette sans viande ni poisson, mais avec plein de fruits et légumes."""
     tags_mapping = {
+            'atelier': 'cooking class',
             'cours de cuisine': 'cooking class',
             'diner': 'eating',
             }
