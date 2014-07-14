@@ -713,11 +713,17 @@ def jeudi_veggie(create_event):
         # tags
         span = d.findNextSibling()
         if span.name == 'span':
-            tags = span.text[1:-1].split(',')
-            for tag in map(unicode.strip, tags):
-                t = tags_mapping.get(tag)
-                if t is not None:
-                    event.tags.add(t)
+            splitted = map(unicode.strip, span.text[1:-1].split(','))
+
+            # first element is a tag
+            t = tags_mapping.get(splitted[0])
+            if t is not None:
+                event.tags.add(t)
+
+            # second one is a location
+            if len(splitted) > 1:
+                event.location = splitted[1]
+                event.save()
 
 
 generic_meetup("laravel_brussels", "Laravel-Brussels", background_color="#FFFFFF", text_color="#FB503B", agenda="be", tags=["bruxelles", "laravel", "php", "webdev", "programming"], description='<p>A group for anyone interested in learning about and sharing knowledge on Laravel, the "PHP framework for web artisans". The group welcomes beginners and experts, amateurs and pros, young and old, etc. Laravel is an accessible, yet powerful framework for web application development. Its expressive, elegant syntax and its clean structure make PHP development a real joy. As the Laravel community keeps growing, this group is an attempt to get Belgium-based users to know each other, and to spread the word!</p>')
