@@ -32,6 +32,11 @@
     %link{"rel": "stylesheet", "href": "{{ STATIC_URL }}stylesheets/app.css"}
     %link{"rel": "stylesheet", "href": "{% static 'snapjs/snap.css' %}"}
     -block head
+      %link{rel: "stylesheet", type: "text/css", href: "{% static 'fullcalendar/fullcalendar.css' %}"}
+      :css
+        .fc-state-highlight {
+          background: none repeat scroll 0 0 #FCEB8F;
+        }
 
     <!-- IE Fix for HTML5 Tags -->
     <!--[if lt IE 9]>
