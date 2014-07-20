@@ -1,0 +1,31 @@
+-load events_tags
+
+#filter_bar.snap-drawers.row
+  .snap-drawer.snap-drawer-left.six.columns
+    %h2
+      Selection
+    %hr
+    %p
+      This bar allows you to filter the events<br>
+      by sources or by tags. Every option has<br>
+      three possible state: active (colour),<br>
+      unactive (grey) and excluding (striked).<br>
+      Active options will be fetch ("IN" in sql),<br>
+      excluding options will be removed<br>
+      ("NOT IN" in sql) and unactive options<br>
+      will be ignored.
+    %p
+      This will also modify the result of the<br>
+      RSS and of the ICS
+    %h3
+      By sources
+    %ul#sources.filters
+      -for source, options in sources
+        %li{style: "margin: 3px"}
+          %a{data: 'background-color: {{ options.bg|default:"black" }}; color: {{ options.fg|default:"white" }}; padding: 3px; padding-left: 6px; padding-right: 6px;', href: "#", data-type: "source"}= source|upper|underscore_to_space
+    %h3
+      By tags
+    %ul#tags.filters
+      -for name in tags
+        %li
+          %a{href: "#", data-type: "tag"}= name
