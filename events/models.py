@@ -17,4 +17,15 @@ class Event(models.Model):
     tags = TaggableManager()
 
     def __unicode__(self):
-        return "%s [%s]" % (self.title, self.source)
+        if self.all_day:
+            date = self.start.strftime("%Y-%m-%d")
+        elif self.end:
+            date = "%s - %s" % (self.start, self.end)
+        else:
+            date = "%s" % (self.start)
+
+        title = self.title
+        if self.location:
+            title += " - %s" % (self.location)
+
+        return u"[%s] %s (%s)" % (self.source, title, date)

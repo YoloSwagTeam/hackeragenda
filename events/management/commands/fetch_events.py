@@ -84,7 +84,7 @@ def event_source(background_color, text_color, agenda, url, key="url", descripti
 
                 res = Event.objects.create(source=org_name, text_color=SOURCES_OPTIONS[org_name]["fg"], border_color=SOURCES_OPTIONS[org_name]["bg"], agenda=agenda, **detail)
                 if not quiet:
-                    print "[%s] %s (%s)" % (res.source, res.title, res.start)
+                    print unicode(res)
                 return res
 
             if key in (None, False):
