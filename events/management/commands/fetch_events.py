@@ -75,10 +75,6 @@ class Command(BaseCommand):
                 print e
 
 
-# C'est l'histoire d'une variable d'état qui se promène...
-# et paf le side effect !
-CURRENT_AGENDA = "(none)"
-
 def event_source(background_color, text_color, url, agenda=None, key="url", description=""):
     if agenda is None:
         agenda = CURRENT_AGENDA
@@ -224,7 +220,10 @@ def generic_facebook(org_name, fb_group, background_color, text_color, agenda=No
     return event_source(background_color, text_color, agenda=agenda, description=description, url="https://www.facebook.com/" + fb_group)(fetch, org_name)
 
 
+CURRENT_AGENDA = None
+
 def load_agenda(name, quiet=True):
+    global CURRENT_AGENDA
     CURRENT_AGENDA = name
     try:
         load_source(name, "agendas/" + name + ".py")
