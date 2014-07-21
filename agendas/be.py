@@ -1,6 +1,21 @@
 # encoding: utf-8
 
-from agendas.env import *
+import requests
+import time
+import calendar
+
+from BeautifulSoup import BeautifulSoup
+from django.template.defaultfilters import slugify
+from datetime import date, datetime, timedelta
+from dateutil.parser import parse
+from icalendar import Calendar
+from HTMLParser import HTMLParser
+
+from events.management.commands.fetch_events import (
+    event_source,
+    generic_meetup, generic_eventbrite,
+    json_api
+)
 
 @event_source(background_color="#133F52", text_color="#FFFFFF", key=None, url="https://groups.google.com/d/forum/afpyro-be")
 def afpyro(create_event):

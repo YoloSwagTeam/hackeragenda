@@ -1,6 +1,15 @@
 # encoding: utf-8
 
-from agendas.env import *
+import requests
+import calendar
+import feedparser
+
+from datetime import datetime
+from BeautifulSoup import BeautifulSoup
+from dateutil.parser import parse
+from icalendar import Calendar
+
+from events.management.commands.fetch_events import event_source, french_month_to_english_month
 
 # @event_source(background_color="#3A87AD", text_color="white")
 # def agenda_du_libre_fr(create_event):

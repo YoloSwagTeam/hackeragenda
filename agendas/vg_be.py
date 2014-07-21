@@ -1,6 +1,12 @@
 # encoding: utf-8
 
-from agendas.env import *
+import requests
+
+from BeautifulSoup import BeautifulSoup
+from datetime import datetime, timedelta
+
+from events.management.commands.fetch_events import event_source, generic_facebook
+
 
 generic_facebook("bite_back", "BiteBackOrg", background_color="#db0c38", text_color="#FFFFFF", tags=["animal-rights"])
 

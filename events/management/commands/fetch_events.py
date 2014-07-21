@@ -235,8 +235,7 @@ def load_agenda(name, quiet=True):
         traceback.print_exc()
 
 def load_agendas(quiet=True):
-    ignore = ('__init__.py', 'env.py')
     for f in listdir("agendas"):
-        if f in ignore or f[-3:] != '.py':
+        if f != "__init__.py" or f.split(".")[-1] != 'py':
             continue
         load_agenda(f[:-3])
