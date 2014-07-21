@@ -1,13 +1,10 @@
 # encoding: utf-8
 
 import sys
-import calendar
 import requests
-import feedparser
-import time
 import traceback
 
-from datetime import datetime, date, timedelta
+from datetime import datetime
 from collections import OrderedDict
 
 from BeautifulSoup import BeautifulSoup
@@ -15,12 +12,11 @@ from dateutil.parser import parse
 from icalendar import Calendar
 from icalendar import Event as icalendarEvent
 from optparse import make_option
-from HTMLParser import HTMLParser
+
 import facepy
 
 from django.core.management.base import BaseCommand
 from django.db import transaction
-from django.template.defaultfilters import slugify
 from events.models import Event
 from django.conf import settings
 
