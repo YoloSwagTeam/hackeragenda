@@ -2,13 +2,6 @@
 -load static
 -load events_tags
 
--block head
-  %link{rel: "stylesheet", type: "text/css", href: "{% static 'fullcalendar/fullcalendar.css' %}"}
-  :css
-    .fc-state-highlight {
-      background: none repeat scroll 0 0 #FCEB8F;
-    }
-
 -block content
   %div{style: "padding-bottom: 15px; padding-top: 10px"}
     %center
@@ -91,7 +84,7 @@
           %p.faq
             We now hacked a special JSON format, you can submit url of a document respecting this format bysending me <a href="mailto: brain at worlddomination.be">an email</a>. See below for the format specification.
         %li
-          %b My wonderful organization isn't present! This is SKANDALOUSE!
+          %b My wonderful organization isn't present! This is SKANDALOOSE!
           %p.faq
             Either I didn't knew its existence, either I didn't found the list of event on the website (I've put organizations that I knew in Brussels + hackerspaces from hackerspaces.org/Belgium). Send me <a href="mailto: brain at worlddomination.be">an email</a> or <a href="https://github.com/Psycojoker/hackeragenda/issues/new">open a bug</a> with the correct informations (basically I need an url from which I can extract events in a structured way) or <a href="https://github.com/Psycojoker/hackeragenda">patch</a>.
 
@@ -175,7 +168,7 @@
   %hr
 
 -block filter_bar
-  -include "filter_bar.haml"
+  -include "filter_bar-be.haml"
 
 -block javascript
   %script{type: "text/javascript", src: "{% static 'fullcalendar/fullcalendar.js' %}"}

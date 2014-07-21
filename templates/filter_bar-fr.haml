@@ -3,28 +3,20 @@
 #filter_bar.snap-drawers.row
   .snap-drawer.snap-drawer-left.six.columns
     %h2
-      Selection
+      Sélection
     %hr
     %p
-      This bar allows you to filter the events<br>
-      by sources or by tags. Every option has<br>
-      three possible state: active (colour),<br>
-      unactive (grey) and excluding (stricked).<br>
-      Actif options will be fetch ("IN" in sql),<br>
-      excluding options will be removed<br>
-      ("NOT IN" in sql) and unactive options<br>
-      will be ignored.
+      Ce menu permet de filtrer les évènements par source ou par tags. Il y a 3 états possibles pour chaque option dans 3 états: inclusive (en couleur), inactive (en gris) et exclusive (barré). Les options incluses seront affichées ("IN" en SQL), les options excluses seront enlevées ("NOT IN" en SQL). Les options inactives sont ignorées.
     %p
-      This will also modify the result of the<br>
-      RSS and of the ICS
+      Les options modifient aussi le contenu du flux RSS et du calendrier ICS.
     %h3
-      By sources
+      Par source
     %ul#sources.filters
       -for source, options in sources
         %li{style: "margin: 3px"}
           %a{data: 'background-color: {{ options.bg|default:"black" }}; color: {{ options.fg|default:"white" }}; padding: 3px; padding-left: 6px; padding-right: 6px;', href: "#", data-type: "source"}= source|upper|underscore_to_space
     %h3
-      By tags
+      Par tags
     %ul#tags.filters
       -for name in tags
         %li

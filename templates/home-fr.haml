@@ -2,13 +2,6 @@
 -load static
 -load events_tags
 
--block head
-  %link{rel: "stylesheet", type: "text/css", href: "{% static 'fullcalendar/fullcalendar.css' %}"}
-  :css
-    .fc-state-highlight {
-      background: none repeat scroll 0 0 #FCEB8F;
-    }
-
 -block title
   ❤ Hacker Agenda France ❤
 
@@ -26,7 +19,7 @@
       %a#rss.round.button.alert{href: "{% url 'events_rss' %}"}
         RSS
       %a#ics.round.button.success{href: "{% url 'events_ics' %}"}
-        ICS
+        ICS (iCal)
       %a.round.button{href: "https://twitter.com/hackeragenda_be"}
         Twitter
 
@@ -53,89 +46,114 @@
       %h2 FAQ
       %ul
         %li
-          %b What's that?
+          %b Qu'est-ce ?
           %br
           %p.faq
-            It is an agenda that centralize events that can interest hackers in Belgium. It grabs informations by parsing hackerspaces/others website. You can find the source code <a href="https://github.com/Psycojoker/hackeragenda">here</a>.
+            HackerAgenda sert à centraliser les événements qui peuvent intéresser les hackers en Belgique. Il récupère les informations en parsant les sites d’hackerspaces et autres associations technophiles. Vous pouvez trouver le code  sur
+            %a{"href": "https://github.com/Psycojoker/hackeragenda"} Github
+            .
+            
           %p.faq
-            It is a project to help a community that I love and try to encourage its members to interact more together.
-
-          %p.faq
-            We now hacked a special JSON format, you can submit url of a document respecting this format bysending me <a href="mailto: brain at worlddomination.be">an email</a>. See below for the format specification.
+            Ce projet vise à encourager les membres d’une communauté à laquelle je tiens à interagir plus entre eux en aggrégeant tous les évènements géniaux qui se passent près de chez vous.
+            .
         %li
-          %b My wonderful organization isn't present! This is SKANDALOUSE!
+          %b Ma merveilleuse organisation n’est pas répertoriée ! C’est skANDALOUSE !
           %p.faq
-            Either I didn't knew its existence, either I didn't found the list of event on the website (I've put organizations that I knew in Brussels + hackerspaces from hackerspaces.org/Belgium). Send me <a href="mailto: brain at worlddomination.be">an email</a> or <a href="https://github.com/Psycojoker/hackeragenda/issues/new">open a bug</a> with the correct informations (basically I need an url from which I can extract events in a structured way) or <a href="https://github.com/Psycojoker/hackeragenda">patch</a>.
+            Il est possible que je n’en connaisse pas l’existence ou que je n’ai pas trouvé la liste des événements sur le site (J’ai ajouté les organisations que je connais à Bruxelles ainsi que les hackerspaces listés sur hackerspaces.org/Belgium). Envoyez-moi 
+            %a{"href": "mailto: brain at worlddomination.be"} un email 
+            ou 
+            %a{"href": "https://github.com/Psycojoker/hackeragenda/issues/new"} demandez le 
+            avec les informations nécessaires (j’ai besoin d’un lien vers la page des événements, qui peuvent être extraits de manière structurée) ou mieux encore, 
+            %a{"href": "https://github.com/Psycojoker/hackeragenda"} proposez du code
+            .
 
         %li
           %b
-            JSON Format
+            Format JSON
           %br
           %p.faq
-            Hackeragenda accepts a simplified Json format for an organisation to specify it's upcoming events.
+            HackerAgenda accepte un format JSON simplifié pour ajouter les prochains événements d’une organisation.
 
           %p.faq
-            For the moment it's a simple json object, composed of the keys:
-              %ul
-                %li "org" : Organisation name (mandatory)
-                %li "api" : API version number (mandatory)
-                %li "events" : A list of event object (mandatory)
+            Pour le moment, c’est une simple objet JSON, composé des clés :
+            %ul
+              %li "org" : Nom de l’organisation (obligatoire)
+              %li "api" : Version de l’API: 0.1 pour le moment (obligatoire)
+              %li "events" : Une liste d'objets évènements (obligatoire)
           %p.faq
-            Each event object can contain the following keys:
-              %ul
-                %li "title" : Name of the event that will be displayed  (mandatory)
-                %li "url" : URL for this event (mandatory)
-                %li "start" : start date of the event, in ISO8601 (mandatory)
-                %li "end" : end of the event, in ISO8601 (optional)
-                %li "all_day" : Is the event the whole day? (optional)
-                %li "location" : Human readable adress for your event (optional)
+            Chaque objet événement doit contenir les clés suivantes :
+            %ul
+              %li "title" : Nom de l’événement
+              %li "url" : Lien vers la page web de l'évènement
+              %li "start" : Date de début de l’événement, en ISO8601
+          %p.faq
+            Il peut en outre contenir des informations supplémentaires:
+            %ul
+              %li "end" : Date de fin de l’événement, en ISO8601
+              %li "all_day" : L’événement dure-t-il toute la journée ?
+              %li "location" : Adresse lisible par un humain pour votre événement
 
           %p.faq
-              Example :
+              Exemple :
               %pre.panel
-                "org": "afypro",
-                "api" : 0.1,
-                "events" : [
-                        {<br>
-                           "title": "Small conf",<br>
-                           "start": "2012-05-23 12:00",<br>
-                           "end": "2012-05-23 18:23",<br>
-                           "all_day": false,<br>
-                           "url": "http://..."<br>
-                        },
-                        {<br>
-                           "title": "Marvelous conference",<br>
-                           "start": "2012-05-23 12:00",<br>
-                           "all_day": true,<br>
-                           "location": "123 avenue du soleil",<br>
-                           "url": "http://..."<br>
-                        }
-                    ]
-                }
+                :plain
+                  "org": "afypro",
+                  "api" : 0.1,
+                  "events" : [
+                          {
+                             "title": "Small conf",
+                             "start": "2012-05-23 12:00",
+                             "end": "2012-05-23 18:23",
+                             "all_day": false,
+                             "url": "http://..."
+                          },
+                          {
+                             "title": "Marvelous conference",
+                             "start": "2012-05-23 12:00",
+                             "all_day": true,
+                             "location": "123 avenue du soleil",
+                             "url": "http://..."
+                          }
+                      ]
+                  }
         %li
-          %b What kind of stuff are you ready to add?
+          %b Quels genres d’événements peuvent être ajoutés ?
           %p.faq
-            More or less anything that can interest hackers. A part of my mental planning is: various meetup related to <span style="text-decoration: line-through;">programming languages/framework/tools/sysadmin/network/hardware</span> (done), LUGs, hacktivism, fablabs for which I managed to find an agenda and maybe a bit out of the bubble stuff like commons good events. I love discovering new activities, don't hesitate to send me the ones you know that aren't already in it.
+            À peu près tout ce que peut intéresser les hackers. Une partie de mon planning mental est : des rencontres autour des 
+            %span{"style": "text-decoration: line-through;"} langages de programmation/framework/outils/sysadmin/réseau/matériel 
+            (fait), LUGs, hacktivisme, fablabs pour lesquels j’ai trouvé un agenda et peut-être des bons événements plus courants. J’aime découvrir de nouvelles activités, n’hésitez pas à m’envoyer les événements qui pourraient convenir et qui ne sont pas encore dedans.
 
         %li
-          %b Can I submit an event?
+          %b Puis-je soumettre un événement ?
           %p.faq
-            No. I'm extremly lazy and absolutly don't want to do moderation. But if you have an organization <b>with events on its website</b> that isn't in the Hacker Agenda but you think should be (like an hackerspace) don't hesitate to contact me (and it's even better if you implement the API, see below). Another solution would be to build another website where people can submit events and you do your own moderation and I'll happily include it in the hackeragenda (and if you are ready to do Django I'll help you with pleasure).
+            Non. Je suis extrêmement fainéant et n’ai aucune envie de faire de la modération. Mais si vous avez une organisation 
+            %b dont les évènements sont disponibles sur internet
+            qui n’est pas dans l’HackerAgenda mais qui y aurait sa place selon vous, contactez-moi (c’est encore mieux si vous savez implémenter l’API, voir plus bas). Une autre solution est de construire un autre site où les gens pourraient soumettre leurs événements et où vous feriez la modération. Je serais heureux de l’inclure dans l’HackerAgenda (et si vous êtes prêt à travailler avec Django je serai ravi de vous aider).
 
         %li
-          %b My organization has a strange colour.
+          %b Mon organisation a une drôle de couleur.
           %p.faq
-            I've either try to find some kind of colour already chosen by the organization or just picked up one randomly (except for UrLab, I love pink). If you aren't happy, <a href="https://github.com/Psycojoker/hackeragenda/issues/new">open a bug</a> or <a href="https://github.com/Psycojoker/hackeragenda">send a patch</a> (edit <a href="https://github.com/Psycojoker/hackeragenda/blob/master/events/colors.py">this file</a>).
+            %span{"style": "text-decoration: line-through;"} C'est toi la drôle de couleur.
+            J’ai essayé de choisir une couleur proche du thème du site internet, qui n’était pas encore prise par une autre organisation ou en la tirant au hasard (sauf pour UrLab, j’aime le rose). Si votre couleur ne vous plaît pas, 
+            %a{"href": "https://github.com/Psycojoker/hackeragenda/issues/new"} ouvrez un rapport de bug
+            ou allez directement éditer
+            %a{"href": "https://github.com/Psycojoker/hackeragenda/blob/master/events/management/commands/fetch_events.py"} le bout de code qui la concerne
+            .
 
         %li
-          %b Do you have an API?
+          %b Il y a-t-il une API ?
           %p.faq
-            Yes, you can access all the Event table <a href="/events/api/event/?format=json">here</a>. IF you want to play directly with the data used by the calendar (which is <a href="http://arshaw.com/fullcalendar/">fullcalendar</a>), use <a href="{% url 'events_json' %}">this url</a>.
-
+            Oui, vous pouvez récupérer tous les événements 
+            %a{"href": "/events/api/event/?format=json"} ici
+            . Si vous souhaitez jouer directement avec les données utilisées par le calendrier, (qui est 
+            %a{"href": "http://arshaw.com/fullcalendar/"}fullcalendar
+            ), utilisez 
+            %a{"href": "{% url 'events_json' %}"} ce lien
+            .
         %li
-          %b Why so many hearts?
+          %b Pourquoi tant de ❤❤❤ ?
           %p.faq
-            Because Love.
+            Parce que LOVE.
 
 
   %center
@@ -157,7 +175,7 @@
     %a{href: "https://github.com/Psycojoker/hackeragenda"} code source
 
 -block filter_bar
-  -include "filter_bar.haml"
+  -include "filter_bar-fr.haml"
 
 -block javascript
   %script{type: "text/javascript", src: "{% static 'fullcalendar/fullcalendar.js' %}"}
