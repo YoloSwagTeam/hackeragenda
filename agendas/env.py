@@ -3,9 +3,9 @@ A set of predefined useful imports for events fetchers
 """
 
 from events.management.commands.fetch_events import (
-	event_source, 
-	generic_meetup, generic_eventbrite, generic_facebook,
-	json_api
+    event_source,
+    generic_meetup, generic_eventbrite, generic_facebook,
+    json_api
 )
 
 import requests
