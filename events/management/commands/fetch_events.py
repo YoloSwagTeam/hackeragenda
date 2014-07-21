@@ -227,10 +227,9 @@ def generic_facebook(org_name, fb_group, background_color, text_color, agenda=No
 def load_agenda(name, quiet=True):
     CURRENT_AGENDA = name
     try:
-        res = load_source(name, "agendas/"+name+".py")
+        load_source(name, "agendas/"+name+".py")
         if not quiet:
             print " === Loaded fetchers for agenda %s" % (name)
-        return res
     except Exception as err:
         print " === Error %s when loading fetchers for agenda %s" % (err.__name__, name)
         traceback.print_exc()
