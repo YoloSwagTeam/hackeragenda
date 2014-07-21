@@ -44,7 +44,6 @@ month_convertor = (
     ("Décembre", "December"),
 )
 
-
 def french_month_to_english_month(to_convert):
     for i, j in month_convertor:
         to_convert = to_convert.replace(i, j)
@@ -61,8 +60,6 @@ class Command(BaseCommand):
     )
 
     def handle(self, *args, **options):
-        load_agendas(options.get('quiet', True))
-
         sources = SOURCES_FUNCTIONS.keys() if not args else args
 
         for source in sources:
@@ -223,20 +220,21 @@ def generic_facebook(org_name, fb_group, background_color, text_color, agenda=No
 
 CURRENT_AGENDA = None
 
-def load_agenda(name, quiet=True):
+def load_agenda(name):
     global CURRENT_AGENDA
     CURRENT_AGENDA = name
     try:
         load_source(name, "agendas/" + name + ".py")
-        if not quiet:
-            print " === Loaded fetchers for agenda %s" % (name)
     except Exception as err:
         print " === Error %s when loading fetchers for agenda %s" % (err.__name__, name)
         traceback.print_exc()
 
 
-def load_agendas(quiet=True):
+def load_agendas():
     for f in listdir("agendas"):
         if f == "__init__.py" or f.split(".")[-1] != 'py':
             continue
         load_agenda(f[:-3])
+
+
+load_agendas()
