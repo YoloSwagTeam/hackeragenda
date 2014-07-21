@@ -2,10 +2,10 @@
 
 from agendas.env import *
 
-generic_facebook("bite_back", "BiteBackOrg", background_color="#db0c38", text_color="#FFFFFF", agenda="vg_be", tags=["animal-rights"])
+generic_facebook("bite_back", "BiteBackOrg", background_color="#db0c38", text_color="#FFFFFF", tags=["animal-rights"])
 
 
-@event_source(background_color="#539316", text_color="#FFFFFF", agenda="vg_be", url="http://www.evavzw.be")
+@event_source(background_color="#539316", text_color="#FFFFFF", url="http://www.evavzw.be")
 def eva(create_event):
     """EVA werd opgericht in 2000 door een handjevol gemotiveerde mensen uit het Gentse en is sindsdien uitgegroeid tot een organisatie met een tiental vaste medewerkers, verschillende lokale groepen en honderden vrijwilligers. Sinds haar ontstaan heeft de organisatie al heel wat activiteiten en projecten op poten gezet."""
     nl_months = {
@@ -77,10 +77,10 @@ def eva(create_event):
 
 
 
-generic_facebook("gaia", "gaia.be", background_color="#fdfafa", text_color="#5d3b80", agenda="vg_be", tags=["animal-rights"])
+generic_facebook("gaia", "gaia.be", background_color="#fdfafa", text_color="#5d3b80", tags=["animal-rights"])
 
 
-@event_source(background_color="#66b822", text_color="#FFFFFF", agenda="vg_be", url="http://www.jeudiveggie.be")
+@event_source(background_color="#66b822", text_color="#FFFFFF", url="http://www.jeudiveggie.be")
 def jeudi_veggie(create_event):
     """Le Jeudi Veggie est une campagne qui nous invite à découvrir un jour par semaine, une assiette plus équilibrée, qui fait la part belle aux céréales, aux fruits et aux légumes. Une assiette sans viande ni poisson, mais avec plein de fruits et légumes."""
     tags_mapping = {

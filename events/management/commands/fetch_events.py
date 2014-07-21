@@ -78,7 +78,13 @@ class Command(BaseCommand):
                 print e
 
 
-def event_source(background_color, text_color, agenda, url, key="url", description=""):
+# C'est l'histoire d'une variable d'état qui se promène...
+# et paf le side effect !
+CURRENT_AGENDA = "(none)"
+
+def event_source(background_color, text_color, url, agenda=None, key="url", description=""):
+    if agenda is None:
+        agenda = CURRENT_AGENDA
     def event_source_wrapper(func, org_name=None):
         def fetch_events(quiet):
             def create_event(**detail):
@@ -112,7 +118,7 @@ def event_source(background_color, text_color, agenda, url, key="url", descripti
     return event_source_wrapper
 
 
-def json_api(org_name, url, background_color, text_color, agenda, source_url, tags=None, description=""):
+def json_api(org_name, url, background_color, text_color, source_url, agenda=None, tags=None, description=""):
     def fetch(create_event):
         """
         Generic function to add events from an urls respecting the json api
@@ -134,7 +140,7 @@ def json_api(org_name, url, background_color, text_color, agenda, source_url, ta
     return event_source(background_color, text_color, agenda=agenda, key=None, description=description, url=url)(fetch, org_name)
 
 
-def generic_eventbrite(org_name, eventbrite_id, background_color, text_color, agenda, url, tags=None, description=""):
+def generic_eventbrite(org_name, eventbrite_id, background_color, text_color, url, agenda=None, tags=None, description=""):
     def fetch(create_event):
         src_url = "http://www.eventbrite.com/o/{}".format(eventbrite_id)
         soup = BeautifulSoup(requests.get(src_url).content)
@@ -160,7 +166,7 @@ def generic_eventbrite(org_name, eventbrite_id, background_color, text_color, ag
     return event_source(background_color, text_color, agenda=agenda, description=description, url=url)(fetch, org_name)
 
 
-def generic_meetup(org_name, meetup_name, background_color, text_color, agenda, tags=None, description=""):
+def generic_meetup(org_name, meetup_name, background_color, text_color, agenda=None, tags=None, description=""):
     def fetch(create_event):
         data = Calendar.from_ical(requests.get("http://www.meetup.com/{}/events/ical/".format(meetup_name)).content)
 
@@ -190,7 +196,7 @@ def generic_meetup(org_name, meetup_name, background_color, text_color, agenda, 
     return event_source(background_color, text_color, agenda=agenda, description=description, url="https://meetup.com/" + meetup_name)(fetch, org_name)
 
 
-def generic_facebook(org_name, fb_group, background_color, text_color, agenda, tags=None, description=""):
+def generic_facebook(org_name, fb_group, background_color, text_color, agenda=None, tags=None, description=""):
     if not hasattr(settings, "FACEBOOK_APP_ID") or not hasattr(settings, "FACEBOOK_APP_SECRET"):
         print "ERROR: %s disabled, please define FACEBOOK_APP_ID and FACEBOOK_APP_SECRET in your agenda settings file" % org_name
         return
@@ -228,6 +234,7 @@ def load_agendas():
             continue
 
         agenda = f[:-3]
+        CURRENT_AGENDA = agenda
         load_source(agenda, "agendas/"+f)
 
         try:

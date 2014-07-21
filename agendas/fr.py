@@ -2,7 +2,7 @@
 
 from agendas.env import *
 
-# @event_source(background_color="#3A87AD", text_color="white", agenda="fr")
+# @event_source(background_color="#3A87AD", text_color="white")
 # def agenda_du_libre_fr(create_event):
 #     data = Calendar.from_ical(urlopen("http://www.agendadulibre.org/ical.php?region=all"))
 #
@@ -17,7 +17,7 @@ from agendas.env import *
 
 
 
-@event_source(background_color="#005184", text_color="white", agenda="fr", url="https//www.april.org")
+@event_source(background_color="#005184", text_color="white", url="https//www.april.org")
 def april(create_event):
     '<p>Pionnière du <strong><a href="http://www.april.org/articles/intro/ll.html" title="Lien vers la page Qu\'est-ce qu\'un logiciel libre ?">logiciel libre</a></strong> en France, l\'April, constituée de 4063 adhérents (3676 individus, 387 entreprises, associations et organisations), est depuis 1996 un acteur majeur de la <strong>démocratisation</strong> et de la <strong>diffusion</strong> du logiciel libre et des <strong>standards ouverts</strong> auprès du grand public, des professionnels et des institutions dans l\'espace francophone. <a href="http://www.april.org/fr/association/" title="En savoir plus sur l\'April">En savoir plus...</a>.</p>'
     data = feedparser.parse("https://www.april.org/fr/event/feed")
@@ -38,7 +38,7 @@ def april(create_event):
         db_event.tags.add("libre")
 
 
-@event_source(background_color="#2C2C29", text_color="#89DD00", agenda="fr", url="http://www.electrolab.fr")
+@event_source(background_color="#2C2C29", text_color="#89DD00", url="http://www.electrolab.fr")
 def electrolab(create_event):
     '<p><a title="Electrolab" href="../" target="_blank">L’Electrolab</a> est un hacker space dans la zone industrielle de Nanterre. À quelques stations de RER du centre de Paris, Ce nouveau Fablab de la région parisienne est, comme son nom l’indique, dédié aux projets ayant une forte connotation électronique et / ou mécanique.</p>'
 
@@ -62,7 +62,7 @@ def electrolab(create_event):
         db_event.tags.add("hackerspace")
 
 
-@event_source(background_color="white", text_color="#B92037", key=None, agenda="fr", url="http://www.pingbase.net")
+@event_source(background_color="white", text_color="#B92037", key=None, url="http://www.pingbase.net")
 def ping(create_event):
     """
     <p>

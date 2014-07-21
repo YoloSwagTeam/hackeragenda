@@ -2,7 +2,7 @@
 
 from agendas.env import *
 
-@event_source(background_color="#133F52", text_color="#FFFFFF", key=None, agenda="be", url="https://groups.google.com/d/forum/afpyro-be")
+@event_source(background_color="#133F52", text_color="#FFFFFF", key=None, url="https://groups.google.com/d/forum/afpyro-be")
 def afpyro(create_event):
     '<p>Les apéros des amateurs du langage de programmation <a href="https://www.python.org/">python</a>.</p>'
     soup = BeautifulSoup(requests.get("http://afpyro.afpy.org/").content)
@@ -18,7 +18,7 @@ def afpyro(create_event):
         event.tags.add("python", "programming", "drink")
 
 
-@event_source(background_color="#3A87AD", text_color="white", agenda="be", url="http://www.agendadulibre.be")
+@event_source(background_color="#3A87AD", text_color="white", url="http://www.agendadulibre.be")
 def agenda_du_libre_be(create_event):
     "<p>L'agenda des évènements du Logiciel Libre en Belgique.</p>"
     data = Calendar.from_ical(requests.get("http://www.agendadulibre.be/ical.php?region=all").content)
@@ -35,25 +35,25 @@ def agenda_du_libre_be(create_event):
         db_event.tags.add("libre")
 
 
-generic_meetup("agile_belgium", "Agile-Belgium", background_color="#D2353A", text_color="white", agenda="be", description="<p>This is the meetup group of the Agile Belgium community. We organize regular drinkups and user group meetings. Come after work and meet people you usually only meet at conferences. Anyone interested in Agile or Lean can join.</p>")
+generic_meetup("agile_belgium", "Agile-Belgium", background_color="#D2353A", text_color="white", description="<p>This is the meetup group of the Agile Belgium community. We organize regular drinkups and user group meetings. Come after work and meet people you usually only meet at conferences. Anyone interested in Agile or Lean can join.</p>")
 
 
-generic_meetup("aws_user_group_belgium", "AWS-User-Group-Belgium", background_color="#F8981D", text_color="white", agenda="be", tags=["cloud", "amazon", "aws", "sysadmin"], description="<p>This is a group for anyone interested in cloud computing on the Amazon Web Services platform. All skills levels are welcome.</p>")
+generic_meetup("aws_user_group_belgium", "AWS-User-Group-Belgium", background_color="#F8981D", text_color="white", tags=["cloud", "amazon", "aws", "sysadmin"], description="<p>This is a group for anyone interested in cloud computing on the Amazon Web Services platform. All skills levels are welcome.</p>")
 
 
-generic_meetup("belgian_angularjs", "The-Belgian-AngularJS-Meetup-Group", background_color="#9D3532", text_color="white", agenda="be", tags=["angularjs", "javascript", "webdev", "programming"], description="<p>Let's get together for some discussions about the awesome AngularJS framework! I started this group to meet the belgian AngularJS community and share together our experience.</p>")
+generic_meetup("belgian_angularjs", "The-Belgian-AngularJS-Meetup-Group", background_color="#9D3532", text_color="white", tags=["angularjs", "javascript", "webdev", "programming"], description="<p>Let's get together for some discussions about the awesome AngularJS framework! I started this group to meet the belgian AngularJS community and share together our experience.</p>")
 
 
-generic_meetup("belgian_nodejs_user_group", "Belgian-node-js-User-Group", background_color="#1D1D1D", text_color="white", agenda="be", tags=["nodejs", "javascript", "programming"], description='<p>This node.js user group gathers the belgian node.js developers so we can improve our skill set and build kick-ass amazing apps.<br><br>For the time being: find us on line at <a href="http://www.shadowmedia.be/nodejs/">http://www.shadowmedia.be/nodejs/</a>.</p>')
+generic_meetup("belgian_nodejs_user_group", "Belgian-node-js-User-Group", background_color="#1D1D1D", text_color="white", tags=["nodejs", "javascript", "programming"], description='<p>This node.js user group gathers the belgian node.js developers so we can improve our skill set and build kick-ass amazing apps.<br><br>For the time being: find us on line at <a href="http://www.shadowmedia.be/nodejs/">http://www.shadowmedia.be/nodejs/</a>.</p>')
 
 
-generic_meetup("belgian_puppet_user_group", "Belgian-Puppet-User-Group", background_color="#7B6DB0", text_color="white", agenda="be", tags=["puppet", "sysadmin", "devops"], description="<p>Bringing puppet loving people together on a regular base, to talk about best practices, their experience and have interesting discussions about a great configuration management tool.<br><br>IRC: freenode - #puppet-be</p>")
+generic_meetup("belgian_puppet_user_group", "Belgian-Puppet-User-Group", background_color="#7B6DB0", text_color="white", tags=["puppet", "sysadmin", "devops"], description="<p>Bringing puppet loving people together on a regular base, to talk about best practices, their experience and have interesting discussions about a great configuration management tool.<br><br>IRC: freenode - #puppet-be</p>")
 
 
-generic_meetup("bescala", "BeScala", background_color="#FEE63C", text_color="#000000", agenda="be", tags=["java", "scala", "jvm", "programming"], description="<p>The Belgian Scala User Group.</p>")
+generic_meetup("bescala", "BeScala", background_color="#FEE63C", text_color="#000000", tags=["java", "scala", "jvm", "programming"], description="<p>The Belgian Scala User Group.</p>")
 
 
-@event_source(background_color="DarkGoldenRod", text_color="white", agenda="be", url="http://bhackspace.be")
+@event_source(background_color="DarkGoldenRod", text_color="white", url="http://bhackspace.be")
 def bhackspace(create_event):
     "<p>The BHackspace is a hackerspace located in Bastogne, Belgium.</p>"
     soup = BeautifulSoup(requests.get("http://wiki.bhackspace.be/index.php/Main_Page").content)
@@ -77,10 +77,10 @@ def bhackspace(create_event):
         db_event.tags.add("hackerspace", "bastogne")
 
 
-generic_meetup("bigdata_be", "bigdatabe", background_color="black", text_color="white", agenda="be", tags=["bigdata", "programming", "nosql"], description="<p>Welcome to our Belgian community about bigdata, NoSQL and anything data. If you live or work in Belgium and are interested in any of these technologies, please join! We want you!</p>")
+generic_meetup("bigdata_be", "bigdatabe", background_color="black", text_color="white", tags=["bigdata", "programming", "nosql"], description="<p>Welcome to our Belgian community about bigdata, NoSQL and anything data. If you live or work in Belgium and are interested in any of these technologies, please join! We want you!</p>")
 
 
-@event_source(background_color="#828282", text_color="white", key=None, agenda="be", url="https://blender-brussels.github.io/")
+@event_source(background_color="#828282", text_color="white", key=None, url="https://blender-brussels.github.io/")
 def blender_brussels(create_event):
     '<p>The <strong>Blender-Brussels</strong> − also known as <strong>Blender BPY/BGE workshops</strong> − are a series of monthly work sessions organized by <a href="http://xuv.be">Julien Deswaef</a> (<a href="https://github.com/xuv" class="user-mention">@xuv</a>) and <a href="http://frankiezafe.org">François Zajéga</a> (<a href="https://github.com/frankiezafe" class="user-mention">@frankiezafe</a>) with the aim of providing a regular gathering and knowledge sharing space for artists and coders interested in Python scripting in the context of Blender.</p>'
 
@@ -101,16 +101,16 @@ def blender_brussels(create_event):
         db_event.tags.add("bruxelles", "blender", "3D-modeling")
 
 
-generic_meetup("brussels_cassandra_users", "Brussels-Cassandra-Users", background_color="#415A6C", text_color="#CBE5F7", agenda="be", tags=["nosql", "jvm", "database", "bruxelles", "programming"], description="<p>Open to all those interested in Apache Cassandra, Big Data, Hadoop, Hive, Hector, NoSQL, Pig, and high scalability. Let's get together and share what we know!</p>")
+generic_meetup("brussels_cassandra_users", "Brussels-Cassandra-Users", background_color="#415A6C", text_color="#CBE5F7", tags=["nosql", "jvm", "database", "bruxelles", "programming"], description="<p>Open to all those interested in Apache Cassandra, Big Data, Hadoop, Hive, Hector, NoSQL, Pig, and high scalability. Let's get together and share what we know!</p>")
 
 
-generic_meetup("brussels_data_science_meetup", "Brussels-Data-Science-Community-Meetup", background_color="#CAD9EC", text_color="black", agenda="be", tags=["bruxelles", "programming", "bigdata"], description='<p>The <strong>Blender-Brussels</strong> − also known as <strong>Blender BPY/BGE workshops</strong> − are a series of monthly work sessions organized by <a href="http://xuv.be">Julien Deswaef</a> (<a href="https://github.com/xuv" class="user-mention">@xuv</a>) and <a href="http://frankiezafe.org">François Zajéga</a> (<a href="https://github.com/frankiezafe" class="user-mention">@frankiezafe</a>) with the aim of providing a regular gathering and knowledge sharing space for artists and coders interested in Python scripting in the context of Blender.</p>')
+generic_meetup("brussels_data_science_meetup", "Brussels-Data-Science-Community-Meetup", background_color="#CAD9EC", text_color="black", tags=["bruxelles", "programming", "bigdata"], description='<p>The <strong>Blender-Brussels</strong> − also known as <strong>Blender BPY/BGE workshops</strong> − are a series of monthly work sessions organized by <a href="http://xuv.be">Julien Deswaef</a> (<a href="https://github.com/xuv" class="user-mention">@xuv</a>) and <a href="http://frankiezafe.org">François Zajéga</a> (<a href="https://github.com/frankiezafe" class="user-mention">@frankiezafe</a>) with the aim of providing a regular gathering and knowledge sharing space for artists and coders interested in Python scripting in the context of Blender.</p>')
 
 
-generic_meetup("brussels_wordpress", "wp-bru", background_color="#0324C1", text_color="white", agenda="be", tags=["bruxelles", "wordpress", "cms", "php", "webdev"], description='<p>A gathering of WordPress users and professionals of all levels.<br><br>Whether you\'re a site owner, designer, developer, plug-in creator all are welcome to attend to learn, share and expand their knowledge of WordPress.<br><br>Have a look at <a href="http://www.meetup.com/wp-bru/about/">our about page</a> for a idea of the type of activities I\'d like to see organised.</p>')
+generic_meetup("brussels_wordpress", "wp-bru", background_color="#0324C1", text_color="white", tags=["bruxelles", "wordpress", "cms", "php", "webdev"], description='<p>A gathering of WordPress users and professionals of all levels.<br><br>Whether you\'re a site owner, designer, developer, plug-in creator all are welcome to attend to learn, share and expand their knowledge of WordPress.<br><br>Have a look at <a href="http://www.meetup.com/wp-bru/about/">our about page</a> for a idea of the type of activities I\'d like to see organised.</p>')
 
 
-@event_source(background_color="#FEED01", text_color="black", agenda="be", url="http://budalab.fikket.com")
+@event_source(background_color="#FEED01", text_color="black", url="http://budalab.fikket.com")
 def budalab(create_event):
     """
     <p>
@@ -142,7 +142,7 @@ def budalab(create_event):
         db_event.tags.add("fablab")
 
 
-@event_source(background_color="white", text_color="#990000", agenda="be", url="http://www.bxlug.be")
+@event_source(background_color="white", text_color="#990000", url="http://www.bxlug.be")
 def bxlug(create_event):
     """
     <p>Le BxLUG est une association d’utilisateurs de logiciels libres créée en 1999 et dont l’objectif est la promotion de GNU/Linux et autres logiciels libres dans la région de Bruxelles.</p>
@@ -172,7 +172,7 @@ def bxlug(create_event):
         db_event.tags.add("lug", "bruxelles", "libre")
 
 
-@event_source(background_color="#D2C7BA", text_color="black", key=None, agenda="be", url="http://www.constantvzw.org")
+@event_source(background_color="#D2C7BA", text_color="black", key=None, url="http://www.constantvzw.org")
 def constantvzw(create_event):
     """
     <p><strong>Constant is a non-profit association, an interdisciplinary arts-lab based and active in Brussels since 1997.</strong></p>
@@ -219,12 +219,12 @@ def constantvzw(create_event):
         db_event.tags.add("artist", "libre")
 
 
-generic_meetup("docker_belgium", "Docker-Belgium", background_color="#008FC4", text_color="white", agenda="be", tags=["docker", "lxc", "sysadmin", "devops"], description='<p>Meet other developers and ops engineers using Docker.&nbsp;Docker is an open platform for developers and sysadmins to build, ship, and run distributed applications. Consisting of Docker Engine, a portable, lightweight runtime and packaging tool, and Docker Hub, a cloud service for sharing applications and automating workflows, Docker enables apps to be quickly assembled from components and eliminates the friction between development, QA, and production environments. As a result, IT can ship faster and run the same app, unchanged, on laptops, data center VMs, and any cloud.</p><p>Learn more about Docker at&nbsp;<a href="http://www.docker.com/">http://www.docker.com</a></p>')
+generic_meetup("docker_belgium", "Docker-Belgium", background_color="#008FC4", text_color="white", tags=["docker", "lxc", "sysadmin", "devops"], description='<p>Meet other developers and ops engineers using Docker.&nbsp;Docker is an open platform for developers and sysadmins to build, ship, and run distributed applications. Consisting of Docker Engine, a portable, lightweight runtime and packaging tool, and Docker Hub, a cloud service for sharing applications and automating workflows, Docker enables apps to be quickly assembled from components and eliminates the friction between development, QA, and production environments. As a result, IT can ship faster and run the same app, unchanged, on laptops, data center VMs, and any cloud.</p><p>Learn more about Docker at&nbsp;<a href="http://www.docker.com/">http://www.docker.com</a></p>')
 
-generic_meetup("ember_js_brussels", "Ember-js-Brussels", background_color="#FC745D", text_color="white", agenda="be", tags=["emberjs", "javascript", "programming", "webdev"], description="This is a group for anyone interested in developing web applications in Ember.js. I created this group because it's nice to have a local community for sharing knowledge, ideas and inspiration about this awesome web framework. The learning curve for Ember.js is not the lightest so it will also be a place to share your frustrations! Beginner or expert, everyone is welcome.")
+generic_meetup("ember_js_brussels", "Ember-js-Brussels", background_color="#FC745D", text_color="white", tags=["emberjs", "javascript", "programming", "webdev"], description="This is a group for anyone interested in developing web applications in Ember.js. I created this group because it's nice to have a local community for sharing knowledge, ideas and inspiration about this awesome web framework. The learning curve for Ember.js is not the lightest so it will also be a place to share your frustrations! Beginner or expert, everyone is welcome.")
 
 
-@event_source(background_color="#C9C4BF", text_color="black", key=None, agenda="be", url="http://fo.am")
+@event_source(background_color="#C9C4BF", text_color="black", key=None, url="http://fo.am")
 def foam(create_event):
     """
     <p>
@@ -265,7 +265,7 @@ def foam(create_event):
             event.tags.add("meeting")
 
 
-@event_source(background_color="coral", text_color="white", key=None, agenda="be", url="https://hackerspace.be")
+@event_source(background_color="coral", text_color="white", key=None, url="https://hackerspace.be")
 def hsbxl(create_event):
     '''
     <p>
@@ -299,7 +299,7 @@ def hsbxl(create_event):
         db_event.tags.add("hackerspace")
 
 
-@event_source(background_color="#296038", text_color="#6FCE91", agenda="be", url="http://www.incubhacker.be")
+@event_source(background_color="#296038", text_color="#6FCE91", url="http://www.incubhacker.be")
 def incubhacker(create_event):
     "<p>Incubhacker est un hackerspace basé dans la région namuroise, c'est un espace de rencontre et de création interdisciplinaire.</p>"
 
@@ -325,16 +325,16 @@ def incubhacker(create_event):
         event.tags.add("hackerspace")
 
 
-generic_meetup("laravel_brussels", "Laravel-Brussels", background_color="#FFFFFF", text_color="#FB503B", agenda="be", tags=["bruxelles", "laravel", "php", "webdev", "programming"], description='<p>A group for anyone interested in learning about and sharing knowledge on Laravel, the "PHP framework for web artisans". The group welcomes beginners and experts, amateurs and pros, young and old, etc. Laravel is an accessible, yet powerful framework for web application development. Its expressive, elegant syntax and its clean structure make PHP development a real joy. As the Laravel community keeps growing, this group is an attempt to get Belgium-based users to know each other, and to spread the word!</p>')
+generic_meetup("laravel_brussels", "Laravel-Brussels", background_color="#FFFFFF", text_color="#FB503B", tags=["bruxelles", "laravel", "php", "webdev", "programming"], description='<p>A group for anyone interested in learning about and sharing knowledge on Laravel, the "PHP framework for web artisans". The group welcomes beginners and experts, amateurs and pros, young and old, etc. Laravel is an accessible, yet powerful framework for web application development. Its expressive, elegant syntax and its clean structure make PHP development a real joy. As the Laravel community keeps growing, this group is an attempt to get Belgium-based users to know each other, and to spread the word!</p>')
 
 
-generic_meetup("les_mardis_de_l_agile", "Les-mardis-de-lagile-Bruxelles", background_color="#37C2F1", text_color="black", agenda="be", tags=["bruxelles", "agile", "programming", "drink"], description="<p>Appel à la communauté agile de Bruxelles ! Que vous soyez un fervent agiliste ou tout simplement intéressé par l'agilité, venez découvrir de nouvelles approches, vous enrichir à travers les nombreuses sessions proposées, participer à des innovation games et partager vos retours d'expérience lors de nos meetups \"Les Mardis de l'agile\" !</p>")
+generic_meetup("les_mardis_de_l_agile", "Les-mardis-de-lagile-Bruxelles", background_color="#37C2F1", text_color="black", tags=["bruxelles", "agile", "programming", "drink"], description="<p>Appel à la communauté agile de Bruxelles ! Que vous soyez un fervent agiliste ou tout simplement intéressé par l'agilité, venez découvrir de nouvelles approches, vous enrichir à travers les nombreuses sessions proposées, participer à des innovation games et partager vos retours d'expérience lors de nos meetups \"Les Mardis de l'agile\" !</p>")
 
 
-generic_meetup("mongodb_belgium", "MongoDB-Belgium", background_color="#3EA86F", text_color="white", agenda="be", tags=["mongodb", "database", "programming"], description="<p>The first countrywide MongoDB user group in Belgium. Meetups will be held every 3 months. Talk proposals can be sent to hannes@showpad.com.</p>")
+generic_meetup("mongodb_belgium", "MongoDB-Belgium", background_color="#3EA86F", text_color="white", tags=["mongodb", "database", "programming"], description="<p>The first countrywide MongoDB user group in Belgium. Meetups will be held every 3 months. Talk proposals can be sent to hannes@showpad.com.</p>")
 
 
-@event_source(background_color="DarkBlue", text_color="white", agenda="be", url="http://neutrinet.be")
+@event_source(background_color="DarkBlue", text_color="white", url="http://neutrinet.be")
 def neutrinet(create_event):
     '''
     <p>Neutrinet is a project dedicated to build associative Internet Service Provider(s) in Belgium.
@@ -367,7 +367,7 @@ def neutrinet(create_event):
         event.tags.add("network", "isp")
 
 
-@event_source(background_color="#299C8F", text_color="white", key=None, agenda="be", url="https://www.google.com")
+@event_source(background_color="#299C8F", text_color="white", key=None, url="https://www.google.com")
 def okfnbe(create_event):
     """
     <p>Open Knowledge Belgium is a not for profit organisation (vzw/asbl) ran
@@ -407,7 +407,7 @@ def okfnbe(create_event):
         event.tags.add("opendata")
 
 
-@event_source(background_color="#FFFFFF", text_color="#00AA00", agenda="be", url="http://www.okno.be")
+@event_source(background_color="#FFFFFF", text_color="#00AA00", url="http://www.okno.be")
 def okno(create_event):
     """
     <p>OKNO is an artist-run organisation connecting new media and ecology. It
@@ -440,7 +440,7 @@ def okno(create_event):
         db_event.tags.add("artist")
 
 
-generic_meetup("opengarage", "OpenGarage", background_color="DarkOrchid", text_color="white", agenda="be", tags=["hackerspace"], description='''<p>The "Open Garage" is a double garage in Borsbeek, Belgium, some sort of <a href="http://en.wikipedia.org/wiki/Hackerspace">hackerspace</a>, where I (<a href="https://plus.google.com/u/2/+AnthonyLiekens/posts">Anthony Liekens</a>) host weekly workshops and many of my projects. The garage is open every Thursday evening to everyone who wants to join our community\'s numerous hacking projects.</p>
+generic_meetup("opengarage", "OpenGarage", background_color="DarkOrchid", text_color="white", tags=["hackerspace"], description='''<p>The "Open Garage" is a double garage in Borsbeek, Belgium, some sort of <a href="http://en.wikipedia.org/wiki/Hackerspace">hackerspace</a>, where I (<a href="https://plus.google.com/u/2/+AnthonyLiekens/posts">Anthony Liekens</a>) host weekly workshops and many of my projects. The garage is open every Thursday evening to everyone who wants to join our community\'s numerous hacking projects.</p>
 <p>Don\'t listen to me, but check out the media\'s reviews of the Open Garage:</p>
 <ul>
 <li><a href="http://hackaday.com/2013/10/22/hackerspacing-in-europe-garage-space-in-antwerp/">Hackaday\'s review of the Open Garage</a></li>
@@ -451,7 +451,7 @@ generic_meetup("opengarage", "OpenGarage", background_color="DarkOrchid", text_c
 </ul>''')
 
 
-generic_meetup("opentechschool", "OpenTechSchool-Brussels", background_color="#3987CB", text_color="white", agenda="be", tags=["learning", "programming", "bruxelles"], description='''
+generic_meetup("opentechschool", "OpenTechSchool-Brussels", background_color="#3987CB", text_color="white", tags=["learning", "programming", "bruxelles"], description='''
 <p>OpenTechSchool is a community initiative offering free programming workshops
 and meetups to technology enthusiasts of all genders, backgrounds, and
 experience levels. It supports volunteer coaches in setting up events by taking
@@ -463,7 +463,7 @@ questions.</p>
 <p><a href="http://www.opentechschool.org/" class="linkified">http://www.opentechschool.org/</a></p>''')
 
 
-generic_eventbrite("owaspbe", "owasp-belgium-chapter-1865700117", background_color="#4366AF", text_color="white", agenda="be", tags=["security"], description='''
+generic_eventbrite("owaspbe", "owasp-belgium-chapter-1865700117", background_color="#4366AF", text_color="white", tags=["security"], description='''
 <p>
 The Open Web Application Security Project (OWASP) is a <a rel="nofollow"
 class="external text"
@@ -481,13 +481,13 @@ security risks.
 ''', url="https://www.owasp.org/index.php/Belgium")
 
 
-generic_meetup("phpbenelux", "phpbenelux", background_color="#015074", text_color="white", agenda="be", tags=["php", "programming", "webdev"], description="<p>PHPBenelux user group meetings are a fun way to learn about best practices and new innovations from the world of PHP and to hang out with other PHP developers</p>")
+generic_meetup("phpbenelux", "phpbenelux", background_color="#015074", text_color="white", tags=["php", "programming", "webdev"], description="<p>PHPBenelux user group meetings are a fun way to learn about best practices and new innovations from the world of PHP and to hang out with other PHP developers</p>")
 
-generic_eventbrite("realize", "realize-6130306851", background_color="#36c0cb", text_color="black", agenda="be", tags=["makerspace", "bruxelles"], description="""
+generic_eventbrite("realize", "realize-6130306851", background_color="#36c0cb", text_color="black", tags=["makerspace", "bruxelles"], description="""
 <p><strong>Realize</strong> est un atelier partagé<a title="plan" href="https://www.google.be/maps/preview#!q=Rue+du+M%C3%A9tal+32%2C+Saint-Gilles&amp;data=!4m10!1m9!4m8!1m3!1d23940!2d4.802835!3d50.988438!3m2!1i1920!2i912!4f13.1" target="_blank"> situé à Saint-Gilles</a>, à deux pas du Parvis. Tous ceux qui veulent réaliser des objets peuvent y accéder grâce à diverses <a href="http://realizebxl.be/inscription/">formules d’abonnement</a>.</p>
 """, url="http://realizebxl.be/")
 
-@event_source(background_color="#2BC884", text_color="white", key=None, agenda="be", url="https://www.google.com")
+@event_source(background_color="#2BC884", text_color="white", key=None, url="https://www.google.com")
 def relab(create_event):
     """
     <p><strong>Le RElab, premier Fab Lab de Wallonie, est un atelier numérique ouvert au public et une structure de développement créatif local.</strong> La spécificité du RElab réside dans l’utilisation de matériaux de récupération comme matière première et dans l’étude de nouveaux procédés sociaux, créatifs et économiques d’upcycling, en liaison avec les nouveaux moyens&nbsp;de fabrication et de communication numérique.</p>
@@ -520,10 +520,10 @@ def relab(create_event):
             event.tags.add("fablab")
 
 
-generic_meetup("ruby_burgers", "ruby_burgers-rb", background_color="white", text_color="#6F371F", agenda="be", tags=["ruby", "programming", "drink"], description="<p>Ruby lovers meet burger lovers. Join us to talk about ruby AND burgers in the best burger places in Brussels</p>")
+generic_meetup("ruby_burgers", "ruby_burgers-rb", background_color="white", text_color="#6F371F", tags=["ruby", "programming", "drink"], description="<p>Ruby lovers meet burger lovers. Join us to talk about ruby AND burgers in the best burger places in Brussels</p>")
 
 
-@event_source(background_color="#82FEA9", text_color="#DC0000", agenda="be", url="https://www.hackerspace.lu/")
+@event_source(background_color="#82FEA9", text_color="#DC0000", url="https://www.hackerspace.lu/")
 def syn2cat(create_event):
     "<p>L'agenda du Syn2Cat, hackerspace Luxembourgeois</p>"
 
@@ -540,7 +540,7 @@ def syn2cat(create_event):
         db_event.tags.add("hackerspace", "luxembourg")
 
 
-json_api("urlab", "https://urlab.be/hackeragenda.json", background_color="pink", text_color="black", agenda="be", tags=["hackerspace"], description="""
+json_api("urlab", "https://urlab.be/hackeragenda.json", background_color="pink", text_color="black", tags=["hackerspace"], description="""
 <p>
 UrLab est le hackerspace de l’ULB. Il s’agit d'un laboratoire ouvert par et
 pour les étudiants, où l’on met à disposition une infrastructure pour qu’ils
@@ -548,7 +548,7 @@ puissent y exprimer leur créativité de manière collaborative.
 </p>
 """, source_url="http://urlab.be")
 
-@event_source(background_color="#25272C", text_color="#C58723", key=None, agenda="be", url="http://voidwarranties.be")
+@event_source(background_color="#25272C", text_color="#C58723", key=None, url="http://voidwarranties.be")
 def voidwarranties(create_event):
     """
     <p>
@@ -582,7 +582,7 @@ def voidwarranties(create_event):
         db_event.tags.add("hackeragenda")
 
 
-generic_meetup("webrtc", "WebRTC-crossingborders", background_color="#F99232", text_color="white", agenda="be", tags=["programming", "webrtc", "webdev"], description="""
+generic_meetup("webrtc", "WebRTC-crossingborders", background_color="#F99232", text_color="white", tags=["programming", "webrtc", "webdev"], description="""
 <p>
 As part of a community who believe that WebRTC is a movement for the next
 years, we exchange ideas, knowledge and experience, projects on where and how
@@ -594,7 +594,7 @@ opportunities.&nbsp;
 """)
 
 
-@event_source(background_color="white", text_color="black", agenda="be", url="http://www.0x20.be")
+@event_source(background_color="white", text_color="black", url="http://www.0x20.be")
 def whitespace(create_event):
     """
     <p>
