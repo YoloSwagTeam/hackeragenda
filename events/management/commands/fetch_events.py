@@ -61,6 +61,7 @@ class Command(BaseCommand):
     )
 
     def handle(self, *args, **options):
+        load_agendas(options.get('quiet', True))
         sources = SOURCES_FUNCTIONS.keys() if not args else args
 
         for source in sources:
