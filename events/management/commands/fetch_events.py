@@ -227,20 +227,20 @@ def generic_facebook(org_name, fb_group, background_color, text_color, agenda=No
     return event_source(background_color, text_color, agenda=agenda, description=description, url="https://www.facebook.com/" + fb_group)(fetch, org_name)
 
 
-def load_agendas():
+def load_agenda(name, quiet=True):
+    CURRENT_AGENDA = name
+    try:
+        res = load_source(name, "agendas/"+name+".py")
+        if not quiet:
+            print " === Loaded fetchers for agenda %s" % (name)
+        return res
+    except Exception as err:
+        print " === Error %s when loading fetchers for agenda %s" % (err.__name__, name)
+        traceback.print_exc()
+
+def load_agendas(quiet=True):
     ignore = ('__init__.py', 'env.py')
     for f in listdir("agendas"):
         if f in ignore or f[-3:] != '.py':
             continue
-
-        agenda = f[:-3]
-        CURRENT_AGENDA = agenda
-
-        try:
-            load_source(agenda, "agendas/"+f)
-            print " === Loaded fetchers for agenda %s" % (agenda)
-        except Exception as err:
-            print " === Error %s when loading fetchers for %s" % (err.__name__, agenda)
-            traceback.print_exc()
-
-load_agendas()
+        load_agenda(f[:-3])
