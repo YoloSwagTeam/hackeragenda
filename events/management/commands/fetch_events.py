@@ -62,6 +62,7 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         load_agendas(options.get('quiet', True))
+
         sources = SOURCES_FUNCTIONS.keys() if not args else args
 
         for source in sources:
@@ -236,6 +237,6 @@ def load_agenda(name, quiet=True):
 
 def load_agendas(quiet=True):
     for f in listdir("agendas"):
-        if f != "__init__.py" or f.split(".")[-1] != 'py':
+        if f == "__init__.py" or f.split(".")[-1] != 'py':
             continue
         load_agenda(f[:-3])
