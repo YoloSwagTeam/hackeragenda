@@ -235,13 +235,12 @@ def load_agendas():
 
         agenda = f[:-3]
         CURRENT_AGENDA = agenda
-        load_source(agenda, "agendas/"+f)
 
         try:
             load_source(agenda, "agendas/"+f)
-            print "Loaded fetchers for agenda %s" % (agenda)
+            print " === Loaded fetchers for agenda %s" % (agenda)
         except Exception as err:
-            print "Error %s when loading fetchers for %s" % (err.__name__, agenda)
+            print " === Error %s when loading fetchers for %s" % (err.__name__, agenda)
             traceback.print_exc()
 
 load_agendas()
