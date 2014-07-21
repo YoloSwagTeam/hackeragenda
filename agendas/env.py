@@ -8,12 +8,13 @@ from events.management.commands.fetch_events import (
 	json_api
 )
 
-import BeautifulSoup
 import requests
 import time
 import calendar
 import feedparser
 
+from BeautifulSoup import BeautifulSoup
+from django.template.defaultfilters import slugify
 from datetime import date, datetime, timedelta
 from dateutil.parser import parse
 from icalendar import Calendar
