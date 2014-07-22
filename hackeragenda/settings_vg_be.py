@@ -32,5 +32,3 @@ PREDEFINED_FILTERS["animal rights"] = {
 }
 
 AGENDA="vg_be"
-
-from settings_vg_be_local import *
