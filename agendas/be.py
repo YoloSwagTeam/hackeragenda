@@ -558,6 +558,39 @@ def syn2cat(create_event):
         db_event.tags.add("hackerspace", "luxembourg")
 
 
+@event_source(background_color="#333", text_color="white", url="http://www.timelab.org")
+def timelab(create_event):
+    """<p>Timelab brengt makers samen. Deel uitmaken van de makers-community stimuleert leren, samenwerken, creativiteit, innovatie en experiment.</p>"""
+    soup = BeautifulSoup(requests.get("http://www.timelab.org/nl/agenda").content)
+
+    while soup:
+        for event_dom in soup('div', 'events')[0]('li', 'views-row'):
+            title = event_dom('h2', 'title')[0].text
+            url = event_dom('a')[0]['href']
+
+            start_dom = event_dom('span', 'date-display-start')
+            if start_dom:
+                start = parse(start_dom[0]['content'])
+                end = parse(event_dom('span', 'date-display-end')[0]['content'])
+                all_day = False
+            else:
+                start_dom = event_dom('span', 'date-display-single')
+                start = parse(start_dom[0]['content'])
+                end = None
+                all_day = True
+
+            create_event(
+                title=title, start=start, end=end, all_day=all_day, url=url
+            ).tags.add("fablab")
+
+        next_page_link = soup('li', 'pager-next')[0]
+        if next_page_link.text:
+            href = "http://www.timelab.org" + next_page_link('a')[0]['href']
+            soup = BeautifulSoup(requests.get(href).content)
+        else:
+            soup = None
+
+
 json_api("urlab", "https://urlab.be/hackeragenda.json", background_color="pink", text_color="black", tags=["hackerspace"], description="""
 <p>
 UrLab est le hackerspace de l’ULB. Il s’agit d'un laboratoire ouvert par et
