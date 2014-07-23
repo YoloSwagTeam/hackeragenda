@@ -86,6 +86,7 @@ PREDEFINED_FILTERS["default"] = {
         "belgian_angularjs",
         "belgian_nodejs_user_group",
         "belgian_puppet_user_group",
+        "belgian_ruby_user_group",
         "bigdata_be",
         "budalab",
         "brussels_cassandra_users",
