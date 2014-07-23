@@ -545,12 +545,12 @@ def timelab(create_event):
 
             start_dom = event_dom('span', 'date-display-start')
             if start_dom:
-                start = parse(start_dom[0]['content'])
-                end = parse(event_dom('span', 'date-display-end')[0]['content'])
+                start = parse(start_dom[0]['content']).replace(tzinfo=None)
+                end = parse(event_dom('span', 'date-display-end')[0]['content']).replace(tzinfo=None)
                 all_day = False
             else:
                 start_dom = event_dom('span', 'date-display-single')
-                start = parse(start_dom[0]['content'])
+                start = parse(start_dom[0]['content']).replace(tzinfo=None)
                 end = None
                 all_day = True
 
