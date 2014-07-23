@@ -218,6 +218,60 @@ def generic_facebook(org_name, fb_group, background_color, text_color, agenda=No
     return event_source(background_color, text_color, agenda=agenda, description=description, url="https://www.facebook.com/" + fb_group)(fetch, org_name)
 
 
+def generic_google_agenda(org_name, gurl, tags=[], **options):
+    def fetch(create_event):
+        #data = Calendar.from_ical(requests.get(gurl).content)
+        data = Calendar.from_ical(open("/home/titou/sandbox/TIMELAB/google.ics").read())
+
+        # Each event has a unique google id, but is present multiple times
+        known_uids = {}
+
+        for event in data.walk():
+            if not event.get("DTSTAMP"):
+                continue
+
+            uid = event.get("UID")
+            last_mod = str(event["LAST-MODIFIED"].dt) if "LAST-MODIFIED" in event else "1970-01-01"
+            if uid in known_uids and last_mod <= known_uids[uid].last_mod:
+                continue
+
+            title = str(event["SUMMARY"]) if event.get("SUMMARY") else ""
+            url = (str(event["URL"]) if str(event["URL"]).startswith("http") else "http://" + str(event["URL"])) if event.get("URL") else options.get("url", "")
+            start = str(event["DTSTART"].dt) if event.get("DTSTART") else str(event["DTSTAMP"].dt)
+            end = str(event["DTEND"].dt) if event.get("DTEND") else None
+            location = event["LOCATION"]
+
+            # timezone removal, the crappy way
+            if len(start) > 10:
+                start = start[:-6]
+            if len(end) > 10:
+                end = end[:-6]
+
+            #Event modification: update record
+            if uid in known_uids:
+                db_event = known_uids[uid]
+                db_event.title = title
+                db_event.url = url
+                db_event.start = start
+                db_event.end = end
+                db_event.location = location
+                db_event.save()
+            else:
+                db_event = create_event(
+                    title=title,
+                    url=url,
+                    start=start,
+                    end=end,
+                    location=location
+                )
+
+                if tags:
+                    db_event.tags.add(*tags)
+                known_uids[uid] = db_event
+
+            db_event.last_mod = last_mod
+    return event_source(key=None, **options)(fetch, org_name)
+
 CURRENT_AGENDA = None
 
 def load_agenda(name):
