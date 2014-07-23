@@ -220,9 +220,8 @@ def generic_facebook(org_name, fb_group, background_color, text_color, agenda=No
 
 def generic_google_agenda(org_name, gurl, tags=[], **options):
     def fetch(create_event):
-        #data = Calendar.from_ical(requests.get(gurl).content)
-        data = Calendar.from_ical(open("/home/titou/sandbox/TIMELAB/google.ics").read())
-
+        data = Calendar.from_ical(requests.get(gurl).content)
+        
         # Each event has a unique google id, but is present multiple times
         known_uids = {}
 

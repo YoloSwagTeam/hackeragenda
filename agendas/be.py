@@ -13,7 +13,7 @@ from HTMLParser import HTMLParser
 
 from events.management.commands.fetch_events import (
     event_source,
-    generic_meetup, generic_eventbrite,
+    generic_meetup, generic_eventbrite, generic_google_agenda,
     json_api
 )
 
@@ -317,6 +317,24 @@ def hsbxl(create_event):
         db_event.tags.add("hackerspace")
 
 
+generic_google_agenda(
+    "imal",
+    "https://www.google.com/calendar/ical/8kj8vqcbjk4o7dl26bvi6lm3no%40group.calendar.google.com/public/basic.ics",
+    background_color="#F47D31", text_color="white", url="http://www.imal.org/fablab/",
+    tags=["fablab", "art"],
+    description="""
+    <p>iMAL (interactive Media Art Laboratory), is a non-profit association
+    created in Brussels in 1999, with the objective to support artistic forms
+    and creative practices using computer and network technologies as their
+    medium. In 2007, iMAL opened its new venue: a Centre for Digital Cultures
+    and Technology of about 600m2 for the meeting of artistic, scientific and
+    industrial innovations. A space entirely dedicated to contemporary artistic
+    and cultural practices emerging from the fusion of computer,
+    telecommunication, network and media.</p>
+    """
+)
+
+
 @event_source(background_color="#296038", text_color="#6FCE91", url="http://www.incubhacker.be")
 def incubhacker(create_event):
     "<p>Incubhacker est un hackerspace basé dans la région namuroise, c'est un espace de rencontre et de création interdisciplinaire.</p>"
@@ -385,9 +403,12 @@ def neutrinet(create_event):
         event.tags.add("network", "isp")
 
 
-@event_source(background_color="#299C8F", text_color="white", key=None, url="https://www.google.com")
-def okfnbe(create_event):
-    """
+generic_google_agenda(
+    "okfnbe",
+    "https://www.google.com/calendar/ical/sv07fu4vrit3l8nb0jlo8v7n80@group.calendar.google.com/public/basic.ics",
+    background_color="#299C8F", text_color="white", url="https://www.google.com",
+    tags=["opendata"],
+    description="""
     <p>Open Knowledge Belgium is a not for profit organisation (vzw/asbl) ran
     by a board of 6 people and has currently 1 employee. It is an umbrella
     organisation for Open Knowledge in Belgium and, as mentioned below, contains
@@ -395,34 +416,7 @@ def okfnbe(create_event):
 
     <p>If you would like to have your activities under our wing, please contact us at our mailinglist.</p>
     """
-
-    data = Calendar.from_ical(requests.get("https://www.google.com/calendar/ical/sv07fu4vrit3l8nb0jlo8v7n80@group.calendar.google.com/public/basic.ics").content)
-
-    for event in data.walk()[1:]:
-        if not event.get("DTSTAMP"):
-            continue
-
-        title = str(event["SUMMARY"]) if event.get("SUMMARY") else ""
-        url = (str(event["URL"]) if str(event["URL"]).startswith("http") else "http://" + str(event["URL"])) if event.get("URL") else "http://okfn.be/"
-        start = str(event["DTSTART"].dt) if event.get("DTSTART") else str(event["DTSTAMP"].dt)
-        end = str(event["DTEND"].dt) if event.get("DTEND") else None
-        location = event["LOCATION"]
-
-        # timezone removal, the crappy way
-        if len(start) > 10:
-            start = start[:-6]
-        if len(end) > 10:
-            end = end[:-6]
-
-        event = create_event(
-            title=title,
-            url=url,
-            start=start,
-            end=end,
-            location=location
-        )
-
-        event.tags.add("opendata")
+)
 
 
 @event_source(background_color="#FFFFFF", text_color="#00AA00", url="http://www.okno.be")
@@ -505,37 +499,18 @@ generic_eventbrite("realize", "realize-6130306851", background_color="#36c0cb", 
 <p><strong>Realize</strong> est un atelier partagé<a title="plan" href="https://www.google.be/maps/preview#!q=Rue+du+M%C3%A9tal+32%2C+Saint-Gilles&amp;data=!4m10!1m9!4m8!1m3!1d23940!2d4.802835!3d50.988438!3m2!1i1920!2i912!4f13.1" target="_blank"> situé à Saint-Gilles</a>, à deux pas du Parvis. Tous ceux qui veulent réaliser des objets peuvent y accéder grâce à diverses <a href="http://realizebxl.be/inscription/">formules d’abonnement</a>.</p>
 """, url="http://realizebxl.be/")
 
-@event_source(background_color="#2BC884", text_color="white", key=None, url="https://www.google.com")
-def relab(create_event):
+
+generic_google_agenda(
+    "relab",
+    "https://www.google.com/calendar/ical/utmnk71g19dcs2d0f88q3hf528%40group.calendar.google.com/public/basic.ics",
+    background_color="#2BC884", text_color="white", url="https://www.google.com",
+    tags=["fablab"],
+    description="""
+    <p><strong>Le RElab, premier Fab Lab de Wallonie, est un atelier numérique ouvert au public et une structure de développement créatif local.</strong>
+    La spécificité du RElab réside dans l’utilisation de matériaux de récupération comme matière première et dans l’étude de nouveaux procédés sociaux,
+    créatifs et économiques d’upcycling, en liaison avec les nouveaux moyens&nbsp;de fabrication et de communication numérique.</p>
     """
-    <p><strong>Le RElab, premier Fab Lab de Wallonie, est un atelier numérique ouvert au public et une structure de développement créatif local.</strong> La spécificité du RElab réside dans l’utilisation de matériaux de récupération comme matière première et dans l’étude de nouveaux procédés sociaux, créatifs et économiques d’upcycling, en liaison avec les nouveaux moyens&nbsp;de fabrication et de communication numérique.</p>
-    """
-    data = Calendar.from_ical(requests.get("https://www.google.com/calendar/ical/utmnk71g19dcs2d0f88q3hf528%40group.calendar.google.com/public/basic.ics").content)
-
-    for event in data.walk()[1:]:
-        if event.get("DTSTAMP"):
-            title = str(event["SUMMARY"]) if event.get("SUMMARY") else ""
-            url = str(event["URL"]) if event.get("URL") else "http://relab.be"
-            start = str(event["DTSTART"].dt) if event.get("DTSTART") else str(event["DTSTAMP"].dt)
-            end = str(event["DTEND"].dt) if event.get("DTEND") else None
-
-            location = event["LOCATION"]
-
-            # timezone removal, the crappy way
-            if len(start) > 10:
-                start = start[:-6]
-            if len(end) > 10:
-                end = end[:-6]
-
-            event = create_event(
-                title=title,
-                url=url,
-                start=start,
-                end=end,
-                location=location
-            )
-
-            event.tags.add("fablab")
+)
 
 
 generic_meetup("ruby_burgers", "ruby_burgers-rb", background_color="white", text_color="#6F371F", tags=["ruby", "programming", "drink"], description="<p>Ruby lovers meet burger lovers. Join us to talk about ruby AND burgers in the best burger places in Brussels</p>")
