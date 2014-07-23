@@ -555,7 +555,11 @@ def timelab(create_event):
                 all_day = True
 
             create_event(
-                title=title, start=start, end=end, all_day=all_day, url=url
+                title=title,
+                start=start,
+                end=end,
+                all_day=all_day,
+                url=url
             ).tags.add("fablab")
 
         next_page_link = soup('li', 'pager-next')[0]
