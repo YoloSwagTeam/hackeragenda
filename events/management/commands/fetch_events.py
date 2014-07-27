@@ -218,7 +218,7 @@ def generic_facebook(org_name, fb_group, background_color, text_color, agenda=No
     return event_source(background_color, text_color, agenda=agenda, description=description, url="https://www.facebook.com/" + fb_group)(fetch, org_name)
 
 
-def generic_google_agenda(org_name, gurl, tags=[], **options):
+def generic_google_agenda(org_name, gurl, per_event_url_function=None, tags=[], **options):
     def fetch(create_event):
         data = Calendar.from_ical(requests.get(gurl).content)
 
@@ -235,7 +235,10 @@ def generic_google_agenda(org_name, gurl, tags=[], **options):
                 continue
 
             title = str(event["SUMMARY"]) if event.get("SUMMARY") else ""
-            url = (str(event["URL"]) if str(event["URL"]).startswith("http") else "http://" + str(event["URL"])) if event.get("URL") else options.get("url", "")
+            if per_event_url_function is None:
+                url = (str(event["URL"]) if str(event["URL"]).startswith("http") else "http://" + str(event["URL"])) if event.get("URL") else options.get("url", "")
+            else:
+                url = per_event_url_function(event)
             start = str(event["DTSTART"].dt) if event.get("DTSTART") else str(event["DTSTAMP"].dt)
             end = str(event["DTEND"].dt) if event.get("DTEND") else None
             location = event["LOCATION"]

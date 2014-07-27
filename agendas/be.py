@@ -61,6 +61,7 @@ generic_google_agenda(
     "https://www.google.com/calendar/ical/7chafqnhlfkjqhp806t1tefsgc%40group.calendar.google.com/public/basic.ics",
     background_color="#F39532", text_color="white", url="http://bbug.tuxfamily.org",
     tags=["blender", "art", "3D-modeling"],
+    per_event_url_function=lambda event: event["DESCRIPTION"],
     description="""
     <p>The Belgian User Group of the 3D modeling tool <a href="https://www.blender.org/">blender</a>.
     """
