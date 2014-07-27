@@ -56,6 +56,17 @@ generic_meetup("agile_belgium", "Agile-Belgium", background_color="#D2353A", tex
 generic_meetup("aws_user_group_belgium", "AWS-User-Group-Belgium", background_color="#F8981D", text_color="white", tags=["cloud", "amazon", "aws", "sysadmin"], description="<p>This is a group for anyone interested in cloud computing on the Amazon Web Services platform. All skills levels are welcome.</p>")
 
 
+generic_google_agenda(
+    "belgian_blender_user_group",
+    "https://www.google.com/calendar/ical/7chafqnhlfkjqhp806t1tefsgc%40group.calendar.google.com/public/basic.ics",
+    background_color="#F47D31", text_color="white", url="http://bbug.tuxfamily.org",
+    tags=["blender", "art", "3D-modeling"],
+    description="""
+    <p>The Belgian User Group of the 3D modeling tool <a href="https://www.blender.org/">blender</a>.
+    """
+)
+
+
 generic_meetup("belgian_angularjs", "The-Belgian-AngularJS-Meetup-Group", background_color="#9D3532", text_color="white", tags=["angularjs", "javascript", "webdev", "programming"], description="<p>Let's get together for some discussions about the awesome AngularJS framework! I started this group to meet the belgian AngularJS community and share together our experience.</p>")
 
 
