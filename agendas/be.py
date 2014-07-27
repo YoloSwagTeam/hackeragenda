@@ -514,7 +514,7 @@ generic_eventbrite("realize", "realize-6130306851", background_color="#36c0cb", 
 generic_google_agenda(
     "relab",
     "https://www.google.com/calendar/ical/utmnk71g19dcs2d0f88q3hf528%40group.calendar.google.com/public/basic.ics",
-    background_color="#2BC884", text_color="white", url="https://www.google.com",
+    background_color="#2BC884", text_color="white", url="http://www.relab.be",
     tags=["fablab"],
     description="""
     <p><strong>Le RElab, premier Fab Lab de Wallonie, est un atelier numérique ouvert au public et une structure de développement créatif local.</strong>
