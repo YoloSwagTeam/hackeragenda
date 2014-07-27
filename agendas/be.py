@@ -59,7 +59,7 @@ generic_meetup("aws_user_group_belgium", "AWS-User-Group-Belgium", background_co
 generic_google_agenda(
     "belgian_blender_user_group",
     "https://www.google.com/calendar/ical/7chafqnhlfkjqhp806t1tefsgc%40group.calendar.google.com/public/basic.ics",
-    background_color="#F47D31", text_color="white", url="http://bbug.tuxfamily.org",
+    background_color="#F39532", text_color="white", url="http://bbug.tuxfamily.org",
     tags=["blender", "art", "3D-modeling"],
     description="""
     <p>The Belgian User Group of the 3D modeling tool <a href="https://www.blender.org/">blender</a>.
