@@ -574,9 +574,9 @@ def timelab(create_event):
                 url=url
             ).tags.add("fablab")
 
-        next_page_link = soup('li', 'pager-next')[0]
-        if next_page_link.text:
-            href = "http://www.timelab.org" + next_page_link('a')[0]['href']
+        next_page_links = soup('li', 'pager-next')
+        if next_page_links and next_page_links[0].text:
+            href = "http://www.timelab.org" + next_page_links[0]('a')['href']
             soup = BeautifulSoup(requests.get(href).content)
         else:
             soup = None
