@@ -78,7 +78,7 @@ generic_meetup("belgian_nodejs_user_group", "Belgian-node-js-User-Group", backgr
 generic_meetup("belgian_puppet_user_group", "Belgian-Puppet-User-Group", background_color="#7B6DB0", text_color="white", tags=["puppet", "sysadmin", "devops"], description="<p>Bringing puppet loving people together on a regular base, to talk about best practices, their experience and have interesting discussions about a great configuration management tool.<br><br>IRC: freenode - #puppet-be</p>")
 
 
-generic_meetup("belgian_ruby_user_group", "brug__", background_color="E0393E", text_color="white", tags=["ruby", "programming"], description="<p>BRUG is the Belgian Ruby User Group.</p>")
+generic_meetup("belgian_ruby_user_group", "brug__", background_color="#E0393E", text_color="white", tags=["ruby", "programming"], description="<p>BRUG is the Belgian Ruby User Group.</p>")
 
 
 generic_meetup("bescala", "BeScala", background_color="#FEE63C", text_color="#000000", tags=["java", "scala", "jvm", "programming"], description="<p>The Belgian Scala User Group.</p>")
