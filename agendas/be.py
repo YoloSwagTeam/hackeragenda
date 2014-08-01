@@ -63,7 +63,8 @@ generic_google_agenda(
     tags=["blender", "art", "3D-modeling"],
     per_event_url_function=lambda event: event["DESCRIPTION"],
     description="""
-    <p>The Belgian User Group of the 3D modeling tool <a href="https://www.blender.org/">blender</a>.
+    <p>The Belgian Blender User Group is a belgium based community of users of the open source software called <a href="https://www.blender.org/">Blender</a>.</p>
+    <p>We are a group of users targeting IRL meetings and organizing workshops and training.</p>
     """
 )
 
