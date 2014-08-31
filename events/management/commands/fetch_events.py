@@ -160,7 +160,7 @@ def generic_eventbrite(org_name, eventbrite_id, background_color, text_color, ur
     return event_source(background_color, text_color, agenda=agenda, description=description, url=url)(fetch, org_name)
 
 
-def generic_meetup(org_name, meetup_name, background_color, text_color, agenda=None, tags=None, description=""):
+def generic_meetup(org_name, meetup_name, background_color, text_color, agenda=None, tags=None, description="", key=None):
     def fetch(create_event):
         data = Calendar.from_ical(requests.get("http://www.meetup.com/{}/events/ical/".format(meetup_name)).content)
 
@@ -174,15 +174,19 @@ def generic_meetup(org_name, meetup_name, background_color, text_color, agenda=N
             if None in (title, start):
                 continue
 
-            if event.get("URL") and Event.objects.filter(url=event["url"]):
+            detail = {
+                "title": title.encode("Utf-8"),
+                "url": event.get("URL", ""),
+                "start": start.dt.replace(tzinfo=None),
+                "location": event.get("LOCATION", "").encode("Utf-8"),
+            }
+
+            if key is None and event.get("URL") and Event.objects.filter(url=event["url"]):
+                continue
+            elif callable(key) and key(event_query=Event.objects.filter(source=org_name), detail=detail) is False:
                 continue
 
-            db_event = create_event(
-                title=title.encode("Utf-8"),
-                url=event.get("URL", ""),
-                start=start.dt.replace(tzinfo=None),
-                location=event.get("LOCATION", "").encode("Utf-8"),
-            )
+            db_event = create_event(**detail)
 
             if tags:
                 db_event.tags.add(*tags)
