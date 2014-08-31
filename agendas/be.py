@@ -471,6 +471,11 @@ def okno(create_event):
         db_event.tags.add("artist")
 
 
+def opengarage_duplicated(event_query, detail):
+    events = [event for event in event_query.all() if not event.url.split("/")[-2].isdigit()]
+    map(lambda x: x.delete(), events)
+
+
 generic_meetup("opengarage", "OpenGarage", background_color="DarkOrchid", text_color="white", tags=["hackerspace"], description='''<p>The "Open Garage" is a double garage in Borsbeek, Belgium, some sort of <a href="http://en.wikipedia.org/wiki/Hackerspace">hackerspace</a>, where I (<a href="https://plus.google.com/u/2/+AnthonyLiekens/posts">Anthony Liekens</a>) host weekly workshops and many of my projects. The garage is open every Thursday evening to everyone who wants to join our community\'s numerous hacking projects.</p>
 <p>Don\'t listen to me, but check out the media\'s reviews of the Open Garage:</p>
 <ul>
@@ -479,7 +484,7 @@ generic_meetup("opengarage", "OpenGarage", background_color="DarkOrchid", text_c
 <li><a href="https://www.youtube.com/watch?v=aCuUv5ltw6g">The Open Garage in "Iedereen Beroemd"</a> (Belgian national TV)</li>
 <li><a href="http://www.radio1.be/programmas/de-bende-van-einstein/binnenkijken-de-garage-van-anthony-liekens">The Open Garage on Radio 1</a> (Belgian national radio)</li>
 <li><a href="http://krant.tijd.be/ipaper/20140215#paper/sabato_nl/50">The Open Garage in De Tijd</a> (Belgian "Times" newspaper)</li>
-</ul>''')
+</ul>''', key=opengarage_duplicated)
 
 
 generic_meetup("opentechschool", "OpenTechSchool-Brussels", background_color="#3987CB", text_color="white", tags=["learning", "programming", "bruxelles"], description='''
