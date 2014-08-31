@@ -33,7 +33,13 @@ def afpyro(create_event):
         event.tags.add("python", "programming", "drink")
 
 
-@event_source(background_color="#3A87AD", text_color="white", url="http://www.agendadulibre.be")
+def agenda_du_libre_be_duplicate(event_model, detail):
+    id = detail["url"].split("/")[-1].split("=")[-1]
+    event_model.objects.filter(url="http://www.agendadulibre.be/showevent.php?id=%s" % id).delete()
+    event_model.objects.filter(url="http://www.agendadulibre.be/events/%s" % id).delete()
+
+
+@event_source(background_color="#3A87AD", text_color="white", url="http://www.agendadulibre.be", key=agenda_du_libre_be_duplicate)
 def agenda_du_libre_be(create_event):
     "<p>L'agenda des évènements du Logiciel Libre en Belgique.</p>"
     data = Calendar.from_ical(requests.get("http://www.agendadulibre.be/ical.php?region=all").content)
