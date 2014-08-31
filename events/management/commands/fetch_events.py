@@ -80,7 +80,7 @@ def event_source(background_color, text_color, url, agenda=None, key="url", desc
         def fetch_events(quiet):
             def create_event(**detail):
                 if callable(key):
-                    key(event_model=Event, detail=detail)
+                    key(event_query=Event.objects.filter(source=org_name), detail=detail)
 
                 elif key not in (None, False) and Event.objects.filter(**{key: detail[key]}):
                     Event.objects.filter(**{key: detail[key]}).delete()

@@ -33,10 +33,10 @@ def afpyro(create_event):
         event.tags.add("python", "programming", "drink")
 
 
-def agenda_du_libre_be_duplicate(event_model, detail):
+def agenda_du_libre_be_duplicate(event_query, detail):
     id = detail["url"].split("/")[-1].split("=")[-1]
-    event_model.objects.filter(url="http://www.agendadulibre.be/showevent.php?id=%s" % id).delete()
-    event_model.objects.filter(url="http://www.agendadulibre.be/events/%s" % id).delete()
+    event_query.filter(url="http://www.agendadulibre.be/showevent.php?id=%s" % id).delete()
+    event_query.filter(url="http://www.agendadulibre.be/events/%s" % id).delete()
 
 
 @event_source(background_color="#3A87AD", text_color="white", url="http://www.agendadulibre.be", key=agenda_du_libre_be_duplicate)
