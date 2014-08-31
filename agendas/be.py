@@ -556,6 +556,9 @@ def syn2cat(create_event):
 
         db_event.tags.add("hackerspace", "luxembourg")
 
+        if "openmonday" in db_event.title.lower():
+            db_event.tags.add("meeting")
+
 
 @event_source(background_color="#333", text_color="white", url="http://www.timelab.org")
 def timelab(create_event):
