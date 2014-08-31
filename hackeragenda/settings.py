@@ -94,11 +94,14 @@ PREDEFINED_FILTERS["default"] = {
         "brussels_wordpress",
         "docker_belgium",
         "ember_js_brussels",
+        "imal",
         "laravel_brussels",
         "les_mardis_de_l_agile",
         "mongodb_belgium",
         "phpbenelux",
+        "relab",
         "ruby_burgers",
+        "timelab",
         "webrtc",
     ],
     "tag": [],
@@ -123,6 +126,32 @@ PREDEFINED_FILTERS["hackerspaces"] = {
         "voidwarranties",
         "whitespace",
         "wolfplex"
+    ],
+    "exclude_source": [],
+    "tag": [],
+    "exclude_tag": [],
+}
+
+PREDEFINED_FILTERS["*lab"] = {
+    "source": [
+        "budalab",
+        "imal",
+        "relab",
+        "timelab",
+    ],
+    "exclude_source": [],
+    "tag": [],
+    "exclude_tag": [],
+}
+
+PREDEFINED_FILTERS["art"] = {
+    "source": [
+        "belgian_blender_user_group",
+        "blender_brussels",
+        "constantvzw",
+        "foam",
+        "imal",
+        "okno",
     ],
     "exclude_source": [],
     "tag": [],
