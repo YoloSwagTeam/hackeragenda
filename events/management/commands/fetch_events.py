@@ -188,8 +188,10 @@ def generic_meetup(org_name, meetup_name, background_color, text_color, agenda=N
 
             db_event = create_event(**detail)
 
-            if tags:
-                db_event.tags.add(*tags)
+            if filter(lambda x: not callable(x), tags):
+                db_event.tags.add(*filter(lambda x: not callable(x), tags))
+
+            map(lambda tag: tag(db_event), filter(callable, tags))
 
     return event_source(background_color, text_color, agenda=agenda, description=description, url="https://meetup.com/" + meetup_name)(fetch, org_name)
 

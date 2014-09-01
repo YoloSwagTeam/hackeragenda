@@ -605,6 +605,7 @@ puissent y exprimer leur créativité de manière collaborative.
 </p>
 """, source_url="http://urlab.be")
 
+
 @event_source(background_color="#25272C", text_color="#C58723", key=None, url="http://voidwarranties.be")
 def voidwarranties(create_event):
     """
