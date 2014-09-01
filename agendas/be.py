@@ -476,7 +476,12 @@ def opengarage_duplicated(event_query, detail):
     map(lambda x: x.delete(), events)
 
 
-generic_meetup("opengarage", "OpenGarage", background_color="DarkOrchid", text_color="white", tags=["hackerspace"], description='''<p>The "Open Garage" is a double garage in Borsbeek, Belgium, some sort of <a href="http://en.wikipedia.org/wiki/Hackerspace">hackerspace</a>, where I (<a href="https://plus.google.com/u/2/+AnthonyLiekens/posts">Anthony Liekens</a>) host weekly workshops and many of my projects. The garage is open every Thursday evening to everyone who wants to join our community\'s numerous hacking projects.</p>
+def opengarage_meetings(event):
+    if event.title == "Open Garage":
+        event.tags.add("meeting")
+
+
+generic_meetup("opengarage", "OpenGarage", background_color="DarkOrchid", text_color="white", tags=["hackerspace", opengarage_meetings], description='''<p>The "Open Garage" is a double garage in Borsbeek, Belgium, some sort of <a href="http://en.wikipedia.org/wiki/Hackerspace">hackerspace</a>, where I (<a href="https://plus.google.com/u/2/+AnthonyLiekens/posts">Anthony Liekens</a>) host weekly workshops and many of my projects. The garage is open every Thursday evening to everyone who wants to join our community\'s numerous hacking projects.</p>
 <p>Don\'t listen to me, but check out the media\'s reviews of the Open Garage:</p>
 <ul>
 <li><a href="http://hackaday.com/2013/10/22/hackerspacing-in-europe-garage-space-in-antwerp/">Hackaday\'s review of the Open Garage</a></li>
