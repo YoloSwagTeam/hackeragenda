@@ -34,8 +34,15 @@ class EventListView(ListView):
         return context
 
 
-def get_events_in_json(request):
+def get_fullcalendar_json(request):
     return HttpResponse(json.dumps(map(event_to_fullcalendar_format, filter_events(request=request, queryset=Event.objects.filter(agenda=settings.AGENDA)))), mimetype="application/json")
+
+
+def get_events_in_json(request):
+    return HttpResponse(json.dumps(
+        map(event_to_json_format, filter_events(request=request,
+                                                queryset=Event.objects.filter(agenda=settings.AGENDA)))),
+        mimetype="application/json")
 
 
 def event_to_fullcalendar_format(event):
@@ -56,4 +63,16 @@ def event_to_fullcalendar_format(event):
         else:
             to_return["end"] = (event.start + timedelta(hours=3)).strftime("%F %X")
 
+    return to_return
+
+
+def event_to_json_format(event):
+    "JSON format for general use, in contrast to the fullcalendar version."
+    # Patches the JSON for fullcalendar with extra info
+    to_return = event_to_fullcalendar_format(event)
+    to_return.update({
+        key: getattr(event, key)
+        for key in ("title", "source", "location")
+        if getattr(event, key) is not None
+        })
     return to_return
