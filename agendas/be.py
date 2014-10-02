@@ -574,6 +574,8 @@ def timelab(create_event):
         for event_dom in soup('div', 'events')[0]('li', 'views-row'):
             title = event_dom('h2', 'title')[0].text
             url = event_dom('a')[0]['href']
+            if not url.startswith('http'):
+                url = "http://www.timelab.org" + url
 
             start_dom = event_dom('span', 'date-display-start')
             if start_dom:
