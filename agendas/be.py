@@ -330,7 +330,7 @@ def hsbxl(create_event):
             location=event["printouts"]["Location"][0]["fulltext"]
         )
 
-        if "TechTue" in event["fulltext"]:
+        if "TechTue" in event["fulltext"] or "Garbage day" in event["fulltext"]:
             db_event.tags.add("meeting")
 
         db_event.tags.add("hackerspace")
