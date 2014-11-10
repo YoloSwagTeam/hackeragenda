@@ -1,5 +1,6 @@
 from django.conf import settings
 
+
 def filter_events(request, queryset):
     section = request.GET.get("section")
     if section:
