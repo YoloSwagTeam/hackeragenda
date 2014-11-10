@@ -193,7 +193,7 @@ def generic_meetup(org_name, meetup_name, background_color, text_color, agenda=N
 
             map(lambda tag: tag(db_event), filter(callable, tags))
 
-    return event_source(background_color, text_color, agenda=agenda, description=description, url="https://meetup.com/" + meetup_name)(fetch, org_name)
+    return event_source(background_color, text_color, agenda=agenda, description=description, url="https://meetup.com/" + meetup_name + "/")(fetch, org_name)
 
 
 def generic_facebook(org_name, fb_group, background_color, text_color, agenda=None, tags=None, description=""):
