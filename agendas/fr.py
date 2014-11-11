@@ -101,29 +101,13 @@ def ping(create_event):
     </p>
     """
 
-    now = calendar.timegm(datetime.now().utctimetuple())
+    data = Calendar.from_ical(requests.get("http://www.pingbase.net/agenda/mois?ical=1").content)
 
-    # 2 magics numbers are from a reverse of the incubhacker calendar api
-    for event in requests.post("http://www.pingbase.net/wp-admin/admin-ajax.php",
-                               data={"action": "get_events",
-                                     "readonly": True,
-                                     "categories": 0,
-                                     "excluded": 0,
-                                     "start": now - 1187115,
-                                     "end": now + 2445265}).json():
-
-        event_data = requests.post("http://www.pingbase.net/wp-admin/admin-ajax.php", data={"action": "get_event", "id": event["id"]}).json()
-
-        event_horrible_inline_content = BeautifulSoup(event_data["content"])
-
-        url = event_horrible_inline_content('a')[-1]["href"] if event_horrible_inline_content.a else "http://www.pingbase.net"
-
-        in_db_event = create_event(
-            title=event["title"],
-            url=url,
-            start=parse(event["start"]),
-            end=parse(event["end"]),
+    for event in data.walk()[1:]:
+        create_event(
+            title=event["SUMMARY"].encode("Utf-8"),
+            url=event["URL"],
+            start=event["DTSTART"].dt.replace(tzinfo=None) if isinstance(event["DTSTART"].dt, datetime) else event["DTSTART"].dt,
+            end=event["DTEND"].dt.replace(tzinfo=None) if isinstance(event["DTEND"].dt, datetime) else event["DTEND"].dt,
+            location=event["LOCATION"].encode("Utf-8") if "LOCATION" in event else None
         )
-
-        if "aec-repeating" in event["className"]:
-            in_db_event.tags.add("meeting")
