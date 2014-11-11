@@ -554,8 +554,8 @@ def syn2cat(create_event):
     for event in data.walk()[1:]:
         db_event = create_event(
             title=event["SUMMARY"].encode("Utf-8"),
-            start=event["DTSTART"].dt.replace(tzinfo=None),
-            end=event["DTEND"].dt.replace(tzinfo=None),
+            start=event["DTSTART"].dt.replace(tzinfo=None) if isinstance(event["DTSTART"].dt, datetime) else event["DTSTART"].dt,
+            end=event["DTEND"].dt.replace(tzinfo=None) if isinstance(event["DTEND"].dt, datetime) else event["DTEND"].dt,
             url=event["URL"],
         )
 
