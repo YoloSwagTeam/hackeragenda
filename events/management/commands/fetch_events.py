@@ -250,7 +250,7 @@ def generic_google_agenda(org_name, gurl, per_event_url_function=None, tags=[], 
                 url = per_event_url_function(event)
             start = str(event["DTSTART"].dt) if event.get("DTSTART") else str(event["DTSTAMP"].dt)
             end = str(event["DTEND"].dt) if event.get("DTEND") else None
-            location = event["LOCATION"]
+            location = event.get("LOCATION")
 
             # timezone removal, the crappy way
             if len(start) > 10:
