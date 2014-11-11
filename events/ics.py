@@ -27,6 +27,7 @@ def get_ics_of_events(request):
                 ics_event.add('dtend', event.start + timedelta(hours=3))
         ics_event.add('dtstamp', event.start)
         ics_event['uid'] = event.url
+        ics_event['categories'] = event.source
 
         cal.add_component(ics_event)
 
