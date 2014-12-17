@@ -217,6 +217,7 @@ INSTALLED_APPS = (
     'events',
     'taggit',
     'gunicorn',
+    'leaflet',
 )
 
 BOWER_INSTALLED_APPS = (
