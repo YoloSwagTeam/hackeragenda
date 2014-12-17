@@ -35,7 +35,7 @@ class EventListView(ListView):
 
 
 def get_events_in_json(request):
-    return HttpResponse(json.dumps(map(event_to_fullcalendar_format, filter_events(request=request, queryset=Event.objects.filter(agenda=settings.AGENDA)))), mimetype="application/json")
+    return HttpResponse(json.dumps(map(event_to_fullcalendar_format, filter_events(request=request, queryset=Event.objects.filter(agenda=settings.AGENDA)))), content_type="application/json")
 
 
 def event_to_fullcalendar_format(event):

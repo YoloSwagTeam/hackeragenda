@@ -64,7 +64,7 @@ class Command(BaseCommand):
 
         for source in sources:
             try:
-                with transaction.commit_on_success():
+                with transaction.atomic():
                     SOURCES_FUNCTIONS[source](options.get('quiet', True))
 
             except Exception as e:

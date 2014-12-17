@@ -9,7 +9,7 @@ class Event(models.Model):
     text_color = models.CharField(max_length=255, null=True, blank=True)
     border_color = models.CharField(max_length=255, null=True, blank=True)
     url = models.URLField()
-    all_day = models.BooleanField(null=False, blank=True)
+    all_day = models.BooleanField(null=False, blank=True, default=False)
     start = models.DateTimeField()
     end = models.DateTimeField(null=True, blank=True)
     location = models.CharField(max_length=255, null=True, blank=True)
