@@ -551,7 +551,7 @@ generic_google_agenda(
 generic_meetup("ruby_burgers", "ruby_burgers-rb", background_color="white", text_color="#6F371F", tags=["ruby", "programming", "drink"], description="<p>Ruby lovers meet burger lovers. Join us to talk about ruby AND burgers in the best burger places in Brussels</p>")
 
 
-@event_source(background_color="#777", text_color="#ca4842", url="http://src.radiocampus.be/")
+@event_source(background_color="#99ccff", text_color="#000000", url="http://src.radiocampus.be/")
 def source(create_event):
     """
     <p>L’émission Source est une émission bimensuelle sur Radio Campus Bruxelles,
