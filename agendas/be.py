@@ -551,6 +551,46 @@ generic_google_agenda(
 generic_meetup("ruby_burgers", "ruby_burgers-rb", background_color="white", text_color="#6F371F", tags=["ruby", "programming", "drink"], description="<p>Ruby lovers meet burger lovers. Join us to talk about ruby AND burgers in the best burger places in Brussels</p>")
 
 
+@event_source(background_color="#777", text_color="#ca4842", url="http://src.radiocampus.be/")
+def source(create_event):
+    """
+    <p>L’émission Source est une émission bimensuelle sur Radio Campus Bruxelles,
+    disponible à Bruxelles sur le 92.1 de la bande FM, ou partout via 
+    <a href="http://streamer.radiocampus.be:8000/">son flux Icecast</a>, 
+    si la réception est mauvaise ou impossible d'où vous êtes.</p>
+    <p><a href="http://src.radiocampus.be/equipe/">L'équipe</a>
+    prend les micros le vendredi à 18 heures, une semaine sur deux,
+    et vous accompagne pendant une heure et demie. Le sujet de l’émission est
+    principalement le Libre, que ce soit dans une perspective informatique,
+    sociale ou culturelle.
+    </p>
+    """
+    radio_campus_program = requests.get("http://emissions.radiocampus.be/horaire").content
+    name = "Source"
+
+    # 1. get all lines which are a day name or the emission name
+    interesting = ("Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi", "Dimanche", name)
+    is_interesting = lambda line: len(filter(lambda word: word in line, interesting)) > 0
+    interesting_lines = filter(is_interesting, radio_campus_program.split('\n'))
+    
+    # 2. We ensure the first entry is today's name (don't fuck-up calendar)
+    if "Aujourd'hui" not in interesting_lines[0]:
+        return
+
+    # 3. We walk the interesting lines, keepin track of the current day
+    today = datetime.today()
+    for line in interesting_lines[1:]:
+        if name in line:
+            words = map(str.strip, line.split())
+            start, end = map(lambda x: map(int, x.split(':')), words[0:2])
+            title = " ".join(words[2:])
+            start_time = datetime(today.year, today.month, today.day, *start)
+            end_time = datetime(today.year, today.month, today.day, *end)
+            create_event(title=title, start=start_time, end=end_time, url="http://src.radiocampus.be/")
+        else:
+            today += timedelta(days=1)
+
+
 @event_source(background_color="#82FEA9", text_color="#DC0000", url="https://www.hackerspace.lu/")
 def syn2cat(create_event):
     "<p>L'agenda du Syn2Cat, hackerspace Luxembourgeois</p>"
