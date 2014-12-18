@@ -570,7 +570,7 @@ def source(create_event):
 
     # 1. get all lines which are a day name or the emission name
     interesting = ("Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi", "Dimanche", name)
-    is_interesting = lambda line: len(filter(lambda word: word in line, interesting)) > 0
+    is_interesting = lambda line: any(filter(lambda word: word in line, interesting))
     interesting_lines = filter(is_interesting, radio_campus_program.split('\n'))
     
     # 2. We ensure the first entry is today's name (don't fuck-up calendar)
