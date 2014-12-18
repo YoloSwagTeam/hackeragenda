@@ -555,8 +555,8 @@ generic_meetup("ruby_burgers", "ruby_burgers-rb", background_color="white", text
 def source(create_event):
     """
     <p>L’émission Source est une émission bimensuelle sur Radio Campus Bruxelles,
-    disponible à Bruxelles sur le 92.1 de la bande FM, ou partout via 
-    <a href="http://streamer.radiocampus.be:8000/">son flux Icecast</a>, 
+    disponible à Bruxelles sur le 92.1 de la bande FM, ou partout via
+    <a href="http://streamer.radiocampus.be:8000/">son flux Icecast</a>,
     si la réception est mauvaise ou impossible d'où vous êtes.</p>
     <p><a href="http://src.radiocampus.be/equipe/">L'équipe</a>
     prend les micros le vendredi à 18 heures, une semaine sur deux,
@@ -572,7 +572,7 @@ def source(create_event):
     interesting = ("Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi", "Dimanche", name)
     is_interesting = lambda line: any(filter(lambda word: word in line, interesting))
     interesting_lines = filter(is_interesting, radio_campus_program.split('\n'))
-    
+
     # 2. We ensure the first entry is today's name (don't fuck-up calendar)
     if "Aujourd'hui" not in interesting_lines[0]:
         return
