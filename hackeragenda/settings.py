@@ -7,6 +7,8 @@ from collections import OrderedDict
 PROJECT_PATH = os.path.abspath(os.path.split(__file__)[0])
 SUBPROJECT_PATH = os.path.split(PROJECT_PATH)[0]
 
+BASE_DIR = PROJECT_PATH  # to avoid stupid warning from django 1.6
+
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
@@ -15,8 +17,6 @@ ADMINS = (
 )
 
 ALLOWED_HOSTS = ['*']
-
-MANAGERS = ADMINS
 
 DATABASES = {
     'default': {
@@ -30,8 +30,6 @@ TIME_ZONE = 'Europe/Brussels'
 
 # http://www.i18nguy.com/unicode/language-identifiers.html
 LANGUAGE_CODE = 'en-us'
-
-SITE_ID = 1
 
 USE_I18N = True
 
@@ -73,7 +71,7 @@ MIDDLEWARE_CLASSES = (
     #'django.middleware.csrf.CsrfViewMiddleware',
     #'django.contrib.messages.middleware.MessageMiddleware',
     # Uncomment the next line for simple clickjacking protection:
-    # 'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django.middleware.clickjacking.XFrameOptionsMiddleware',
 )
 
 PREDEFINED_FILTERS = OrderedDict()
@@ -209,7 +207,6 @@ INSTALLED_APPS = (
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
-    'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.admin',
