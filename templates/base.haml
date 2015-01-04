@@ -1,4 +1,5 @@
 -load static
+-load leaflet_tags
 <!DOCTYPE html>
 %html
 
@@ -29,6 +30,7 @@
     %link{"rel": "stylesheet", "href": "{{ STATIC_URL }}stylesheets/foundation.min.css"}
     %link{"rel": "stylesheet", "href": "{{ STATIC_URL }}stylesheets/app.css"}
     %link{"rel": "stylesheet", "href": "{% static 'snapjs/snap.css' %}"}
+    -leaflet_css
 
     :css
       .love:before {
@@ -106,4 +108,5 @@
 
     <!-- Initialize JS Plugins -->
     %script{"src": "{{ STATIC_URL }}javascripts/app.js"}
+    -leaflet_js
     -block javascript

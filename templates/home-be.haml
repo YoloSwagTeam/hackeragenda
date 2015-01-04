@@ -1,4 +1,6 @@
 -extends "base.haml"
+
+-load leaflet_tags
 -load static
 -load events_tags
 
@@ -38,6 +40,8 @@
   %ul.tabs-content
     %li#tableTab.active
       #calendar
+
+      -leaflet_map "events"
 
       %h2
         Want more?
