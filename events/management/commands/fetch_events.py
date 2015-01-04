@@ -188,7 +188,7 @@ def generic_meetup(org_name, meetup_name, background_color, text_color, agenda=N
 
             db_event = create_event(**detail)
 
-            if filter(lambda x: not callable(x), tags):
+            if filter(lambda x: not callable(x), tags if tags is not None else []):
                 db_event.tags.add(*filter(lambda x: not callable(x), tags))
 
             map(lambda tag: tag(db_event), filter(callable, tags))
