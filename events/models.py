@@ -16,6 +16,9 @@ class Event(models.Model):
     agenda = models.CharField(max_length=255)
     tags = TaggableManager()
 
+    lon = models.FloatField(default=None, null=True, blank=True)
+    lat = models.FloatField(default=None, null=True, blank=True)
+
     def __unicode__(self):
         if self.all_day:
             date = self.start.strftime("%Y-%m-%d")
