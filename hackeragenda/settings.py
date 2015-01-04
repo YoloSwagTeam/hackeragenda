@@ -203,6 +203,12 @@ TEMPLATE_DIRS = (
     os.path.join(SUBPROJECT_PATH, "templates"),
 )
 
+LEAFLET_CONFIG = {
+    'DEFAULT_CENTER': (50.6407351, 4.66696),
+    'DEFAULT_ZOOM': 7,
+    'MIN_ZOOM': 2,
+}
+
 INSTALLED_APPS = (
     'django.contrib.auth',
     'django.contrib.contenttypes',
