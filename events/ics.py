@@ -31,4 +31,4 @@ def get_ics_of_events(request):
 
         cal.add_component(ics_event)
 
-    return HttpResponse(cal.to_ical(), mimetype="text/calendar")
+    return HttpResponse(cal.to_ical(), content_type="text/calendar")
