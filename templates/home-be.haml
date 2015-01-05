@@ -340,7 +340,7 @@
 
     function map_init_basic(map, options) {
       map = map;
-      $.get('{% url 'events_for_map_json' %}').success(function(data) {
+      $.get('{% url 'events_for_map_json' %}?useless=' + new Date().getTime()).success(function(data) {
         for (var i=0; i < data.length; i++) {
           var marker = L.AwesomeMarkers.icon({
             markerColor: data[i].color,
