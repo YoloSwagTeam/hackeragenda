@@ -40,7 +40,7 @@ def get_events_in_json(request):
 
 def get_events_for_map_in_json(request):
     events = []
-    queryset = Event.objects.filter(agenda=settings.AGENDA, start__gte=datetime.now(), lon__isnull=False, lat__isnull=False)
+    queryset = Event.objects.filter(agenda=settings.AGENDA, start__gte=datetime.now(), lon__isnull=False, lat__isnull=False).filter(start__lt=(datetime.now() + timedelta(days=31)))
 
     for event in filter_events(request=request, queryset=queryset):
         in_x_days = (event.start - datetime.now()).days
