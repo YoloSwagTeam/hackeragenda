@@ -39,7 +39,17 @@ def get_events_in_json(request):
 
 
 def get_events_for_map_in_json(request):
-    return HttpResponse(json.dumps(list(filter_events(request=request, queryset=Event.objects.filter(agenda=settings.AGENDA, lon__isnull=False, lat__isnull=False)).values("title", "lat", "lon"))), content_type="application/json")
+    events = []
+    queryset = Event.objects.filter(agenda=settings.AGENDA, lon__isnull=False, lat__isnull=False)
+
+    for event in filter_events(request=request, queryset=queryset):
+        events.append({
+            "title": event.title,
+            "lat": event.lat,
+            "lon": event.lon,
+        })
+
+    return HttpResponse(json.dumps(events), content_type="application/json")
 
 
 def event_to_fullcalendar_format(event):
