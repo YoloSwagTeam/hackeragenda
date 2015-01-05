@@ -23,7 +23,6 @@ class Command(BaseCommand):
                     location = None
 
                 if location is None and re.search("\(.*\)", i.location):
-                    print "fail, try to look for:", re.search("(\(.+\))", i.location).group()[1:-1]
                     time.sleep(5)
                     try:
                         location = geolocator.geocode(re.search("(\(.+\))", i.location).group()[1:-1])
@@ -37,7 +36,6 @@ class Command(BaseCommand):
                 )
 
                 if (location.lat, location.lon) == (None, None):
-                    print "fail"
                     continue
 
             i.lon = location.lon
