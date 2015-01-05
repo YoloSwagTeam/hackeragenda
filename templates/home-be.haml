@@ -339,15 +339,18 @@
     }
 
     function map_init_basic(map, options) {
-      map = map;
       $.get('{% url 'events_for_map_json' %}?useless=' + new Date().getTime()).success(function(data) {
         for (var i=0; i < data.length; i++) {
           var marker = L.AwesomeMarkers.icon({
             markerColor: data[i].color,
           });
-          L.marker([data[i].lat, data[i].lon], {icon: marker}).bindPopup("<h6>" + data[i].title + "</h6><hr>In " + data[i].days + " days on the " + data[i].start + "<br>Location: " + data[i].location + "<br><a href='" + data[i].url + "'>" + data[i].url + "</a>").addTo(map);
+          var marker = L.marker([data[i].lat, data[i].lon], {icon: marker}).bindPopup("<h6>" + data[i].title + "</h6><hr>In " + data[i].days + " days on the " + data[i].start + "<br>Location: " + data[i].location + "<br><a href='" + data[i].url + "'>" + data[i].url + "</a>");
+          markers_cluster.addLayer(marker);
         }
       })
+
+      var markers_cluster = new L.MarkerClusterGroup();
+      map.addLayer(markers_cluster);
     }
 
     $(document).ready(function() {
