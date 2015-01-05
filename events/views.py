@@ -53,10 +53,14 @@ def get_events_for_map_in_json(request):
             color = "green"
 
         events.append({
-            "title": event.title,
+            "title": "%s [%s]" % (event.title, event.source),
+            "url": event.url,
             "lat": event.lat,
             "lon": event.lon,
             "color": color,
+            "days": in_x_days,
+            "start": str(event.start),
+            "location": event.location,
         })
 
     return HttpResponse(json.dumps(events), content_type="application/json")

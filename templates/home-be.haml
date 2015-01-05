@@ -338,7 +338,7 @@
           var marker = L.AwesomeMarkers.icon({
             markerColor: data[i].color,
           });
-          L.marker([data[i].lat, data[i].lon], {icon: marker}).addTo(map);
+          L.marker([data[i].lat, data[i].lon], {icon: marker}).bindPopup("<h6>" + data[i].title + "</h6><hr>In " + data[i].days + " days on the " + data[i].start + "<br>Location: " + data[i].location + "<br><a href='" + data[i].url + "'>" + data[i].url + "</a>").addTo(map);
         }
       })
     }
