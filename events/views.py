@@ -43,10 +43,20 @@ def get_events_for_map_in_json(request):
     queryset = Event.objects.filter(agenda=settings.AGENDA, start__gte=datetime.now(), lon__isnull=False, lat__isnull=False)
 
     for event in filter_events(request=request, queryset=queryset):
+        in_x_days = (event.start - datetime.now()).days
+
+        if in_x_days <= 1:
+            color = "red"
+        elif in_x_days <= 7:
+            color = "orange"
+        else:
+            color = "green"
+
         events.append({
             "title": event.title,
             "lat": event.lat,
             "lon": event.lon,
+            "color": color,
         })
 
     return HttpResponse(json.dumps(events), content_type="application/json")

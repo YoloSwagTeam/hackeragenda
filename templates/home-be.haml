@@ -336,7 +336,7 @@
       $.get('{% url 'events_for_map_json' %}').success(function(data) {
         for (var i=0; i < data.length; i++) {
           var marker = L.AwesomeMarkers.icon({
-            markerColor: 'green',
+            markerColor: data[i].color,
           });
           L.marker([data[i].lat, data[i].lon], {icon: marker}).addTo(map);
         }
