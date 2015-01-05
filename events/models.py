@@ -32,3 +32,12 @@ class Event(models.Model):
             title += " - %s" % (self.location)
 
         return u"[%s] %s (%s)" % (self.source, title, date)
+
+
+class LocationCache(models.Model):
+    string = models.CharField(max_length=255, db_index=True)
+    lon = models.FloatField(default=None, null=True, blank=True)
+    lat = models.FloatField(default=None, null=True, blank=True)
+
+    def __unicode__(self):
+        return u"%s (%s, %s)" % (self.string, self.lon, self.lat)
