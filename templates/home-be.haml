@@ -335,7 +335,10 @@
     function map_init_basic(map, options) {
       $.get('{% url 'events_for_map_json' %}').success(function(data) {
         for (var i=0; i < data.length; i++) {
-          L.marker([data[i].lat, data[i].lon]).addTo(map);
+          var marker = L.AwesomeMarkers.icon({
+            markerColor: 'green',
+          });
+          L.marker([data[i].lat, data[i].lon], {icon: marker}).addTo(map);
         }
       })
     }
