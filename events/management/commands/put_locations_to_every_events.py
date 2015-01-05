@@ -11,9 +11,6 @@ from events.models import Event
 
 
 class Command(BaseCommand):
-    args = '<poll_id poll_id ...>'
-    help = 'Closes the specified poll for voting'
-
     def handle(self, *args, **options):
         caching = {}
         fails = json.load(open("/tmp/hackeragenda_geopy_fails.json", "r")) if os.path.exists("/tmp/fails.json") else []
