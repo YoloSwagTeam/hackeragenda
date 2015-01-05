@@ -30,6 +30,8 @@
     %link{"rel": "stylesheet", "href": "{{ STATIC_URL }}stylesheets/foundation.min.css"}
     %link{"rel": "stylesheet", "href": "{{ STATIC_URL }}stylesheets/app.css"}
     %link{"rel": "stylesheet", "href": "{{ STATIC_URL }}stylesheets/leaflet.awesome-markers.css"}
+    %link{"rel": "stylesheet", "href": "{{ STATIC_URL }}stylesheets/MarkerCluster.css"}
+    %link{"rel": "stylesheet", "href": "{{ STATIC_URL }}stylesheets/MarkerCluster.Default.css"}
     %link{"rel": "stylesheet", "href": "{% static 'snapjs/snap.css' %}"}
     -leaflet_css
 
@@ -111,4 +113,5 @@
     %script{"src": "{{ STATIC_URL }}javascripts/app.js"}
     -leaflet_js
     %script{"src": "{{ STATIC_URL }}javascripts/leaflet.awesome-markers.min.js"}
+    %script{"src": "{{ STATIC_URL }}javascripts/leaflet.markercluster.js"}
     -block javascript
