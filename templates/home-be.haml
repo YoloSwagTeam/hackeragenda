@@ -41,7 +41,7 @@
     %li#tableTab.active
       #calendar
 
-      -leaflet_map "events"
+      -leaflet_map "events" callback="window.map_init_basic"
 
       %h2
         Want more?
@@ -332,6 +332,14 @@
       update_rss_ics_urls_with_section(section);
     }
 
+    function map_init_basic(map, options) {
+      $.get('{% url 'events_for_map_json' %}').success(function(data) {
+        for (var i=0; i < data.length; i++) {
+          L.marker([data[i].lat, data[i].lon]).addTo(map);
+        }
+      })
+    }
+
     $(document).ready(function() {
       url_content = get_url_values();
 
@@ -395,6 +403,7 @@
           snapper.close('left');
       })
     })
+
   :css
     .faq {
       margin-left: 14px;
