@@ -43,6 +43,12 @@
 
       -leaflet_map "events" callback="window.map_init_basic"
 
+      %p
+        %i
+          <b>All</b> events of the next <b>31 days</b>. In <span style="color: red">red</span> events that starts today, in <span style="color: orange">orange</span> in the next 7 days and in <span style="color: green">green</span> in the next 31 months.
+          %br
+          Locations are guessed using <a href="https://wiki.openstreetmap.org/wiki/Nominatim">OpenStreetMap Nominatim</a> (data in <a href="http://osm.org/copyright">ODbL</a>) using <a href="https://github.com/geopy/geopy">geopy</a>
+
       %h2
         Want more?
 
