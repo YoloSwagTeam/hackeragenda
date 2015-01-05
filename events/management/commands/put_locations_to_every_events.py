@@ -7,7 +7,6 @@ from geopy.geocoders import Nominatim
 from geopy.exc import GeocoderTimedOut
 
 from django.core.management.base import BaseCommand
-from django.db import transaction
 from events.models import Event
 
 
