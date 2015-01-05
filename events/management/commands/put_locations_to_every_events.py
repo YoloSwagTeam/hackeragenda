@@ -13,8 +13,6 @@ class Command(BaseCommand):
         geolocator = Nominatim()
 
         for i in filter(lambda x: x.location.strip(), Event.objects.filter(location__isnull=False, lon__isnull=True, lat__isnull=True)):
-            print i.title, "----", i.location, [i.lon], [i.lat]
-
             if LocationCache.objects.filter(string=i.location).exists():
                 location = LocationCache.objects.get(string=i.location)
             else:
