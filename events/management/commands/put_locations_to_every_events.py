@@ -1,29 +1,22 @@
-import os
 import re
 import time
-import json
 
 from geopy.geocoders import Nominatim
 from geopy.exc import GeocoderTimedOut
 
 from django.core.management.base import BaseCommand
-from events.models import Event
+from events.models import Event, LocationCache
 
 
 class Command(BaseCommand):
     def handle(self, *args, **options):
-        caching = {}
-        fails = json.load(open("/tmp/hackeragenda_geopy_fails.json", "r")) if os.path.exists("/tmp/fails.json") else []
-
         geolocator = Nominatim()
-        for i in filter(lambda x: x.location.strip(), Event.objects.filter(location__isnull=False, lon__isnull=True, lat__isnull=True)):
-            if i.location in fails:
-                continue
 
+        for i in filter(lambda x: x.location.strip(), Event.objects.filter(location__isnull=False, lon__isnull=True, lat__isnull=True)):
             print i.title, "----", i.location, [i.lon], [i.lat]
 
-            if i.location in caching:
-                location = caching[i.location]
+            if LocationCache.objects.filter(string=i.location).exists():
+                location = LocationCache.objects.get(string=i.location)
             else:
                 time.sleep(5)
                 try:
@@ -39,18 +32,16 @@ class Command(BaseCommand):
                     except GeocoderTimedOut:
                         location = None
 
-            caching[i.location] = location
+                location = LocationCache.objects.create(
+                    string=i.location,
+                    lat=location.latitude if location else None,
+                    lon=location.longitude if location else None,
+                )
 
-            if location is None:
-                fails.append(i.location)
+                if (location.lat, location.lon) == (None, None):
+                    print "fail"
+                    continue
 
-                with open("/tmp/hackeragenda_geopy_fails.json", "w") as save_fails:
-                    save_fails.write(json.dumps(fails, indent=4))
-
-                print "fail, continue"
-                continue
-
-
-            i.lon = location.longitude
-            i.lat = location.latitude
+            i.lon = location.lon
+            i.lat = location.lat
             i.save()
