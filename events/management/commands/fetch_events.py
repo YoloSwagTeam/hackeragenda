@@ -177,7 +177,7 @@ def generic_meetup(org_name, meetup_name, background_color, text_color, agenda=N
             detail = {
                 "title": title.encode("Utf-8"),
                 "url": event.get("URL", ""),
-                "start": start.dt.replace(tzinfo=None),
+                "start": start.dt.replace(tzinfo=None) if isinstance(start.dt, datetime) else start.dt,
                 "location": event.get("LOCATION", "").encode("Utf-8"),
             }
 
@@ -188,7 +188,10 @@ def generic_meetup(org_name, meetup_name, background_color, text_color, agenda=N
 
             db_event = create_event(**detail)
 
-            if filter(lambda x: not callable(x), tags if tags is not None else []):
+            if tags is None:
+                return
+
+            if filter(lambda x: not callable(x), tags):
                 db_event.tags.add(*filter(lambda x: not callable(x), tags))
 
             map(lambda tag: tag(db_event), filter(callable, tags))
