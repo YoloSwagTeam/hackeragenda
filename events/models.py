@@ -35,7 +35,7 @@ class Event(models.Model):
 
 
 class LocationCache(models.Model):
-    string = models.CharField(max_length=255, db_index=True)
+    string = models.CharField(max_length=255, db_index=True, unique=True)
     lon = models.FloatField(default=None, null=True, blank=True)
     lat = models.FloatField(default=None, null=True, blank=True)
 
