@@ -1,506 +1,732 @@
--   fields: {lat: 50.84404145, lon: 4.36720169448285, string: Bruxelles}
-    model: events.locationcache
-    pk: 431
--   fields: {lat: 50.82480855, lon: 4.37854701190296, string: Elsene/ Ixelles}
-    model: events.locationcache
-    pk: 432
--   fields: {lat: 50.84404145, lon: 4.36720169448285, string: Bruxelles/ Brussel}
-    model: events.locationcache
-    pk: 433
--   fields: {lat: 50.8712396, lon: 4.3175103, string: Ganshoren (Bruxelles/ Brussel)}
-    model: events.locationcache
-    pk: 434
--   fields: {lat: 50.8530739, lon: 4.3723364, string: 'Saint-Josse, Bruxelles-Capitale'}
-    model: events.locationcache
-    pk: 435
--   fields: {lat: 50.5978435, lon: 4.3302698, string: 'Nivelles, Brabant wallon'}
-    model: events.locationcache
-    pk: 436
--   fields: {lat: 50.84404145, lon: 4.36720169448285, string: 'Bruxelles, Bruxelles-Capitale'}
-    model: events.locationcache
-    pk: 437
--   fields: {lat: 50.4549568, lon: 3.951958, string: 'Mons, Hainaut'}
-    model: events.locationcache
-    pk: 438
--   fields: {lat: 50.6682012, lon: 4.6128839, string: 'Louvain-la-Neuve, Brabant wallon'}
-    model: events.locationcache
-    pk: 439
--   fields: {lat: 50.4331253, lon: 3.7960902, string: 'Boussu, Hainaut'}
-    model: events.locationcache
-    pk: 440
--   fields: {lat: 50.8639835, lon: 4.292702, string: 'Berchem-Ste-Agathe 1082, Bruxelles-Capitale'}
-    model: events.locationcache
-    pk: 441
--   fields: {lat: 50.8267409, lon: 4.345668, string: '1060 - St Gilles, Bruxelles-Capitale'}
-    model: events.locationcache
-    pk: 442
--   fields: {lat: 50.4583717, lon: 4.42992577349544, string: 'Charleroi, Hainaut'}
-    model: events.locationcache
-    pk: 443
--   fields: {lat: 50.4470193, lon: 4.6354624, string: 'Auvelais, Namur'}
-    model: events.locationcache
-    pk: 444
--   fields: {lat: 51.071163, lon: 3.72508244315541, string: 'Eskimofabriek (Wiedauwkaai
-            25, Gent, Belgium)'}
-    model: events.locationcache
-    pk: 445
--   fields: {lat: 50.8501197, lon: 4.4487381, string: 'EPHEC ( Avenue Konrad Adenauer
-            3 1200 Woluwe-Saint-Lambert, Brussels, Belgium)'}
-    model: events.locationcache
-    pk: 446
--   fields: {lat: 51.3696605, lon: 5.6008851, string: 'Kapellerput (Somerenseweg 100,
-            Heeze, Netherlands)'}
-    model: events.locationcache
-    pk: 447
--   fields: {lat: 50.8261272, lon: 4.3968675, string: 'WooRank (Boulevard Louis Schmidt
-            29, Brussels, Belgium)'}
-    model: events.locationcache
-    pk: 448
--   fields: {lat: 50.0009951, lon: 5.7153203, string: Bastogne}
-    model: events.locationcache
-    pk: 449
--   fields: {lat: 50.8228868, lon: 4.3907147, string: 'VUB - lokaal D.0.02 - max 170
-            plaatsen ! (Pleinlaan 2 B-1050 Brussel , Brussels, Belgium)'}
-    model: events.locationcache
-    pk: 450
--   fields: {lat: 50.8288048, lon: 4.3426671, string: 'Pianofabriek, Room "Casablanca
-            II" (Rue du Fort 35, 1060, Saint-Gilles, Brussels, Belgium)'}
-    model: events.locationcache
-    pk: 451
--   fields: {lat: 50.8288048, lon: 4.3426671, string: 'Pianofabriek, room Catania
-            (Fortstraat 35, Brussels, Belgium)'}
-    model: events.locationcache
-    pk: 452
--   fields: {lat: 50.8234029, lon: 4.3635277, string: 'The Playground (76 rue Washington,
-            Brussels, Belgium)'}
-    model: events.locationcache
-    pk: 453
--   fields: {lat: 51.2188664, lon: 4.4087544, string: 'Telenet Idealabs (Lange Klarenstraat
-            19, Antwerp, Belgium)'}
-    model: events.locationcache
-    pk: 454
--   fields: {lat: 53.34465725, lon: -6.26533254152679, string: 'IFI (Eustace street
-            6, Dublin, Ireland)'}
-    model: events.locationcache
-    pk: 455
--   fields: {lat: 51.0597214, lon: 3.7326004, string: Whitespace}
-    model: events.locationcache
-    pk: 456
--   fields: {lat: 51.1986641, lon: 4.4729898, string: 'Open Garage (Floris Primslei
-            14, Borsbeek, Belgium)'}
-    model: events.locationcache
-    pk: 457
--   fields: {lat: 51.1896461, lon: 4.4817036, string: 'JOC Tuitvlugt Fort III (Zoomweg
-            2, Borsbeek, Belgium)'}
-    model: events.locationcache
-    pk: 458
--   fields: {lat: 50.82657165, lon: 4.39986366115118, string: "Cafetaria at BetaCowork
-            / ICAB (4 Rue des P\xE8res Blancs, 1040 Etterbeek, Brussels, Belgium)"}
-    model: events.locationcache
-    pk: 459
--   fields: {lat: 51.22874765, lon: 4.41824397720284, string: 'Inuits (Duboisstraat
-            50, Antwerpen, Belgium)'}
-    model: events.locationcache
-    pk: 460
--   fields: {lat: 51.1410442, lon: 4.4421560977815, string: 'Oak3 (Veldkant 39, Kontich,
-            Belgium)'}
-    model: events.locationcache
-    pk: 461
--   fields: {lat: 50.8228868, lon: 4.3907147, string: 'VUB - Aula QB (Pleinlaan 2B
-            - 1050, Brussels, Belgium)'}
-    model: events.locationcache
-    pk: 462
--   fields: {lat: 50.8391743, lon: 4.3809874, string: 'Google Belgium (Steenweg op
-            Etterbeek 180, Brussels, Belgium)'}
-    model: events.locationcache
-    pk: 463
--   fields: {lat: 50.8179143, lon: 4.3181372, string: 'Factory Forty - CoWorking &
-            Event Space  (Rue des Anciens Etangs 40 1190 Forest, Brussels, Belgium)'}
-    model: events.locationcache
-    pk: 464
--   fields: {lat: 50.85121865, lon: 4.35043259452245, string: 'Ellis Gourmet Burger
-            (Place Sainte Catherine 4, Brussels, Belgium)'}
-    model: events.locationcache
-    pk: 465
--   fields: {lat: 50.8267409, lon: 4.345668, string: St. Gilles}
-    model: events.locationcache
-    pk: 466
--   fields: {lat: 50.6682012, lon: 4.6128839, string: Louvain-La-Neuve}
-    model: events.locationcache
-    pk: 467
--   fields: {lat: 50.8091426, lon: 4.3177512, string: Vorst/ Forest}
-    model: events.locationcache
-    pk: 468
--   fields: {lat: 50.4583717, lon: 4.42992577349544, string: 'charleroi, Hainaut'}
-    model: events.locationcache
-    pk: 469
--   fields: {lat: 47.2290282, lon: -1.5849993, string: '38 rue du Breil, Nantes, 44100'}
-    model: events.locationcache
-    pk: 470
--   fields: {lat: 50.7072191, lon: 5.6505963, string: "Ch\xE2teau Rue du Roi Albert,
-            Oupeye, Liege"}
-    model: events.locationcache
-    pk: 471
--   fields: {lat: 50.7167158, lon: 5.6535074, string: 'rue du Roi Albert, Oupeye,
-            Liege'}
-    model: events.locationcache
-    pk: 472
--   fields: {lat: 50.6100506, lon: 5.5406048, string: 'Sclessin, Liege'}
-    model: events.locationcache
-    pk: 473
--   fields: {lat: 50.8286521, lon: 4.34245607531701, string: '37 rue du Fort, Saint-Gilles,
-            Bruxelles-Capitale'}
-    model: events.locationcache
-    pk: 474
--   fields: {lat: 50.8134035, lon: 4.3826012, string: 'Campus du Solbosch, Bruxelles,
-            Bruxelles-Capitale'}
-    model: events.locationcache
-    pk: 475
--   fields: {lat: 50.4536662, lon: 3.9586335, string: '2b Rue des Archers, Mons, Hainaut'}
-    model: events.locationcache
-    pk: 476
--   fields: {lat: 50.4620233, lon: 3.9576811, string: '8a avenue Victor Maistriau,
-            Mons, Hainaut'}
-    model: events.locationcache
-    pk: 477
--   fields: {lat: 50.8295487, lon: 4.3466311, string: 'Rue de Rome 28, Bruxelles -
-            Saint Gilles, Bruxelles-Capitale'}
-    model: events.locationcache
-    pk: 478
--   fields: {lat: 50.46380375, lon: 3.95475492233312, string: "Grands Amphith\xE9\xE2tres,
-            Universit\xE9 de Mons, Mons, Hainaut"}
-    model: events.locationcache
-    pk: 479
--   fields: {lat: 50.4347445, lon: 3.7959404, string: '8 rue Bonaventure, Boussu,
-            Hainaut'}
-    model: events.locationcache
-    pk: 480
--   fields: {lat: 50.46438035, lon: 3.9522633924669, string: '15 Chemin du Champ de
-            Mars, Mons, Hainaut'}
-    model: events.locationcache
-    pk: 481
--   fields: {lat: 50.83018435, lon: 4.33659066955931, string: "158 rue Th\xE9odore
-            Verhaegen, Saint-Gilles, Bruxelles-Capitale"}
-    model: events.locationcache
-    pk: 482
--   fields: {lat: 50.45161775, lon: 3.9532293284152, string: '9 rue de Houdain, Mons,
-            Hainaut'}
-    model: events.locationcache
-    pk: 483
--   fields: {lat: 50.64282515, lon: 5.5752101834375, string: "58 rue de la Cath\xE9drale,
-            Li\xE8ge, Liege"}
-    model: events.locationcache
-    pk: 484
--   fields: {lat: 50.8600728, lon: 4.36979577045115, string: Les Halles de Schaerbeek}
-    model: events.locationcache
-    pk: 485
--   fields: {lat: 43.340569, lon: -0.1783876, string: F/LAT}
-    model: events.locationcache
-    pk: 486
--   fields: {lat: 33.260006, lon: -111.8572035, string: Radio Alma}
-    model: events.locationcache
-    pk: 487
--   fields: {lat: 50.85556005, lon: 4.37038336886874, string: HSBXL}
-    model: events.locationcache
-    pk: 488
--   fields: {lat: 25.7083111, lon: -100.2490431, string: Scouts}
-    model: events.locationcache
-    pk: 489
--   fields: {lat: 50.8549773, lon: 4.341548, string: '34 Quai des Charbonnages - Koolmijnenkaai,
-            1080 Brussels'}
-    model: events.locationcache
-    pk: 490
--   fields: {lat: 50.8549773, lon: 4.341548, string: '34 Quai des Charbonnages - Koolmijnenkaai,
-            1080 Brussels '}
-    model: events.locationcache
-    pk: 491
--   fields: {lat: 50.8548659, lon: 4.3417591, string: 'FabLab.iMAL, Bruxelles, Belgique'}
-    model: events.locationcache
-    pk: 492
--   fields: {lat: 50.8548629, lon: 4.3402887, string: '34 Quai des Charbonnages -
-            Koolmijnenkaai, 1080 Brussels (metro: Comte de Flandre)'}
-    model: events.locationcache
-    pk: 493
--   fields: {lat: 50.8548659, lon: 4.3417591, string: FabLab.iMAL}
-    model: events.locationcache
-    pk: 494
--   fields: {lat: 50.8549773, lon: 4.341548, string: '30-34, Quai des Charbonnages
-            Koolmijnenkaai, 1080 Brussels'}
-    model: events.locationcache
-    pk: 495
--   fields: {lat: 51.2183679, lon: 4.4030111, string: 'Schoenmarkt 35
+- fields: {lat: 50.84404145, lon: 4.36720169448285, string: Bruxelles}
+  model: events.locationcache
+  pk: 431
+- fields: {lat: 50.82480855, lon: 4.37854701190296, string: Elsene/ Ixelles}
+  model: events.locationcache
+  pk: 432
+- fields: {lat: 50.84404145, lon: 4.36720169448285, string: Bruxelles/ Brussel}
+  model: events.locationcache
+  pk: 433
+- fields: {lat: 50.8712396, lon: 4.3175103, string: Ganshoren (Bruxelles/ Brussel)}
+  model: events.locationcache
+  pk: 434
+- fields: {lat: 50.8530739, lon: 4.3723364, string: 'Saint-Josse, Bruxelles-Capitale'}
+  model: events.locationcache
+  pk: 435
+- fields: {lat: 50.5978435, lon: 4.3302698, string: 'Nivelles, Brabant wallon'}
+  model: events.locationcache
+  pk: 436
+- fields: {lat: 50.84404145, lon: 4.36720169448285, string: 'Bruxelles, Bruxelles-Capitale'}
+  model: events.locationcache
+  pk: 437
+- fields: {lat: 50.4549568, lon: 3.951958, string: 'Mons, Hainaut'}
+  model: events.locationcache
+  pk: 438
+- fields: {lat: 50.6682012, lon: 4.6128839, string: 'Louvain-la-Neuve, Brabant wallon'}
+  model: events.locationcache
+  pk: 439
+- fields: {lat: 50.4331253, lon: 3.7960902, string: 'Boussu, Hainaut'}
+  model: events.locationcache
+  pk: 440
+- fields: {lat: 50.8639835, lon: 4.292702, string: 'Berchem-Ste-Agathe 1082, Bruxelles-Capitale'}
+  model: events.locationcache
+  pk: 441
+- fields: {lat: 50.8267409, lon: 4.345668, string: '1060 - St Gilles, Bruxelles-Capitale'}
+  model: events.locationcache
+  pk: 442
+- fields: {lat: 50.4583717, lon: 4.42992577349544, string: 'Charleroi, Hainaut'}
+  model: events.locationcache
+  pk: 443
+- fields: {lat: 50.4470193, lon: 4.6354624, string: 'Auvelais, Namur'}
+  model: events.locationcache
+  pk: 444
+- fields: {lat: 51.071163, lon: 3.72508244315541, string: 'Eskimofabriek (Wiedauwkaai
+      25, Gent, Belgium)'}
+  model: events.locationcache
+  pk: 445
+- fields: {lat: 50.8501197, lon: 4.4487381, string: 'EPHEC ( Avenue Konrad Adenauer
+      3 1200 Woluwe-Saint-Lambert, Brussels, Belgium)'}
+  model: events.locationcache
+  pk: 446
+- fields: {lat: 51.3696605, lon: 5.6008851, string: 'Kapellerput (Somerenseweg 100,
+      Heeze, Netherlands)'}
+  model: events.locationcache
+  pk: 447
+- fields: {lat: 50.8261272, lon: 4.3968675, string: 'WooRank (Boulevard Louis Schmidt
+      29, Brussels, Belgium)'}
+  model: events.locationcache
+  pk: 448
+- fields: {lat: 50.0009951, lon: 5.7153203, string: Bastogne}
+  model: events.locationcache
+  pk: 449
+- fields: {lat: 50.8228868, lon: 4.3907147, string: 'VUB - lokaal D.0.02 - max 170
+      plaatsen ! (Pleinlaan 2 B-1050 Brussel , Brussels, Belgium)'}
+  model: events.locationcache
+  pk: 450
+- fields: {lat: 50.8288048, lon: 4.3426671, string: 'Pianofabriek, Room "Casablanca
+      II" (Rue du Fort 35, 1060, Saint-Gilles, Brussels, Belgium)'}
+  model: events.locationcache
+  pk: 451
+- fields: {lat: 50.8288048, lon: 4.3426671, string: 'Pianofabriek, room Catania (Fortstraat
+      35, Brussels, Belgium)'}
+  model: events.locationcache
+  pk: 452
+- fields: {lat: 50.8234029, lon: 4.3635277, string: 'The Playground (76 rue Washington,
+      Brussels, Belgium)'}
+  model: events.locationcache
+  pk: 453
+- fields: {lat: 51.2188664, lon: 4.4087544, string: 'Telenet Idealabs (Lange Klarenstraat
+      19, Antwerp, Belgium)'}
+  model: events.locationcache
+  pk: 454
+- fields: {lat: 53.34465725, lon: -6.26533254152679, string: 'IFI (Eustace street
+      6, Dublin, Ireland)'}
+  model: events.locationcache
+  pk: 455
+- fields: {lat: 51.0597214, lon: 3.7326004, string: Whitespace}
+  model: events.locationcache
+  pk: 456
+- fields: {lat: 51.1986641, lon: 4.4729898, string: 'Open Garage (Floris Primslei
+      14, Borsbeek, Belgium)'}
+  model: events.locationcache
+  pk: 457
+- fields: {lat: 51.1896461, lon: 4.4817036, string: 'JOC Tuitvlugt Fort III (Zoomweg
+      2, Borsbeek, Belgium)'}
+  model: events.locationcache
+  pk: 458
+- fields: {lat: 50.82657165, lon: 4.39986366115118, string: "Cafetaria at BetaCowork
+      / ICAB (4 Rue des P\xE8res Blancs, 1040 Etterbeek, Brussels, Belgium)"}
+  model: events.locationcache
+  pk: 459
+- fields: {lat: 51.22874765, lon: 4.41824397720284, string: 'Inuits (Duboisstraat
+      50, Antwerpen, Belgium)'}
+  model: events.locationcache
+  pk: 460
+- fields: {lat: 51.1410442, lon: 4.4421560977815, string: 'Oak3 (Veldkant 39, Kontich,
+      Belgium)'}
+  model: events.locationcache
+  pk: 461
+- fields: {lat: 50.8228868, lon: 4.3907147, string: 'VUB - Aula QB (Pleinlaan 2B -
+      1050, Brussels, Belgium)'}
+  model: events.locationcache
+  pk: 462
+- fields: {lat: 50.8391743, lon: 4.3809874, string: 'Google Belgium (Steenweg op Etterbeek
+      180, Brussels, Belgium)'}
+  model: events.locationcache
+  pk: 463
+- fields: {lat: 50.8179143, lon: 4.3181372, string: 'Factory Forty - CoWorking & Event
+      Space  (Rue des Anciens Etangs 40 1190 Forest, Brussels, Belgium)'}
+  model: events.locationcache
+  pk: 464
+- fields: {lat: 50.85121865, lon: 4.35043259452245, string: 'Ellis Gourmet Burger
+      (Place Sainte Catherine 4, Brussels, Belgium)'}
+  model: events.locationcache
+  pk: 465
+- fields: {lat: 50.8267409, lon: 4.345668, string: St. Gilles}
+  model: events.locationcache
+  pk: 466
+- fields: {lat: 50.6682012, lon: 4.6128839, string: Louvain-La-Neuve}
+  model: events.locationcache
+  pk: 467
+- fields: {lat: 50.8091426, lon: 4.3177512, string: Vorst/ Forest}
+  model: events.locationcache
+  pk: 468
+- fields: {lat: 50.4583717, lon: 4.42992577349544, string: 'charleroi, Hainaut'}
+  model: events.locationcache
+  pk: 469
+- fields: {lat: 47.2290282, lon: -1.5849993, string: '38 rue du Breil, Nantes, 44100'}
+  model: events.locationcache
+  pk: 470
+- fields: {lat: 50.7072191, lon: 5.6505963, string: "Ch\xE2teau Rue du Roi Albert,
+      Oupeye, Liege"}
+  model: events.locationcache
+  pk: 471
+- fields: {lat: 50.7167158, lon: 5.6535074, string: 'rue du Roi Albert, Oupeye, Liege'}
+  model: events.locationcache
+  pk: 472
+- fields: {lat: 50.6100506, lon: 5.5406048, string: 'Sclessin, Liege'}
+  model: events.locationcache
+  pk: 473
+- fields: {lat: 50.8286521, lon: 4.34245607531701, string: '37 rue du Fort, Saint-Gilles,
+      Bruxelles-Capitale'}
+  model: events.locationcache
+  pk: 474
+- fields: {lat: 50.8134035, lon: 4.3826012, string: 'Campus du Solbosch, Bruxelles,
+      Bruxelles-Capitale'}
+  model: events.locationcache
+  pk: 475
+- fields: {lat: 50.4536662, lon: 3.9586335, string: '2b Rue des Archers, Mons, Hainaut'}
+  model: events.locationcache
+  pk: 476
+- fields: {lat: 50.4620233, lon: 3.9576811, string: '8a avenue Victor Maistriau, Mons,
+      Hainaut'}
+  model: events.locationcache
+  pk: 477
+- fields: {lat: 50.8295487, lon: 4.3466311, string: 'Rue de Rome 28, Bruxelles - Saint
+      Gilles, Bruxelles-Capitale'}
+  model: events.locationcache
+  pk: 478
+- fields: {lat: 50.46380375, lon: 3.95475492233312, string: "Grands Amphith\xE9\xE2tres,
+      Universit\xE9 de Mons, Mons, Hainaut"}
+  model: events.locationcache
+  pk: 479
+- fields: {lat: 50.4347445, lon: 3.7959404, string: '8 rue Bonaventure, Boussu, Hainaut'}
+  model: events.locationcache
+  pk: 480
+- fields: {lat: 50.46438035, lon: 3.9522633924669, string: '15 Chemin du Champ de
+      Mars, Mons, Hainaut'}
+  model: events.locationcache
+  pk: 481
+- fields: {lat: 50.83018435, lon: 4.33659066955931, string: "158 rue Th\xE9odore Verhaegen,
+      Saint-Gilles, Bruxelles-Capitale"}
+  model: events.locationcache
+  pk: 482
+- fields: {lat: 50.45161775, lon: 3.9532293284152, string: '9 rue de Houdain, Mons,
+      Hainaut'}
+  model: events.locationcache
+  pk: 483
+- fields: {lat: 50.64282515, lon: 5.5752101834375, string: "58 rue de la Cath\xE9drale,
+      Li\xE8ge, Liege"}
+  model: events.locationcache
+  pk: 484
+- fields: {lat: 50.8600728, lon: 4.36979577045115, string: Les Halles de Schaerbeek}
+  model: events.locationcache
+  pk: 485
+- fields: {lat: 43.340569, lon: -0.1783876, string: F/LAT}
+  model: events.locationcache
+  pk: 486
+- fields: {lat: 33.260006, lon: -111.8572035, string: Radio Alma}
+  model: events.locationcache
+  pk: 487
+- fields: {lat: 50.85556005, lon: 4.37038336886874, string: HSBXL}
+  model: events.locationcache
+  pk: 488
+- fields: {lat: 25.7083111, lon: -100.2490431, string: Scouts}
+  model: events.locationcache
+  pk: 489
+- fields: {lat: 50.8549773, lon: 4.341548, string: '34 Quai des Charbonnages - Koolmijnenkaai,
+      1080 Brussels'}
+  model: events.locationcache
+  pk: 490
+- fields: {lat: 50.8549773, lon: 4.341548, string: '34 Quai des Charbonnages - Koolmijnenkaai,
+      1080 Brussels '}
+  model: events.locationcache
+  pk: 491
+- fields: {lat: 50.8548659, lon: 4.3417591, string: 'FabLab.iMAL, Bruxelles, Belgique'}
+  model: events.locationcache
+  pk: 492
+- fields: {lat: 50.8548629, lon: 4.3402887, string: '34 Quai des Charbonnages - Koolmijnenkaai,
+      1080 Brussels (metro: Comte de Flandre)'}
+  model: events.locationcache
+  pk: 493
+- fields: {lat: 50.8548659, lon: 4.3417591, string: FabLab.iMAL}
+  model: events.locationcache
+  pk: 494
+- fields: {lat: 50.8549773, lon: 4.341548, string: '30-34, Quai des Charbonnages Koolmijnenkaai,
+      1080 Brussels'}
+  model: events.locationcache
+  pk: 495
+- fields: {lat: 51.2183679, lon: 4.4030111, string: 'Schoenmarkt 35
 
-            2000 Antwerp'}
-    model: events.locationcache
-    pk: 496
--   fields: {lat: 51.1949192, lon: 4.3824729, string: 'Generaal Armstrongweg 1
+      2000 Antwerp'}
+  model: events.locationcache
+  pk: 496
+- fields: {lat: 51.1949192, lon: 4.3824729, string: 'Generaal Armstrongweg 1
 
-            2020 Antwerp'}
-    model: events.locationcache
-    pk: 497
--   fields: {lat: 50.84404145, lon: 4.36720169448285, string: Brussels}
-    model: events.locationcache
-    pk: 498
--   fields: {lat: 51.2188664, lon: 4.4087544, string: "Lange Klarenstraat 19, 2000
-            Antwerpen, Belgi\xEB"}
-    model: events.locationcache
-    pk: 499
--   fields: {lat: 51.20544695, lon: 4.39874924492551, string: 'Den Bell, Francis Wellesplein
-            1, 2018 Antwerpen'}
-    model: events.locationcache
-    pk: 500
--   fields: {lat: 50.4665284, lon: 4.8661892, string: "Namen, Belgi\xEB"}
-    model: events.locationcache
-    pk: 501
--   fields: {lat: 51.04745195, lon: 3.72748081355131, string: 'Vooruit, Gent'}
-    model: events.locationcache
-    pk: 502
--   fields: {lat: 52.5170365, lon: 13.3888599, string: Berlin}
-    model: events.locationcache
-    pk: 503
--   fields: {lat: 50.8004305, lon: 3.2701944677075, string: "Leiedal, President Kennedypark,
-            Kortrijk, Belgi\xEB"}
-    model: events.locationcache
-    pk: 504
--   fields: {lat: 50.81788085, lon: 3.27841539175542, string: Kortrijk}
-    model: events.locationcache
-    pk: 505
--   fields: {lat: 50.88121295, lon: 4.6941851180888, string: 'STUK arts centre, Wagehuys
-            and Romaanse Poort (Leuven, BE)'}
-    model: events.locationcache
-    pk: 506
--   fields: {lat: 51.0533818, lon: 3.7314087, string: 'Keizer Karelstraat 1
+      2020 Antwerp'}
+  model: events.locationcache
+  pk: 497
+- fields: {lat: 50.84404145, lon: 4.36720169448285, string: Brussels}
+  model: events.locationcache
+  pk: 498
+- fields: {lat: 51.2188664, lon: 4.4087544, string: "Lange Klarenstraat 19, 2000 Antwerpen,
+      Belgi\xEB"}
+  model: events.locationcache
+  pk: 499
+- fields: {lat: 51.20544695, lon: 4.39874924492551, string: 'Den Bell, Francis Wellesplein
+      1, 2018 Antwerpen'}
+  model: events.locationcache
+  pk: 500
+- fields: {lat: 50.4665284, lon: 4.8661892, string: "Namen, Belgi\xEB"}
+  model: events.locationcache
+  pk: 501
+- fields: {lat: 51.04745195, lon: 3.72748081355131, string: 'Vooruit, Gent'}
+  model: events.locationcache
+  pk: 502
+- fields: {lat: 52.5170365, lon: 13.3888599, string: Berlin}
+  model: events.locationcache
+  pk: 503
+- fields: {lat: 50.8004305, lon: 3.2701944677075, string: "Leiedal, President Kennedypark,
+      Kortrijk, Belgi\xEB"}
+  model: events.locationcache
+  pk: 504
+- fields: {lat: 50.81788085, lon: 3.27841539175542, string: Kortrijk}
+  model: events.locationcache
+  pk: 505
+- fields: {lat: 50.88121295, lon: 4.6941851180888, string: 'STUK arts centre, Wagehuys
+      and Romaanse Poort (Leuven, BE)'}
+  model: events.locationcache
+  pk: 506
+- fields: {lat: 51.0533818, lon: 3.7314087, string: 'Keizer Karelstraat 1
 
-            9000 Ghent'}
-    model: events.locationcache
-    pk: 507
--   fields: {lat: 51.0452918, lon: 3.7197175, string: "Jozef Kluyskensstraat, Gent,
-            Belgi\xEB"}
-    model: events.locationcache
-    pk: 508
--   fields: {lat: 46.2017559, lon: 6.1466014, string: "Gen\xE8ve"}
-    model: events.locationcache
-    pk: 509
--   fields: {lat: 50.91351825, lon: 4.18057863991029, string: Asse}
-    model: events.locationcache
-    pk: 510
--   fields: {lat: 50.9654864, lon: 5.5001456, string: Genk}
-    model: events.locationcache
-    pk: 511
--   fields: {lat: 50.64689515, lon: 5.5762992514314, string: "Mus\xE9e de la Vie Wallonne"}
-    model: events.locationcache
-    pk: 512
--   fields: {lat: 50.8129145, lon: 4.3843964, string: '131, av. Buyl'}
-    model: events.locationcache
-    pk: 513
--   fields: {lat: 50.8129145, lon: 4.3843964, string: '131, Av. Buyl'}
-    model: events.locationcache
-    pk: 514
--   fields: {lat: 55.5570123, lon: 8.4758309, string: Forum D}
-    model: events.locationcache
-    pk: 515
--   fields: {lat: 60.5000209, lon: 9.0999715, string: 'NO'}
-    model: events.locationcache
-    pk: 516
--   fields: {lat: 50.8129145, lon: 4.3843964, string: 131 av. Buyl}
-    model: events.locationcache
-    pk: 517
--   fields: {lat: 50.812927, lon: 4.3844493, string: UrLab}
-    model: events.locationcache
-    pk: 518
--   fields: {lat: 50.85556005, lon: 4.37038336886874, string: hsbxl}
-    model: events.locationcache
-    pk: 519
--   fields: {lat: 50.8734978, lon: 4.7081787, string: KULeuven}
-    model: events.locationcache
-    pk: 520
--   fields: {lat: -16.3294574, lon: 168.2973611, string: ULB}
-    model: events.locationcache
-    pk: 521
--   fields: {lat: 38.7441528, lon: -90.6974917, string: K.4.201}
-    model: events.locationcache
-    pk: 522
--   fields: {lat: 50.81229705, lon: 4.38138279662278, string: "Avenue H\xE9ger, ULB"}
-    model: events.locationcache
-    pk: 523
--   fields: {lat: 50.61093885, lon: 5.51571175690472, string: Parking Janson}
-    model: events.locationcache
-    pk: 524
--   fields: {lat: 45.0163186, lon: 6.0543149, string: "ULB (\xE0 preciser)"}
-    model: events.locationcache
-    pk: 525
--   fields: {lat: 40.042737, lon: -82.9508079, string: P.OF.2072}
-    model: events.locationcache
-    pk: 526
--   fields: {lat: 50.8129145, lon: 4.3843964, string: 131 Avenue Buyl}
-    model: events.locationcache
-    pk: 527
--   fields: {lat: null, lon: null, string: ''}
-    model: events.locationcache
-    pk: 528
--   fields: {lat: null, lon: null, string: 'Hangar 30 quai des Antilles, Nantes, 44200,
-            France'}
-    model: events.locationcache
-    pk: 529
--   fields: {lat: null, lon: null, string: 123 Rue Royale BXL}
-    model: events.locationcache
-    pk: 530
--   fields: {lat: null, lon: null, string: "Caf\xE9 of the Pianofabriek (Rue du Fortstraat
-            35, 1060 Sint-Gillis, Belgium)"}
-    model: events.locationcache
-    pk: 531
--   fields: {lat: null, lon: null, string: 'Nucleus (North Trade Building Noorderlaan
-            133/8, Antwerpen, Belgium)'}
-    model: events.locationcache
-    pk: 532
--   fields: {lat: null, lon: null, string: 'Chaos Communication Camp (Not yet published,
-            Berlin, Belgium)'}
-    model: events.locationcache
-    pk: 533
--   fields: {lat: null, lon: null, string: Rotule P.NO8}
-    model: events.locationcache
-    pk: 534
--   fields: {lat: null, lon: null, string: '34 rue Lanoue Bras de Fer, Nantes , 44200'}
-    model: events.locationcache
-    pk: 535
--   fields: {lat: null, lon: null, string: Vlaams-Nederlands Huis deBuren}
-    model: events.locationcache
-    pk: 536
--   fields: {lat: null, lon: null, string: 'Avenue de la Porte de Hal 1, 1060 Saint-Gilles,
-            Belgium'}
-    model: events.locationcache
-    pk: 537
--   fields: {lat: null, lon: null, string: 'Geestmerambacht, Alkmaar, Netherlands'}
-    model: events.locationcache
-    pk: 538
--   fields: {lat: null, lon: null, string: 'Schoonmeersen Campus, Gebouw D, V. Vaerwyckweg
-            1, 9000 Ghent. '}
-    model: events.locationcache
-    pk: 539
--   fields: {lat: null, lon: null, string: 'Kortrijk, Gent, Antwerpen'}
-    model: events.locationcache
-    pk: 540
--   fields: {lat: null, lon: null, string: Koninklijke Bibliotheek / Biblioth&#232;que
-            Royale de Belgique}
-    model: events.locationcache
-    pk: 541
--   fields: {lat: null, lon: null, string: '131, av. Buyl, at UrLab'}
-    model: events.locationcache
-    pk: 542
--   fields: {lat: null, lon: null, string: "123 rue Royale - 1000 Bruxelles - 4eme
-            \xE9tage local FEBUL"}
-    model: events.locationcache
-    pk: 543
--   fields: {lat: null, lon: null, string: 'AC Portus, Keizerkarellaan 1, 9000 Gent'}
-    model: events.locationcache
-    pk: 544
--   fields: {lat: null, lon: null, string: 'Campus de la Plaine, Forums'}
-    model: events.locationcache
-    pk: 545
--   fields: {lat: null, lon: null, string: "Universit\xE9 de Mons, Facult\xE9 Polytechnique,
-            Site Houdain, Rue de Houdain, 9 (auditoire 12, Mons, Belgium)"}
-    model: events.locationcache
-    pk: 546
--   fields: {lat: null, lon: null, string: 'Campus of Hogeschool Vives, Doorsniksesteenweg
-            145, Kortrijk '}
-    model: events.locationcache
-    pk: 547
--   fields: {lat: null, lon: null, string: 'Campus de la Plaine, Forum C'}
-    model: events.locationcache
-    pk: 548
--   fields: {lat: null, lon: null, string: 'Gent, Brugge, Hasselt'}
-    model: events.locationcache
-    pk: 549
--   fields: {lat: null, lon: null, string: 'Area 42, Paleizenstraat 42, 1030 Brussel'}
-    model: events.locationcache
-    pk: 550
--   fields: {lat: null, lon: null, string: '45 Rue du Canal, BXL'}
-    model: events.locationcache
-    pk: 551
--   fields: {lat: null, lon: null, string: 'http://www.openstreetmap.org/#map=19/50.81313/4.38171'}
-    model: events.locationcache
-    pk: 552
--   fields: {lat: null, lon: null, string: '45 rue du Canal, 1000 BXL'}
-    model: events.locationcache
-    pk: 553
--   fields: {lat: null, lon: null, string: 'VUB - lokaal D.0.02 (max 170 plaatsen)
-            (Pleinlaan 2, Brussel, Belgium)'}
-    model: events.locationcache
-    pk: 554
--   fields: {lat: null, lon: null, string: MIX iMinds}
-    model: events.locationcache
-    pk: 555
--   fields: {lat: null, lon: null, string: "34 Quai des Charbonnages - Koolmijnenkaai,
-            1080 Bruxelles (m\xE9tro: Comte de Flandre / Graaf van Vlaanderen)"}
-    model: events.locationcache
-    pk: 556
--   fields: {lat: null, lon: null, string: 'Braine-l&#39;Alleud, Brabant wallon'}
-    model: events.locationcache
-    pk: 557
--   fields: {lat: null, lon: null, string: "Agoria, Auguste Reyerslaan 80, 1030 Brussel,
-            Belgi\xEB"}
-    model: events.locationcache
-    pk: 558
--   fields: {lat: null, lon: null, string: 'OHL - Stadium (Business Area) (Kardinaal
-            Mercierlaan 46, Heverlee, 3001, Belgium)'}
-    model: events.locationcache
-    pk: 559
--   fields: {lat: null, lon: null, string: 'AC Portus, Keizer Karelstraat 1st Floor,
-            9000 Gent '}
-    model: events.locationcache
-    pk: 560
--   fields: {lat: null, lon: null, string: 'ULB,Solboch'}
-    model: events.locationcache
-    pk: 561
--   fields: {lat: null, lon: null, string: Zespenningenstraat 70 1000 Brussel}
-    model: events.locationcache
-    pk: 562
--   fields: {lat: null, lon: null, string: "idealabs.be, Lange Klarenstraat, Antwerpen,
-            Belgi\xEB"}
-    model: events.locationcache
-    pk: 563
--   fields: {lat: null, lon: null, string: "Culliganlaan 4, Diegem Industrie, Culliganlaan
-            4, 1831 Machelen, Belgi\xEB"}
-    model: events.locationcache
-    pk: 564
--   fields: {lat: null, lon: null, string: K.3.601}
-    model: events.locationcache
-    pk: 565
--   fields: {lat: null, lon: null, string: Mundo B" at Rue d'Edimbourg 26}
-    model: events.locationcache
-    pk: 566
--   fields: {lat: null, lon: null, string: 'Shoreditch Works (the best coworking space
-            in tech city, London, London, United Kingdom)'}
-    model: events.locationcache
-    pk: 567
--   fields: {lat: null, lon: null, string: "Het Belfort van Gent, Sint-Baafsplein,
-            9000 Gent, Belgi\xEB"}
-    model: events.locationcache
-    pk: 568
--   fields: {lat: null, lon: null, string: 'Microsoft nv/sa (Da Vincilaan 3, Zaventem,
-            Belgium)'}
-    model: events.locationcache
-    pk: 569
--   fields: {lat: null, lon: null, string: K.3.401}
-    model: events.locationcache
-    pk: 570
--   fields: {lat: null, lon: null, string: 'Designregio Kortrijk, Broelkaai 1B, 8500
-            KORTRIJK'}
-    model: events.locationcache
-    pk: 571
--   fields: {lat: null, lon: null, string: Electrolab}
-    model: events.locationcache
-    pk: 572
--   fields: {lat: null, lon: null, string: '123 Rue Royale, BXL'}
-    model: events.locationcache
-    pk: 573
--   fields: {lat: null, lon: null, string: 'ULB, Campus Solbosch'}
-    model: events.locationcache
-    pk: 574
--   fields: {lat: null, lon: null, string: 'FabLab.iMAL, 34 Quai des Charbonnages
-            - Koolmijnenkaai, 1080 Brussels '}
-    model: events.locationcache
-    pk: 575
--   fields: {lat: null, lon: null, string: 'Rotule du NO8, Campus de la Plaine, ULB'}
-    model: events.locationcache
-    pk: 576
+      9000 Ghent'}
+  model: events.locationcache
+  pk: 507
+- fields: {lat: 51.0452918, lon: 3.7197175, string: "Jozef Kluyskensstraat, Gent,
+      Belgi\xEB"}
+  model: events.locationcache
+  pk: 508
+- fields: {lat: 46.2017559, lon: 6.1466014, string: "Gen\xE8ve"}
+  model: events.locationcache
+  pk: 509
+- fields: {lat: 50.91351825, lon: 4.18057863991029, string: Asse}
+  model: events.locationcache
+  pk: 510
+- fields: {lat: 50.9654864, lon: 5.5001456, string: Genk}
+  model: events.locationcache
+  pk: 511
+- fields: {lat: 50.64689515, lon: 5.5762992514314, string: "Mus\xE9e de la Vie Wallonne"}
+  model: events.locationcache
+  pk: 512
+- fields: {lat: 50.8129145, lon: 4.3843964, string: '131, av. Buyl'}
+  model: events.locationcache
+  pk: 513
+- fields: {lat: 50.8129145, lon: 4.3843964, string: '131, Av. Buyl'}
+  model: events.locationcache
+  pk: 514
+- fields: {lat: 55.5570123, lon: 8.4758309, string: Forum D}
+  model: events.locationcache
+  pk: 515
+- fields: {lat: 60.5000209, lon: 9.0999715, string: 'NO'}
+  model: events.locationcache
+  pk: 516
+- fields: {lat: 50.8129145, lon: 4.3843964, string: 131 av. Buyl}
+  model: events.locationcache
+  pk: 517
+- fields: {lat: 50.812927, lon: 4.3844493, string: UrLab}
+  model: events.locationcache
+  pk: 518
+- fields: {lat: 50.85556005, lon: 4.37038336886874, string: hsbxl}
+  model: events.locationcache
+  pk: 519
+- fields: {lat: 50.8734978, lon: 4.7081787, string: KULeuven}
+  model: events.locationcache
+  pk: 520
+- fields: {lat: -16.3294574, lon: 168.2973611, string: ULB}
+  model: events.locationcache
+  pk: 521
+- fields: {lat: 38.7441528, lon: -90.6974917, string: K.4.201}
+  model: events.locationcache
+  pk: 522
+- fields: {lat: 50.81229705, lon: 4.38138279662278, string: "Avenue H\xE9ger, ULB"}
+  model: events.locationcache
+  pk: 523
+- fields: {lat: 50.61093885, lon: 5.51571175690472, string: Parking Janson}
+  model: events.locationcache
+  pk: 524
+- fields: {lat: 45.0163186, lon: 6.0543149, string: "ULB (\xE0 preciser)"}
+  model: events.locationcache
+  pk: 525
+- fields: {lat: 40.042737, lon: -82.9508079, string: P.OF.2072}
+  model: events.locationcache
+  pk: 526
+- fields: {lat: 50.8129145, lon: 4.3843964, string: 131 Avenue Buyl}
+  model: events.locationcache
+  pk: 527
+- fields: {lat: null, lon: null, string: ''}
+  model: events.locationcache
+  pk: 528
+- fields: {lat: null, lon: null, string: 'Hangar 30 quai des Antilles, Nantes, 44200,
+      France'}
+  model: events.locationcache
+  pk: 529
+- fields: {lat: null, lon: null, string: 123 Rue Royale BXL}
+  model: events.locationcache
+  pk: 530
+- fields: {lat: null, lon: null, string: "Caf\xE9 of the Pianofabriek (Rue du Fortstraat
+      35, 1060 Sint-Gillis, Belgium)"}
+  model: events.locationcache
+  pk: 531
+- fields: {lat: null, lon: null, string: 'Nucleus (North Trade Building Noorderlaan
+      133/8, Antwerpen, Belgium)'}
+  model: events.locationcache
+  pk: 532
+- fields: {lat: null, lon: null, string: 'Chaos Communication Camp (Not yet published,
+      Berlin, Belgium)'}
+  model: events.locationcache
+  pk: 533
+- fields: {lat: null, lon: null, string: Rotule P.NO8}
+  model: events.locationcache
+  pk: 534
+- fields: {lat: null, lon: null, string: '34 rue Lanoue Bras de Fer, Nantes , 44200'}
+  model: events.locationcache
+  pk: 535
+- fields: {lat: null, lon: null, string: Vlaams-Nederlands Huis deBuren}
+  model: events.locationcache
+  pk: 536
+- fields: {lat: null, lon: null, string: 'Avenue de la Porte de Hal 1, 1060 Saint-Gilles,
+      Belgium'}
+  model: events.locationcache
+  pk: 537
+- fields: {lat: null, lon: null, string: 'Geestmerambacht, Alkmaar, Netherlands'}
+  model: events.locationcache
+  pk: 538
+- fields: {lat: null, lon: null, string: 'Schoonmeersen Campus, Gebouw D, V. Vaerwyckweg
+      1, 9000 Ghent. '}
+  model: events.locationcache
+  pk: 539
+- fields: {lat: null, lon: null, string: 'Kortrijk, Gent, Antwerpen'}
+  model: events.locationcache
+  pk: 540
+- fields: {lat: null, lon: null, string: Koninklijke Bibliotheek / Biblioth&#232;que
+      Royale de Belgique}
+  model: events.locationcache
+  pk: 541
+- fields: {lat: null, lon: null, string: '131, av. Buyl, at UrLab'}
+  model: events.locationcache
+  pk: 542
+- fields: {lat: null, lon: null, string: "123 rue Royale - 1000 Bruxelles - 4eme \xE9tage
+      local FEBUL"}
+  model: events.locationcache
+  pk: 543
+- fields: {lat: null, lon: null, string: 'AC Portus, Keizerkarellaan 1, 9000 Gent'}
+  model: events.locationcache
+  pk: 544
+- fields: {lat: null, lon: null, string: 'Campus de la Plaine, Forums'}
+  model: events.locationcache
+  pk: 545
+- fields: {lat: null, lon: null, string: "Universit\xE9 de Mons, Facult\xE9 Polytechnique,
+      Site Houdain, Rue de Houdain, 9 (auditoire 12, Mons, Belgium)"}
+  model: events.locationcache
+  pk: 546
+- fields: {lat: null, lon: null, string: 'Campus of Hogeschool Vives, Doorsniksesteenweg
+      145, Kortrijk '}
+  model: events.locationcache
+  pk: 547
+- fields: {lat: null, lon: null, string: 'Campus de la Plaine, Forum C'}
+  model: events.locationcache
+  pk: 548
+- fields: {lat: null, lon: null, string: 'Gent, Brugge, Hasselt'}
+  model: events.locationcache
+  pk: 549
+- fields: {lat: null, lon: null, string: 'Area 42, Paleizenstraat 42, 1030 Brussel'}
+  model: events.locationcache
+  pk: 550
+- fields: {lat: null, lon: null, string: '45 Rue du Canal, BXL'}
+  model: events.locationcache
+  pk: 551
+- fields: {lat: null, lon: null, string: 'http://www.openstreetmap.org/#map=19/50.81313/4.38171'}
+  model: events.locationcache
+  pk: 552
+- fields: {lat: null, lon: null, string: '45 rue du Canal, 1000 BXL'}
+  model: events.locationcache
+  pk: 553
+- fields: {lat: null, lon: null, string: 'VUB - lokaal D.0.02 (max 170 plaatsen) (Pleinlaan
+      2, Brussel, Belgium)'}
+  model: events.locationcache
+  pk: 554
+- fields: {lat: null, lon: null, string: MIX iMinds}
+  model: events.locationcache
+  pk: 555
+- fields: {lat: null, lon: null, string: "34 Quai des Charbonnages - Koolmijnenkaai,
+      1080 Bruxelles (m\xE9tro: Comte de Flandre / Graaf van Vlaanderen)"}
+  model: events.locationcache
+  pk: 556
+- fields: {lat: null, lon: null, string: 'Braine-l&#39;Alleud, Brabant wallon'}
+  model: events.locationcache
+  pk: 557
+- fields: {lat: null, lon: null, string: "Agoria, Auguste Reyerslaan 80, 1030 Brussel,
+      Belgi\xEB"}
+  model: events.locationcache
+  pk: 558
+- fields: {lat: null, lon: null, string: 'OHL - Stadium (Business Area) (Kardinaal
+      Mercierlaan 46, Heverlee, 3001, Belgium)'}
+  model: events.locationcache
+  pk: 559
+- fields: {lat: null, lon: null, string: 'AC Portus, Keizer Karelstraat 1st Floor,
+      9000 Gent '}
+  model: events.locationcache
+  pk: 560
+- fields: {lat: null, lon: null, string: 'ULB,Solboch'}
+  model: events.locationcache
+  pk: 561
+- fields: {lat: null, lon: null, string: Zespenningenstraat 70 1000 Brussel}
+  model: events.locationcache
+  pk: 562
+- fields: {lat: null, lon: null, string: "idealabs.be, Lange Klarenstraat, Antwerpen,
+      Belgi\xEB"}
+  model: events.locationcache
+  pk: 563
+- fields: {lat: null, lon: null, string: "Culliganlaan 4, Diegem Industrie, Culliganlaan
+      4, 1831 Machelen, Belgi\xEB"}
+  model: events.locationcache
+  pk: 564
+- fields: {lat: null, lon: null, string: K.3.601}
+  model: events.locationcache
+  pk: 565
+- fields: {lat: null, lon: null, string: Mundo B" at Rue d'Edimbourg 26}
+  model: events.locationcache
+  pk: 566
+- fields: {lat: null, lon: null, string: 'Shoreditch Works (the best coworking space
+      in tech city, London, London, United Kingdom)'}
+  model: events.locationcache
+  pk: 567
+- fields: {lat: null, lon: null, string: "Het Belfort van Gent, Sint-Baafsplein, 9000
+      Gent, Belgi\xEB"}
+  model: events.locationcache
+  pk: 568
+- fields: {lat: null, lon: null, string: 'Microsoft nv/sa (Da Vincilaan 3, Zaventem,
+      Belgium)'}
+  model: events.locationcache
+  pk: 569
+- fields: {lat: null, lon: null, string: K.3.401}
+  model: events.locationcache
+  pk: 570
+- fields: {lat: null, lon: null, string: 'Designregio Kortrijk, Broelkaai 1B, 8500
+      KORTRIJK'}
+  model: events.locationcache
+  pk: 571
+- fields: {lat: null, lon: null, string: Electrolab}
+  model: events.locationcache
+  pk: 572
+- fields: {lat: null, lon: null, string: '123 Rue Royale, BXL'}
+  model: events.locationcache
+  pk: 573
+- fields: {lat: null, lon: null, string: 'ULB, Campus Solbosch'}
+  model: events.locationcache
+  pk: 574
+- fields: {lat: null, lon: null, string: 'FabLab.iMAL, 34 Quai des Charbonnages -
+      Koolmijnenkaai, 1080 Brussels '}
+  model: events.locationcache
+  pk: 575
+- fields: {lat: null, lon: null, string: 'Rotule du NO8, Campus de la Plaine, ULB'}
+  model: events.locationcache
+  pk: 576
+- fields: {lat: 51.84260195, lon: 5.8385196119892, string: Nijmegen}
+  model: events.locationcache
+  pk: 577
+- fields: {lat: null, lon: null, string: "Ambassade van Namibi\xEB"}
+  model: events.locationcache
+  pk: 578
+- fields: {lat: null, lon: null, string: Centrum van Leuven}
+  model: events.locationcache
+  pk: 579
+- fields: {lat: 51.2165499, lon: 4.4088206, string: De Wapper}
+  model: events.locationcache
+  pk: 580
+- fields: {lat: 52.07494555, lon: 4.26968032053645, string: Den Haag}
+  model: events.locationcache
+  pk: 581
+- fields: {lat: 52.08653175, lon: 5.24900804050379, string: Zeist}
+  model: events.locationcache
+  pk: 582
+- fields: {lat: 52.0401424, lon: 5.33876699823995, string: Doorn}
+  model: events.locationcache
+  pk: 583
+- fields: {lat: -22.5906645, lon: 17.0970864, string: "Ambassade Namibi\xEB"}
+  model: events.locationcache
+  pk: 584
+- fields: {lat: null, lon: null, string: 'De Wapper, hoek Meir, centrum van Antwerpen'}
+  model: events.locationcache
+  pk: 585
+- fields: {lat: null, lon: null, string: 'Nickelson winkel, Den Haag'}
+  model: events.locationcache
+  pk: 586
+- fields: {lat: null, lon: null, string: 'Leidseplein, Amsterdam'}
+  model: events.locationcache
+  pk: 587
+- fields: {lat: null, lon: null, string: Zoetermeer}
+  model: events.locationcache
+  pk: 588
+- fields: {lat: null, lon: null, string: Hoek Wapper/Meir}
+  model: events.locationcache
+  pk: 589
+- fields: {lat: null, lon: null, string: Hoek Korenmarkt/Veldstraat}
+  model: events.locationcache
+  pk: 590
+- fields: {lat: null, lon: null, string: Justus Lipsiusstraat gebouw}
+  model: events.locationcache
+  pk: 591
+- fields: {lat: 52.374436, lon: 4.8979956033677, string: Amsterdam}
+  model: events.locationcache
+  pk: 592
+- fields: {lat: 50.926251, lon: 5.34666250462569, string: 'Cultureel Centrum, Hasselt'}
+  model: events.locationcache
+  pk: 593
+- fields: {lat: -33.7033555, lon: 18.9837414, string: Driebergen}
+  model: events.locationcache
+  pk: 594
+- fields: {lat: 51.2315785, lon: 3.20809951603418, string: Bruges}
+  model: events.locationcache
+  pk: 595
+- fields: {lat: 51.1822691, lon: 3.21486608709317, string: Boudewijn Seapark}
+  model: events.locationcache
+  pk: 596
+- fields: {lat: 51.0538286, lon: 3.7250121, string: Gand}
+  model: events.locationcache
+  pk: 597
+- fields: {lat: 51.183675, lon: 3.21247743687747, string: Dolfinarium}
+  model: events.locationcache
+  pk: 598
+- fields: {lat: 51.2315785, lon: 3.20809951603418, string: Brugge}
+  model: events.locationcache
+  pk: 599
+- fields: {lat: 51.18087935, lon: 3.2078767461487, string: Sint-Michiels}
+  model: events.locationcache
+  pk: 600
+- fields: {lat: 51.18087935, lon: 3.2078767461487, string: Sint Michiels (Brugge)}
+  model: events.locationcache
+  pk: 601
+- fields: {lat: 52.3543228, lon: 5.61740899384858, string: 'Dolfinarium, Harderwijk'}
+  model: events.locationcache
+  pk: 602
+- fields: {lat: 52.3543228, lon: 5.61740899384858, string: 'Harderwijk, Dolfinarium'}
+  model: events.locationcache
+  pk: 603
+- fields: {lat: 50.84404145, lon: 4.36720169448285, string: Brussel}
+  model: events.locationcache
+  pk: 604
+- fields: {lat: 51.8483045, lon: 5.8640833, string: Korenmarkt}
+  model: events.locationcache
+  pk: 605
+- fields: {lat: 50.84404145, lon: 4.36720169448285, string: Bruxelles/Brussel}
+  model: events.locationcache
+  pk: 606
+- fields: {lat: 50.8991209, lon: 4.4909764, string: Brussels Airport (BRU)}
+  model: events.locationcache
+  pk: 607
+- fields: {lat: 52.78183695, lon: 6.90087456190138, string: Emmen}
+  model: events.locationcache
+  pk: 608
+- fields: {lat: 52.1538501, lon: 5.3873943, string: 'Varkensmarkt, Amersfoort'}
+  model: events.locationcache
+  pk: 609
+- fields: {lat: 50.85798545, lon: 5.69698818182211, string: Maastricht}
+  model: events.locationcache
+  pk: 610
+- fields: {lat: 50.83853395, lon: 4.37543388666309, string: "R\xE9gion de Bruxelles-Capitale"}
+  model: events.locationcache
+  pk: 611
+- fields: {lat: 50.84404145, lon: 4.36720169448285, string: "Air France, Belgische
+      hoofdzetel/ si\xE8ge belge, Louizalaan/ avenue Louise 149 (Brussel)"}
+  model: events.locationcache
+  pk: 612
+- fields: {lat: 50.8222854, lon: 4.3815707, string: ITALIE Ambassade van de Italiaanse
+      Republiek Emile Clausstraat 28 1050 Brussel(Elsene)}
+  model: events.locationcache
+  pk: 613
+- fields: {lat: null, lon: null, string: The Event Lounge - Business & Event Venue
+      in Brussels}
+  model: events.locationcache
+  pk: 614
+- fields: {lat: null, lon: null, string: Brussel / Bruxelles}
+  model: events.locationcache
+  pk: 615
+- fields: {lat: null, lon: null, string: Esplanade van het Jubelpark}
+  model: events.locationcache
+  pk: 616
+- fields: {lat: null, lon: null, string: 'Zaal Stuurboord - Hangar 26 Rijnkaai 96,
+      2000 Antwerpen. / Salle Stuurboord - Hangar 26 Rijnkaai 96, 2000 Anvers.'}
+  model: events.locationcache
+  pk: 617
+- fields: {lat: null, lon: null, string: 'Burooz Coworking (Duboisstraat 50, Antwerp,
+      Belgium)'}
+  model: events.locationcache
+  pk: 618
+- fields: {lat: null, lon: null, string: "transforma bxl (Avenue du P\xE9rou 80 Perulaan,
+      Brussels, Belgium)"}
+  model: events.locationcache
+  pk: 619
+- fields: {lat: 51.0529206, lon: 4.4559276, string: "Mechelen Campus - RE:flex (Schali\xEBnhoevedreef
+      20, Mechelen, Belgium)"}
+  model: events.locationcache
+  pk: 620
+- fields: {lat: 50.8874371, lon: 4.7065822, string: 'TenForce (Havenkant 38, Leuven,
+      Belgium)'}
+  model: events.locationcache
+  pk: 621
+- fields: {lat: null, lon: null, string: 'Devoxx (Metropolis Business Center Kotterstraat,
+      Antwerp, Belgium)'}
+  model: events.locationcache
+  pk: 622
+- fields: {lat: null, lon: null, string: Piano de Lil}
+  model: events.locationcache
+  pk: 623
+- fields: {lat: null, lon: null, string: Recyclart}
+  model: events.locationcache
+  pk: 624
+- fields: {lat: 18.3281349, lon: -74.2018685, string: Constant}
+  model: events.locationcache
+  pk: 625
+- fields: {lat: null, lon: null, string: 'Hackerspace Brussels (Rue du Moulin 40 |
+      Molenstraat 40, Brussels, Belgium)'}
+  model: events.locationcache
+  pk: 626
+- fields: {lat: 49.9199016, lon: 5.3796079, string: "Libramont, 6800 Libramont-Chevigny,
+      Belgi\xEB"}
+  model: events.locationcache
+  pk: 627
+- fields: {lat: null, lon: null, string: "Keizerslaan 2, 1000 Brussel, Belgi\xEB"}
+  model: events.locationcache
+  pk: 628
+- fields: {lat: 50.84404145, lon: 4.36720169448285, string: "Brussel, Belgi\xEB"}
+  model: events.locationcache
+  pk: 629
+- fields: {lat: null, lon: null, string: 'TBD ((precise address will be announced
+      soon), Antwerpen, Belgium)'}
+  model: events.locationcache
+  pk: 630
+- fields: {lat: 50.83216365, lon: 4.37251910519155, string: 'Ixelles Library Sans
+      Soucie (Rue Sans Souci 131, 1050 Ixelles, Brussels, Belgium)'}
+  model: events.locationcache
+  pk: 631
+- fields: {lat: null, lon: null, string: 'ULB Campus Solbosch (50, Avenue Franklin
+      D. Roosevelt 1050 Bruxelles, Brussels, Belgium)'}
+  model: events.locationcache
+  pk: 632
+- fields: {lat: null, lon: null, string: 'Flamingo  (Rue de Laeken 171-178, 1000 Brussels,
+      Belgium, Brussels, Belgium)'}
+  model: events.locationcache
+  pk: 633
+- fields: {lat: null, lon: null, string: 'Co.Station (St. Goedeleplein 5 place Sainte
+      Gudule, 1000 Brussels, Brussels, Belgium)'}
+  model: events.locationcache
+  pk: 634
+- fields: {lat: null, lon: null, string: 'hackerspace HSBXL (Rue Moulin 40 / Molenstraat
+      40,  1210 St-Joost-ten-Noode,  Brussels,  Belgium, Brussels, Belgium)'}
+  model: events.locationcache
+  pk: 635
+- fields: {lat: null, lon: null, string: 'Floating Desk (Visserij 260 (tegenover huisnummer
+      151), Gent, Belgium)'}
+  model: events.locationcache
+  pk: 636
+- fields: {lat: null, lon: null, string: "Dineyland paris @ Disneyland Paris, 77777
+      Marne-la-Vall\xE9e, France"}
+  model: events.locationcache
+  pk: 637
+- fields: {lat: null, lon: null, string: "DESY @ Notkestra\xDFe 85, 22607 Hambourg,
+      Allemagne"}
+  model: events.locationcache
+  pk: 638
+- fields: {lat: null, lon: null, string: 'TBD ((precise address will be announced
+      soon), Brussels, Belgium)'}
+  model: events.locationcache
+  pk: 639
+- fields: {lat: null, lon: null, string: 'Pianofabriek ( Rue du Fort 35, 1060 Saint-Gilles,
+      Brussels, Belgium)'}
+  model: events.locationcache
+  pk: 640
+- fields: {lat: 50.82657165, lon: 4.39986366115118, string: " Betacowork / ICAB (4
+      rue des P\xE8res Blancs, 1040 Etterbeek, Brussels, Belgium)"}
+  model: events.locationcache
+  pk: 641
+- fields: {lat: null, lon: null, string: 'Ibuildings Utrecht (Goeman Borgesiuslaan
+      77, Utrecht, Netherlands)'}
+  model: events.locationcache
+  pk: 642
+- fields: {lat: 50.830635, lon: 4.349647, string: "32 Rue du M\xE9tal1060 Saint-Gilles"}
+  model: events.locationcache
+  pk: 643
+- fields: {lat: 50.854129, lon: 4.347045, string: "9 quai \xE0 la houille1000 Bruxelles"}
+  model: events.locationcache
+  pk: 644
