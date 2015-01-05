@@ -1,4 +1,5 @@
 from django.conf.urls import patterns, url, include
+from django.http import HttpResponse
 from events.api import EventResource
 from .feeds import NextEventsFeed
 from .ics import get_ics_of_events
@@ -12,5 +13,6 @@ urlpatterns = patterns('events.views',
     url(r'^events.rss$', NextEventsFeed(), name='events_rss'),
     url(r'^events.ics$', get_ics_of_events, name='events_ics'),
     url(r'^events.html$', EventListView.as_view(), name='events_render'),
+    url(r'^location_cache.yaml$', lambda _: HttpResponse(open("events/fixtures/location_cache.yaml", "r").read()), name='location_cache'),
     url(r'^api/', include(event_resource.urls), name='events_api'),
 )
