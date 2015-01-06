@@ -655,7 +655,7 @@
 - fields: {lat: null, lon: null, string: Recyclart}
   model: events.locationcache
   pk: 624
-- fields: {lat: 18.3281349, lon: -74.2018685, string: Constant}
+- fields: {lat: 50.82994, lon: 4.34356, string: Constant}
   model: events.locationcache
   pk: 625
 - fields: {lat: null, lon: null, string: 'Hackerspace Brussels (Rue du Moulin 40 |
