@@ -50,7 +50,7 @@ class Command(BaseCommand):
     def tweet(self, t):
         print "Tweet:", t
         self.twitter.update_status(t)
-        time.sleep(10)
+        time.sleep(300)
 
     def generate_tweets(self):
         today_events = Event.objects.filter(agenda=settings.AGENDA).filter(start__gte=date.today()).filter(start__lt=date.today() + timedelta(days=1))
