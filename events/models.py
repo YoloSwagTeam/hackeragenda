@@ -24,16 +24,20 @@ class Event(models.Model):
         title = self.title
         if self.location:
             title += " - %s" % (self.location)
-        return u"[%s] %s (%s)" % (self.source, title, self.datestr)
+        return u"[%s] %s (%s)" % (self.source, title, self.date_to_string)
 
     @property
-    def datestr(self):
+    def date_to_string(self):
         if self.all_day:
-            return self.start.strftime("%Y-%m-%d")
+            if self.end and self.end != self.start:
+                res = "%s - %s" % (x.strftime("%Y-%m-%d") for x in (self.start, self.end)) 
+            else:
+                res = self.start.strftime("%Y-%m-%d")
         elif self.end:
-            return "%s - %s" % (self.start, self.end)
+            res = "%s - %s" % (self.start, self.end)
         else:
-            return "%s" % (self.start)
+            res = "%s" % (self.start)
+        return res
 
     @property
     def is_over(self):
