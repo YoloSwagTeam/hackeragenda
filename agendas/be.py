@@ -1,5 +1,6 @@
 # encoding: utf-8
 
+import re
 import requests
 import time
 import calendar
@@ -304,9 +305,17 @@ def foam(create_event):
         else:
             start, end = dates[0], None
 
+        soupsoup = BeautifulSoup(requests.get('http://fo.am' + link).content)
+
+        if soupsoup.find("h3", text="Location"):
+            location = re.sub(" +", " ", soupsoup.find("h3", text="Location").next_sibling.next_sibling.text.strip().replace("\n", " "))
+        else:
+            location = None
+
         event = create_event(
             title=title.text,
             url='http://fo.am' + link,
+            location=location,
             start=start,
             end=end
         )
