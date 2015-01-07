@@ -199,10 +199,13 @@ def bxlug(create_event):
         end = parse(entry('meta', itemprop='endDate')[0]['content'][:-1])
         title = entry('span', itemprop='name')[0].text
         url = "http://www.bxlug.be/" + entry('a', itemprop='url')[0]['href']
+        location = entry.find("p", "location")("span")[1].text.split("Contact")[0].split(":", 1)[1].strip()
+
         db_event = create_event(
             title=title,
             url=url,
             start=start,
+            location=location,
             end=end
         )
 
