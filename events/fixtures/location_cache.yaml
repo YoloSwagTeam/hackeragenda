@@ -364,8 +364,8 @@
 - fields: {lat: 50.849744, lon: 4.354944, string: Vlaams-Nederlands Huis deBuren}
   model: events.locationcache
   pk: 536
-- fields: {lat: 50.832393, lon: 4.344717, string: 'Avenue de la Porte de Hal 1, 1060 Saint-Gilles,
-      Belgium'}
+- fields: {lat: 50.832393, lon: 4.344717, string: 'Avenue de la Porte de Hal 1, 1060
+      Saint-Gilles, Belgium'}
   model: events.locationcache
   pk: 537
 - fields: {lat: null, lon: null, string: 'Geestmerambacht, Alkmaar, Netherlands'}
@@ -658,8 +658,8 @@
 - fields: {lat: 50.82994, lon: 4.34356, string: Constant}
   model: events.locationcache
   pk: 625
-- fields: {lat: 50.85556005, lon: 4.37038336886874, string: 'Hackerspace Brussels (Rue du Moulin 40 |
-      Molenstraat 40, Brussels, Belgium)'}
+- fields: {lat: 50.85556005, lon: 4.37038336886874, string: 'Hackerspace Brussels
+      (Rue du Moulin 40 | Molenstraat 40, Brussels, Belgium)'}
   model: events.locationcache
   pk: 626
 - fields: {lat: 49.9199016, lon: 5.3796079, string: "Libramont, 6800 Libramont-Chevigny,
@@ -692,8 +692,9 @@
       Gudule, 1000 Brussels, Brussels, Belgium)'}
   model: events.locationcache
   pk: 634
-- fields: {lat: 50.85556005, lon: 4.37038336886874, string: 'hackerspace HSBXL (Rue Moulin 40 / Molenstraat
-      40,  1210 St-Joost-ten-Noode,  Brussels,  Belgium, Brussels, Belgium)'}
+- fields: {lat: 50.85556005, lon: 4.37038336886874, string: 'hackerspace HSBXL (Rue
+      Moulin 40 / Molenstraat 40,  1210 St-Joost-ten-Noode,  Brussels,  Belgium, Brussels,
+      Belgium)'}
   model: events.locationcache
   pk: 635
 - fields: {lat: null, lon: null, string: 'Floating Desk (Visserij 260 (tegenover huisnummer
@@ -874,7 +875,38 @@
 - fields: {lat: 50.8286521, lon: 4.34245607531701, string: 37 rue du Fort - 1060 Saint-Gilles}
   model: events.locationcache
   pk: 684
-- fields: {lat: 50.860972, lon: 4.291773, string: "Centre Culturel le Fourquet\nPlace de l\u2019\xC9glise
-      15\n1082 Berchem-Ste-Agathe"}
+- fields: {lat: 50.860972, lon: 4.291773, string: "Centre Culturel le Fourquet\nPlace
+      de l\u2019\xC9glise 15\n1082 Berchem-Ste-Agathe"}
   model: events.locationcache
   pk: 685
+- fields: {lat: null, lon: null, string: Morpho House Gallaitstraat 80 1030 Schaarbeek}
+  model: events.locationcache
+  pk: 686
+- fields: {lat: null, lon: null, string: "\u0161kolsk\xE1 28 gallery - Dlouh\xE1 33
+      - 110 00 Prague 1 - Czech Republic"}
+  model: events.locationcache
+  pk: 687
+- fields: {lat: 50.8313363, lon: 3.26318721667425, string: 'Dam 2, Kortrijk'}
+  model: events.locationcache
+  pk: 688
+- fields: {lat: null, lon: null, string: 'Brussels, Gallaitstraat 80 Schaarbeek'}
+  model: events.locationcache
+  pk: 689
+- fields: {lat: 49.548233, lon: 17.7346535, string: Hranice CZ}
+  model: events.locationcache
+  pk: 690
+- fields: {lat: 47.1129489, lon: -2.0874726, string: Saint-Nazaire & Nantes}
+  model: events.locationcache
+  pk: 691
+- fields: {lat: null, lon: null, string: The Egg Brussels}
+  model: events.locationcache
+  pk: 692
+- fields: {lat: null, lon: null, string: OKNO Studio}
+  model: events.locationcache
+  pk: 693
+- fields: {lat: 14.88189675, lon: 120.5175339, string: Global}
+  model: events.locationcache
+  pk: 694
+- fields: {lat: null, lon: null, string: okno openGreens rooftop garden}
+  model: events.locationcache
+  pk: 695
