@@ -4,7 +4,7 @@ import requests
 import time
 import calendar
 
-from BeautifulSoup import BeautifulSoup
+from bs4 import BeautifulSoup
 from django.template.defaultfilters import slugify
 from datetime import date, datetime, timedelta
 from dateutil.parser import parse
