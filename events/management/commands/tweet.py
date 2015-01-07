@@ -1,6 +1,7 @@
 import re
 import sys
 import time
+import urllib
 import tweepy
 
 from datetime import date, timedelta
@@ -41,27 +42,33 @@ class Command(BaseCommand):
         else:
             self.twitter = connect_to_twitter()
 
-        for tweet in self.generate_tweets():
+        for tweet, location in self.generate_tweets():
             if not options["run"]:
-                print tweet
+                print tweet, location
             else:
-                self.tweet(tweet)
+                self.tweet(tweet, location)
 
-    def tweet(self, t):
+    def tweet(self, t, location):
         print "Tweet:", t
-        self.twitter.update_status(t)
+        if location is None:
+            self.twitter.update_status(t)
+        else:
+            map_picture_url = "https://open.mapquestapi.com/staticmap/v4/getmap?key=Kmjtd|luu7n162n1%%2C22%%3Do5-h61wh&size=500,600&zoom=12&center=%(lat)s,%(lon)s&pois=green_1,%(lat)s,%(lon)s,0,0|green_1,%(lat)s,%(lon)s,0,0" % {"lat": location[0], "lon": location[1]}
+            urllib.urlretrieve(map_picture_url, "map.jpg")
+            self.twitter.update_with_media("map.jpg", t)
+
         time.sleep(300)
 
     def generate_tweets(self):
         today_events = Event.objects.filter(agenda=settings.AGENDA).filter(start__gte=date.today()).filter(start__lt=date.today() + timedelta(days=1))
         this_week_other_events = Event.objects.filter(agenda=settings.AGENDA).filter(start__gte=date.today() + timedelta(days=1)).filter(start__lt=date.today() + timedelta(days=7))
 
-        for tweet in self.format_tweets(today_events):
-            yield tweet.encode("Utf-8")
+        for tweet, location in self.format_tweets(today_events):
+            yield tweet, location
 
         if date.today().weekday() == 0:
             for tweet in self.format_tweets(this_week_other_events):
-                yield tweet.encode("Utf-8")
+                yield tweet, location
 
     def format_tweets(self, events):
         def format_title(x):
@@ -73,10 +80,15 @@ class Command(BaseCommand):
 
         for event in events:
             tweet = [format_title(event), event.url, "#" + "".join(event.source.replace("_", " ").title().split())]
-            if tweet_size(" ".join(tweet)) > 141:
-                to_remove = tweet_size(" ".join(tweet)) - 140
+
+            has_location = event.lat and event.lon
+
+            size = 141 if not has_location else 118
+
+            if tweet_size(" ".join(tweet)) > size:
+                to_remove = tweet_size(" ".join(tweet)) - (size - 1)
                 event.title = event.title[to_remove + 3:] + "..."
                 tweet[0] = format_title(event)
 
             tweet = " ".join(tweet)
-            yield tweet
+            yield (tweet.encode("Utf-8"), (event.lat, event.lon) if event.lat and event.lon else None)
