@@ -730,3 +730,151 @@
 - fields: {lat: 50.854129, lon: 4.347045, string: "9 quai \xE0 la houille1000 Bruxelles"}
   model: events.locationcache
   pk: 644
+- fields: {lat: null, lon: null, string: '17 avenue Maistriau, Mons, Hainaut'}
+  model: events.locationcache
+  pk: 645
+- fields: {lat: null, lon: null, string: W-o-l-k-e}
+  model: events.locationcache
+  pk: 646
+- fields: {lat: 50.84404145, lon: 4.36720169448285, string: Brussel/ Bruxelles}
+  model: events.locationcache
+  pk: 647
+- fields: {lat: 50.8018201, lon: 4.3372348, string: UCCLE}
+  model: events.locationcache
+  pk: 648
+- fields: {lat: 50.15455465, lon: 5.39921064948211, string: Wallonie}
+  model: events.locationcache
+  pk: 649
+- fields: {lat: 50.9887483, lon: 4.5347329, string: 'UP-nxt (Vaartstraat 14/1, Leuven,
+      Belgium)'}
+  model: events.locationcache
+  pk: 650
+- fields: {lat: 50.8466928, lon: 4.4284842, string: Woluwe-Saint-Lambert}
+  model: events.locationcache
+  pk: 651
+- fields: {lat: 50.84404145, lon: 4.36720169448285, string: ' Brussels'}
+  model: events.locationcache
+  pk: 652
+- fields: {lat: 50.8476552, lon: 4.3586288, string: 'Co.Station (5 Place Sainte-Gudule,
+      1000, Brussels, Belgium)'}
+  model: events.locationcache
+  pk: 653
+- fields: {lat: 50.786532, lon: 4.3173542, string: Drogenbos}
+  model: events.locationcache
+  pk: 654
+- fields: {lat: 50.848281, lon: 4.43765557499148, string: 'Cook & Book (Place du Temps
+      Libre, Woluwe-Saint-Lambert, Belgium)'}
+  model: events.locationcache
+  pk: 655
+- fields: {lat: 50.8216118, lon: 4.35663650315241, string: "26 Lights (Chauss\xE9e
+      de Waterloo 442, Brussels, Belgium)"}
+  model: events.locationcache
+  pk: 656
+- fields: {lat: 51.243014, lon: 4.9176826, string: 'De Hoge Rielen (Molenstraat 62,
+      Lichtaart, Belgium)'}
+  model: events.locationcache
+  pk: 657
+- fields: {lat: 51.5003796, lon: -0.129002793553988, string: 'Queen Elizabeth II Conference
+      Center (Broad Sanctuary, London, United Kingdom)'}
+  model: events.locationcache
+  pk: 658
+- fields: {lat: 51.2188664, lon: 4.4087544, string: 'IdeaLabs / Coffeelabs (Lange
+      Klarenstraat 19, Antwerpen, Belgium)'}
+  model: events.locationcache
+  pk: 659
+- fields: {lat: 51.3893436, lon: 6.0844939, string: 'X-com B.V. (Zonneveld 9, Maasbree,
+      Netherlands)'}
+  model: events.locationcache
+  pk: 660
+- fields: {lat: 40.4143597, lon: -3.7008118, string: 'Naturbier (Plaza de Santa Ana
+      9, Madrid, Spain)'}
+  model: events.locationcache
+  pk: 661
+- fields: {lat: 50.6436855, lon: 5.5667392, string: "Le Celtic (Bd de la Sauveni\xE8re
+      145, Liege, Belgium)"}
+  model: events.locationcache
+  pk: 662
+- fields: {lat: 50.8518806, lon: 4.3652731, string: 123 rue royale (Brussels)}
+  model: events.locationcache
+  pk: 663
+- fields: {lat: 50.8280754, lon: 4.3714591, string: "Epaul\xE9 jet\xE9 (Place Flagey,
+      13, Brussels, Belgium)"}
+  model: events.locationcache
+  pk: 664
+- fields: {lat: 50.8127449, lon: 4.3794563, string: 'Room K.4.401, Building K, Fourth
+      Floor, ULB Campus Solbosh (Avenue Franklin Roosevelt 50, Brussels, Belgium)'}
+  model: events.locationcache
+  pk: 665
+- fields: {lat: 51.1745368, lon: 4.4012652, string: 'MCS (Sneeuwbeslaan 20, Wilrijk,
+      Belgium)'}
+  model: events.locationcache
+  pk: 666
+- fields: {lat: 50.8380002, lon: 4.3616046, string: 'Boston Cafe (Avenue de la Toison
+      d''Or, 2, Brussels, Ixelles, Belgium)'}
+  model: events.locationcache
+  pk: 667
+- fields: {lat: 50.8500866, lon: 4.38026559344522, string: "Labokube (Chauss\xE9e
+      de Louvain 242, Brussels, Belgium)"}
+  model: events.locationcache
+  pk: 668
+- fields: {lat: 50.8018201, lon: 4.3372348, string: Uccle}
+  model: events.locationcache
+  pk: 669
+- fields: {lat: 50.4470193, lon: 4.6354624, string: Auvelais}
+  model: events.locationcache
+  pk: 670
+- fields: {lat: 50.6830572, lon: 4.3693429, string: Braine-l'Alleud}
+  model: events.locationcache
+  pk: 671
+- fields: {lat: 50.4549568, lon: 3.951958, string: Mons}
+  model: events.locationcache
+  pk: 672
+- fields: {lat: 50.8468084, lon: 4.7326577, string: 'Dataflow (Interleuvenlaan 17,
+      Heverlee, Belgium)'}
+  model: events.locationcache
+  pk: 673
+- fields: {lat: 51.0364291, lon: 3.7353649, string: 'iMinds (Gaston Crommenlaan 10,
+      Ledeberg, Belgium)'}
+  model: events.locationcache
+  pk: 674
+- fields: {lat: 50.8447421, lon: 4.3499839, string: "Poechenellekelder (Rue du Ch\xEAne,
+      5 , Brussels, Belgium)"}
+  model: events.locationcache
+  pk: 675
+- fields: {lat: 51.18465, lon: 4.4180746, string: 'Universiteit Antwerpen (Middelheimlaan
+      1, Antwerpen, Belgium)'}
+  model: events.locationcache
+  pk: 676
+- fields: {lat: 50.82657165, lon: 4.39986366115118, string: "Salle Azzar at Betacowork
+      / ICAB (4 Rue des P\xE8res Blancs, 1040 Etterbeek, Brussels, Belgium)"}
+  model: events.locationcache
+  pk: 677
+- fields: {lat: 51.1424382, lon: 4.44263460695703, string: 'Cronos - meeting room
+      Mercator (Veldkant 33a, Kontich, Belgium)'}
+  model: events.locationcache
+  pk: 678
+- fields: {lat: 51.051793, lon: 4.45416184776111, string: 'Ordina (Blarenberglaan
+      3B  Mechelen, Mechelen, Belgium)'}
+  model: events.locationcache
+  pk: 679
+- fields: {lat: 51.0364291, lon: 3.7353649, string: 'iMinds (Gaston Crommenlaan 10,
+      9050 Ledeberg, Belgium)'}
+  model: events.locationcache
+  pk: 680
+- fields: {lat: 51.0292309, lon: 5.5818581, string: 'Inventis BVBA (Weg naar As 182,
+      Opglabbeek, Belgium)'}
+  model: events.locationcache
+  pk: 681
+- fields: {lat: null, lon: null, string: 'FlandersDC (Diestsevest 76, Leuven, Belgium)'}
+  model: events.locationcache
+  pk: 682
+- fields: {lat: null, lon: null, string: '2B, Rue Franz Gaillard'}
+  model: events.locationcache
+  pk: 683
+- fields: {lat: 50.8286521, lon: 4.34245607531701, string: 37 rue du Fort - 1060 Saint-Gilles}
+  model: events.locationcache
+  pk: 684
+- fields: {lat: null, lon: null, string: "Centre Culturel le Fourquet\nPlace de l\u2019\xC9glise
+      15\n1082 Berchem-Ste-Agathe"}
+  model: events.locationcache
+  pk: 685
