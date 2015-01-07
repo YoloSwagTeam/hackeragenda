@@ -69,9 +69,9 @@ def event_to_fullcalendar_format(event):
     to_return = {
         "title": "%s [%s]" % (event.title, event.source),
         "url": event.url,
+        "color": event.calendar_border_color,
+        "textColor": event.calendar_text_color,
     }
-
-    to_return.update(event.calendar_colors)
     
     if event.start.hour == 0 and event.start.minute == 0:
         to_return["start"] = event.start.strftime("%F")

@@ -41,11 +41,15 @@ class Event(models.Model):
         return when.date() < date.today()
 
     @property
-    def calendar_colors(self):
-        border, text = self.border_color, self.text_color
-        if self.is_over:
-            border, text = add_alpha(border, .7), add_alpha(text, .7)
-        return {"color": border, "textColor": text}
+    def calendar_border_color(self):
+        color = self.border_color
+        return add_alpha(color, .7) if self.is_over else color
+
+    @property
+    def calendar_text_color(self):
+        color = self.text_color
+        return add_alpha(color, .5) if self.is_over else color
+
 
 class LocationCache(models.Model):
     string = models.CharField(max_length=255, db_index=True, unique=True)
