@@ -655,12 +655,15 @@ def timelab(create_event):
                 end = None
                 all_day = True
 
+            location = "Brusselsepoortstraat 97 9000 Gent"
+
             create_event(
                 title=title,
                 start=start,
                 end=end,
                 all_day=all_day,
-                url=url
+                url=url,
+                location=location
             ).tags.add("fablab")
 
         next_page_links = soup('li', 'pager-next')
