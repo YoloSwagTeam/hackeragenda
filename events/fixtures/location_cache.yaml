@@ -361,10 +361,10 @@
 - fields: {lat: null, lon: null, string: '34 rue Lanoue Bras de Fer, Nantes , 44200'}
   model: events.locationcache
   pk: 535
-- fields: {lat: null, lon: null, string: Vlaams-Nederlands Huis deBuren}
+- fields: {lat: 50.849744, lon: 4.354944, string: Vlaams-Nederlands Huis deBuren}
   model: events.locationcache
   pk: 536
-- fields: {lat: null, lon: null, string: 'Avenue de la Porte de Hal 1, 1060 Saint-Gilles,
+- fields: {lat: 50.832393, lon: 4.344717, string: 'Avenue de la Porte de Hal 1, 1060 Saint-Gilles,
       Belgium'}
   model: events.locationcache
   pk: 537
@@ -649,16 +649,16 @@
       Antwerp, Belgium)'}
   model: events.locationcache
   pk: 622
-- fields: {lat: null, lon: null, string: Piano de Lil}
+- fields: {lat: 50.829209, lon: 4.339695, string: Piano de Lil}
   model: events.locationcache
   pk: 623
-- fields: {lat: null, lon: null, string: Recyclart}
+- fields: {lat: 50.841015, lon: 4.346711, string: Recyclart}
   model: events.locationcache
   pk: 624
 - fields: {lat: 50.82994, lon: 4.34356, string: Constant}
   model: events.locationcache
   pk: 625
-- fields: {lat: null, lon: null, string: 'Hackerspace Brussels (Rue du Moulin 40 |
+- fields: {lat: 50.85556005, lon: 4.37038336886874, string: 'Hackerspace Brussels (Rue du Moulin 40 |
       Molenstraat 40, Brussels, Belgium)'}
   model: events.locationcache
   pk: 626
@@ -692,7 +692,7 @@
       Gudule, 1000 Brussels, Brussels, Belgium)'}
   model: events.locationcache
   pk: 634
-- fields: {lat: null, lon: null, string: 'hackerspace HSBXL (Rue Moulin 40 / Molenstraat
+- fields: {lat: 50.85556005, lon: 4.37038336886874, string: 'hackerspace HSBXL (Rue Moulin 40 / Molenstraat
       40,  1210 St-Joost-ten-Noode,  Brussels,  Belgium, Brussels, Belgium)'}
   model: events.locationcache
   pk: 635
@@ -730,7 +730,7 @@
 - fields: {lat: 50.854129, lon: 4.347045, string: "9 quai \xE0 la houille1000 Bruxelles"}
   model: events.locationcache
   pk: 644
-- fields: {lat: null, lon: null, string: '17 avenue Maistriau, Mons, Hainaut'}
+- fields: {lat: 50.4633, lon: 3.95756, string: '17 avenue Maistriau, Mons, Hainaut'}
   model: events.locationcache
   pk: 645
 - fields: {lat: null, lon: null, string: W-o-l-k-e}
@@ -874,7 +874,7 @@
 - fields: {lat: 50.8286521, lon: 4.34245607531701, string: 37 rue du Fort - 1060 Saint-Gilles}
   model: events.locationcache
   pk: 684
-- fields: {lat: null, lon: null, string: "Centre Culturel le Fourquet\nPlace de l\u2019\xC9glise
+- fields: {lat: 50.860972, lon: 4.291773, string: "Centre Culturel le Fourquet\nPlace de l\u2019\xC9glise
       15\n1082 Berchem-Ste-Agathe"}
   model: events.locationcache
   pk: 685
