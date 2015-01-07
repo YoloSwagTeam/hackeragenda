@@ -478,10 +478,21 @@ def okno(create_event):
         datetuple = map(int, entry('span', 'date-display-single')[0].text.split('.'))
         title = entry('span', 'field-content')[0].text
         link = "http://www.okno.be" + entry('a')[0]['href']
+
+        soupsoup = BeautifulSoup(requests.get(link).content)
+
+        maybe_end = soupsoup.find("div", "date").text.split("|")[0].strip().split(u"\u2014")[1:]
+        if maybe_end:
+            maybe_end = parse(maybe_end[0].strip())
+        else:
+            maybe_end = None
+
         db_event = create_event(
             title=title,
             url=link,
-            start=datetime(*datetuple)
+            start=datetime(*datetuple),
+            end=maybe_end,
+            location=soupsoup.find("div", "date").text.split("|")[-1].strip()
         )
 
         db_event.tags.add("artist")
