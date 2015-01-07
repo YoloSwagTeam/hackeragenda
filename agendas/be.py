@@ -238,9 +238,13 @@ def constantvzw(create_event):
             if len(data) == 4:
                 start = parse("%s %s" % (data[0], data[3]))
                 end = parse("%s %s" % (data[2], data[3]))
-            elif len(data) == 5:  # data = [u'12', u'to', u'23', u'January', u'2015']
-                start = parse("%s %s %s" % tuple(data[:1] + data[-2:]))
-                end = parse("%s %s %s" % tuple(data[-3:]))
+            elif len(data) == 5:
+                if data[1] == "to":  # data = [u'12', u'to', u'23', u'January', u'2015']
+                    start = parse("%s %s %s" % tuple(data[:1] + data[-2:]))
+                    end = parse("%s %s %s" % tuple(data[-3:]))
+                else:  # data = [u'6', u'January', u'to', u'1', u'February']
+                    start = parse("%s %s" % tuple(data[:2]))
+                    end = parse("%s %s" % tuple(data[-2:]))
             elif len(data) == 7:
                 start = parse("%s %s %s" % tuple(data[:3]))
                 end = parse("%s %s %s" % tuple(data[4:]))
