@@ -7,15 +7,15 @@ colors_lookup = {
 }
 
 def rgba(r, g, b, a):
-    return 'rgba(%d,%d,%d,%s)'%(255*r, 255*g, 255*b, str(a))
+    return 'rgba(%d,%d,%d,%s)' % (255*r, 255*g, 255*b, str(a))
 
 def add_alpha(color, a=1):
     assert type(color) in (unicode, str)
     if color[0] == "#":
-        if len(color) == 4:
+        if len(color[1:]) == 3:
             r, g, b = tuple(int(x, 16)/15. for x in color[1:])
-        elif len(color) == 7:
-            r, g, b = tuple(int(color[i:i+2], 16)/255. for i in range(1, 7, 2))
+        elif len(color[1:]) == 6:
+            r, g, b = tuple(int(color[i:i+2], 16)/255. for i in [1, 3, 5])
     else:
         r, g, b = colors_lookup[color.lower()]
     return rgba(r, g, b, a)
