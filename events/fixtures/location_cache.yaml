@@ -482,8 +482,8 @@
 - fields: {lat: null, lon: null, string: K.3.401}
   model: events.locationcache
   pk: 570
-- fields: {lat: 50.830189, lon: 3.265549, string: 'Designregio Kortrijk, Broelkaai 1B, 8500
-      KORTRIJK'}
+- fields: {lat: 50.830189, lon: 3.265549, string: 'Designregio Kortrijk, Broelkaai
+      1B, 8500 KORTRIJK'}
   model: events.locationcache
   pk: 571
 - fields: {lat: null, lon: null, string: Electrolab}
@@ -495,8 +495,8 @@
 - fields: {lat: null, lon: null, string: 'ULB, Campus Solbosch'}
   model: events.locationcache
   pk: 574
-- fields: {lat: 50.8548659, lon: 4.3417591, string: 'FabLab.iMAL, 34 Quai des Charbonnages -
-      Koolmijnenkaai, 1080 Brussels '}
+- fields: {lat: 50.8548659, lon: 4.3417591, string: 'FabLab.iMAL, 34 Quai des Charbonnages
+      - Koolmijnenkaai, 1080 Brussels '}
   model: events.locationcache
   pk: 575
 - fields: {lat: null, lon: null, string: 'Rotule du NO8, Campus de la Plaine, ULB'}
@@ -879,7 +879,8 @@
       de l\u2019\xC9glise 15\n1082 Berchem-Ste-Agathe"}
   model: events.locationcache
   pk: 685
-- fields: {lat: 50.866873, lon: 4.368739, string: Morpho House Gallaitstraat 80 1030 Schaarbeek}
+- fields: {lat: 50.866873, lon: 4.368739, string: Morpho House Gallaitstraat 80 1030
+      Schaarbeek}
   model: events.locationcache
   pk: 686
 - fields: {lat: null, lon: null, string: "\u0161kolsk\xE1 28 gallery - Dlouh\xE1 33
@@ -910,6 +911,16 @@
 - fields: {lat: null, lon: null, string: okno openGreens rooftop garden}
   model: events.locationcache
   pk: 695
-- fields: {lat: 51.042741, lon: 3.73821, string: 'Brusselsepoortstraat 97 9000 Gent'}
+- fields: {lat: 51.042741, lon: 3.73821, string: Brusselsepoortstraat 97 9000 Gent}
   model: events.locationcache
   pk: 696
+- fields: {lat: 50.84887225, lon: 4.34907154644258, string: Marriott Hotel 1000 Brussels}
+  model: events.locationcache
+  pk: 697
+- fields: {lat: 50.84858045, lon: 4.34826310985847, string: Beursschouwburg 1000 Brussels}
+  model: events.locationcache
+  pk: 698
+- fields: {lat: 50.84858045, lon: 4.34826310985847, string: Beursschouwburg 1000 Brussels
+      Belgium}
+  model: events.locationcache
+  pk: 699
