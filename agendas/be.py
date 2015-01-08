@@ -790,4 +790,3 @@ def wolfplex(create_event):
         )
 
         db_event.tags.add("hackerspace")
-
