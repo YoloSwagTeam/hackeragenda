@@ -1,6 +1,7 @@
 from django.db import models
 from taggit.managers import TaggableManager
-
+from datetime import date
+from .color import add_alpha
 
 class Event(models.Model):
     title = models.CharField(max_length=255)
@@ -20,18 +21,38 @@ class Event(models.Model):
     lat = models.FloatField(default=None, null=True, blank=True)
 
     def __unicode__(self):
-        if self.all_day:
-            date = self.start.strftime("%Y-%m-%d")
-        elif self.end:
-            date = "%s - %s" % (self.start, self.end)
-        else:
-            date = "%s" % (self.start)
-
         title = self.title
         if self.location:
             title += " - %s" % (self.location)
+        return u"[%s] %s (%s)" % (self.source, title, self.date_to_string)
 
-        return u"[%s] %s (%s)" % (self.source, title, date)
+    @property
+    def date_to_string(self):
+        if self.all_day:
+            if self.end and self.end != self.start:
+                res = "%s - %s" % (x.strftime("%Y-%m-%d") for x in (self.start, self.end)) 
+            else:
+                res = self.start.strftime("%Y-%m-%d")
+        elif self.end:
+            res = "%s - %s" % (self.start, self.end)
+        else:
+            res = "%s" % (self.start)
+        return res
+
+    @property
+    def is_over(self):
+        when = self.end if self.end else self.start
+        return when.date() < date.today()
+
+    @property
+    def calendar_border_color(self):
+        color = self.border_color
+        return add_alpha(color, .7) if self.is_over else color
+
+    @property
+    def calendar_text_color(self):
+        color = self.text_color
+        return add_alpha(color, .5) if self.is_over else color
 
 
 class LocationCache(models.Model):

@@ -65,15 +65,14 @@ def get_events_for_map_in_json(request):
 
     return HttpResponse(json.dumps(events), content_type="application/json")
 
-
 def event_to_fullcalendar_format(event):
     to_return = {
         "title": "%s [%s]" % (event.title, event.source),
-        "color": event.border_color,
-        "textColor": event.text_color,
         "url": event.url,
+        "color": event.calendar_border_color,
+        "textColor": event.calendar_text_color,
     }
-
+    
     if event.start.hour == 0 and event.start.minute == 0:
         to_return["start"] = event.start.strftime("%F")
     else:
