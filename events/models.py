@@ -3,6 +3,7 @@ from taggit.managers import TaggableManager
 from datetime import date
 from .color import add_alpha
 
+
 class Event(models.Model):
     title = models.CharField(max_length=255)
     source = models.CharField(max_length=255)
