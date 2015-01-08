@@ -1,4 +1,4 @@
-from .color import rgba, add_alpha
+from .color import format_rgba_for_css as rgba, add_alpha
 
 def test_rgba():
     assert rgba(1, 1, 1, 1) == "rgba(255,255,255,1)"

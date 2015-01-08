@@ -6,7 +6,7 @@ colors_lookup = {
     "darkorchid": (.6, .196, .8)
 }
 
-def rgba(r, g, b, a):
+def format_rgba_for_css(r, g, b, a):
     return 'rgba(%d,%d,%d,%s)' % (255*r, 255*g, 255*b, str(a))
 
 def add_alpha(color, a=1):
@@ -18,4 +18,4 @@ def add_alpha(color, a=1):
             r, g, b = tuple(int(color[i:i+2], 16)/255. for i in [1, 3, 5])
     else:
         r, g, b = colors_lookup[color.lower()]
-    return rgba(r, g, b, a)
+    return format_rgba_for_css(r, g, b, a)
