@@ -235,26 +235,9 @@ def constantvzw(create_event):
             location = None
 
         if time.startswith("From "):
-            data = time.split(" ")[1:]
-            if len(data) == 4:
-                start = parse("%s %s" % (data[0], data[3]))
-                end = parse("%s %s" % (data[2], data[3]))
-            elif len(data) == 5:
-                if data[1] == "to":  # data = [u'12', u'to', u'23', u'January', u'2015']
-                    start = parse("%s %s %s" % tuple(data[:1] + data[-2:]))
-                    end = parse("%s %s %s" % tuple(data[-3:]))
-                else:  # data = [u'6', u'January', u'to', u'1', u'February']
-                    start = parse("%s %s" % tuple(data[:2]))
-                    end = parse("%s %s" % tuple(data[-2:]))
-            elif len(data) == 7:
-                start = parse("%s %s %s" % tuple(data[:3]))
-                end = parse("%s %s %s" % tuple(data[4:]))
-            elif len(data) == 9:  # data = [u'23', u'January', u'2015', u'21:00', u'to', u'24', u'January', u'2015', u'05:00']
-                start = parse("%s %s %s %s" % tuple(data[:4]))
-                end = parse("%s %s %s %s" % tuple(data[5:]))
-            else:
-                start = parse("%s %s" % (data[0], data[1]))
-                end = parse("%s %s" % (data[3], data[4]))
+            data = time.split("From ", 1)[1].split(" to ")
+            start = parse(data[0])
+            end = parse(data[1])
         else:
             start = parse(time).replace(tzinfo=None)
             end = None
