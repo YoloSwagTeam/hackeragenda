@@ -71,16 +71,19 @@ def event_to_fullcalendar_format(event):
         "url": event.url,
         "color": event.calendar_border_color,
         "textColor": event.calendar_text_color,
+        "allDay": event.all_day,
     }
-    
-    if event.start.hour == 0 and event.start.minute == 0:
-        to_return["start"] = event.start.strftime("%F")
+
+    start, end = event.start, event.end
+    if end is None:
+        end = start + timedelta(hours=3)
+
+    if event.all_day:
+        to_return["start"] = start.strftime("%F")
+        if start.date() != end.date():
+            to_return["end"] = end.strftime("%F")
     else:
-        to_return["start"] = event.start.strftime("%F %X")
-        to_return["allDay"] = False
-        if event.end:
-            to_return["end"] = event.end.strftime("%F %X")
-        else:
-            to_return["end"] = (event.start + timedelta(hours=3)).strftime("%F %X")
+        to_return["start"] = start.strftime("%F %X")
+        to_return["end"] = end.strftime("%F %X")
 
     return to_return
