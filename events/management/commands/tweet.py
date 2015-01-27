@@ -67,7 +67,7 @@ class Command(BaseCommand):
             yield tweet, location
 
         if date.today().weekday() == 0:
-            for tweet in self.format_tweets(this_week_other_events):
+            for tweet, location in self.format_tweets(this_week_other_events):
                 yield tweet, location
 
     def format_tweets(self, events):
