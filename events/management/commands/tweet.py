@@ -6,6 +6,7 @@ import tweepy
 
 from datetime import date, timedelta
 from optparse import make_option
+from dateutil.parser import parse
 
 from django.core.management.base import BaseCommand
 from django.conf import settings
@@ -34,6 +35,11 @@ class Command(BaseCommand):
             dest='run',
             default=False,
             help='Actually tweet'),
+       make_option('--date',
+            action='store',
+            dest='date',
+            default=None,
+            help='custom date, default to today'),
     )
 
     def handle(self, *args, **options):
@@ -42,7 +48,7 @@ class Command(BaseCommand):
         else:
             self.twitter = connect_to_twitter()
 
-        for tweet, location in self.generate_tweets():
+        for tweet, location in self.generate_tweets(parse(options["date"]) if options["date"] is not None else date.today()):
             if not options["run"]:
                 print tweet, location
             else:
@@ -59,21 +65,21 @@ class Command(BaseCommand):
 
         time.sleep(300)
 
-    def generate_tweets(self):
-        today_events = Event.objects.filter(agenda=settings.AGENDA).filter(start__gte=date.today()).filter(start__lt=date.today() + timedelta(days=1))
-        this_week_other_events = Event.objects.filter(agenda=settings.AGENDA).filter(start__gte=date.today() + timedelta(days=1)).filter(start__lt=date.today() + timedelta(days=7))
+    def generate_tweets(self, tweet_date):
+        today_events = Event.objects.filter(agenda=settings.AGENDA).filter(start__gte=tweet_date).filter(start__lt=tweet_date + timedelta(days=1))
+        this_week_other_events = Event.objects.filter(agenda=settings.AGENDA).filter(start__gte=tweet_date + timedelta(days=1)).filter(start__lt=tweet_date + timedelta(days=7))
 
         for tweet, location in self.format_tweets(today_events):
             yield tweet, location
 
-        if date.today().weekday() == 0:
+        if tweet_date.weekday() == 0:
             for tweet, location in self.format_tweets(this_week_other_events):
                 yield tweet, location
 
     def format_tweets(self, events):
         def format_title(x):
             return "\"%(title)s\" %(date)s%(time)s" % {
-                "date": ("this %s" % x.start.strftime("%A")) if x.start.date() != date.today() else "today",
+                "date": ("this %s" % x.start.strftime("%A")) if x.start.date() != date else "today",
                 "time": (" at %s" % x.start.strftime("%H:%M")) if not x.all_day and (x.start.hour != 0 or x.start.minute != 0) else "",
                 "title": x.title
             }
