@@ -626,7 +626,7 @@ def syn2cat():
 @event_source(background_color="#333", text_color="white", url="http://www.timelab.org")
 def timelab():
     """<p>Timelab brengt makers samen. Deel uitmaken van de makers-community stimuleert leren, samenwerken, creativiteit, innovatie en experiment.</p>"""
-    soup = BeautifulSoup(requests.get("http://www.timelab.org/nl/agenda").content)
+    soup = BeautifulSoup(requests.get("http://www.timelab.org/agenda").content)
 
     while soup:
         for event_dom in soup('div', 'events')[0]('li', 'views-row'):
