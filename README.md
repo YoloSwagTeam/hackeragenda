@@ -50,7 +50,7 @@ python manage.py fetch_events --quiet
 
 Events are periodically fetched from organisations websites. Therefore, you 
 have to write an `@event_source` decorated function *(aka fetcher)* in 
-[`agendas/<your category>`](http://github.com/Psycojoker/hackeragenda/tree/master/agendas/). The decorator allows you to
+[`agendas/<your category>`](https://github.com/Psycojoker/hackeragenda/tree/master/agendas/). The decorator allows you to
 specify options for your organisation. This function should 
 [yield](https://wiki.python.org/moin/Generators) all the events you want to add.
 
