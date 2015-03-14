@@ -103,7 +103,7 @@ def event_source(background_color, text_color, url, agenda=None, key="url", desc
                 res = Event.objects.create(source=org_name, text_color=SOURCES_OPTIONS[org_name]["fg"], border_color=SOURCES_OPTIONS[org_name]["bg"], agenda=agenda, **detail)
                 
                 for tag in tags:
-                    if '__call__' in dir(tag):
+                    if callable(tag):
                         for dynamic_tag in tag(res):
                             res.tags.add(dynamic_tag)
                     else:
