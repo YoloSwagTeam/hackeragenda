@@ -27,7 +27,7 @@ from events.management.commands.fetch_events import event_source, french_month_t
 
 
 @event_source(background_color="#005184", text_color="white", url="https//www.april.org")
-def april(create_event):
+def april():
     '<p>Pionnière du <strong><a href="http://www.april.org/articles/intro/ll.html" title="Lien vers la page Qu\'est-ce qu\'un logiciel libre ?">logiciel libre</a></strong> en France, l\'April, constituée de 4063 adhérents (3676 individus, 387 entreprises, associations et organisations), est depuis 1996 un acteur majeur de la <strong>démocratisation</strong> et de la <strong>diffusion</strong> du logiciel libre et des <strong>standards ouverts</strong> auprès du grand public, des professionnels et des institutions dans l\'espace francophone. <a href="http://www.april.org/fr/association/" title="En savoir plus sur l\'April">En savoir plus...</a>.</p>'
     data = feedparser.parse("https://www.april.org/fr/event/feed")
 
@@ -37,18 +37,17 @@ def april(create_event):
         url = event["link"]
         title = event["title"]
 
-        db_event = create_event(
-            title=title,
-            url=url,
-            start=start,
-            end=end,
-        )
-
-        db_event.tags.add("libre")
+        yield {
+            'title': title,
+            'url': url,
+            'start': start,
+            'end': end,
+            'tags': ('libre',)
+        }
 
 
 @event_source(background_color="#2C2C29", text_color="#89DD00", url="http://www.electrolab.fr")
-def electrolab(create_event):
+def electrolab():
     '<p><a title="Electrolab" href="../" target="_blank">L’Electrolab</a> est un hacker space dans la zone industrielle de Nanterre. À quelques stations de RER du centre de Paris, Ce nouveau Fablab de la région parisienne est, comme son nom l’indique, dédié aux projets ayant une forte connotation électronique et / ou mécanique.</p>'
 
     data = Calendar.from_ical(requests.get("http://www.electrolab.fr/?plugin=all-in-one-event-calendar&controller=ai1ec_exporter_controller&action=export_events&cb=493067527").content)
@@ -60,19 +59,18 @@ def electrolab(create_event):
         start = datetime.combine(event["DTSTART"].dt, datetime.min.time()).replace(tzinfo=None)
         end = datetime.combine(event["DTEND"].dt, datetime.min.time()).replace(tzinfo=None) if event.get("DTEND") else None
 
-        db_event = create_event(
-            title=title,
-            location=location,
-            url=url,
-            start=start,
-            end=end,
-        )
-
-        db_event.tags.add("hackerspace")
+        yield {
+            'title': title,
+            'location': location,
+            'url': url,
+            'start': start,
+            'end': end,
+            'tags': ('hackerspace',)
+        }
 
 
 @event_source(background_color="white", text_color="#B92037", key=None, url="http://www.pingbase.net")
-def ping(create_event):
+def ping():
     """
     <p>
     PiNG explore les pratiques numériques et invite à
@@ -104,10 +102,10 @@ def ping(create_event):
     data = Calendar.from_ical(requests.get("http://www.pingbase.net/agenda/mois?ical=1").content)
 
     for event in data.walk()[1:]:
-        create_event(
-            title=event["SUMMARY"].encode("Utf-8"),
-            url=event["URL"],
-            start=event["DTSTART"].dt.replace(tzinfo=None) if isinstance(event["DTSTART"].dt, datetime) else event["DTSTART"].dt,
-            end=event["DTEND"].dt.replace(tzinfo=None) if isinstance(event["DTEND"].dt, datetime) else event["DTEND"].dt,
-            location=event["LOCATION"].encode("Utf-8") if "LOCATION" in event else None
-        )
+        yield {
+            'title': event["SUMMARY"].encode("Utf-8"),
+            'url': event["URL"],
+            'start': event["DTSTART"].dt.replace(tzinfo=None) if isinstance(event["DTSTART"].dt, datetime) else event["DTSTART"].dt,
+            'end': event["DTEND"].dt.replace(tzinfo=None) if isinstance(event["DTEND"].dt, datetime) else event["DTEND"].dt,
+            'location': event["LOCATION"].encode("Utf-8") if "LOCATION" in event else None
+        }

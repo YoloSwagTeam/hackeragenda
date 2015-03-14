@@ -19,19 +19,18 @@ from events.management.commands.fetch_events import (
 )
 
 @event_source(background_color="#133F52", text_color="#FFFFFF", key=None, url="https://groups.google.com/d/forum/afpyro-be")
-def afpyro(create_event):
+def afpyro():
     '<p>Les apéros des amateurs du langage de programmation <a href="https://www.python.org/">python</a>.</p>'
     soup = BeautifulSoup(requests.get("http://afpyro.afpy.org/").content)
     filtering = lambda x: x['href'][:7] == '/dates/' and '(BE)' in x.text
     for link in filter(filtering, soup('a')):
         datetuple = map(int, link['href'].split('/')[-1].split('.')[0].split('_'))
-        event = create_event(
-            title=link.text,
-            start=datetime(*datetuple),
-            url="http://afpyro.afpy.org" + link['href']
-        )
-
-        event.tags.add("python", "programming", "drink")
+        yield {
+            'title': link.text,
+            'start': datetime(*datetuple),
+            'url': "http://afpyro.afpy.org" + link['href'],
+            'tags': ("python", "programming", "drink")
+        }
 
 
 def agenda_du_libre_be_duplicate(event_query, detail):
@@ -41,20 +40,18 @@ def agenda_du_libre_be_duplicate(event_query, detail):
 
 
 @event_source(background_color="#3A87AD", text_color="white", url="http://www.agendadulibre.be", key=agenda_du_libre_be_duplicate)
-def agenda_du_libre_be(create_event):
+def agenda_du_libre_be():
     "<p>L'agenda des évènements du Logiciel Libre en Belgique.</p>"
     data = Calendar.from_ical(requests.get("http://www.agendadulibre.be/ical.php?region=all").content)
 
     for event in data.walk()[1:]:
-        db_event = create_event(
-            title=event["SUMMARY"].encode("Utf-8"),
-            url=event["URL"],
-            start=event["DTSTART"].dt.replace(tzinfo=None),
-            location=event["LOCATION"].encode("Utf-8")
-        )
-
-        db_event.tags.add(slugify(event["LOCATION"].encode("Utf-8")))
-        db_event.tags.add("libre")
+        yield {
+            'title': event["SUMMARY"].encode("Utf-8"),
+            'url': event["URL"],
+            'start': event["DTSTART"].dt.replace(tzinfo=None),
+            'location': event["LOCATION"].encode("Utf-8"),
+            'tags': (slugify(event["LOCATION"].encode("Utf-8")), 'libre')
+        }
 
 
 generic_meetup("agile_belgium", "Agile-Belgium", background_color="#D2353A", text_color="white", description="<p>This is the meetup group of the Agile Belgium community. We organize regular drinkups and user group meetings. Come after work and meet people you usually only meet at conferences. Anyone interested in Agile or Lean can join.</p>")
@@ -92,7 +89,7 @@ generic_meetup("bescala", "BeScala", background_color="#FEE63C", text_color="#00
 
 
 @event_source(background_color="DarkGoldenRod", text_color="white", url="http://bhackspace.be")
-def bhackspace(create_event):
+def bhackspace():
     "<p>The BHackspace is a hackerspace located in Bastogne, Belgium.</p>"
     soup = BeautifulSoup(requests.get("http://wiki.bhackspace.be/index.php/Main_Page").content)
 
@@ -105,21 +102,20 @@ def bhackspace(create_event):
         start = parse(event('td')[1].text)
         location = event('td')[2].text
 
-        db_event = create_event(
-            title=title,
-            url=url,
-            start=start,
-            location=location.strip() if location else "Bastogne"
-        )
-
-        db_event.tags.add("hackerspace", "bastogne")
+        yield {
+            'title': title,
+            'url': url,
+            'start': start,
+            'location': location.strip() if location else "Bastogne",
+            'tags': ("hackerspace", "bastogne")
+        }
 
 
 generic_meetup("bigdata_be", "bigdatabe", background_color="black", text_color="white", tags=["bigdata", "programming", "nosql"], description="<p>Welcome to our Belgian community about bigdata, NoSQL and anything data. If you live or work in Belgium and are interested in any of these technologies, please join! We want you!</p>")
 
 
 @event_source(background_color="#828282", text_color="white", key=None, url="https://blender-brussels.github.io/")
-def blender_brussels(create_event):
+def blender_brussels():
     '<p>The <strong>Blender-Brussels</strong> − also known as <strong>Blender BPY/BGE workshops</strong> − are a series of monthly work sessions organized by <a href="http://xuv.be">Julien Deswaef</a> (<a href="https://github.com/xuv" class="user-mention">@xuv</a>) and <a href="http://frankiezafe.org">François Zajéga</a> (<a href="https://github.com/frankiezafe" class="user-mention">@frankiezafe</a>) with the aim of providing a regular gathering and knowledge sharing space for artists and coders interested in Python scripting in the context of Blender.</p>'
 
     soup = BeautifulSoup(requests.get("https://blender-brussels.github.io/").content)
@@ -130,13 +126,12 @@ def blender_brussels(create_event):
         url = entry.find("a")["href"]
         start = datetime.strptime(entry.find("time")["datetime"][:-6], "%Y-%m-%dT%H:%M:%S")
 
-        db_event = create_event(
-            title=title,
-            url="https:" + url,
-            start=start
-        )
-
-        db_event.tags.add("bruxelles", "blender", "3D-modeling")
+        yield {
+            'title': title,
+            'url': "https:" + url,
+            'start': start,
+            'tags': ("bruxelles", "blender", "3D-modeling"),
+        }
 
 
 generic_meetup("brussels_cassandra_users", "Brussels-Cassandra-Users", background_color="#415A6C", text_color="#CBE5F7", tags=["nosql", "jvm", "database", "bruxelles", "programming"], description="<p>Open to all those interested in Apache Cassandra, Big Data, Hadoop, Hive, Hector, NoSQL, Pig, and high scalability. Let's get together and share what we know!</p>")
@@ -149,7 +144,7 @@ generic_meetup("brussels_wordpress", "wp-bru", background_color="#0324C1", text_
 
 
 @event_source(background_color="#FEED01", text_color="black", url="http://budalab.fikket.com")
-def budalab(create_event):
+def budalab():
     """
     <p>
     BUDA::lab is een meetingspot, een open werk- plek voor designers,
@@ -169,19 +164,18 @@ def budalab(create_event):
         start = datetime.strptime(entry["start"][:-6], "%Y-%m-%dT%H:%M:%S")
         end = datetime.strptime(entry["end"][:-6], "%Y-%m-%dT%H:%M:%S")
 
-        db_event = create_event(
-            title=title,
-            location=location,
-            url=entry["url"],
-            start=start,
-            end=end
-        )
-
-        db_event.tags.add("fablab")
+        yield {
+            'title': title,
+            'location': location,
+            'url': entry["url"],
+            'start': start,
+            'end': end,
+            'tags': ("fablab",)
+        }
 
 
 @event_source(background_color="white", text_color="#990000", url="http://www.bxlug.be")
-def bxlug(create_event):
+def bxlug():
     """
     <p>Le BxLUG est une association d’utilisateurs de logiciels libres créée en 1999 et dont l’objectif est la promotion de GNU/Linux et autres logiciels libres dans la région de Bruxelles.</p>
 
@@ -202,19 +196,18 @@ def bxlug(create_event):
         url = "http://www.bxlug.be/" + entry('a', itemprop='url')[0]['href']
         location = entry.find("p", "location")("span")[1].text.split("Contact")[0].split(":", 1)[1].strip()
 
-        db_event = create_event(
-            title=title,
-            url=url,
-            start=start,
-            location=location,
-            end=end
-        )
-
-        db_event.tags.add("lug", "bruxelles", "libre")
+        yield {
+            'title': title,
+            'url': url,
+            'start': start,
+            'location': location,
+            'end': end,
+            'tags': ("lug", "bruxelles", "libre")
+        }
 
 
 @event_source(background_color="#D2C7BA", text_color="black", key=None, url="http://www.constantvzw.org")
-def constantvzw(create_event):
+def constantvzw():
     """
     <p><strong>Constant is a non-profit association, an interdisciplinary arts-lab based and active in Brussels since 1997.</strong></p>
 
@@ -242,15 +235,14 @@ def constantvzw(create_event):
             start = parse(time).replace(tzinfo=None)
             end = None
 
-        db_event = create_event(
-            title=title,
-            url=url,
-            start=start,
-            end=end,
-            location=location.strip() if location else None
-        )
-
-        db_event.tags.add("artist", "libre")
+        yield {
+            'title': title,
+            'url': url,
+            'start': start,
+            'end': end,
+            'location': location.strip() if location else None,
+            'tags': ("artist", "libre"),
+        }
 
 
 generic_meetup("docker_belgium", "Docker-Belgium", background_color="#008FC4", text_color="white", tags=["docker", "lxc", "sysadmin", "devops"], description='<p>Meet other developers and ops engineers using Docker.&nbsp;Docker is an open platform for developers and sysadmins to build, ship, and run distributed applications. Consisting of Docker Engine, a portable, lightweight runtime and packaging tool, and Docker Hub, a cloud service for sharing applications and automating workflows, Docker enables apps to be quickly assembled from components and eliminates the friction between development, QA, and production environments. As a result, IT can ship faster and run the same app, unchanged, on laptops, data center VMs, and any cloud.</p><p>Learn more about Docker at&nbsp;<a href="http://www.docker.com/">http://www.docker.com</a></p>')
@@ -259,7 +251,7 @@ generic_meetup("ember_js_brussels", "Ember-js-Brussels", background_color="#FC74
 
 
 @event_source(background_color="#C9C4BF", text_color="black", key=None, url="http://fo.am")
-def foam(create_event):
+def foam():
     """
     <p>
     FoAM is a network of transdisciplinary labs for speculative culture. It is
@@ -295,20 +287,22 @@ def foam(create_event):
         else:
             location = None
 
-        event = create_event(
-            title=title.text,
-            url='http://fo.am' + link,
-            location=location,
-            start=start,
-            end=end
-        )
+        tags = []
+        if "FoAM Apéro" in title.text:
+            tags.append('meeting')
 
-        if "FoAM Apéro" in event.title:
-            event.tags.add("meeting")
+        yield {
+            'title': title.text,
+            'url': 'http://fo.am' + link,
+            'location': location,
+            'start': start,
+            'end': end,
+            'tags': tags
+        }
 
 
 @event_source(background_color="coral", text_color="white", key=None, url="https://hackerspace.be")
-def hsbxl(create_event):
+def hsbxl():
     '''
     <p>
     Hacker Space Brussels (HSBXL) is a space, dedicated to various aspects
@@ -327,18 +321,18 @@ def hsbxl(create_event):
     data = requests.get("https://hackerspace.be/Special:Ask/-5B-5BCategory:TechTue-7C-7CEvent-5D-5D-20-5B-5BEnd-20date::-3E%s-2D%s-2D%s-20-5D-5D/-3FStart-20date/-3FEnd-20date/-3FLocation/format%%3Djson/sort%%3D-5BStart-20date-5D/order%%3Dasc/offset%%3D0'" % (today.year, today.month, today.day), verify=False).json()
 
     for event in data["results"].values():
-        db_event = create_event(
-            title=event["fulltext"],
-            url=event["fullurl"],
-            start=datetime.fromtimestamp(int(event["printouts"]["Start date"][0])),
-            end=datetime.fromtimestamp(int(event["printouts"]["End date"][0])),
-            location=event["printouts"]["Location"][0]["fulltext"]
-        )
-
+        tags = ["hackerspace"]
         if "TechTue" in event["fulltext"] or "Garbage day" in event["fulltext"]:
-            db_event.tags.add("meeting")
+            tags.append("meeting")
 
-        db_event.tags.add("hackerspace")
+        yield {
+            'title': event["fulltext"],
+            'url': event["fullurl"],
+            'start': datetime.fromtimestamp(int(event["printouts"]["Start date"][0])),
+            'end': datetime.fromtimestamp(int(event["printouts"]["End date"][0])),
+            'location': event["printouts"]["Location"][0]["fulltext"],
+            'tags': tags
+        }
 
 
 generic_google_agenda(
@@ -360,7 +354,7 @@ generic_google_agenda(
 
 
 @event_source(background_color="#296038", text_color="#6FCE91", url="http://www.incubhacker.be")
-def incubhacker(create_event):
+def incubhacker():
     "<p>Incubhacker est un hackerspace basé dans la région namuroise, c'est un espace de rencontre et de création interdisciplinaire.</p>"
 
     now = calendar.timegm(datetime.now().utctimetuple())
@@ -372,17 +366,17 @@ def incubhacker(create_event):
         start = parse(event["start"]).replace(tzinfo=None)
         end = parse(event["end"]).replace(tzinfo=None)
 
-        event = create_event(
-            title=title,
-            url=url,
-            start=start,
-            end=end
-        )
-
+        tags = ["hackerspace"]
         if event.title.strip() in ("INCUBHACKER", "Réunion normale"):
-            event.tags.add("meeting")
+            tags.append("meeting")
 
-        event.tags.add("hackerspace")
+        yield {
+            'title': title,
+            'url': url,
+            'start': start,
+            'end': end,
+            'tags': tags
+        }
 
 
 generic_meetup("jeudi_du_libre_mons", "Jeudis-du-Libre-Mons", background_color="#579FAB", text_color="black", tags=["mons-hainaut", "libre"], description="<p>La création des Jeudis du Libre est l’initiative de jeunes administrateurs systèmes désireux de communiquer sur Les Logiciels Libres. Tout les troisièmes jeudis du mois, un programme issu du travail de développeurs à travers le monde, est présenté aux administrateurs systèmes, aux amateurs d’informatique, aux professeurs ou encore aux simples curieux.</p>")
@@ -398,7 +392,7 @@ generic_meetup("mongodb_belgium", "MongoDB-Belgium", background_color="#3EA86F",
 
 
 @event_source(background_color="DarkBlue", text_color="white", url="http://neutrinet.be")
-def neutrinet(create_event):
+def neutrinet():
     '''
     <p>Neutrinet is a project dedicated to build associative Internet Service Provider(s) in Belgium.
     </p><p>We want to preserve the Internet as it was designed to be&nbsp;: a decentralized system of interconnected computer networks. We want to bring users back into the network by empowering them, from a technical and knowledge perspective. Neutrinet does not have customers, we have members that contribute to the project as much as they want and/or are able to.
@@ -417,17 +411,17 @@ def neutrinet(create_event):
         start = parse(event[1].text)
         location = event[2].text
 
-        event = create_event(
-            title=title,
-            url=url,
-            start=start,
-            location=location.strip() if location else None
-        )
+        tags = ["network", "isp"]
+        if "Meeting" in title:
+            tags.append("meeting")
 
-        if "Meeting" in event.title:
-            event.tags.add("meeting")
-
-        event.tags.add("network", "isp")
+        yield {
+            'title': title,
+            'url': url,
+            'start': start,
+            'location': location.strip() if location else None,
+            'tags': tags
+        }
 
 
 generic_google_agenda(
@@ -447,7 +441,7 @@ generic_google_agenda(
 
 
 @event_source(background_color="#FFFFFF", text_color="#00AA00", url="http://www.okno.be")
-def okno(create_event):
+def okno():
     """
     <p>OKNO is an artist-run organisation connecting new media and ecology. It
     approaches art and culture from a collaborative, DIY and post-disciplinary
@@ -479,15 +473,14 @@ def okno(create_event):
         else:
             maybe_end = None
 
-        db_event = create_event(
-            title=title,
-            url=link,
-            start=datetime(*datetuple),
-            end=maybe_end,
-            location=soupsoup.find("div", "date").text.split("|")[-1].strip()
-        )
-
-        db_event.tags.add("artist")
+        yield {
+            'title': title,
+            'url': link,
+            'start': datetime(*datetuple),
+            'end': maybe_end,
+            'location': soupsoup.find("div", "date").text.split("|")[-1].strip(),
+            'tags': ("artist",)
+        }
 
 
 def opengarage_duplicated(event_query, detail):
@@ -496,8 +489,7 @@ def opengarage_duplicated(event_query, detail):
 
 
 def opengarage_meetings(event):
-    if event.title == "Open Garage":
-        event.tags.add("meeting")
+    return ('meeting',) if event.title == "Open Garage" else tuple()
 
 
 generic_meetup("opengarage", "OpenGarage", background_color="DarkOrchid", text_color="white", tags=["hackerspace", opengarage_meetings], description='''<p>The "Open Garage" is a double garage in Borsbeek, Belgium, some sort of <a href="http://en.wikipedia.org/wiki/Hackerspace">hackerspace</a>, where I (<a href="https://plus.google.com/u/2/+AnthonyLiekens/posts">Anthony Liekens</a>) host weekly workshops and many of my projects. The garage is open every Thursday evening to everyone who wants to join our community\'s numerous hacking projects.</p>
@@ -565,7 +557,7 @@ generic_meetup("ruby_burgers", "ruby_burgers-rb", background_color="white", text
 
 
 @event_source(background_color="#99ccff", text_color="#000000", url="http://src.radiocampus.be/", key="start")
-def source(create_event):
+def source():
     """
     <p>L’émission Source est une émission bimensuelle sur Radio Campus Bruxelles,
     disponible à Bruxelles sur le 92.1 de la bande FM, ou partout via
@@ -599,33 +591,40 @@ def source(create_event):
             title = " ".join(words[2:])
             start_time = datetime(today.year, today.month, today.day, *start)
             end_time = datetime(today.year, today.month, today.day, *end)
-            create_event(title=title, start=start_time, end=end_time, url="http://src.radiocampus.be/")
+            yield {
+                'title': title,
+                'start': start_time,
+                'end': end_time, 
+                'url': "http://src.radiocampus.be/",
+            }
         else:
             today += timedelta(days=1)
 
 
 @event_source(background_color="#82FEA9", text_color="#DC0000", url="https://www.hackerspace.lu/")
-def syn2cat(create_event):
+def syn2cat():
     "<p>L'agenda du Syn2Cat, hackerspace Luxembourgeois</p>"
 
     data = Calendar.from_ical(requests.get("https://wiki.hackerspace.lu/wiki/Special:Ask/-5B-5BCategory:Event-5D-5D-20-5B-5BStartDate::%2B-5D-5D-20-5B-5BStartDate::-3E2014-2D06-2D30-5D-5D/-3FStartDate%3Dstart/-3FEndDate%3Dend/-3FHas-20location/-5B-5BCategory:Event-5D-5D-20-5B-5BStartDate::%2B-5D-5D-20-5B-5BStartDate::-3E2014-2D06-2D30-5D-5D/-3FStartDate%3Dstart/-3FEndDate%3Dend/-3FHas-20location/mainlabel%3D/limit%3D50/order%3DASC/sort%3DStartDate/format%3Dicalendar").content)
 
     for event in data.walk()[1:]:
-        db_event = create_event(
-            title=event["SUMMARY"].encode("Utf-8"),
-            start=event["DTSTART"].dt.replace(tzinfo=None) if isinstance(event["DTSTART"].dt, datetime) else event["DTSTART"].dt,
-            end=event["DTEND"].dt.replace(tzinfo=None) if isinstance(event["DTEND"].dt, datetime) else event["DTEND"].dt,
-            url=event["URL"],
-        )
+        title = event["SUMMARY"].encode("Utf-8")
 
-        db_event.tags.add("hackerspace", "luxembourg")
+        tags = ["hackerspace", "luxembourg"]
+        if "openmonday" in title.lower():
+            tags.append("meeting")
 
-        if "openmonday" in db_event.title.lower():
-            db_event.tags.add("meeting")
+        yield {
+            'title': title,
+            'start': event["DTSTART"].dt.replace(tzinfo=None) if isinstance(event["DTSTART"].dt, datetime) else event["DTSTART"].dt,
+            'end': event["DTEND"].dt.replace(tzinfo=None) if isinstance(event["DTEND"].dt, datetime) else event["DTEND"].dt,
+            'url': event["URL"],
+            'tags': tags
+        }
 
 
 @event_source(background_color="#333", text_color="white", url="http://www.timelab.org")
-def timelab(create_event):
+def timelab():
     """<p>Timelab brengt makers samen. Deel uitmaken van de makers-community stimuleert leren, samenwerken, creativiteit, innovatie en experiment.</p>"""
     soup = BeautifulSoup(requests.get("http://www.timelab.org/nl/agenda").content)
 
@@ -647,16 +646,15 @@ def timelab(create_event):
                 end = None
                 all_day = True
 
-            location = "Brusselsepoortstraat 97 9000 Gent"
-
-            create_event(
-                title=title,
-                start=start,
-                end=end,
-                all_day=all_day,
-                url=url,
-                location=location
-            ).tags.add("fablab")
+            yield {
+                'title': title,
+                'start': start,
+                'end': end,
+                'all_day': all_day,
+                'url': url,
+                'location': "Brusselsepoortstraat 97 9000 Gent",
+                'tags': ('fablab',)
+            }
 
         next_page_links = soup('li', 'pager-next')
         if next_page_links and next_page_links[0].text:
@@ -676,7 +674,7 @@ puissent y exprimer leur créativité de manière collaborative.
 
 
 @event_source(background_color="#25272C", text_color="#C58723", key=None, url="http://voidwarranties.be")
-def voidwarranties(create_event):
+def voidwarranties():
     """
     <p>
     Het is een locatie waar gelijkgestemden kunnen samenwerken aan projecten.
@@ -699,14 +697,13 @@ def voidwarranties(create_event):
         start = event["DTSTART"].dt if event.get("DTSTART") else event["DTSTAMP"].dt
         end = event["DTEND"].dt if event.get("DTSTART") else None
 
-        db_event = create_event(
-            title=title,
-            url=url,
-            start=start,
-            end=end
-        )
-
-        db_event.tags.add("hackeragenda")
+        yield {
+            'title': title,
+            'url': url,
+            'start': start,
+            'end': end,
+            'tags': ("hackeragenda",)
+        }
 
 
 generic_meetup("webrtc", "WebRTC-crossingborders", background_color="#F99232", text_color="white", tags=["programming", "webrtc", "webdev"], description="""
@@ -722,7 +719,7 @@ opportunities.&nbsp;
 
 
 @event_source(background_color="white", text_color="black", url="http://www.0x20.be")
-def whitespace(create_event):
+def whitespace():
     """
     <p>
     <a href="/Whitespace" title="Whitespace">Whitespace</a> (0x20) is a <a
@@ -751,19 +748,18 @@ def whitespace(create_event):
             end = None
         location = event('a')[1].text
 
-        db_event = create_event(
-            title=title,
-            url=url,
-            start=start,
-            end=end,
-            location=location.strip() if location else None
-        )
-
-        db_event.tags.add("hackerspace")
+        yield {
+            'title': title,
+            'url': url,
+            'start': start,
+            'end': end,
+            'location': location.strip() if location else None,
+            'tags': ('hackerspace',)
+        }
 
 
 # @event_source(background_color="#666661", text_color="black")
-def wolfplex(create_event):
+def wolfplex():
     html_parser = HTMLParser()
     soup = BeautifulSoup(requests.get("http://www.wolfplex.org/wiki/Main_Page").content)
     events = soup.find("div", id="accueil-agenda").dl
@@ -782,11 +778,10 @@ def wolfplex(create_event):
         else:
             location = None
 
-        db_event = create_event(
-            title=title,
-            url=url,
-            start=start,
-            location=location
-        )
-
-        db_event.tags.add("hackerspace")
+        yield {
+            'title': title,
+            'url': url,
+            'start': start,
+            'location': location,
+            'tags': ('hackerspace',)
+        }
