@@ -1,15 +1,13 @@
-Introduction
-============
+# Introduction
 
-http://hackeragenda.be is a website that aggregate events in Belgium that are
+[Hackeragenda](http://hackeragenda.be) is a website that aggregate events in Belgium that are
 interesting for hackers of the hackerspace community. It does that by fetching
 data from other website (by scraping most of the time ...) *instead* of asking
 users to submit events on it. This is my modest attemp to answer the problem
 "everyone is doing shitload of things and no one is aware of that and that
 sucks".
 
-Installation
-============
+# Installation
 
 You need [bower](http://bower.io/)! You'll probably need to have a recent 
 version of nodejs to install it.
@@ -25,8 +23,7 @@ python manage.py migrate
 python manage.py bower_install
 ```
 
-Usage
-=====
+# Usage
 
 To update the events:
 
@@ -49,8 +46,7 @@ option (this is very usefull if you want to use it in a crontab):
 python manage.py fetch_events --quiet
 ```
 
-How to add an organisation
-==========================
+# How to add an organisation
 
 Events are periodically fetched from organisations websites. Therefore, you 
 have to write an `@event_source` decorated function *(aka fetcher)* in 
@@ -59,20 +55,27 @@ specify the colorset for your organisation and its intended agenda. Your
 function should take 1 argument: a function to add events to the database.
 
 
+## Write a custom event_source
+
 Here's a small fetcher example:
 
 ```python
 @event_source(background_color="#424242", text_color="#777", agenda="be")
-def my_organisation(create_event):
+def my_organisation():
     events = json.loads(urlopen("https://my.organisat.io/n").read())
+    tags = ["hackerspace"]
     for ev in events:
-        create_event(
+        if "weekly meeting" in ev.name.lower():
+            tags.append("meeting")
+        yield {
             title=ev.name,
             start=ev.start_time,
             end=ev.end_time,
             url=ev.href
-        )
+        }
 ```
+
+## Meetup
 
 If your organisation use Meetup to schedule its events, you just have to add
 this unique line at toplevel:
@@ -80,6 +83,8 @@ this unique line at toplevel:
 ```python
 generic_meetup("my_org_name_on_hackeragenda", "my_org_name_on_Meetup", background_color="#424242", text_color="#777", agenda="be")
 ```
+
+## Facebook
 
 Adding events from a Facebook group or page is pretty easy as well:
 
@@ -90,6 +95,8 @@ generic_facebook("my_org_name_on_hackeragenda", "facebook_id", background_color=
 This requires to have FACEBOOK_APP_ID and FACEBOOK_APP_SECRET defined in the
 settings file of your agenda with the credentials of your Facebook
 application.
+
+## Implement the Hackeragenda API
 
 Moreover, you can also implement the hackeragenda JSON api on your side, and add
 the following line at toplevel in `events/management/commands/fetch_events.py`:
@@ -138,8 +145,7 @@ Each event could optionally provide the following attributes:
 * "all_day" : Is the event the whole day? (boolean)
 * "location" : Human readable adress for your event (string)
 
-Other countries
-===============
+# Other countries
 
 I'm looking for volunteers to open other instance of hackeragenda in other
 countries. France will probably be the next one. Don't hesitate to contact me
@@ -155,5 +161,5 @@ meta-hackeragenda like hackeragenda.eu.
 
 Current public instance (known to me):
 
-* http://hackeragenda.be
-* http://hackeragenda.fr
+* [Belgium](http://hackeragenda.be)
+* [France](http://hackeragenda.fr)
