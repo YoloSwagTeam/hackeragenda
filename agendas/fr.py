@@ -50,12 +50,14 @@ def april():
 def electrolab():
     '<p><a title="Electrolab" href="../" target="_blank">L’Electrolab</a> est un hacker space dans la zone industrielle de Nanterre. À quelques stations de RER du centre de Paris, Ce nouveau Fablab de la région parisienne est, comme son nom l’indique, dédié aux projets ayant une forte connotation électronique et / ou mécanique.</p>'
 
-    data = Calendar.from_ical(requests.get("http://www.electrolab.fr/?plugin=all-in-one-event-calendar&controller=ai1ec_exporter_controller&action=export_events&cb=493067527").content)
+    data = Calendar.from_ical(requests.get("http://calendar.electrolab.fr/davical/public.php/events/calendar/?ticket=zIRMty0J").content)
 
     for event in data.walk()[4:]:
-        title = str(event["SUMMARY"])
-        location = str(event["LOCATION"])
-        url = event["URL"]
+        if "SUMMARY" not in event:
+            continue
+        title = str(event["SUMMARY"]).strip()
+        location = str(event["LOCATION"]) if "LOCATION" in event else ""
+        url = event["URL"] if "URL" in event else ""
         start = datetime.combine(event["DTSTART"].dt, datetime.min.time()).replace(tzinfo=None)
         end = datetime.combine(event["DTEND"].dt, datetime.min.time()).replace(tzinfo=None) if event.get("DTEND") else None
 
