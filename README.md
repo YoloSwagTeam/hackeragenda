@@ -50,38 +50,47 @@ python manage.py fetch_events --quiet
 
 Events are periodically fetched from organisations websites. Therefore, you 
 have to write an `@event_source` decorated function *(aka fetcher)* in 
-`events/management/commands/fetch_events.py`. The decorator allows you to 
-specify the colorset for your organisation and its intended agenda. Your 
-function should take 1 argument: a function to add events to the database.
+[tree/master/agendas/](`agendas/<your category>`). The decorator allows you to
+specify options for your organisation. This function should 
+[yield](https://wiki.python.org/moin/Generators) all the events you want to add.
 
 
 ## Write a custom event_source
 
+You could provide a description for your organization with a python docstring.
 Here's a small fetcher example:
 
 ```python
-@event_source(background_color="#424242", text_color="#777", agenda="be")
+@event_source(background_color="#424242", text_color="#777", url="https://my.organisat.io/n")
 def my_organisation():
-    events = json.loads(urlopen("https://my.organisat.io/n").read())
+    """My organization is a hackerspace in a train"""
+    events = json.loads(urlopen("https://my.organisat.io/n/events").read())
     tags = ["hackerspace"]
     for ev in events:
         if "weekly meeting" in ev.name.lower():
             tags.append("meeting")
         yield {
-            title=ev.name,
-            start=ev.start_time,
-            end=ev.end_time,
-            url=ev.href
+            'title': ev.name,
+            'start': ev.start_time,
+            'end': ev.end_time,
+            'url': ev.href,
+            'tags': tags
         }
 ```
 
 ## Meetup
 
 If your organisation use Meetup to schedule its events, you just have to add
-this unique line at toplevel:
+this unique line at toplevel (this automagically creates an event_source):
 
 ```python
-generic_meetup("my_org_name_on_hackeragenda", "my_org_name_on_Meetup", background_color="#424242", text_color="#777", agenda="be")
+generic_meetup("my_org_name_on_hackeragenda", "my_org_name_on_Meetup", **same options as @event_source)
+```
+
+## Eventbrite
+
+```python
+generic_eventbrite("my_org_name_on_hackeragenda", "my_org-1865700117", **same options as @event_source)
 ```
 
 ## Facebook
@@ -89,12 +98,21 @@ generic_meetup("my_org_name_on_hackeragenda", "my_org_name_on_Meetup", backgroun
 Adding events from a Facebook group or page is pretty easy as well:
 
 ```python
-generic_facebook("my_org_name_on_hackeragenda", "facebook_id", background_color="#424242", text_color="#777", agenda="be")
+generic_facebook("my_org_name_on_hackeragenda", "facebook_id", **same options as @event_source)
 ```
 
 This requires to have FACEBOOK_APP_ID and FACEBOOK_APP_SECRET defined in the
 settings file of your agenda with the credentials of your Facebook
 application.
+
+## Google Agenda
+
+```python
+generic_google_agenda(
+    "my_org_name",
+    "https://www.google.com/calendar/ical/<calendar_id>/public/basic.ics",
+    **same options as @event_source)
+```
 
 ## Implement the Hackeragenda API
 
@@ -102,7 +120,7 @@ Moreover, you can also implement the hackeragenda JSON api on your side, and add
 the following line at toplevel in `events/management/commands/fetch_events.py`:
 
 ```python
-json_api("my_org", "https://my.organisat.io/n/hackeragenda.json", background_color="#424242", text_color="#777", agenda="be")
+json_api("my_org", "https://my.organisat.io/n/hackeragenda.json", **same options as @event_source)
 ```
 
 A `GET` on the provided url should return something like this:
