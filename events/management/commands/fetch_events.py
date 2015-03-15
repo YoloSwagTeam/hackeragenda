@@ -57,6 +57,12 @@ class Command(BaseCommand):
             dest='quiet',
             default=False,
             help='No debug output'),
+
+        make_option('--nocolor',
+            action='store_true',
+            dest='nocolor',
+            default=False,
+            help='No ANSI colors in output')
     )
 
     def handle(self, *args, **options):
@@ -65,20 +71,29 @@ class Command(BaseCommand):
         for source in sources:
             try:
                 with transaction.atomic():
-                    SOURCES_FUNCTIONS[source](options.get('quiet', True))
+                    SOURCES_FUNCTIONS[source](
+                        options.get('quiet', True), 
+                        options.get('nocolor', True)
+                    )
 
             except Exception as e:
+                if options.get('nocolor', True):
+                    print "Error while working on '%s': %s" % (source, e)
+                else:
+                    print "\033[31;1m[ERROR]\033[0m While working on '\033[33;1m%s\033[0m': %s" % (source, e)
                 traceback.print_exc(file=sys.stdout)
-                print "While working on '%s', got this exception:" % source
-                print e
 
 
 def event_source(background_color, text_color, url, agenda=None, key="url", description=""):
     if agenda is None:
         agenda = CURRENT_AGENDA
     def event_source_wrapper(func, org_name=None):
-        def fetch_events(quiet):
+        def fetch_events(quiet, nocolor):
             def create_event(**detail):
+                tags = []
+                if 'tags' in detail:
+                    tags = detail.pop("tags")
+
                 if callable(key):
                     key(event_query=Event.objects.filter(source=org_name), detail=detail)
 
@@ -86,8 +101,20 @@ def event_source(background_color, text_color, url, agenda=None, key="url", desc
                     Event.objects.filter(**{key: detail[key]}).delete()
 
                 res = Event.objects.create(source=org_name, text_color=SOURCES_OPTIONS[org_name]["fg"], border_color=SOURCES_OPTIONS[org_name]["bg"], agenda=agenda, **detail)
+                
+                for tag in tags:
+                    if callable(tag):
+                        for dynamic_tag in tag(res):
+                            res.tags.add(dynamic_tag)
+                    else:
+                        res.tags.add(tag)
+
                 if not quiet:
-                    print unicode(res)
+                    if nocolor:
+                        print unicode(res)
+                    else:
+                        print "\033[32;1m * \033[0m", unicode(res)
+
                 return res
 
             if key in (None, False):
@@ -96,9 +123,14 @@ def event_source(background_color, text_color, url, agenda=None, key="url", desc
                 Event.objects.filter(source=org_name, start__gte=datetime.now())
                 Event.objects.filter(source=org_name).update(border_color=SOURCES_OPTIONS[org_name]["bg"], text_color=SOURCES_OPTIONS[org_name]["fg"])
 
-            func(create_event)
+            for event in func():
+                create_event(**event)
+
             if not quiet:
-                print " === Finished for " + org_name
+                if nocolor:
+                    print " === Finished for", org_name
+                else:
+                    print "\033[34;1m === \033[0m Finished for", org_name
 
         if org_name is None:
             org_name = func.__name__.lower()
@@ -113,29 +145,27 @@ def event_source(background_color, text_color, url, agenda=None, key="url", desc
 
 
 def json_api(org_name, url, background_color, text_color, source_url, agenda=None, tags=None, description=""):
-    def fetch(create_event):
+    def fetch():
         """
         Generic function to add events from an urls respecting the json api
         """
         data = requests.get(url, verify=False).json()
         for event in data['events']:
-            db_event = create_event(
-                title=event['title'],
-                url=event['url'],
-                start=parse(event['start']).replace(tzinfo=None),
-                end=parse(event['end']).replace(tzinfo=None) if 'end' in event else None,
-                all_day=event['all_day'] if 'all_day' in event else None,
-                location=event['location'] if 'location' in event else None,
-            )
-
-            if tags:
-                db_event.tags.add(*tags)
+            yield {
+                'title': event['title'],
+                'url': event['url'],
+                'start': parse(event['start']).replace(tzinfo=None),
+                'end': parse(event['end']).replace(tzinfo=None) if 'end' in event else None,
+                'all_day': event['all_day'] if 'all_day' in event else None,
+                'location': event['location'] if 'location' in event else None,
+                'tags': tags if tags else []
+            }
 
     return event_source(background_color, text_color, agenda=agenda, key=None, description=description, url=url)(fetch, org_name)
 
 
 def generic_eventbrite(org_name, eventbrite_id, background_color, text_color, url, agenda=None, tags=None, description=""):
-    def fetch(create_event):
+    def fetch():
         src_url = "http://www.eventbrite.com/o/{}".format(eventbrite_id)
         soup = BeautifulSoup(requests.get(src_url).content)
 
@@ -146,22 +176,20 @@ def generic_eventbrite(org_name, eventbrite_id, background_color, text_color, ur
             end = event.find("span", attrs={"class": "dtend microformats_only"}).text
             url = event.find("a", attrs={"class": "url"})['href']
 
-            db_event = create_event(
-                title=title,
-                start=start,
-                end=end,
-                url=url,
-                location=location
-            )
-
-            if tags:
-                db_event.tags.add(*tags)
+            yield {
+                'title': title,
+                'start': start,
+                'end': end,
+                'url': url,
+                'location': location,
+                'tags': tags if tags else []
+            }
 
     return event_source(background_color, text_color, agenda=agenda, description=description, url=url)(fetch, org_name)
 
 
 def generic_meetup(org_name, meetup_name, background_color, text_color, agenda=None, tags=None, description="", key=None):
-    def fetch(create_event):
+    def fetch():
         data = Calendar.from_ical(requests.get("http://www.meetup.com/{}/events/ical/".format(meetup_name)).content)
 
         for event in data.walk():
@@ -179,6 +207,7 @@ def generic_meetup(org_name, meetup_name, background_color, text_color, agenda=N
                 "url": event.get("URL", ""),
                 "start": start.dt.replace(tzinfo=None) if isinstance(start.dt, datetime) else start.dt,
                 "location": event.get("LOCATION", "").encode("Utf-8"),
+                "tags": tags if tags else []
             }
 
             if key is None and event.get("URL") and Event.objects.filter(url=event["url"]):
@@ -186,15 +215,7 @@ def generic_meetup(org_name, meetup_name, background_color, text_color, agenda=N
             elif callable(key) and key(event_query=Event.objects.filter(source=org_name), detail=detail) is False:
                 continue
 
-            db_event = create_event(**detail)
-
-            if tags is None:
-                return
-
-            if filter(lambda x: not callable(x), tags):
-                db_event.tags.add(*filter(lambda x: not callable(x), tags))
-
-            map(lambda tag: tag(db_event), filter(callable, tags))
+            yield detail
 
     return event_source(background_color, text_color, agenda=agenda, description=description, url="http://meetup.com/" + meetup_name + "/")(fetch, org_name)
 
@@ -206,18 +227,16 @@ def generic_facebook(org_name, fb_group, background_color, text_color, agenda=No
 
     graph = facepy.GraphAPI.for_application(settings.FACEBOOK_APP_ID, settings.FACEBOOK_APP_SECRET)
 
-    def fetch(create_event):
+    def fetch():
         for page in graph.get('%s/events?since=0' % fb_group, page=True):
             for event in page['data']:
-                db_event = create_event(
-                            title=event['name'],
-                            url='http://www.facebook.com/%s' % event['id'],
-                            start=parse(event['start_time']).replace(tzinfo=None),
-                            location=event.get('location'),
-                        )
-
-                if tags:
-                    db_event.tags.add(*tags)
+                yield {
+                    'title': event['name'],
+                    'url': 'http://www.facebook.com/%s' % event['id'],
+                    'start': parse(event['start_time']).replace(tzinfo=None),
+                    'location': event.get('location'),
+                    'tags': tags if tags else []
+                }
 
     if not description:
         # Use the FB group description
@@ -231,11 +250,12 @@ def generic_facebook(org_name, fb_group, background_color, text_color, agenda=No
 
 
 def generic_google_agenda(org_name, gurl, per_event_url_function=None, tags=[], **options):
-    def fetch(create_event):
+    def fetch():
         data = Calendar.from_ical(requests.get(gurl).content)
 
         # Each event has a unique google id, but is present multiple times
         known_uids = {}
+        last_modifications = {}
 
         for event in data.walk():
             if not event.get("DTSTAMP"):
@@ -243,7 +263,7 @@ def generic_google_agenda(org_name, gurl, per_event_url_function=None, tags=[], 
 
             uid = event.get("UID")
             last_mod = str(event["LAST-MODIFIED"].dt) if "LAST-MODIFIED" in event else "1970-01-01"
-            if uid in known_uids and last_mod <= known_uids[uid].last_mod:
+            if uid in last_modifications and last_mod <= last_modifications[uid]:
                 continue
 
             title = str(event["SUMMARY"]) if event.get("SUMMARY") else ""
@@ -263,27 +283,27 @@ def generic_google_agenda(org_name, gurl, per_event_url_function=None, tags=[], 
 
             #Event modification: update record
             if uid in known_uids:
-                db_event = known_uids[uid]
-                db_event.title = title
-                db_event.url = url
-                db_event.start = start
-                db_event.end = end
-                db_event.location = location
-                db_event.save()
+                ev = known_uids[uid]
+                last_modifications[uid] = last_mod
+                ev['title'] = title
+                ev['url'] = url
+                ev['start'] = start
+                ev['end'] = end
+                ev['location'] = location
             else:
-                db_event = create_event(
-                    title=title,
-                    url=url,
-                    start=start,
-                    end=end,
-                    location=location
-                )
+                detail = {
+                    'title': title,
+                    'url': url,
+                    'start': start,
+                    'end': end,
+                    'location': location,
+                    'tags': tags if tags else [],
+                }
+                last_modifications[uid] = last_mod
+                known_uids[uid] = detail
 
-                if tags:
-                    db_event.tags.add(*tags)
-                known_uids[uid] = db_event
+        return iter(known_uids.values())
 
-            db_event.last_mod = last_mod
     return event_source(key=None, **options)(fetch, org_name)
 
 CURRENT_AGENDA = None
@@ -294,7 +314,7 @@ def load_agenda(name):
     try:
         load_source(name, "agendas/" + name + ".py")
     except Exception as err:
-        print " === Error %s when loading fetchers for agenda %s" % (err.__name__, name)
+        print " === Error when loading fetchers for agenda", name
         traceback.print_exc()
 
 
