@@ -65,8 +65,8 @@ Here's a small fetcher example:
 def my_organisation():
     """My organization is a hackerspace in a train"""
     events = json.loads(urlopen("https://my.organisat.io/n/events").read())
-    tags = ["hackerspace"]
     for ev in events:
+        tags = ["hackerspace"]
         if "weekly meeting" in ev.name.lower():
             tags.append("meeting")
         yield {
