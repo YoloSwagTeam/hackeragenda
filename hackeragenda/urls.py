@@ -7,7 +7,6 @@ admin.autodiscover()
 
 urlpatterns = patterns('',
     url(r'^$', HomeView.as_view(), name='home'),
-    # url(r'^hackeragenda/', include('hackeragenda.foo.urls')),
     url(r'^admin/', include(admin.site.urls)),
     url(r'^events/', include('events.urls')),
 )
