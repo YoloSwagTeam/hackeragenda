@@ -1,7 +1,8 @@
-from django.shortcuts import render
-from django.contrib.auth.decorators import login_required
+from django.views.generic.edit import CreateView
+
+from events.models import Event
 
 
-@login_required
-def dashboard(request):
-    return render(request, "administration/dashboard.haml", {})
+class CreateEvent(CreateView):
+    model = Event
+    template_name = "administration/dashboard.haml"
