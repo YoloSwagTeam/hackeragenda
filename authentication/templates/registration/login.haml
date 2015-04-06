@@ -1,0 +1,12 @@
+-extends "base.haml"
+
+-block content
+  .six.columns.offset-by-three
+    .panel
+      %form{action: "", method: "POST"}
+        -csrf_token
+        %h4 Login
+
+        =form
+
+        %input.button{type: "submit", value: "Connexion"}
