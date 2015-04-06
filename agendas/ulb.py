@@ -25,6 +25,9 @@ generic_facebook_group("agro", "5217419333",
     """
 )
 
+generic_facebook_group("CGeo", "148882266650",
+    background_color="#32e5da", text_color="white", tags=["cercle"])
+
 generic_google_agenda(
     "cercle_informatique",
     "https://www.google.com/calendar/ical/b6s2tn7vm5mr8cl4sdq1m9qp0o%40group.calendar.google.com/public/basic.ics",
