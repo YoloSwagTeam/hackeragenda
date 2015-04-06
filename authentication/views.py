@@ -1,3 +1,5 @@
-from django.shortcuts import render
+from django.contrib.auth import views as auth
 
-# Create your views here.
+
+def login(request):
+    return auth.login(request, template_name="registration/login.haml")
