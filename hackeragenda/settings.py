@@ -221,6 +221,7 @@ INSTALLED_APPS = (
     'django.contrib.admin',
     'djangobower',
     'authentication',
+    'administration',
     'events',
     'taggit',
     'gunicorn',
