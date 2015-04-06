@@ -29,6 +29,17 @@ generic_facebook_group("CGeo", "148882266650",
     background_color="#32e5da", text_color="white", tags=["cercle"])
 
 generic_google_agenda(
+    "chaa",
+    "https://www.google.com/calendar/ical/chaa.ulb%40gmail.com/public/basic.ics",
+    background_color="#4b5054", text_color="white", url="http://www.chaa.be/",
+    tags=["cercle"],
+    per_event_url_function=lambda event: event["DESCRIPTION"],
+    description="""
+    <p>Cercle d'Histoire de l'Art et d'Archéologie</p>
+    """
+)
+
+generic_google_agenda(
     "cercle_informatique",
     "https://www.google.com/calendar/ical/b6s2tn7vm5mr8cl4sdq1m9qp0o%40group.calendar.google.com/public/basic.ics",
     background_color="#8a116d", text_color="white", url="http://cerkinfo.be/",
