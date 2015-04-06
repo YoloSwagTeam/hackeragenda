@@ -9,3 +9,9 @@
         Deconnexion
 
   %hr
+
+  %p
+    Vous êtes responsables des sources suivantes:
+    -for usersource in user.usersource_set.all
+      %span.label
+        =usersource.source
