@@ -220,12 +220,39 @@ def generic_meetup(org_name, meetup_name, background_color, text_color, agenda=N
     return event_source(background_color, text_color, agenda=agenda, description=description, url="http://meetup.com/" + meetup_name + "/")(fetch, org_name)
 
 
-def generic_facebook(org_name, fb_group, background_color, text_color, agenda=None, tags=None, description=""):
+# Facebook pages require APP token
+def generic_facebook_page(org_name, fb_page, background_color, text_color, agenda=None, tags=None, description=""):
     if not hasattr(settings, "FACEBOOK_APP_ID") or not hasattr(settings, "FACEBOOK_APP_SECRET"):
         print "ERROR: %s disabled, please define FACEBOOK_APP_ID and FACEBOOK_APP_SECRET in your agenda settings file" % org_name
         return
 
     graph = facepy.GraphAPI.for_application(settings.FACEBOOK_APP_ID, settings.FACEBOOK_APP_SECRET)
+
+    def fetch():
+        for page in graph.get('%s/events?since=0' % fb_page, page=True):
+            for event in page['data']:
+                yield {
+                    'title': event['name'],
+                    'url': 'http://www.facebook.com/%s' % event['id'],
+                    'start': parse(event['start_time']).replace(tzinfo=None),
+                    'location': event.get('location'),
+                    'tags': tags if tags else []
+                }
+
+    if not description:
+        # Use the FB group description
+        group = graph.get(fb_page)
+        if 'about' in group:
+            description = group['about']
+        elif 'description' in group:
+            description = group['description']
+
+    return event_source(background_color, text_color, agenda=agenda, description=description, url="https://www.facebook.com/" + fb_page)(fetch, org_name)
+
+
+# Facebook pages require USER token
+def generic_facebook_group(org_name, fb_group, background_color, text_color, agenda=None, tags=None, description=""):
+    graph = facepy.GraphAPI("CAACEdEose0cBACZBOoZAhRJ1i7P2BCVycD45ZB98kP8GItmZAO47eOeVy5qfblZCBcgiWP9XnZAbdzUZA4i1VJPyklr7SEXMmS7ijOhyHVzKmwB8IlzQ02aFMDtf6nUAE8gDSfaBMfAmhoHKTvpDrA1XznErbVyuFViHdfutKPQz0tmMcJetZBn15iFXuJSWpNEFxsWKpeDWhFOSNtHFpToZB")
 
     def fetch():
         for page in graph.get('%s/events?since=0' % fb_group, page=True):
