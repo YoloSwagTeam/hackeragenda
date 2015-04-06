@@ -12,7 +12,10 @@
   %hr{style: "margin-top: 0px"}
 
   %p
-    Vous êtes responsables des sources suivantes:
-    -for usersource in user.usersource_set.all
-      %span.label
-        =usersource.source
+    -if user.usersource_set.exists
+      Vous êtes responsables des sources suivantes:
+      -for usersource in user.usersource_set.all
+        %span.label
+          =usersource.source
+    -else
+      Vous n'êtes responsables d'aucunes sources d'événements.
