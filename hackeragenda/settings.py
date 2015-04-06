@@ -232,7 +232,7 @@ BOWER_INSTALLED_APPS = (
     'snapjs',
 )
 
-AGENDA="be"
+AGENDA = "be"
 
 if DEBUG:
     INSTALLED_APPS += (
