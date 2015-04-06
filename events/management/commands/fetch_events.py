@@ -252,28 +252,32 @@ def generic_facebook_page(org_name, fb_page, background_color, text_color, agend
 
 # Facebook pages require USER token
 def generic_facebook_group(org_name, fb_group, background_color, text_color, agenda=None, tags=None, description=""):
-    graph = facepy.GraphAPI("CAACEdEose0cBACZBOoZAhRJ1i7P2BCVycD45ZB98kP8GItmZAO47eOeVy5qfblZCBcgiWP9XnZAbdzUZA4i1VJPyklr7SEXMmS7ijOhyHVzKmwB8IlzQ02aFMDtf6nUAE8gDSfaBMfAmhoHKTvpDrA1XznErbVyuFViHdfutKPQz0tmMcJetZBn15iFXuJSWpNEFxsWKpeDWhFOSNtHFpToZB")
+    try:
+        graph = facepy.GraphAPI("CAACEdEose0cBACZBOoZAhRJ1i7P2BCVycD45ZB98kP8GItmZAO47eOeVy5qfblZCBcgiWP9XnZAbdzUZA4i1VJPyklr7SEXMmS7ijOhyHVzKmwB8IlzQ02aFMDtf6nUAE8gDSfaBMfAmhoHKTvpDrA1XznErbVyuFViHdfutKPQz0tmMcJetZBn15iFXuJSWpNEFxsWKpeDWhFOSNtHFpToZB")
 
-    def fetch():
-        for page in graph.get('%s/events?since=0' % fb_group, page=True):
-            for event in page['data']:
-                yield {
-                    'title': event['name'],
-                    'url': 'http://www.facebook.com/%s' % event['id'],
-                    'start': parse(event['start_time']).replace(tzinfo=None),
-                    'location': event.get('location'),
-                    'tags': tags if tags else []
-                }
+        def fetch():
+            for page in graph.get('%s/events?since=0' % fb_group, page=True):
+                for event in page['data']:
+                    yield {
+                        'title': event['name'],
+                        'url': 'http://www.facebook.com/%s' % event['id'],
+                        'start': parse(event['start_time']).replace(tzinfo=None),
+                        'location': event.get('location'),
+                        'tags': tags if tags else []
+                    }
 
-    if not description:
-        # Use the FB group description
-        group = graph.get(fb_group)
-        if 'about' in group:
-            description = group['about']
-        elif 'description' in group:
-            description = group['description']
+        if not description:
+            # Use the FB group description
+            group = graph.get(fb_group)
+            if 'about' in group:
+                description = group['about']
+            elif 'description' in group:
+                description = group['description']
 
-    return event_source(background_color, text_color, agenda=agenda, description=description, url="https://www.facebook.com/" + fb_group)(fetch, org_name)
+        return event_source(background_color, text_color, agenda=agenda, description=description, url="https://www.facebook.com/" + fb_group)(fetch, org_name)
+    except:
+        print "ERROR: %s disabled, (bad token)" % org_name
+        return
 
 
 def generic_google_agenda(org_name, gurl, per_event_url_function=None, tags=[], **options):
