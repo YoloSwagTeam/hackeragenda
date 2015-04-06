@@ -15,7 +15,14 @@ from HTMLParser import HTMLParser
 from events.management.commands.fetch_events import (
     event_source,
     generic_meetup, generic_eventbrite, generic_google_agenda,
-    json_api
+    generic_facebook_page, generic_facebook_group, json_api
+)
+
+generic_facebook_group("agro", "5217419333", 
+    background_color="#00a614", text_color="white", tags=["cercle"], 
+    description="""
+    <p>Arrivés il y a entre 1 et 6 ans dans cette université, baptisés ou non, nous sommes comme vous de simples étudiants voulant réussir nos études de BioIngénieurs, mais sans oublier pour autant qu'il faut savoir faire la fête et se détendre de temps en temps.... voir souvent!</p>
+    """
 )
 
 generic_google_agenda(
