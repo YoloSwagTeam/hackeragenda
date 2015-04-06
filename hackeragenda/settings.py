@@ -273,6 +273,7 @@ SOUTH_MIGRATION_MODULES = {
     'taggit': 'taggit.south_migrations',
 }
 
+LOGIN_REDIRECT_URL = '/administration/'
 
 try:
     from settings_local import *
