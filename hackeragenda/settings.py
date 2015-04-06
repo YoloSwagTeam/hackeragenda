@@ -220,6 +220,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'django.contrib.admin',
     'djangobower',
+    'authentication',
     'events',
     'taggit',
     'gunicorn',
