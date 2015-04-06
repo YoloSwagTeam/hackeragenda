@@ -28,3 +28,15 @@ generic_google_agenda(
     <p>Le Cercle Informatique a pour but d’aider les étudiants d'informatique - aussi bien les nouveaux que les anciens - à réussir leurs études, mais aussi à faciliter leur intégration dans la vie universitaire en essayant que celle-ci leur soit enrichissante et inoubliable. Le CI tente de mener à bien cette mission par l’organisation de divers activités festives ou non</p>
     """
 )
+
+json_api("urlab", "https://urlab.be/hackeragenda.json", 
+    background_color="pink", text_color="black", tags=["hackerspace"], 
+    description="""
+    <p>
+    UrLab est le hackerspace de l’ULB. Il s’agit d'un laboratoire ouvert par et
+    pour les étudiants, où l’on met à disposition une infrastructure pour qu’ils
+    puissent y exprimer leur créativité de manière collaborative.
+    </p>
+    """, 
+    source_url="http://urlab.be"
+)
