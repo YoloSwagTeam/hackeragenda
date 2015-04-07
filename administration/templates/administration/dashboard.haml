@@ -19,3 +19,12 @@
           =usersource.source
     -else
       Vous n'êtes responsables d'aucunes sources d'événements.
+
+  %form.panel{method: "POST"}
+    %h4 Rajouter un nouvel événement
+
+    -csrf_token
+    %div
+      =form
+
+    %input.button{type: "submit", value: "Add new event"}
