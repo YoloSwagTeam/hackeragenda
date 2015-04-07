@@ -1,8 +1,9 @@
-from django.views.generic.edit import CreateView
+from django.shortcuts import render
 
-from events.models import Event
+from .forms import AddEventForm
 
 
-class CreateEvent(CreateView):
-    model = Event
-    template_name = "administration/dashboard.haml"
+def dashboard(request):
+    return render(request, "administration/dashboard.haml", {
+        "form": AddEventForm()
+    })
