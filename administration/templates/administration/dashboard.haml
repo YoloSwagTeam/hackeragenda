@@ -24,7 +24,38 @@
     %h4 Rajouter un nouvel événement
 
     -csrf_token
+
     %div
-      =form
+      .row
+        .nine.columns
+          =form.title.label_tag
+          =form.title
+        .three.columns
+          =form.source.label_tag
+          =form.source
+
+      .row
+        .six.columns
+          =form.url.label_tag
+          =form.url
+        .six.columns
+          =form.location.label_tag
+          =form.location
+
+      .row
+        .five.columns
+          =form.start.label_tag
+          =form.start
+        .one.columns
+          %br
+          %br
+          =form.all_day.label_tag
+        .one.columns
+          %br
+          %br
+          =form.all_day
+        .five.columns
+          =form.end.label_tag
+          =form.end
 
     %input.button{type: "submit", value: "Add new event"}
