@@ -5,10 +5,12 @@ import requests
 from BeautifulSoup import BeautifulSoup
 from datetime import datetime, timedelta
 
-from events.management.commands.fetch_events import event_source, generic_facebook_page
+from events.management.commands.fetch_events import event_source
+from events.generics import generic_facebook_page
 
-
-generic_facebook_page("bite_back", "BiteBackOrg", background_color="#db0c38", text_color="#FFFFFF", tags=["animal-rights"])
+@event_source(background_color="#db0c38", text_color="#FFFFFF", url="https://facebook.com/BiteBackOrg/", predefined_tags=["animal-rights"])
+def bite_back():
+    return generic_facebook_page("BiteBackOrg")
 
 
 @event_source(background_color="#539316", text_color="#FFFFFF", url="http://www.evavzw.be")
@@ -79,7 +81,9 @@ def eva():
                 }
 
 
-generic_facebook_page("gaia", "gaia.be", background_color="#fdfafa", text_color="#5d3b80", tags=["animal-rights"])
+@event_source(background_color="#fdfafa", text_color="#5d3b80", url="https://facebook.com/gaia.be/", predefined_tags=["animal-rights"])
+def gaia():
+    return generic_facebook_page("gaia.be")
 
 
 @event_source(background_color="#66b822", text_color="#FFFFFF", url="http://www.jeudiveggie.be")
