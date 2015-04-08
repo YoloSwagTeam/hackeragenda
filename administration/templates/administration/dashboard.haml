@@ -30,22 +30,37 @@
         .nine.columns
           =form.title.label_tag
           =form.title
+          -if form.title.errors
+            %small.error
+              =form.title.errors|first
         .three.columns
           =form.source.label_tag
           =form.source
+          -if form.source.errors
+            %small.error
+              =form.source.errors|first
 
       .row
         .six.columns
           =form.url.label_tag
           =form.url
+          -if form.url.errors
+            %small.error
+              =form.url.errors|first
         .six.columns
           =form.location.label_tag
           =form.location
+          -if form.location.errors
+            %small.error
+              =form.location.errors|first
 
       .row
         .five.columns
           =form.start.label_tag
           =form.start
+          -if form.start.errors
+            %small.error
+              =form.start.errors|first
         .one.columns
           %br
           %br
@@ -57,5 +72,8 @@
         .five.columns
           =form.end.label_tag
           =form.end
+          -if form.end.errors
+            %small.error
+              =form.end.errors|first
 
     %input.button{type: "submit", value: "Add new event"}
