@@ -2,17 +2,13 @@ from django.db import models
 from django.contrib.auth.models import User
 
 
-class UserSource(models.Model):
-    source = models.CharField(max_length=255)
-    user = models.ForeignKey(User)
-
-    def __unicode__(self):
-        return "%s - %s" % (self.user, self.source)
-
-
-class UserAgenda(models.Model):
+class Source(models.Model):
+    name = models.CharField(max_length=255)
+    background_color = models.CharField(max_length=255)
+    text_color = models.CharField(max_length=255)
     agenda = models.CharField(max_length=255)
-    user = models.ForeignKey(User)
+
+    users = models.ManyToManyField(User)
 
     def __unicode__(self):
-        return "%s - %s" % (self.user, self.agenda)
+        return self.name

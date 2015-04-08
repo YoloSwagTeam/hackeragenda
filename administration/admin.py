@@ -1,14 +1,8 @@
 from django.contrib import admin
-from .models import UserSource, UserAgenda
+from .models import Source
 
 
-class UserSourceAdmin(admin.ModelAdmin):
+class SourceAdmin(admin.ModelAdmin):
     pass
 
-admin.site.register(UserSource, UserSourceAdmin)
-
-
-class UserAgendaAdmin(admin.ModelAdmin):
-    pass
-
-admin.site.register(UserAgenda, UserAgendaAdmin)
+admin.site.register(Source, SourceAdmin)
