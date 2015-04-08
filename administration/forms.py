@@ -9,3 +9,4 @@ class AddEventForm(forms.Form):
     end = forms.DateTimeField(required=False)
     all_day = forms.BooleanField()
     location = forms.CharField(required=False)
+    agenda = forms.ChoiceField()
