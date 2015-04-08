@@ -7,5 +7,5 @@ from .utils import user_can_add_events
 
 
 urlpatterns = patterns('administration.views',
-    url(r'^$', user_can_add_events(dispatch(get=views.dashboard)), name='administration_dashboard'),
+    url(r'^$', user_can_add_events(dispatch(get=views.dashboard, post=views.add_event)), name='administration_dashboard'),
 )
