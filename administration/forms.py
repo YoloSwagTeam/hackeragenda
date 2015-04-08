@@ -10,3 +10,6 @@ class AddEventForm(forms.Form):
     all_day = forms.BooleanField()
     location = forms.CharField(required=False)
     agenda = forms.ChoiceField()
+
+    def for_user(self, user):
+        self["source"].field.choices = [(x.id, x.source) for x in user.usersource_set.all()]
