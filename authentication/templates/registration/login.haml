@@ -3,6 +3,14 @@
 -block content
   .six.columns.offset-by-three
     .panel
+      -if next
+        -if user.is_authenticated
+          .alert-box.alert
+            Your account doesn't have access to this page. Please login with an account that has the right to access to this page to proceed.
+        -else
+          .alert-box
+            Please login to access this page.
+
       %form{action: "", method: "POST"}
         -csrf_token
         %h4 Login
