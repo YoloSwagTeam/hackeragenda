@@ -1,4 +1,7 @@
 from django import forms
+from django.conf import settings
+
+from .models import Source
 
 
 class AddEventForm(forms.Form):
@@ -11,4 +14,4 @@ class AddEventForm(forms.Form):
     location = forms.CharField(required=False)
 
     def for_user(self, user):
-        self["source"].field.choices = [(x.id, x.source) for x in user.usersource_set.all()]
+        self["source"].field.choices = [(x.id, x.name) for x in Source.objects.filter(agenda=settings.AGENDA, users=user)]
