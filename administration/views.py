@@ -5,6 +5,7 @@ from django.conf import settings
 
 from events.models import Event
 
+from .models import Source
 from .forms import AddEventForm
 
 
@@ -13,7 +14,8 @@ def dashboard(request):
     form.for_user(request.user)
 
     return render(request, "administration/dashboard.haml", {
-        "form": form
+        "form": form,
+        "sources": Source.objects.filter(users=request.user, agenda=settings.AGENDA)
     })
 
 
