@@ -15,7 +15,7 @@
     -if sources.exists
       Vous êtes responsables des sources suivantes:
       -for source in sources
-        %span.label
+        %span.label{style: "color: {{ source.text_color }}; background: {{ source.background_color }}"}
           =source.name
     -else
       Vous n'êtes responsables d'aucunes sources d'événements.
