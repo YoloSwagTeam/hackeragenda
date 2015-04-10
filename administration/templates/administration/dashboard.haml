@@ -82,8 +82,12 @@
 
   -for event in next_events
     %p= event.title
+  -empty
+    %p No next events in your sources.
 
   %h4 Previous events
 
   -for event in previous_events
     %p= event.title
+  -empty
+    %p No previous events in your sources.
