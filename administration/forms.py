@@ -10,7 +10,7 @@ class AddEventForm(forms.Form):
     url = forms.URLField()
     start = forms.DateTimeField()
     end = forms.DateTimeField(required=False)
-    all_day = forms.BooleanField()
+    all_day = forms.BooleanField(required=False)
     location = forms.CharField(required=False)
 
     def for_user(self, user):
