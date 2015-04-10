@@ -6,7 +6,7 @@ from .models import Source
 
 class AddEventForm(forms.Form):
     title = forms.CharField()
-    source = forms.ChoiceField()
+    source = forms.ModelChoiceField(queryset=Source.objects.all(), empty_label=None)
     url = forms.URLField()
     start = forms.DateTimeField()
     end = forms.DateTimeField(required=False)
@@ -14,4 +14,4 @@ class AddEventForm(forms.Form):
     location = forms.CharField(required=False)
 
     def for_user(self, user):
-        self["source"].field.choices = [(x.name, x.name) for x in Source.objects.filter(agenda=settings.AGENDA, users=user)]
+        self["source"].field.queryset = Source.objects.filter(agenda=settings.AGENDA, users=user)

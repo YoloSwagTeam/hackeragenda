@@ -41,7 +41,7 @@ def add_event(request):
 
     Event.objects.create(
         title=form.cleaned_data["title"],
-        source=form.cleaned_data["source"],
+        source=form.cleaned_data["source"].name,
         url=form.cleaned_data["url"],
         start=form.cleaned_data["start"],
         end=form.cleaned_data["end"],
