@@ -14,4 +14,4 @@ class AddEventForm(forms.Form):
     location = forms.CharField(required=False)
 
     def for_user(self, user):
-        self["source"].field.choices = [(x.id, x.name) for x in Source.objects.filter(agenda=settings.AGENDA, users=user)]
+        self["source"].field.choices = [(x.name, x.name) for x in Source.objects.filter(agenda=settings.AGENDA, users=user)]
