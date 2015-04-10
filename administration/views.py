@@ -13,9 +13,12 @@ def dashboard(request):
     form = AddEventForm()
     form.for_user(request.user)
 
+    sources = Source.objects.filter(users=request.user, agenda=settings.AGENDA)
+
     return render(request, "administration/dashboard.haml", {
         "form": form,
-        "sources": Source.objects.filter(users=request.user, agenda=settings.AGENDA)
+        "sources": sources,
+        "events": Event.objects.filter(source__in=[x.name for x in sources])
     })
 
 
@@ -24,9 +27,12 @@ def add_event(request):
     form.for_user(request.user)
 
     if not form.is_valid():
+        sources = Source.objects.filter(users=request.user, agenda=settings.AGENDA)
+
         return render(request, "administration/dashboard.haml", {
             "form": form,
-            "sources": Source.objects.filter(users=request.user, agenda=settings.AGENDA)
+            "sources": sources,
+            "events": Event.objects.filter(source__in=[x.name for x in sources])
         })
 
     Event.objects.create(

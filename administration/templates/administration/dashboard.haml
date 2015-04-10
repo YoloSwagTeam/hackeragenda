@@ -3,7 +3,7 @@
 -block content
   .row
     .ten.columns
-      %h3 Interface d'administration des événements
+      %h3 Events management admin interface
     .two.columns
       %p{style: "float: right; margin-top: 22px; margin-bottom: 14px"}
         %a{href: "{% url 'logout' %}"}
@@ -13,15 +13,15 @@
 
   %p
     -if sources.exists
-      Vous êtes responsables des sources suivantes:
+      You are responsible of the following sources of events:
       -for source in sources
         %span.label{style: "color: {{ source.text_color }}; background: {{ source.background_color }}"}
           =source.name
     -else
-      Vous n'êtes responsables d'aucunes sources d'événements.
+      You aren't responsible of any sources of events.
 
   %form.panel{method: "POST"}
-    %h4 Rajouter un nouvel événement
+    %h4 Add a new event
 
     -csrf_token
 
