@@ -48,6 +48,8 @@ def add_event(request):
         all_day=form.cleaned_data["all_day"],
         location=form.cleaned_data["location"],
         agenda=settings.AGENDA,
+        text_color=form.cleaned_data["source"].text_color,
+        border_color=form.cleaned_data["source"].border_color,
     )
 
     return HttpResponseRedirect(reverse("administration_dashboard"))
