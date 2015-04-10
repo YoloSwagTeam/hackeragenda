@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from django.shortcuts import render
 from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
@@ -18,7 +20,8 @@ def dashboard(request):
     return render(request, "administration/dashboard.haml", {
         "form": form,
         "sources": sources,
-        "events": Event.objects.filter(source__in=[x.name for x in sources])
+        "next_events": Event.objects.filter(source__in=[x.name for x in sources], start__gte=datetime.now()).order_by("start"),
+        "previous_events": Event.objects.filter(source__in=[x.name for x in sources], start__lt=datetime.now()).order_by("-start"),
     })
 
 
@@ -32,7 +35,8 @@ def add_event(request):
         return render(request, "administration/dashboard.haml", {
             "form": form,
             "sources": sources,
-            "events": Event.objects.filter(source__in=[x.name for x in sources])
+            "next_events": Event.objects.filter(source__in=[x.name for x in sources], start__gte=datetime.now()).order_by("start"),
+            "previous_events": Event.objects.filter(source__in=[x.name for x in sources], start__lt=datetime.now()).order_by("-start"),
         })
 
     Event.objects.create(

@@ -77,3 +77,13 @@
               =form.end.errors|first
 
     %input.button{type: "submit", value: "Add new event"}
+
+  %h4 Next events
+
+  -for event in next_events
+    %p= event.title
+
+  %h4 Previous events
+
+  -for event in previous_events
+    %p= event.title
