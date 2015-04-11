@@ -1,5 +1,11 @@
 -extends "base.haml"
 
+-block head
+  :css
+    li.event {
+      margin-bottom: 10px;
+    }
+
 -block content
   .row
     .ten.columns
@@ -83,7 +89,7 @@
   %div{style: "padding-left: 20px"}
     %ul
     -for event in next_events
-      %li
+      %li.event
         <span class="label" style="color: {{ event.text_color }}; background: {{ event.border_color }}">{{ event.title }}</span>
         \-
         %a{href: "{{ event.url }}"}
@@ -110,7 +116,7 @@
   %div{style: "padding-left: 20px"}
     %ul
     -for event in previous_events
-      %li
+      %li.event
         <span class="label" style="color: {{ event.text_color }}; background: {{ event.border_color }}">{{ event.title }}</span>
         \-
         %a{href: "{{ event.url }}"}
