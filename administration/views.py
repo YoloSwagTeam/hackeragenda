@@ -1,9 +1,10 @@
 from datetime import datetime
 
 from django.shortcuts import render
-from django.core.urlresolvers import reverse
+from django.core.urlresolvers import reverse, reverse_lazy
 from django.http import HttpResponseRedirect
 from django.conf import settings
+from django.views.generic.edit import UpdateView
 
 from events.models import Event
 
@@ -53,3 +54,9 @@ def add_event(request):
     )
 
     return HttpResponseRedirect(reverse("administration_dashboard"))
+
+
+class UpdateEvent(UpdateView):
+    model = Event
+    template_name = "administration/event_form.haml"
+    success_url = reverse_lazy("administration_dashboard")
