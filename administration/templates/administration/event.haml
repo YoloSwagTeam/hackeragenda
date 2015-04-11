@@ -1,0 +1,22 @@
+%li.event
+  <span class="label" style="color: {{ event.text_color }}; background: {{ event.border_color }}">{{ event.title }}</span>
+  \-
+  %a{href: "{{ event.url }}"}
+    =event.url
+  \-
+  start:
+  =event.start
+  -if event.end
+    \-
+    end:
+    =event.end
+  -if event.all_day
+    \-
+    all day
+  -if event.location
+    \-
+    at:
+    =event.location
+  \-
+  %a.tiny.button.alert{href: "{% url 'administration_event_delete' event.pk %}"}
+    delete
