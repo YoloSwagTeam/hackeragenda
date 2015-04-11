@@ -4,7 +4,7 @@ from django.shortcuts import render
 from django.core.urlresolvers import reverse, reverse_lazy
 from django.http import HttpResponseRedirect
 from django.conf import settings
-from django.views.generic.edit import UpdateView
+from django.shortcuts import get_object_or_404
 
 from events.models import Event
 
@@ -56,7 +56,51 @@ def add_event(request):
     return HttpResponseRedirect(reverse("administration_dashboard"))
 
 
-class UpdateEvent(UpdateView):
-    model = Event
-    template_name = "administration/event_form.haml"
-    success_url = reverse_lazy("administration_dashboard")
+def update_event(request, pk):
+    event = get_object_or_404(Event, pk=pk)
+
+    form = AddEventForm({
+        "title": event.title,
+        "url": event.url,
+        "source": Source.objects.get(name=event.source),
+        "start": event.start,
+        "end": event.end,
+        "all_day": event.all_day,
+        "location": event.location,
+    })
+
+    form.for_user(request.user)
+
+    return render(request, "administration/event_form.haml", {
+        "form": form,
+        "object": event,
+        "event": event
+    })
+
+
+def update_event_post(request, pk):
+    event = get_object_or_404(Event, pk=pk)
+
+    form = AddEventForm(request.POST)
+    form.for_user(request.user)
+
+    if not form.is_valid():
+        print form.errors
+
+        return render(request, "administration/event_form.haml", {
+            "form": form,
+            "object": event,
+            "event": event
+        })
+
+    event.title = form.cleaned_data["title"]
+    event.source = form.cleaned_data["source"].name
+    event.url = form.cleaned_data["url"]
+    event.start = form.cleaned_data["start"]
+    event.end = form.cleaned_data["end"]
+    event.all_day = form.cleaned_data["all_day"]
+    event.location = form.cleaned_data["location"]
+
+    event.save()
+
+    return HttpResponseRedirect(reverse_lazy("administration_dashboard"))

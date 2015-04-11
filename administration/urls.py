@@ -12,6 +12,6 @@ from .utils import user_can_add_events
 
 urlpatterns = patterns('administration.views',
     url(r'^$', user_can_add_events(dispatch(get=views.dashboard, post=views.add_event)), name='administration_dashboard'),
-    url(r'^event/(?P<pk>\d+)/update/$', user_can_add_events(views.UpdateEvent.as_view()), name='administration_event_update'),
+    url(r'^event/(?P<pk>\d+)/update/$', user_can_add_events(dispatch(get=views.update_event, post=views.update_event_post)), name='administration_event_update'),
     url(r'^event/(?P<pk>\d+)/delete/$', user_can_add_events(DeleteView.as_view(model=Event, template_name="administration/event_confirm_delete.haml", success_url=reverse_lazy('administration_dashboard'))), name='administration_event_delete'),
 )
