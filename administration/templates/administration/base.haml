@@ -1,0 +1,13 @@
+-extends "base.haml"
+
+-block content
+  .row
+    .ten.columns
+      %h3 Events management admin interface
+    .two.columns
+      %p{style: "float: right; margin-top: 22px; margin-bottom: 14px"}
+        %a{href: "{% url 'logout' %}"}
+          Deconnexion
+
+  %hr{style: "margin-top: 0px"}
+  -block admin_content
