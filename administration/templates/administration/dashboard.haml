@@ -139,6 +139,10 @@
   %script{src: "{{ STATIC_URL }}javascripts/jquery-ui.min.js"}
   :javascript
     $(function() {
-      $("#id_start").datepicker();
-      $("#id_end").datepicker();
+      $("#id_start").datepicker({
+        dateFormat: "yy-mm-dd"
+      });
+      $("#id_end").datepicker({
+        dateFormat: "yy-mm-dd"
+      });
     });
