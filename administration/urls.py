@@ -11,5 +11,5 @@ from .utils import user_can_add_events
 
 urlpatterns = patterns('administration.views',
     url(r'^$', user_can_add_events(dispatch(get=views.dashboard, post=views.add_event)), name='administration_dashboard'),
-    url(r'^event/(?P<pk>\d+)/delete/$', user_can_add_events(DeleteView.as_view(model=Event)), name='administration_event_delete'),
+    url(r'^event/(?P<pk>\d+)/delete/$', user_can_add_events(DeleteView.as_view(model=Event, template_name="administration/event_confirm_delete.haml")), name='administration_event_delete'),
 )
