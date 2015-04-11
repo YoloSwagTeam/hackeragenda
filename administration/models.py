@@ -1,6 +1,8 @@
 from django.db import models
 from django.contrib.auth.models import User
 
+from events.models import Event
+
 
 class Source(models.Model):
     name = models.CharField(max_length=255)
@@ -12,3 +14,8 @@ class Source(models.Model):
 
     def __unicode__(self):
         return self.name
+
+    def save(self, *args, **kwargs):
+        to_return = super(Source, self).save(*args, **kwargs)
+        Event.objects.filter(source=self.name).update(text_color=self.text_color, border_color=self.border_color)
+        return to_return
