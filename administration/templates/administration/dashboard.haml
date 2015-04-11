@@ -6,6 +6,10 @@
       margin-bottom: 10px;
     }
 
+    .button.tiny {
+      padding: 3px 7px 4px 7px;
+    }
+
 -block content
   .row
     .ten.columns
@@ -108,6 +112,9 @@
           \-
           at:
           =event.location
+        \-
+        %a.tiny.button.alert{href: ""}
+          delete
     -empty
       %p No next events in your sources.
 
@@ -135,6 +142,9 @@
           \-
           at:
           =event.location
+        \-
+        %a.tiny.button.alert{href: ""}
+          delete
     -empty
       %p No previous events in your sources.
 
