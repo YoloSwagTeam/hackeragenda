@@ -18,5 +18,8 @@
     at:
     =event.location
   \-
+  %a.tiny.button{href: "{% url 'administration_event_update' event.pk %}"}
+    modify
+  \-
   %a.tiny.button.alert{href: "{% url 'administration_event_delete' event.pk %}"}
     delete
