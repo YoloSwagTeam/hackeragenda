@@ -1,0 +1,22 @@
+-extends "base.haml"
+
+-block content
+  .row
+    .ten.columns
+      %h3 Events management admin interface
+    .two.columns
+      %p{style: "float: right; margin-top: 22px; margin-bottom: 14px"}
+        %a{href: "{% url 'logout' %}"}
+          Deconnexion
+
+  %hr{style: "margin-top: 0px"}
+
+  %form.six.columns.offset-by-three.panel{method: "POST"}
+    %h4 Are you sure you want to delete the event:
+      <span class="label" style="color: {{ object.text_color }}; background: {{ object.border_color }}">{{ object.title }}</span> on {{ object.start }}?
+
+    -csrf_token
+    %p{style: "text-align: center; margin-top: 35px"}
+      %input.button.alert{type: "submit", style: "margin-right: 15px", value: "Confirm"}
+      %a.button.success{href: "{% url 'administration_dashboard' %}"}
+        Cancel
