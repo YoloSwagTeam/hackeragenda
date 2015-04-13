@@ -7,3 +7,7 @@ def login(request):
 
 def password_change(request):
     return auth.password_change(request, template_name="registration/password_change_form.haml")
+
+
+def password_change_done(request):
+    return auth.password_change_done(request, template_name="registration/password_change_done.haml")
