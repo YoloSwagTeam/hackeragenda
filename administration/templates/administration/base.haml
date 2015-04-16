@@ -6,6 +6,8 @@
       %h3 Events management admin interface
     .two.columns
       %p{style: "float: right; margin-top: 22px; margin-bottom: 14px"}
+        %a{href: "{% url 'administration_dashboard' %}"}
+          Dashboard
         %a{href: "{% url 'password_change' %}"}
           Password change
         %a{href: "{% url 'logout' %}"}
