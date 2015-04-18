@@ -8,10 +8,10 @@
   %div{style: "padding-bottom: 15px; padding-top: 10px"}
     %center
       %a.open_filter_tag_bar.button Customize
-      %span{style: "margin: 10px"} -
+      %span{style: "margin: 5px"} -
       -for filter in predefined_filters
         %a.button.secondary.predefined_filter{data-key: "{{ filter }}", id: "section_{{ filter }}"}= filter|capfirst
-      %span{style: "margin: 10px"} -
+      %span{style: "margin: 5px"} -
       %a#rss.round.button.alert{href: "{% url 'events_rss' %}"}
         RSS
       %a#ics.round.button.success{href: "{% url 'events_ics' %}"}

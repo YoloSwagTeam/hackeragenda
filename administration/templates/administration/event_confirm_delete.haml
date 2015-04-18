@@ -1,0 +1,15 @@
+-extends "administration/base.haml"
+
+-block admin_content
+  %form.six.columns.offset-by-three.panel{method: "POST"}
+    %h4 Are you sure you want to delete the event:
+      %br
+      <span class="label" style="color: {{ object.text_color }}; background: {{ object.border_color }}">{{ object.title }}</span>
+      %br
+      on {{ object.start }}?
+
+    -csrf_token
+    %p{style: "text-align: center; margin-top: 35px"}
+      %input.button.alert{type: "submit", style: "margin-right: 15px", value: "Confirm"}
+      %a.button.success{href: "{% url 'administration_dashboard' %}"}
+        Cancel

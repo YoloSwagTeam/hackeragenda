@@ -1,0 +1,108 @@
+-extends "administration/base.haml"
+
+-block head
+  :css
+    li.event {
+      margin-bottom: 10px;
+    }
+
+    .button.tiny {
+      padding: 3px 7px 4px 7px;
+    }
+
+-block admin_content
+  %p
+    -if sources.exists
+      You are responsible of the following sources of events:
+      -for source in sources
+        %span.label{style: "color: {{ source.text_color }}; background: {{ source.border_color }}"}
+          =source.name
+    -else
+      You aren't responsible of any sources of events.
+
+  %form.panel{method: "POST"}
+    %h4 Add a new event
+
+    -csrf_token
+
+    %div
+      .row
+        .nine.columns
+          =form.title.label_tag
+          =form.title
+          -if form.title.errors
+            %small.error
+              =form.title.errors|first
+        .three.columns
+          =form.source.label_tag
+          =form.source
+          -if form.source.errors
+            %small.error
+              =form.source.errors|first
+
+      .row
+        .six.columns
+          =form.url.label_tag
+          =form.url
+          -if form.url.errors
+            %small.error
+              =form.url.errors|first
+        .six.columns
+          =form.location.label_tag
+          =form.location
+          -if form.location.errors
+            %small.error
+              =form.location.errors|first
+
+      .row
+        .five.columns
+          =form.start.label_tag
+          =form.start
+          -if form.start.errors
+            %small.error
+              =form.start.errors|first
+        .one.columns
+          %br
+          %br
+          =form.all_day.label_tag
+        .one.columns
+          %br
+          %br
+          =form.all_day
+        .five.columns
+          =form.end.label_tag
+          =form.end
+          -if form.end.errors
+            %small.error
+              =form.end.errors|first
+
+    %input.button{type: "submit", value: "Add new event"}
+
+  %h4 Next events
+
+  %div{style: "padding-left: 20px"}
+    %ul
+    -for event in next_events
+      -include "administration/event.haml"
+    -empty
+      %p No next events in your sources.
+
+  %h4 Previous events
+
+  %div{style: "padding-left: 20px"}
+    %ul
+    -for event in previous_events
+      -include "administration/event.haml"
+    -empty
+      %p No previous events in your sources.
+
+  %hr
+
+-block javascript
+  %link{href: "{{ STATIC_URL }}stylesheets/jquery.datetimepicker.css", rel: "stylesheet"}
+  %script{src: "{{ STATIC_URL }}javascripts/jquery.datetimepicker.js"}
+  :javascript
+    $(function() {
+      $("#id_start").datetimepicker();
+      $("#id_end").datetimepicker();
+    });

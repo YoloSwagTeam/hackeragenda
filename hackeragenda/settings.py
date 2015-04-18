@@ -67,9 +67,12 @@ TEMPLATE_LOADERS = (
 )
 
 MIDDLEWARE_CLASSES = (
+    'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
-    #'django.middleware.csrf.CsrfViewMiddleware',
-    #'django.contrib.messages.middleware.MessageMiddleware',
+    'django.middleware.csrf.CsrfViewMiddleware',
+    'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
+    'django.contrib.messages.middleware.MessageMiddleware',
     # Uncomment the next line for simple clickjacking protection:
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 )
@@ -217,6 +220,8 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'django.contrib.admin',
     'djangobower',
+    'authentication',
+    'administration',
     'events',
     'taggit',
     'gunicorn',
@@ -228,7 +233,7 @@ BOWER_INSTALLED_APPS = (
     'snapjs',
 )
 
-AGENDA="be"
+AGENDA = "be"
 
 if DEBUG:
     INSTALLED_APPS += (
@@ -269,6 +274,7 @@ SOUTH_MIGRATION_MODULES = {
     'taggit': 'taggit.south_migrations',
 }
 
+LOGIN_REDIRECT_URL = '/administration/'
 
 try:
     from settings_local import *
