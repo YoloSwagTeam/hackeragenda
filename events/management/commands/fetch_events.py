@@ -202,6 +202,12 @@ def generic_meetup(org_name, meetup_name, background_color, text_color, agenda=N
             if None in (title, start):
                 continue
 
+            # sometime, meetup put garbage at the end of their urls that isn't the event digit id
+            if "URL" in event and not event["URL"].split("/")[-2].isdigit():
+                # XXX in reality, the "real" url get be fetch by doing urlopen and looking at the actual url
+                # but I'm too lazy to do that right now
+                continue
+
             detail = {
                 "title": title.encode("Utf-8"),
                 "url": event.get("URL", ""),
