@@ -72,7 +72,7 @@ class Command(BaseCommand):
             try:
                 with transaction.atomic():
                     SOURCES_FUNCTIONS[source](
-                        options.get('quiet', True), 
+                        options.get('quiet', True),
                         options.get('nocolor', True)
                     )
 
@@ -101,7 +101,7 @@ def event_source(background_color, text_color, url, agenda=None, key="url", desc
                     Event.objects.filter(**{key: detail[key]}).delete()
 
                 res = Event.objects.create(source=org_name, text_color=SOURCES_OPTIONS[org_name]["fg"], border_color=SOURCES_OPTIONS[org_name]["bg"], agenda=agenda, **detail)
-                
+
                 for tag in tags:
                     if callable(tag):
                         for dynamic_tag in tag(res):
