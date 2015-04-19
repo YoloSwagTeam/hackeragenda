@@ -3,6 +3,7 @@ colors_lookup = {
     "red": (1, 0, 0), "green": (0, 1, 0), "blue": (0, 0, 1),
     "coral": (1, .5, .314), "darkblue": (0, 0, .545),
     "darkgoldenrod": (.722, .525, .043), "pink": (1, .753, .796),
+    "indigo": (.294, 0., .510),
     "darkorchid": (.6, .196, .8)
 }
 
