@@ -651,7 +651,7 @@ def timelab():
                 'start': start,
                 'end': end,
                 'all_day': all_day,
-                'url': url,
+                'url': url.replace("/nl/", ""),
                 'location': "Brusselsepoortstraat 97 9000 Gent",
                 'tags': ('fablab',)
             }
