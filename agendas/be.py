@@ -1,9 +1,9 @@
 # encoding: utf-8
 
 import re
-import requests
 import time
 import calendar
+import requests
 
 from bs4 import BeautifulSoup
 from django.template.defaultfilters import slugify
