@@ -4,6 +4,7 @@ import re
 import time
 import calendar
 import requests
+import feedparser
 
 from bs4 import BeautifulSoup
 from django.template.defaultfilters import slugify
@@ -389,6 +390,29 @@ generic_meetup("les_mardis_de_l_agile", "Les-mardis-de-lagile-Bruxelles", backgr
 
 
 generic_meetup("mongodb_belgium", "MongoDB-Belgium", background_color="#3EA86F", text_color="white", tags=["mongodb", "database", "programming"], description="<p>The first countrywide MongoDB user group in Belgium. Meetups will be held every 3 months. Talk proposals can be sent to hannes@showpad.com.</p>")
+
+
+@event_source(background_color="indigo", text_color="white", url="https://npbx.wordpress.com/category/npbbxl/")
+def npbbxl():
+    '''
+    <p>A NetPoliticsBeerX (#nbpx) is an informal meetup of people involved or interested in the different fields of internet politics and activism (e.g. copyright, privacy, open data, net neutrality, …).</p>
+    <p>It all started in Berlin with the legendary #npbb and spread from there to Düsseldorf (<a href="http://twitter.com/sixtus/status/25290063331983360">#npbd</a>),&nbsp;Bruxelles (<a href="http://doodle.com/3ev9zcu87uts522m">#npbbxl</a>) and whoknowswhatsnext.</p>
+    '''
+    for event in feedparser.parse("https://npbx.wordpress.com/category/npbbxl/feed/").entries:
+        # before this date, the events doesn't respect the format
+        if parse(event["published"]).replace(tzinfo=None) < parse("28/02/15"):
+            continue
+
+        title, date, location = re.match("(.+) on (\d+/\d+/\d+ at \d+\.\d+ [ap]m), (.+)", event["title"]).groups()
+        date, time = map(parse, date.replace(".", "h").split(" at "))
+        date = date.replace(hour=time.hour).replace(minute=time.minute)
+
+        yield {
+            "title": title,
+            "url": event["link"],
+            "start": date,
+            "tags": ["politic", "netpolitic", "activism"],
+        }
 
 
 @event_source(background_color="DarkBlue", text_color="white", url="http://neutrinet.be")
