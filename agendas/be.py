@@ -33,6 +33,8 @@ def afpyro():
             'tags': ("python", "programming", "drink")
         }
 
+generic_meetup("belgium_python_meetup", "Belgium-Python-Meetup-aka-AperoPythonBe", background_color="#133F52", text_color="white", tags=("python", "programming", "drink"), description="Belgium Python Meetup aka AperoPythonBe")
+
 
 def agenda_du_libre_be_duplicate(event_query, detail):
     id = detail["url"].split("/")[-1].split("=")[-1]
