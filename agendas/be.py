@@ -30,7 +30,11 @@ def afpyro():
             'tags': ("python", "programming", "drink")
         }
 
-generic_meetup("belgium_python_meetup", "Belgium-Python-Meetup-aka-AperoPythonBe", background_color="#133F52", text_color="white", tags=("python", "programming", "drink"), description="Belgium Python Meetup aka AperoPythonBe")
+
+@event_source(background_color="#133F52", text_color="white", url="http://www.meetup.com/Belgium-Python-Meetup-aka-AperoPythonBe", predefined_tags=("python", "programming", "drink"))
+def belgium_python_meetup():
+    "<p>Belgium Python Meetup aka AperoPythonBe</p>"
+    return generic_meetup("Belgium-Python-Meetup-aka-AperoPythonBe")
 
 
 def agenda_du_libre_be_duplicate(event_query, detail):
