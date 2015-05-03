@@ -675,33 +675,19 @@ def source():
             yield {
                 'title': title,
                 'start': start_time,
-                'end': end_time, 
+                'end': end_time,
                 'url': "http://src.radiocampus.be/",
             }
         else:
             today += timedelta(days=1)
 
 
-@event_source(background_color="#82FEA9", text_color="#DC0000", url="https://www.hackerspace.lu/")
+@event_source(background_color="#82FEA9", text_color="#DC0000", url="https://www.level2.lu/", predefined_tags=["hackerspace"])
 def syn2cat():
-    "<p>L'agenda du Syn2Cat, hackerspace Luxembourgeois</p>"
-
-    data = Calendar.from_ical(requests.get("https://wiki.hackerspace.lu/wiki/Special:Ask/-5B-5BCategory:Event-5D-5D-20-5B-5BStartDate::%2B-5D-5D-20-5B-5BStartDate::-3E2014-2D06-2D30-5D-5D/-3FStartDate%3Dstart/-3FEndDate%3Dend/-3FHas-20location/-5B-5BCategory:Event-5D-5D-20-5B-5BStartDate::%2B-5D-5D-20-5B-5BStartDate::-3E2014-2D06-2D30-5D-5D/-3FStartDate%3Dstart/-3FEndDate%3Dend/-3FHas-20location/mainlabel%3D/limit%3D50/order%3DASC/sort%3DStartDate/format%3Dicalendar").content)
-
-    for event in data.walk()[1:]:
-        title = event["SUMMARY"].encode("Utf-8")
-
-        tags = ["hackerspace", "luxembourg"]
-        if "openmonday" in title.lower():
-            tags.append("meeting")
-
-        yield {
-            'title': title,
-            'start': event["DTSTART"].dt.replace(tzinfo=None) if isinstance(event["DTSTART"].dt, datetime) else event["DTSTART"].dt,
-            'end': event["DTEND"].dt.replace(tzinfo=None) if isinstance(event["DTEND"].dt, datetime) else event["DTEND"].dt,
-            'url': event["URL"],
-            'tags': tags
-        }
+    """
+    <p>L'agenda du Syn2Cat, hackerspace Luxembourgeois</p>
+    """
+    return generic_google_agenda("https://level2.lu/events/ical")
 
 
 @event_source(background_color="#333", text_color="white", url="http://www.timelab.org")
