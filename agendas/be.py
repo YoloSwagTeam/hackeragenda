@@ -549,6 +549,7 @@ def okno():
 def opengarage_duplicated(event_query, detail):
     events = [event for event in event_query.all() if not event.url.split("/")[-2].isdigit()]
     map(lambda x: x.delete(), events)
+    event_query.filter(url=detail["url"]).delete()
 
 
 def opengarage_meetings(event):
