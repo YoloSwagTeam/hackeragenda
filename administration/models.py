@@ -9,6 +9,8 @@ class Source(models.Model):
     border_color = models.CharField(max_length=255)
     text_color = models.CharField(max_length=255)
     agenda = models.CharField(max_length=255)
+    url = models.URLField()
+    description = models.TextField()
 
     users = models.ManyToManyField(User)
 
