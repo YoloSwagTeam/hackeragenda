@@ -224,7 +224,7 @@ def bxlug():
         end = parse(entry('meta', itemprop='endDate')[0]['content'][:-1])
         title = entry('span', itemprop='name')[0].text
         url = "http://www.bxlug.be/" + entry('a', itemprop='url')[0]['href']
-        location = entry.find("p", "location")("span")[1].text.split("Contact")[0].split(":", 1)[1].strip()
+        location = entry.find("p", "location")("span")[1].text.split("Contact")[0].split(":", 1)[1].strip() if entry.find("p", "location") else None
 
         yield {
             'title': title,

@@ -47,29 +47,29 @@ def april():
         }
 
 
-@event_source(background_color="#2C2C29", text_color="#89DD00", url="http://www.electrolab.fr")
-def electrolab():
-    '<p><a title="Electrolab" href="../" target="_blank">L’Electrolab</a> est un hacker space dans la zone industrielle de Nanterre. À quelques stations de RER du centre de Paris, Ce nouveau Fablab de la région parisienne est, comme son nom l’indique, dédié aux projets ayant une forte connotation électronique et / ou mécanique.</p>'
-
-    data = Calendar.from_ical(requests.get("http://calendar.electrolab.fr/davical/public.php/events/calendar/?ticket=zIRMty0J").content)
-
-    for event in data.walk()[4:]:
-        if "SUMMARY" not in event:
-            continue
-        title = str(event["SUMMARY"]).strip()
-        location = str(event["LOCATION"]) if "LOCATION" in event else ""
-        url = event["URL"] if "URL" in event else ""
-        start = datetime.combine(event["DTSTART"].dt, datetime.min.time()).replace(tzinfo=None)
-        end = datetime.combine(event["DTEND"].dt, datetime.min.time()).replace(tzinfo=None) if event.get("DTEND") else None
-
-        yield {
-            'title': title,
-            'location': location,
-            'url': url,
-            'start': start,
-            'end': end,
-            'tags': ('hackerspace',)
-        }
+# @event_source(background_color="#2C2C29", text_color="#89DD00", url="http://www.electrolab.fr")
+# def electrolab():
+#     '<p><a title="Electrolab" href="../" target="_blank">L’Electrolab</a> est un hacker space dans la zone industrielle de Nanterre. À quelques stations de RER du centre de Paris, Ce nouveau Fablab de la région parisienne est, comme son nom l’indique, dédié aux projets ayant une forte connotation électronique et / ou mécanique.</p>'
+# 
+#     data = Calendar.from_ical(requests.get("http://calendar.electrolab.fr/davical/public.php/events/calendar/?ticket=zIRMty0J").content)
+# 
+#     for event in data.walk()[4:]:
+#         if "SUMMARY" not in event:
+#             continue
+#         title = str(event["SUMMARY"]).strip()
+#         location = str(event["LOCATION"]) if "LOCATION" in event else ""
+#         url = event["URL"] if "URL" in event else ""
+#         start = datetime.combine(event["DTSTART"].dt, datetime.min.time()).replace(tzinfo=None)
+#         end = datetime.combine(event["DTEND"].dt, datetime.min.time()).replace(tzinfo=None) if event.get("DTEND") else None
+# 
+#         yield {
+#             'title': title,
+#             'location': location,
+#             'url': url,
+#             'start': start,
+#             'end': end,
+#             'tags': ('hackerspace',)
+#         }
 
 
 @event_source(background_color="white", text_color="#B92037", key=None, url="http://www.pingbase.net")
