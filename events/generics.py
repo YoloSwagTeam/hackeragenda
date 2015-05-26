@@ -73,6 +73,9 @@ def generic_meetup(meetup_name):
         if not isinstance(event, icalendarEvent):
             continue
 
+        if not event.get("URL", "").split("/")[-2].isdigit():
+            continue
+
         title = event.get("SUMMARY", None)
         start = event.get("DTSTART", None)
 
