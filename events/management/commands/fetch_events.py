@@ -124,6 +124,7 @@ def load_agenda(name):
     except Exception as err:
         print " === Error when loading fetchers for agenda", name
         traceback.print_exc()
+        print err
 
 
 def load_agendas():
