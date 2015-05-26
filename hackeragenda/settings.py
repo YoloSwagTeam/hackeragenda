@@ -118,6 +118,7 @@ PREDEFINED_FILTERS["all"] = {
 
 PREDEFINED_FILTERS["hackerspaces"] = {
     "source": [
+        "brixel",
         "bhackspace",
         "hsbxl",
         "incubhacker",
