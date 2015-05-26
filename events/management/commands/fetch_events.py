@@ -1,7 +1,6 @@
 # encoding: utf-8
 
 import sys
-import requests
 import traceback
 
 from datetime import datetime
@@ -11,7 +10,6 @@ from optparse import make_option
 from django.core.management.base import BaseCommand
 from django.db import transaction
 from events.models import Event
-from django.conf import settings
 
 from imp import load_source
 from os import listdir
