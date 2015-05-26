@@ -116,6 +116,7 @@ def event_source(background_color, text_color, url, agenda=None, key="url", desc
 
 CURRENT_AGENDA = None
 
+
 def load_agenda(name):
     global CURRENT_AGENDA
     CURRENT_AGENDA = name
