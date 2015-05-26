@@ -158,6 +158,11 @@ def blender_brussels():
         }
 
 
+@event_source(background_color="#3C6470", text_color="white", url="http://brixel.be", predefined_tags=["Hackerspace", "hasselt"], description="<p>Brixel HQ is located in Spalbeek near Hasselt and we organise events and meetings every Tuesday and the first and third Friday every month. Although we do not always have something planned, we try to be open as much as we can to stimulate the magic things that just might happen... Meetings start at around 19:00h localtime, but this can vary a bit. There is no fixed closing time. We welcome everybody, young or old, in our Brixel HQ. Come have a look, it's fun!</p>")
+def brixel():
+    return generic_meetup("Brixel-Hackerspace-Meetup-Spalbeek-Hasselt")
+
+
 @event_source(background_color="#415A6C", text_color="#CBE5F7", url="http://www.meetup.com/Brussels-Cassandra-Users", predefined_tags=["nosql", "jvm", "database", "bruxelles", "programming"], description="<p>Open to all those interested in Apache Cassandra, Big Data, Hadoop, Hive, Hector, NoSQL, Pig, and high scalability. Let's get together and share what we know!</p>")
 def brussels_cassandra_users():
     return generic_meetup("Brussels-Cassandra-Users")
