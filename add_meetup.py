@@ -6,8 +6,8 @@ from redbaron import RedBaron
 template = """
 @event_source(background_color="%(background_color)s", text_color="%(text_color)s", url="%(url)s", predefined_tags=[%(tags)s])
 def %(function_name)s():
-        \"\"\"%(description)s\"\"\"
-            return generic_meetup("%(meetup_name)s")
+    \"\"\"%(description)s\"\"\"
+    return generic_meetup("%(meetup_name)s")
 """.strip()
 
 target_url = "http://www.meetup.com/Apprendre-a-programmer-un-site-WEB-debutant/"
