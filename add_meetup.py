@@ -60,9 +60,7 @@ for i in red("def", recursive=False):
 
     before = i
 
-print i.name
-print
-print template % {
+i.insert_before(template % {
     "background_color": rgb_to_hex(background_color),
     "text_color": rgb_to_hex(text_color),
     "url": target_url,
@@ -70,4 +68,8 @@ print template % {
     "function_name": target,
     "description": description,
     "meetup_name": target_meetup_name,
-}
+})
+
+red.dumps()
+
+open("agendas/be.py", "w").write(red.dumps())
