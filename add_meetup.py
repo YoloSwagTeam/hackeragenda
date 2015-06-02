@@ -33,6 +33,7 @@ soup = BeautifulSoup(requests.get(target_url).content)
 
 description = soup.find("div", id="groupDesc")
 description = (" " * 4).join(map(lambda x: str(x), description.contents)) + (" " * 4)
+description = "\n".join(map(lambda x: x.rstrip(), description.split("\n")))
 
 target_meetup_name = target_url.split("/")[-2]
 target = target_url.split("/")[-2].lower().replace("-", "_")
