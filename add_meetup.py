@@ -1,3 +1,4 @@
+import sys
 import numpy
 import requests
 
@@ -27,7 +28,7 @@ def rgb_to_hex(rgb):
     return "#" + "".join(map(lambda x: hex(x)[2:], rgb))
 
 
-target_url = "http://www.meetup.com/Apprendre-a-programmer-un-site-WEB-debutant/"
+target_url = sys.argv[1]
 
 soup = BeautifulSoup(requests.get(target_url).content)
 
