@@ -1,6 +1,7 @@
 import sys
 import numpy
 import requests
+import colorsys
 
 from io import BytesIO
 
@@ -28,6 +29,10 @@ def rgb_to_hex(rgb):
     return "#" + "".join(map(lambda x: hex(x)[2:], rgb))
 
 
+def rgb_to_hsv(rgb):
+    return colorsys.rgb_to_hsv(*map(lambda x: x/255., rgb))
+
+
 target_url = sys.argv[1]
 
 soup = BeautifulSoup(requests.get(target_url).content)
@@ -39,7 +44,8 @@ description = "\n".join(map(lambda x: x.rstrip(), description.split("\n")))
 target_meetup_name = target_url.split("/")[-2]
 target = target_url.split("/")[-2].lower().replace("-", "_")
 
-logo_url = soup.find("img", "photo")["src"]
+logo_url = soup.find("img", "photo")["src"] if soup.find("img", "photo") else None
+print logo_url
 palette = extract_colors(Image.open(BytesIO(requests.get(logo_url).content)))
 colors = palette.colors
 
@@ -72,5 +78,8 @@ i.insert_before(template % {
 })
 
 red.dumps()
+
+print "background_color", rgb_to_hex(background_color)
+print "text_color", rgb_to_hex(text_color)
 
 open("agendas/be.py", "w").write(red.dumps())
