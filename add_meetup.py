@@ -1,4 +1,4 @@
-import sys
+import argh
 import numpy
 import requests
 import colorsys
@@ -33,53 +33,54 @@ def rgb_to_hsv(rgb):
     return colorsys.rgb_to_hsv(*map(lambda x: x/255., rgb))
 
 
-target_url = sys.argv[1]
+def main(meetup):
+    target_url = meetup
 
-soup = BeautifulSoup(requests.get(target_url).content)
+    soup = BeautifulSoup(requests.get(target_url).content)
 
-description = soup.find("div", id="groupDesc")
-description = (" " * 4).join(map(lambda x: str(x), description.contents)) + (" " * 4)
-description = "\n".join(map(lambda x: x.rstrip(), description.split("\n")))
+    description = soup.find("div", id="groupDesc")
+    description = (" " * 4).join(map(lambda x: str(x), description.contents)) + (" " * 4)
+    description = "\n".join(map(lambda x: x.rstrip(), description.split("\n")))
 
-target_meetup_name = target_url.split("/")[-2]
-target = target_url.split("/")[-2].lower().replace("-", "_")
+    target_meetup_name = target_url.split("/")[-2]
+    target = target_url.split("/")[-2].lower().replace("-", "_")
 
-logo_url = soup.find("img", "photo")["src"] if soup.find("img", "photo") else None
-print logo_url
-palette = extract_colors(Image.open(BytesIO(requests.get(logo_url).content)))
-colors = palette.colors
+    logo_url = soup.find("img", "photo")["src"] if soup.find("img", "photo") else None
+    palette = extract_colors(Image.open(BytesIO(requests.get(logo_url).content)))
+    colors = palette.colors
 
-background_color = colors[0].value
+    background_color = colors[0].value
 
-if len(colors) == 2:
-    text_color = colors[1].value
-else:
-    numpy.array(background_color)
-    text_color = max([(x.value, color_distance(numpy.array(background_color), numpy.array(x.value))) for x in colors[1:]], key=lambda x: x[1])[0]
+    if len(colors) == 2:
+        text_color = colors[1].value
+    else:
+        numpy.array(background_color)
+        text_color = max([(x.value, color_distance(numpy.array(background_color), numpy.array(x.value))) for x in colors[1:]], key=lambda x: x[1])[0]
 
-red = RedBaron(open("agendas/be.py", "r").read())
+    red = RedBaron(open("agendas/be.py", "r").read())
 
-before = red("def", recursive=False)[0]
+    before = red("def", recursive=False)[0]
 
-for i in red("def", recursive=False):
-    if target < i.name:
-        break
+    for i in red("def", recursive=False):
+        if target < i.name:
+            break
 
-    before = i
+        before = i
 
-i.insert_before(template % {
-    "background_color": rgb_to_hex(background_color),
-    "text_color": rgb_to_hex(text_color),
-    "url": target_url,
-    "tags": "",
-    "function_name": target,
-    "description": description,
-    "meetup_name": target_meetup_name,
-})
+    i.insert_before(template % {
+        "background_color": rgb_to_hex(background_color),
+        "text_color": rgb_to_hex(text_color),
+        "url": target_url,
+        "tags": "",
+        "function_name": target,
+        "description": description,
+        "meetup_name": target_meetup_name,
+    })
 
-red.dumps()
+    red.dumps()
 
-print "background_color", rgb_to_hex(background_color)
-print "text_color", rgb_to_hex(text_color)
+    open("agendas/be.py", "w").write(red.dumps())
 
-open("agendas/be.py", "w").write(red.dumps())
+
+if __name__ == '__main__':
+    argh.dispatch_command(main)
