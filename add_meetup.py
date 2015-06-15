@@ -1,3 +1,4 @@
+import re
 import argh
 import numpy
 import requests
@@ -44,6 +45,9 @@ def main(meetup):
 
     target_meetup_name = target_url.split("/")[-2]
     target = target_url.split("/")[-2].lower().replace("-", "_")
+
+    if re.match("^\d", target):
+        target = "_" + target
 
     logo_url = soup.find("img", "photo")["src"] if soup.find("img", "photo") else None
     palette = extract_colors(Image.open(BytesIO(requests.get(logo_url).content)))
