@@ -286,17 +286,22 @@ def daemons_shell_scripts():
         print "ERROR: no OOOOO_CREDENTIALS in settings, disabling daemons_shell_scripts"
         return
 
-    data = Calendar.from_ical(requests.get("http://%s@ooooo.be/cloud/remote.php/caldav/calendars/hackeragenda/hackeragenda_shared_by_ooooo/owncloud-e286006e2e3aa34d746c9acc76082dc4.ics" % settings.OOOOO_CREDENTIALS).content)
+    root = "http://%s@ooooo.be" % settings.OOOOO_CREDENTIALS
 
-    for event in data.walk()[1:]:
-        yield {
-            'title': event["SUMMARY"].encode("Utf-8"),
-            'url': "http://www.ooooo.be/daemonsshellscripts/",
-            'start': event["DTSTART"].dt.replace(tzinfo=None),
-            'end': event["DTEND"].dt.replace(tzinfo=None),
-            'location': event["LOCATION"].encode("Utf-8"),
-            'tags': (slugify(event["LOCATION"].encode("Utf-8")), 'libre') + tuple(event["CATEGORIES"].split(", "))
-        }
+    soup = BeautifulSoup(requests.get(root + "/cloud/remote.php/caldav/calendars/hackeragenda/hackeragenda_shared_by_ooooo").content)
+    for ics in set([x["href"] for x in soup("a") if x["href"].endswith(".ics")]):
+
+        data = Calendar.from_ical(requests.get(root + ics).content)
+
+        for event in data.walk()[1:]:
+            yield {
+                'title': event["SUMMARY"].encode("Utf-8"),
+                'url': "http://www.ooooo.be/daemonsshellscripts/",
+                'start': event["DTSTART"].dt.replace(tzinfo=None),
+                'end': event["DTEND"].dt.replace(tzinfo=None),
+                'location': event["LOCATION"].encode("Utf-8"),
+                'tags': (slugify(event["LOCATION"].encode("Utf-8")), 'libre') + tuple(event["CATEGORIES"].split(", "))
+            }
 
 
 @event_source(background_color="#008FC4", text_color="white", url="http://www.meetup.com/Docker-Belgium", predefined_tags=["docker", "lxc", "sysadmin", "devops"], description='<p>Meet other developers and ops engineers using Docker.&nbsp;Docker is an open platform for developers and sysadmins to build, ship, and run distributed applications. Consisting of Docker Engine, a portable, lightweight runtime and packaging tool, and Docker Hub, a cloud service for sharing applications and automating workflows, Docker enables apps to be quickly assembled from components and eliminates the friction between development, QA, and production environments. As a result, IT can ship faster and run the same app, unchanged, on laptops, data center VMs, and any cloud.</p><p>Learn more about Docker at&nbsp;<a href="http://www.docker.com/">http://www.docker.com</a></p>')
