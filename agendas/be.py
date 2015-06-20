@@ -752,6 +752,14 @@ def source():
             today += timedelta(days=1)
 
 
+@event_source(background_color="#333333", text_color="#ffffff", url="http://www.meetup.com/Symfony-User-Group-Belgium/", predefined_tags=['code', 'php', 'symfony'])
+def symfony_user_group_belgium():
+    """
+    <p>The Symfony User Group in Belgium, for Belgians, by Belgians. We speak about everything related to Symfony.</p>
+"""
+    return generic_meetup("Symfony-User-Group-Belgium")
+
+
 @event_source(background_color="#82FEA9", text_color="#DC0000", url="https://www.level2.lu/", predefined_tags=["hackerspace"])
 def syn2cat():
     """
