@@ -66,13 +66,9 @@ def main(meetup):
 
     red = RedBaron(open("agendas/be.py", "r").read())
 
-    before = red("def", recursive=False)[0]
-
     for i in red("def", recursive=False):
         if target < i.name:
             break
-
-        before = i
 
     i.insert_before(template % {
         "background_color": rgb_to_hex(background_color),
