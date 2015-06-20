@@ -482,6 +482,15 @@ def incubhacker():
         }
 
 
+@event_source(background_color="#CE112C", text_color="#ffffff", url="http://www.meetup.com/iot_be/", predefined_tags=['code', 'iot'])
+def iot_be():
+    """
+    <p><span>This meetup is dedicated to the design practices, technologies, insights and opportunities around the next frontier information access - the Internet of Things (IoT). We want to cross-pollinate ideas from engineers, designers, researchers, data scientists and entrepreneurs to create meaningful and tangible solutions that will make information access more human, ubiquitous and commercially viable.</span></p>
+    <p><span>Follow us on Twitter: @iot_be (#iot_be)</span></p>
+"""
+    return generic_meetup("iot_be")
+
+
 @event_source(background_color="#579FAB", text_color="black", url="http://www.meetup.com/Jeudis-du-Libre-Mons", predefined_tags=["mons-hainaut", "libre"], description="<p>La création des Jeudis du Libre est l’initiative de jeunes administrateurs systèmes désireux de communiquer sur Les Logiciels Libres. Tout les troisièmes jeudis du mois, un programme issu du travail de développeurs à travers le monde, est présenté aux administrateurs systèmes, aux amateurs d’informatique, aux professeurs ou encore aux simples curieux.</p>")
 def jeudi_du_libre_mons():
     return generic_meetup("Jeudis-du-Libre-Mons")
