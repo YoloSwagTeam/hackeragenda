@@ -390,6 +390,14 @@ def ember_js_brussels():
     return generic_meetup("Ember-js-Brussels")
 
 
+@event_source(background_color="#f2798e", text_color="#000000", url="http://www.meetup.com/FabLabBornem/", predefined_tags=['fablab', 'bornem'])
+def fablab_bornem():
+    """
+    <p>Wij willen een FabLab oprichten in Bornem en we hebben al een naam: FabLab Bornem :-) In een FabLab kan je zelf iets maken, dankzij 3D printers, lasercutters, electronica, sensoren, robots, ... Wat hebben we nodig: (A) een locatie (in een school, in een bedrijf, ...) om het FabLab in te richten (B) enthousiaste vrijwilligers om mee aan de kar te trekken tijdens opstart en nadien begeleiders voor tijdens de openingsuren van het FabLab (bijv. woensdagnamiddag, vrijdagavond) (C) sponsors voor aankoop hardware en software.</p>
+"""
+    return generic_meetup("FabLabBornem")
+
+
 @event_source(background_color="#C9C4BF", text_color="black", key=None, url="http://fo.am")
 def foam():
     """
