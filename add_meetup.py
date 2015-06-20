@@ -39,7 +39,7 @@ def hsv_to_rgb(h, s, v):
     return map(lambda x: int(x * 255), colorsys.hsv_to_rgb(h, s, v))
 
 
-def main(meetup, tc=(255, 255, 255), bg=None):
+def main(meetup, tc=(255, 255, 255), bg=None, *tags):
     target_url = meetup
 
     soup = BeautifulSoup(requests.get(target_url).content)
@@ -85,7 +85,7 @@ def main(meetup, tc=(255, 255, 255), bg=None):
         "background_color": rgb_to_hex(background_color) if not (isinstance(background_color, basestring) and background_color.startswith("#")) else background_color,
         "text_color": rgb_to_hex(text_color) if not (isinstance(text_color, basestring) and text_color.startswith("#")) else text_color,
         "url": target_url,
-        "tags": "",
+        "tags": ", ".join(map(repr, tags)),
         "function_name": target,
         "description": description,
         "meetup_name": target_meetup_name,
