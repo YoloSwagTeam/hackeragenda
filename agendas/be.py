@@ -543,6 +543,25 @@ def incubhacker():
         }
 
 
+@event_source(background_color="#79f2e1", text_color="#000000", url="http://www.meetup.com/Internet-of-Things-Ghent/", predefined_tags=['code', 'iot', 'ghent'])
+def internet_of_things_ghent():
+    """
+    <p><i>Co-organizer: Johan Thys (I-minds).</i></p>
+    <p><span>This group wants to flush out Internet of Things projects in Ghent, Antwerp, Leuven and Brussels in order to create synergies and interoperability of levels of infrastructure. It also wants to bring in endusers into this process. It is aligned with the FP 7 Project Sociotal.eu that is aiming at building an ecosystem of citizen centric services. Its pilot cities are Novi Sad and (Smart) Santander.</span> <br> </br></p>
+    <p><span>There are four main groups of stakeholders in the Sociotal.eu project that we want to reach:</span> <br> </br></p>
+    <p><span><b>a technical ecology</b> of Ipv6, RFID, Sensors, QR codes, barcodes, preferably open source hardware and software and interoperability as a key issue so as to get an internet, not intranets of things</span> <br> </br></p>
+    <p><b>a create eco-system</b>: local academia, corporate business and SME, makers and geeks, hackers, designers and artists, local, national and regional policy makers</p>
+    <p><b>developer communites</b> able to build services and pull more citizens into the eco-system through attractive services</p>
+    <p><b>citizens that co-create.</b></p>
+    <p>We want to investigate with each of them: the main <b>barriers to adoption</b> of IoT devices and tools, the main <b>enablers of uptake</b> of IoT devices &amp; tools and i<b>ncentive mechanisms</b> to facilitate and accelerate the uptake. Within each of these groups we want to investigate how IoT can facilitate and assist the categories of collaboration by Ezio Manzini: “As citizens’ active involvement is the necessary precondition of possible success, therefore, to take in account why and how people collaborate is a fundamental component: collaborative economies, collaborative services, collaborative consumption, collaborative innovation spaces, collaborative events are very diverse initiatives, with a common denominator: they all ask for collaboration. We can recognize these typologies:</p>
+    <p><b>Vertical collaboration </b>(individual citizens collaborating with solution promoters). Example: Fix my street.</p>
+    <p><b>Vertical and horizontal collaboration</b> (individual citizens collaborating with solution promoters and then, collaborating among them in a p2p way). Example: Carpooling.</p>
+    <p><b>Horizontal collaboration</b> (p-2-p collaboration among citizens). Example: Circle of care and Collaborative housing).</p>
+    <p><a href="http://sociotal.eu">Sociotal.eu</a> wants to create cohesion in all three groups, study the types of collaboration within each group and create links and bridges between the three groups in order to create a network effect.</p>
+"""
+    return generic_meetup("Internet-of-Things-Ghent")
+
+
 @event_source(background_color="#CE112C", text_color="#ffffff", url="http://www.meetup.com/iot_be/", predefined_tags=['code', 'iot'])
 def iot_be():
     """
