@@ -890,6 +890,14 @@ def voidwarranties():
         }
 
 
+@event_source(background_color="#7ef279", text_color="#000000", url="http://www.meetup.com/wajug-be/", predefined_tags=['code'])
+def wajug_be():
+    """
+    <p>WAJUG est votre groupe d'utilisateurs local, Wallon, abordant "tout ce qui touche au développement logiciel". Tout ceci dans une ambiance fun, amicale, ouverte et typiquement wallonne.</p>
+"""
+    return generic_meetup("wajug-be")
+
+
 @event_source(background_color="#F99232", text_color="white", url="http://www.meetup.com/WebRTC-crossingborders", predefined_tags=["programming", "webrtc", "webdev"])
 def webrtc():
     """
