@@ -1,6 +1,7 @@
 import os
 import re
 import argh
+import random
 import requests
 import colorsys
 
@@ -56,10 +57,14 @@ def main(meetup, tc=(255, 255, 255), bg=None):
     logo_url = soup.find("img", "photo")["src"] if soup.find("img", "photo") else None
 
     if bg == None:
-        palette = extract_colors(Image.open(BytesIO(requests.get(logo_url).content)))
+        if logo_url:
+            palette = extract_colors(Image.open(BytesIO(requests.get(logo_url).content)))
 
-        colors = palette.colors
-        background_color = colors[0].value
+            colors = palette.colors
+            background_color = colors[0].value
+        else:
+            h = (random.randint(1, 100) * 0.618033988749895) % 1
+            background_color = hsv_to_rgb(h, .5, .95)
 
         h, s, v = rgb_to_hsv(background_color)
     else:
