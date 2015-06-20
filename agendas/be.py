@@ -675,6 +675,14 @@ def phpbenelux():
     return generic_meetup("phpbenelux")
 
 
+@event_source(background_color="#0082B1", text_color="#ffffff", url="http://www.meetup.com/RBelgium/", predefined_tags=['code', 'r', 'data'])
+def r_belgium():
+    """
+    <p>R community in Belgium. Events, news are here !</p>
+"""
+    return generic_meetup("RBelgium")
+
+
 @event_source(background_color="#36c0cb", text_color="black", url="http://realizebxl.be/", predefined_tags=["makerspace", "bruxelles"])
 def realize():
     """
