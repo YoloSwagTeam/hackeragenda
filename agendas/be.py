@@ -785,7 +785,7 @@ def php_wvl():
     return generic_meetup("php-wvl")
 
 
-@event_source(background_color="#c0024", text_color="#ffffff", url="http://www.meetup.com/fr/phpantwerp/", predefined_tags=['code', 'php'])
+@event_source(background_color="#0c0024", text_color="#ffffff", url="http://www.meetup.com/fr/phpantwerp/", predefined_tags=['code', 'php'])
 def php_antwerp():
     """
     <p>We just started this meetup group. We don't have a regular schedule but we try to organise a meetup now and then. Want to organise a meetup in Antwerp but don't know how/where to start? Contact us and we'll help you out!</p>
