@@ -62,6 +62,7 @@ def main(meetup, tc=(255, 255, 255), bg=None, *tags):
 
             colors = palette.colors
             background_color = colors[0].value
+            text_color = tc
         else:
             h = (random.randint(1, 100) * 0.618033988749895) % 1
             background_color = hsv_to_rgb(h, .5, .95)
