@@ -1018,6 +1018,14 @@ def wajug_be():
     return generic_meetup("wajug-be")
 
 
+@event_source(background_color="#79a2f2", text_color="#000000", url="http://www.meetup.com/web-and-mobile-development-wvl/", predefined_tags=['code', 'web', 'mobile'])
+def web_and_mobile_development_wvl():
+    """
+    <p>A web and mobile development Usergroup for all devs based in West-Vlaanderen.</p>
+"""
+    return generic_meetup("web-and-mobile-development-wvl")
+
+
 @event_source(background_color="#F99232", text_color="white", url="http://www.meetup.com/WebRTC-crossingborders", predefined_tags=["programming", "webrtc", "webdev"])
 def webrtc():
     """
