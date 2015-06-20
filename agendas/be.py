@@ -378,6 +378,14 @@ def foam():
         }
 
 
+@event_source(background_color="#A53B5B", text_color="#ffffff", url="http://www.meetup.com/GirlsCodeEU/", predefined_tags=[])
+def girls_code_eu():
+    """
+    <p>Girls Code Europe is a stakeholder group with the mission of promoting digitally skilled girls of all ages across Europe. “Girls Code Europe” is an open initiative of the Digital Leadership Institute, Belgian Contact Point for the European Centre for Women and Technology, with the purpose of bringing individuals and organisations together to increase participation of girls and women in digital studies and careers.</p>
+"""
+    return generic_meetup("GirlsCodeEU")
+
+
 @event_source(background_color="coral", text_color="white", key=None, url="https://hackerspace.be")
 def hsbxl():
     '''
