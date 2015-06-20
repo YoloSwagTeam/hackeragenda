@@ -1,6 +1,5 @@
 import re
 import argh
-import numpy
 import requests
 import colorsys
 
@@ -55,11 +54,6 @@ def main(meetup):
 
     background_color = colors[0].value
 
-    if len(colors) == 2:
-        text_color = colors[1].value
-    else:
-        numpy.array(background_color)
-        text_color = max([(x.value, color_distance(numpy.array(background_color), numpy.array(x.value))) for x in colors[1:]], key=lambda x: x[1])[0]
 
     red = RedBaron(open("agendas/be.py", "r").read())
 
