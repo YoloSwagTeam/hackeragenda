@@ -317,6 +317,16 @@ def daemons_shell_scripts():
             }
 
 
+@event_source(background_color="#0095CB", text_color="#ffffff", url="http://www.meetup.com/dddbelgium/", predefined_tags=['code', 'ddd'])
+def ddd_belgium():
+    """
+    <p>We are a group of software developers, ranging from noobs to veterans, who meet up regularly at different places in Belgium. We aim to spread the ideas of Domain-Driven Design, and become better Software Craftsmen, by teaching and learning. We are technology-agnostic. We are open, self-organized, and inclusive. Everybody is invited to join and participate!</p>
+    <p> <br/></p>
+    <p><a href="mailto:mathias@verraes.net">Contact us</a> if you want to sponsor us or speak at a meetup.</p>
+"""
+    return generic_meetup("dddbelgium")
+
+
 @event_source(background_color="#008FC4", text_color="white", url="http://www.meetup.com/Docker-Belgium", predefined_tags=["docker", "lxc", "sysadmin", "devops"], description='<p>Meet other developers and ops engineers using Docker.&nbsp;Docker is an open platform for developers and sysadmins to build, ship, and run distributed applications. Consisting of Docker Engine, a portable, lightweight runtime and packaging tool, and Docker Hub, a cloud service for sharing applications and automating workflows, Docker enables apps to be quickly assembled from components and eliminates the friction between development, QA, and production environments. As a result, IT can ship faster and run the same app, unchanged, on laptops, data center VMs, and any cloud.</p><p>Learn more about Docker at&nbsp;<a href="http://www.docker.com/">http://www.docker.com</a></p>')
 def docker_belgium():
     return generic_meetup("Docker-Belgium")
