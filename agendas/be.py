@@ -697,6 +697,14 @@ def owaspbe():
     return generic_eventbrite("owasp-belgium-chapter-1865700117")
 
 
+@event_source(background_color="#757AB2", text_color="#ffffff", url="http://www.meetup.com/php-wvl/", predefined_tags=['code', 'php'])
+def php_wvl():
+    """
+    <p>A PHP Usergroup for all PHP devs based in West-Vlaanderen.</p>
+"""
+    return generic_meetup("php-wvl")
+
+
 @event_source(background_color="#015074", text_color="white", url="http://www.meetup.com/phpbenelux", predefined_tags=["php", "programming", "webdev"])
 def phpbenelux():
     """<p>PHPBenelux user group meetings are a fun way to learn about best practices and new innovations from the world of PHP and to hang out with other PHP developers</p>"""
