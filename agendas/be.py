@@ -33,6 +33,25 @@ def afpyro():
         }
 
 
+@event_source(background_color="#61B132", text_color="#ffffff", url="http://www.meetup.com/BeClojure/", predefined_tags=['code', 'clojure', 'jvm', 'lisp', 'concurency'])
+def be_clojure():
+    """
+    <p>Do you love Lisp? Are you a Functional Programmer already using other languages and curious about Clojure? Are you already using Clojure? Do you want to talk about Clojure with fellow developers in Belgium? Join us!</p>
+    <p><a href="http://beclojure.org">http://beclojure.org</a> <br/></p>
+    <p><b>Who should join?</b></p>
+    <p>This group is open to anyone interested in Functional Programming. Of course we are more focused in Clojure and how this language approaches FP, but we are not closes to learn from other languages. Actually one of the things that defines Clojure is that it's flexible and open enough to embrace different techniques or approaches that were originally from others. I highly recommend you to watch this presentation from Bodil Stokke about the past and the future of Clojure to understand better not only the technology but also the philosophy of this nice community: <a href="https://skillsmatter.com/skillscasts/6069-the-future-of-clojure">https://skillsmatter.com/skillscasts/6069-the-future-of-clojure</a></p>
+    <p><b>What is this Meetup's purpose?  </b> <br/></p>
+    <p>The purpose of this Meetup is to share knowledge between Clojure developers and to offer an easy entry point into this language for those who are new. </p>
+    <p> <b>Communication Channels</b></p>
+    <blockquote>
+<p>Twitter: <a href="http://twitter.com/beclojure">@BeClojure</a></p>
+<p>Website:<b> <a href="http://beclojure.org">www.beclojure.org</a></b> <br/></p>
+</blockquote>
+    <p> <br/></p>
+"""
+    return generic_meetup("BeClojure")
+
+
 @event_source(background_color="#F99232", text_color="#ffffff", url="http://www.meetup.com/Belgian-Java-User-Group/", predefined_tags=['code', 'java'])
 def belgian_java_user_group():
     """
