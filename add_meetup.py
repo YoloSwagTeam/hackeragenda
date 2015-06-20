@@ -33,6 +33,10 @@ def rgb_to_hsv(rgb):
     return colorsys.rgb_to_hsv(*map(lambda x: x/255., rgb))
 
 
+def hsv_to_rgb(h, s, v):
+    return map(lambda x: int(x * 255), colorsys.hsv_to_rgb(h, s, v))
+
+
 def main(meetup):
     target_url = meetup
 
