@@ -87,5 +87,6 @@ def main(meetup):
 
     os.system("python manage.py fetch_events %s" % target)
 
+
 if __name__ == '__main__':
     argh.dispatch_command(main)

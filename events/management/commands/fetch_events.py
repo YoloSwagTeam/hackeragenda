@@ -21,6 +21,7 @@ sys.setdefaultencoding("utf-8")
 SOURCES_FUNCTIONS = OrderedDict()
 SOURCES_OPTIONS = {}
 
+
 class Command(BaseCommand):
     option_list = BaseCommand.option_list + (
         make_option('--quiet',
