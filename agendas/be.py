@@ -33,6 +33,15 @@ def afpyro():
         }
 
 
+@event_source(background_color="#F99232", text_color="#ffffff", url="http://www.meetup.com/Belgian-Java-User-Group/", predefined_tags=['code', 'java'])
+def belgian_java_user_group():
+    """
+    <p>The primary focus of The Belgium Java User Group (founded in 1997) is to inform our members about the Java ecosystem. We regularly (approximately every 6 weeks) organise sessions to socialize, learn and inspire.</p>
+    <p><span>Interested to contribute and participate in our vibrant and independent Java community here in Belgium? Our meetings are now free to attend, i.e. a paying membership is no longer required!</span></p>
+"""
+    return generic_meetup("Belgian-Java-User-Group")
+
+
 @event_source(background_color="#ef4531", text_color="#ffffff", url="http://www.meetup.com/Belgian-Software-Craftsmanship-Guild/", predefined_tags=["code", "craftsmanship", "agile"])
 def belgian_software_craftsmanship_guild():
     """
