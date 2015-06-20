@@ -1,3 +1,4 @@
+import os
 import re
 import argh
 import requests
@@ -84,6 +85,7 @@ def main(meetup):
 
     open("agendas/be.py", "w").write(red.dumps())
 
+    os.system("python manage.py fetch_events %s" % target)
 
 if __name__ == '__main__':
     argh.dispatch_command(main)
