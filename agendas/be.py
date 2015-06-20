@@ -153,6 +153,14 @@ def belgian_ruby_user_group():
     return generic_meetup("brug__")
 
 
+@event_source(background_color="#f2d379", text_color="#000000", url="http://www.meetup.com/Belgium-Tableau-Software-Data-Analytics-User-Group-Meetup/", predefined_tags=['code', 'data'])
+def belgium_tableau_software_data_analytics_user_group_meetup():
+    """
+    <p>For people with a passion for exploring, using data analytics. Explorers may be interested sport, health, journalism, science, engineering, politics, government, finance, economics, art, or history, to name but a few. Meetings are mainly conducted in English with a little French and Dutch thrown in.</p>
+"""
+    return generic_meetup("Belgium-Tableau-Software-Data-Analytics-User-Group-Meetup")
+
+
 @event_source(background_color="#FEE63C", text_color="#000000", url="http://www.meetup.com/brug__", predefined_tags=["java", "scala", "jvm", "programming"], description="<p>The Belgian Scala User Group.</p>")
 def bescala():
     return generic_meetup("BeScala")
