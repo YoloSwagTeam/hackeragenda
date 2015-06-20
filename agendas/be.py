@@ -33,6 +33,14 @@ def afpyro():
         }
 
 
+@event_source(background_color="#3EA86F", text_color="#ffffff", url="http://www.meetup.com/API-Craftsmanship/", predefined_tags=['code', 'craftsmanship', 'api'])
+def api_craftsmanship():
+    """
+    <p>Our objective is to provide API enthusiasts, people who are thinking about, interested in, or actively developing APIs, a space to get together, share ideas, trends, and discuss techniques and technologies. Please come and join us, learn from each other, and have a little fun.</p>
+"""
+    return generic_meetup("API-Craftsmanship")
+
+
 @event_source(background_color="#61B132", text_color="#ffffff", url="http://www.meetup.com/BeClojure/", predefined_tags=['code', 'clojure', 'jvm', 'lisp', 'concurency'])
 def be_clojure():
     """
