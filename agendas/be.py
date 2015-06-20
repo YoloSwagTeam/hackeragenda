@@ -327,6 +327,15 @@ def ddd_belgium():
     return generic_meetup("dddbelgium")
 
 
+@event_source(background_color="#7B6DB0", text_color="#ffffff", url="http://www.meetup.com/devspace-elixir-study-group/", predefined_tags=['code', 'elixir', 'concurency'])
+def devspace_elixir_study_group():
+    """
+    <p>We just get together and learn ourselves some Elixir for greater good.</p>
+    <p>Follow us on Twitter <a href="https://twitter.com/elixir_be">@elixir_be</a>.</p>
+"""
+    return generic_meetup("devspace-elixir-study-group")
+
+
 @event_source(background_color="#008FC4", text_color="white", url="http://www.meetup.com/Docker-Belgium", predefined_tags=["docker", "lxc", "sysadmin", "devops"], description='<p>Meet other developers and ops engineers using Docker.&nbsp;Docker is an open platform for developers and sysadmins to build, ship, and run distributed applications. Consisting of Docker Engine, a portable, lightweight runtime and packaging tool, and Docker Hub, a cloud service for sharing applications and automating workflows, Docker enables apps to be quickly assembled from components and eliminates the friction between development, QA, and production environments. As a result, IT can ship faster and run the same app, unchanged, on laptops, data center VMs, and any cloud.</p><p>Learn more about Docker at&nbsp;<a href="http://www.docker.com/">http://www.docker.com</a></p>')
 def docker_belgium():
     return generic_meetup("Docker-Belgium")
