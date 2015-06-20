@@ -473,6 +473,14 @@ def laravel_brussels():
     return generic_meetup("Laravel-Brussels")
 
 
+@event_source(background_color="#C9342C", text_color="#ffffff", url="http://www.meetup.com/Le-Wagon-Brussels-Coding-Station/", predefined_tags=["code", "education"])
+def le_wagon_brussels_coding_station():
+    """
+    <p>Our program is designed for complete beginners or "half-beginners" who really want to dive into programming and, above all, change their mindset. Learn to think like a developer, consider issues with new insight, and become more creative thanks to these newly acquired abilities. Our unique goal is to facilitate becoming an outstanding entrepreneur who is able to code his/her own projects and to deeply understand technical issues. <br> <br> In preparation for <a href="http://www.lewagon.org/brussels">the full bootcamp</a> that starts in January 2015, we'll be giving free front-end training sessions. Come &amp; learn HTML, CSS and JavaScript with us!</br></br></p>
+"""
+    return generic_meetup("Le-Wagon-Brussels-Coding-Station")
+
+
 @event_source(background_color="#37C2F1", text_color="black", url="http://www.meetup.com/Les-mardis-de-lagile-Bruxelles", predefined_tags=["bruxelles", "agile", "programming", "drink"], description="<p>Appel à la communauté agile de Bruxelles ! Que vous soyez un fervent agiliste ou tout simplement intéressé par l'agilité, venez découvrir de nouvelles approches, vous enrichir à travers les nombreuses sessions proposées, participer à des innovation games et partager vos retours d'expérience lors de nos meetups \"Les Mardis de l'agile\" !</p>")
 def les_mardis_de_l_agile():
     return generic_meetup("Les-mardis-de-lagile-Bruxelles")
