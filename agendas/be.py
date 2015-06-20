@@ -32,8 +32,7 @@ def afpyro():
         }
 
 
-
-@event_source(background_color="#9682a2", text_color="#201d21", url="http://www.meetup.com/Belgian-Software-Craftsmanship-Guild/", predefined_tags=[])
+@event_source(background_color="#ef4531", text_color="#ffffff", url="http://www.meetup.com/Belgian-Software-Craftsmanship-Guild/", predefined_tags=[])
 def belgian_software_craftsmanship_guild():
     """
     <p>This community is a breeding ground for lots of cool events involving software engineering. It is open to all people who are passionate about development and strongly believe in mastering the craft of software. Your experience level can be that of a level 1 front end ninja to that of a level 80 embedded software magician. Everybody who believes their craft is something to be proud of and something worth mastering and sharing is welcome to join our ranks.</p>
