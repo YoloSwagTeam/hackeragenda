@@ -841,6 +841,30 @@ def source():
             today += timedelta(days=1)
 
 
+@event_source(background_color="#aa79f2", text_color="#000000", url="http://www.meetup.com/StreamProcessing-be/", predefined_tags=['code', 'stream_processing'])
+def streamprocessing_be():
+    """
+    <p>A Belgium based Meetup about Stream Processing (where all data is treated as a continuous stream of (immutable) Facts, Events, Updates).</p>
+    <p>Looking at:</p>
+    <p>• Kafka + Samza</p>
+    <p>• Google Cloud dataFlow</p>
+    <p>• AWS Kinesis <br/></p>
+    <p>• Azure Stream Analytics <br/></p>
+    <p>• Apache Flink <br/></p>
+    <p>• Apache Storm</p>
+    <p>• Akka Streams</p>
+    <p>• Spark Streaming</p>
+    <p>• Flume</p>
+    <p>• AMQP (e.g. RabbitMQ)</p>
+    <p>• Complex Event Processing (CEP)</p>
+    <p>• Event Sourcing and CQRS (e.g. AxonFramework) <br/></p>
+    <p>A good introduction is this recent article on O'Reilly:</p>
+    <p> <a class="linkified" href="http://radar.oreilly.com/2015/04/a-real-time-processing-revival.html">http://radar.oreilly.com/2015/04/a-real-tim...</a> </p>
+    <p>Join this group to meet peers and to hear about and play hands-on with the different technologies.</p>
+"""
+    return generic_meetup("StreamProcessing-be")
+
+
 @event_source(background_color="#333333", text_color="#ffffff", url="http://www.meetup.com/Symfony-User-Group-Belgium/", predefined_tags=['code', 'php', 'symfony'])
 def symfony_user_group_belgium():
     """
