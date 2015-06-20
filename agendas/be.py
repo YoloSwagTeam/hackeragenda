@@ -749,6 +749,14 @@ def opengarage():
     return generic_meetup("OpenGarage")
 
 
+@event_source(background_color="#7B6DB0", text_color="#ffffff", url="http://www.meetup.com/OpenStreetMap-Belgium/", predefined_tags=['osm', 'carto'])
+def openstreetmap_belgium():
+    """
+    <p>This group is all about OpenStreetMap, the best and most popular webmapping project out there! Meet other OpenStreetMappers in these meetups and learn how to contribute to or use OpenStreetMap.</p>
+"""
+    return generic_meetup("OpenStreetMap-Belgium")
+
+
 @event_source(background_color="#3987CB", text_color="white", url="http://www.opentechschool.org", predefined_tags=["learning", "programming", "bruxelles"])
 def opentechschool():
     '''
