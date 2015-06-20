@@ -65,13 +65,13 @@ def main(meetup, tc=(255, 255, 255), bg=None, *tags):
         else:
             h = (random.randint(1, 100) * 0.618033988749895) % 1
             background_color = hsv_to_rgb(h, .5, .95)
+            text_color = "#000000"
 
         h, s, v = rgb_to_hsv(background_color)
     else:
         background_color = bg
 
-    # text_color = hsv_to_rgb((h + 0.5555555555555) % 1, s, (v * 0.6) if (v * 0.6) < 1 else 1)
-    text_color = tc
+        text_color = tc
 
     # background_color = map(lambda x: (x + 255)/2, background_color)
 
