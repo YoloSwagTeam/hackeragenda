@@ -38,7 +38,7 @@ def hsv_to_rgb(h, s, v):
     return map(lambda x: int(x * 255), colorsys.hsv_to_rgb(h, s, v))
 
 
-def main(meetup):
+def main(meetup, tc=(255, 255, 255), bg=None):
     target_url = meetup
 
     soup = BeautifulSoup(requests.get(target_url).content)
@@ -54,14 +54,19 @@ def main(meetup):
         target = "_" + target
 
     logo_url = soup.find("img", "photo")["src"] if soup.find("img", "photo") else None
-    palette = extract_colors(Image.open(BytesIO(requests.get(logo_url).content)))
-    colors = palette.colors
 
-    background_color = colors[0].value
+    if bg == None:
+        palette = extract_colors(Image.open(BytesIO(requests.get(logo_url).content)))
 
-    h, s, v = rgb_to_hsv(background_color)
+        colors = palette.colors
+        background_color = colors[0].value
+
+        h, s, v = rgb_to_hsv(background_color)
+    else:
+        background_color = bg
+
     # text_color = hsv_to_rgb((h + 0.5555555555555) % 1, s, (v * 0.6) if (v * 0.6) < 1 else 1)
-    text_color = (255, 255, 255)
+    text_color = tc
 
     # background_color = map(lambda x: (x + 255)/2, background_color)
 
@@ -72,8 +77,8 @@ def main(meetup):
             break
 
     i.insert_before(template % {
-        "background_color": rgb_to_hex(background_color),
-        "text_color": rgb_to_hex(text_color),
+        "background_color": rgb_to_hex(background_color) if not (isinstance(background_color, basestring) and background_color.startswith("#")) else background_color,
+        "text_color": rgb_to_hex(text_color) if not (isinstance(text_color, basestring) and text_color.startswith("#")) else text_color,
         "url": target_url,
         "tags": "",
         "function_name": target,
