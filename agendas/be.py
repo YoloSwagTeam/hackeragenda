@@ -433,6 +433,14 @@ def girls_code_eu():
     return generic_meetup("GirlsCodeEU")
 
 
+@event_source(background_color="#6C7DB6", text_color="#ffffff", url="http://www.meetup.com/Hasselt-PHP-Meetup/", predefined_tags=['code', 'php', 'hasselt'])
+def hasselt_php_meetup():
+    """
+    <p>Join us to meet other PHP developers in Hasselt (and surrounding cities) in our monthly Meetup. Learn new things, make new connections and have fun!</p>
+"""
+    return generic_meetup("Hasselt-PHP-Meetup")
+
+
 @event_source(background_color="coral", text_color="white", key=None, url="https://hackerspace.be")
 def hsbxl():
     '''
