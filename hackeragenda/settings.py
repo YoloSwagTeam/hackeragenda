@@ -155,56 +155,23 @@ PREDEFINED_FILTERS["hackerspaces"] = {
 }
 
 PREDEFINED_FILTERS["*lab"] = {
-    "source": [
-        "budalab",
-        "imal",
-        "relab",
-        "timelab",
-    ],
+    "source": [],
     "exclude_source": [],
-    "tag": [],
+    "tag": ["fablab"],
     "exclude_tag": [],
 }
 
 PREDEFINED_FILTERS["art"] = {
-    "source": [
-        "belgian_blender_user_group",
-        "blender_brussels",
-        "constantvzw",
-        "foam",
-        "imal",
-        "okno",
-    ],
+    "source": [],
     "exclude_source": [],
-    "tag": [],
+    "tag": ["art"],
     "exclude_tag": [],
 }
 
 PREDEFINED_FILTERS["code"] = {
-    "source": [
-        "afpyro",
-        "agile_belgium",
-        "aws_user_group_belgium",
-        "bescala",
-        "belgian_angularjs",
-        "belgian_puppet_user_group",
-        "belgian_nodejs_user_group",
-        "bigdata_be",
-        "brussels_cassandra_users",
-        "brussels_data_science_meetup",
-        "brussels_wordpress",
-        "docker_belgium",
-        "ember_js_brussels",
-        "laravel_brussels",
-        "les_mardis_de_l_agile",
-        "mongodb_belgium",
-        "opentechschool",
-        "phpbenelux",
-        "ruby_burgers",
-        "webrtc",
-    ],
+    "source": [],
     "exclude_source": [],
-    "tag": [],
+    "tag": ["code"],
     "exclude_tag": [],
 }
 
