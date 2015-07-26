@@ -1018,7 +1018,7 @@ def voidwarranties():
     </p>
     """
 
-    data = Calendar.from_ical(requests.get("http://voidwarranties.be/index.php/Special:Ask/-5B-5BCategory:Events-5D-5D/-3FHas-20start-20date=start/-3FHas-20end-20date=end/-3FHas-20coordinates=location/format=icalendar/title=VoidWarranties/description=Events-20at-20http:-2F-2Fvoidwarranties.be/limit=500").content)
+    data = Calendar.from_ical(requests.get("http://wiki.voidwarranties.be/index.php/Special:Ask/-5B-5BCategory:Events-5D-5D/-3FHas-20start-20date=start/-3FHas-20end-20date=end/-3FHas-20coordinates=location/format=icalendar/title=VoidWarranties/description=Events-20at-20http:-2F-2Fvoidwarranties.be/limit=500").content)
 
     for event in data.walk()[1:]:
         title = str(event["SUMMARY"])
