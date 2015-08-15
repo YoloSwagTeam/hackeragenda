@@ -399,6 +399,13 @@ def devspace_elixir_study_group():
     return generic_meetup("devspace-elixir-study-group")
 
 
+@event_source(background_color="#93f279", text_color="#000000", url="http://www.meetup.com/fr/DIY-Audio-Club-Antwerpen/", predefined_tags=['audio', 'art'])
+def diy_audio_club_antwerpen():
+    """
+    <p>This is a group for everyone who likes to DIY (Do-it-yourself) audiophile music equipment! Audiophiles, hobby electronics and music lovers are also welcome. We'll share experience, exchange ideas and schematics, and get together to test and compare out new creations. I'm starting this group because I used to be in an enthusiast club before, and now I'm getting back into DIY audio again. I believe many audiophiles in and around Antwerp would gladly have a beer and a talk about our passion!</p>
+"""
+    return generic_meetup("DIY-Audio-Club-Antwerpen")
+
 
 @event_source(background_color="#008FC4", text_color="white", url="http://www.meetup.com/Docker-Belgium", predefined_tags=["docker", "lxc", "sysadmin", "devops", "code"], description='<p>Meet other developers and ops engineers using Docker.&nbsp;Docker is an open platform for developers and sysadmins to build, ship, and run distributed applications. Consisting of Docker Engine, a portable, lightweight runtime and packaging tool, and Docker Hub, a cloud service for sharing applications and automating workflows, Docker enables apps to be quickly assembled from components and eliminates the friction between development, QA, and production environments. As a result, IT can ship faster and run the same app, unchanged, on laptops, data center VMs, and any cloud.</p><p>Learn more about Docker at&nbsp;<a href="http://www.docker.com/">http://www.docker.com</a></p>')
 def docker_belgium():
