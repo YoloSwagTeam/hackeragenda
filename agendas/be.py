@@ -18,6 +18,14 @@ from events.management.commands.fetch_events import event_source
 from events.generics import generic_meetup, generic_eventbrite, generic_google_agenda, json_api
 
 
+@event_source(background_color="#f2be79", text_color="#000000", url="http://www.meetup.com/fr/3Dvangelist-professional-workshop-3D-printing/", predefined_tags=[])
+def _3dvangelist_professional_workshop_3d_printing():
+    """
+    <p>Boeiende workshops 3D-printen van theorie tot praktijk Op verschillende locaties in Vlaanderen. Natuurlijk hebt u al gehoord van 3D-printen. Maar nu is de vraag: wat kunt u er eigenlijk mee, zowel professioneel als persoonlijk? Het goede nieuws is dat u dat met de workshops van 3Dvangelist individueel kunt ontdekken. We bieden u een unieke formule en dat op verschillende locaties in Vlaanderen. Doet u mee? Want misschien wist u het nog niet, maar: we zijn allemaal makers. De workshop is ook beschikbaar als in-companytraining op maat of in een formule specifiek voor leerkrachten.</p>
+"""
+    return generic_meetup("3Dvangelist-professional-workshop-3D-printing")
+
+
 @event_source(background_color="#133F52", text_color="#FFFFFF", key=None, url="https://groups.google.com/d/forum/afpyro-be")
 def afpyro():
     '<p>Les apéros des amateurs du langage de programmation <a href="https://www.python.org/">python</a>.</p>'
