@@ -129,7 +129,7 @@ def aws_user_group_belgium():
     return generic_meetup("AWS-User-Group-Belgium")
 
 
-@event_source(background_color="#F39532", text_color="white", url="http://bbug.tuxfamily.org", predefined_tags=["blender", "art", "3D-modeling"])
+@event_source(background_color="#F39532", text_color="white", url="www.bbug.be", predefined_tags=["blender", "art", "3D-modeling"])
 def belgian_blender_user_group():
     """
     <p>The Belgian Blender User Group is a belgium based community of users of the open source software called <a href="https://www.blender.org/">Blender</a>.</p>
