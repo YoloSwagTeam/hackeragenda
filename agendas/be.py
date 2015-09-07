@@ -54,16 +54,6 @@ def be_clojure():
     """
     <p>Do you love Lisp? Are you a Functional Programmer already using other languages and curious about Clojure? Are you already using Clojure? Do you want to talk about Clojure with fellow developers in Belgium? Join us!</p>
     <p><a href="http://beclojure.org">http://beclojure.org</a> <br/></p>
-    <p><b>Who should join?</b></p>
-    <p>This group is open to anyone interested in Functional Programming. Of course we are more focused in Clojure and how this language approaches FP, but we are not closes to learn from other languages. Actually one of the things that defines Clojure is that it's flexible and open enough to embrace different techniques or approaches that were originally from others. I highly recommend you to watch this presentation from Bodil Stokke about the past and the future of Clojure to understand better not only the technology but also the philosophy of this nice community: <a href="https://skillsmatter.com/skillscasts/6069-the-future-of-clojure">https://skillsmatter.com/skillscasts/6069-the-future-of-clojure</a></p>
-    <p><b>What is this Meetup's purpose?  </b> <br/></p>
-    <p>The purpose of this Meetup is to share knowledge between Clojure developers and to offer an easy entry point into this language for those who are new. </p>
-    <p> <b>Communication Channels</b></p>
-    <blockquote>
-<p>Twitter: <a href="http://twitter.com/beclojure">@BeClojure</a></p>
-<p>Website:<b> <a href="http://beclojure.org">www.beclojure.org</a></b> <br/></p>
-</blockquote>
-    <p> <br/></p>
 """
     return generic_meetup("BeClojure")
 
@@ -72,7 +62,6 @@ def be_clojure():
 def belgian_java_user_group():
     """
     <p>The primary focus of The Belgium Java User Group (founded in 1997) is to inform our members about the Java ecosystem. We regularly (approximately every 6 weeks) organise sessions to socialize, learn and inspire.</p>
-    <p><span>Interested to contribute and participate in our vibrant and independent Java community here in Belgium? Our meetings are now free to attend, i.e. a paying membership is no longer required!</span></p>
 """
     return generic_meetup("Belgian-Java-User-Group")
 
@@ -81,9 +70,6 @@ def belgian_java_user_group():
 def belgian_software_craftsmanship_guild():
     """
     <p>This community is a breeding ground for lots of cool events involving software engineering. It is open to all people who are passionate about development and strongly believe in mastering the craft of software. Your experience level can be that of a level 1 front end ninja to that of a level 80 embedded software magician. Everybody who believes their craft is something to be proud of and something worth mastering and sharing is welcome to join our ranks.</p>
-    <p>These are some of the basic principles we believe in as software crafters:</p>
-    <p><b>Not only working software, but also well-crafted software <br> Not only responding to change, but also steadily adding value <br> Not only individuals and interactions, but also a community of professionals <br> Not only customer collaboration, but also productive partnerships</br></br></br></b></p>
-    <p>This community is fully (programming) language agnostic and will hosts events in whatever (programming) language is relevant for the people joining the event. In the past this has mostly happened in English and Dutch.</p>
 """
     return generic_meetup("Belgian-Software-Craftsmanship-Guild")
 
@@ -294,8 +280,6 @@ def bxlug():
     <p>Nous proposons également <a href="spip.php?rubrique8" class="spip_in">des listes de discussion ouvertes</a>  pour l’entraide quotidienne.</p>
 
     <p><a href="spip.php?rubrique4" class="spip_out">Nos rencontres aident tout un chacun à installer et configurer des systèmes libres, à approfondir leurs connaissances et à découvrir de nouveaux horizons</a></p>
-
-    <p>Le BxLUG est partenaire bénévole avec<br><img src="squelettes-dist/puce.gif" class="puce" alt="-" height="11" width="8">&nbsp;<a href="http://www.lefourquet.be/Accueil_-_A_la_Une.html" class="spip_out" rel="external">Le Fourquet</a><br><img src="squelettes-dist/puce.gif" class="puce" alt="-" height="11" width="8">&nbsp;<a href="http://www.fij.be/" class="spip_out" rel="external">Formation Insertion Jeune FIJ</a><br><img src="squelettes-dist/puce.gif" class="puce" alt="-" height="11" width="8">&nbsp;<a href="http://www.bxlug.be/spip.php?article10&amp;id_evenement=121" class="spip_out">Info Linux, Atelier du Web</a></p>
     """
     soup = BeautifulSoup(requests.get("http://www.bxlug.be/spip.php?page=agenda-zpip").content)
     for entry in soup('article', 'evenement'):
@@ -531,7 +515,6 @@ def hsbxl():
 def icon_brussels_research_and_education_group():
     """
     <p>Hi! This is the place to announce and discuss events, free try-out courses and meetups organised by Icon-Brussels, an innovative research and learning centre for art and contemporary technology, based in the heart of Brussels, Europe. You can find out about masterclasses with topics like Adobe After Effects, Film Art, Arduino, Processing for Visual Art, Logo Design, and much, much more. We will be updating the eventlist regularly. You'll be invited for one-time lectures, concerts and anything to do with technological innovation and entrepreneurship.</p>
-    <p>Check out our current masterclasses at www.icon-brussels.be</p>
 """
     return generic_meetup("Icon-Brussels-research-and-education-group")
 
@@ -584,16 +567,6 @@ def internet_of_things_ghent():
     """
     <p><i>Co-organizer: Johan Thys (I-minds).</i></p>
     <p><span>This group wants to flush out Internet of Things projects in Ghent, Antwerp, Leuven and Brussels in order to create synergies and interoperability of levels of infrastructure. It also wants to bring in endusers into this process. It is aligned with the FP 7 Project Sociotal.eu that is aiming at building an ecosystem of citizen centric services. Its pilot cities are Novi Sad and (Smart) Santander.</span> <br> </br></p>
-    <p><span>There are four main groups of stakeholders in the Sociotal.eu project that we want to reach:</span> <br> </br></p>
-    <p><span><b>a technical ecology</b> of Ipv6, RFID, Sensors, QR codes, barcodes, preferably open source hardware and software and interoperability as a key issue so as to get an internet, not intranets of things</span> <br> </br></p>
-    <p><b>a create eco-system</b>: local academia, corporate business and SME, makers and geeks, hackers, designers and artists, local, national and regional policy makers</p>
-    <p><b>developer communites</b> able to build services and pull more citizens into the eco-system through attractive services</p>
-    <p><b>citizens that co-create.</b></p>
-    <p>We want to investigate with each of them: the main <b>barriers to adoption</b> of IoT devices and tools, the main <b>enablers of uptake</b> of IoT devices &amp; tools and i<b>ncentive mechanisms</b> to facilitate and accelerate the uptake. Within each of these groups we want to investigate how IoT can facilitate and assist the categories of collaboration by Ezio Manzini: “As citizens’ active involvement is the necessary precondition of possible success, therefore, to take in account why and how people collaborate is a fundamental component: collaborative economies, collaborative services, collaborative consumption, collaborative innovation spaces, collaborative events are very diverse initiatives, with a common denominator: they all ask for collaboration. We can recognize these typologies:</p>
-    <p><b>Vertical collaboration </b>(individual citizens collaborating with solution promoters). Example: Fix my street.</p>
-    <p><b>Vertical and horizontal collaboration</b> (individual citizens collaborating with solution promoters and then, collaborating among them in a p2p way). Example: Carpooling.</p>
-    <p><b>Horizontal collaboration</b> (p-2-p collaboration among citizens). Example: Circle of care and Collaborative housing).</p>
-    <p><a href="http://sociotal.eu">Sociotal.eu</a> wants to create cohesion in all three groups, study the types of collaboration within each group and create links and bridges between the three groups in order to create a network effect.</p>
 """
     return generic_meetup("Internet-of-Things-Ghent")
 
@@ -621,7 +594,7 @@ def laravel_brussels():
 @event_source(background_color="#C9342C", text_color="#ffffff", url="http://www.meetup.com/Le-Wagon-Brussels-Coding-Station/", predefined_tags=["code", "education"])
 def le_wagon_brussels_coding_station():
     """
-    <p>Our program is designed for complete beginners or "half-beginners" who really want to dive into programming and, above all, change their mindset. Learn to think like a developer, consider issues with new insight, and become more creative thanks to these newly acquired abilities. Our unique goal is to facilitate becoming an outstanding entrepreneur who is able to code his/her own projects and to deeply understand technical issues. <br> <br> In preparation for <a href="http://www.lewagon.org/brussels">the full bootcamp</a> that starts in January 2015, we'll be giving free front-end training sessions. Come &amp; learn HTML, CSS and JavaScript with us!</br></br></p>
+    <p>Our program is designed for complete beginners or "half-beginners" who really want to dive into programming and, above all, change their mindset. Learn to think like a developer, consider issues with new insight, and become more creative thanks to these newly acquired abilities. Our unique goal is to facilitate becoming an outstanding entrepreneur who is able to code his/her own projects and to deeply understand technical issues.</p>
 """
     return generic_meetup("Le-Wagon-Brussels-Coding-Station")
 
@@ -928,22 +901,8 @@ def source():
 def streamprocessing_be():
     """
     <p>A Belgium based Meetup about Stream Processing (where all data is treated as a continuous stream of (immutable) Facts, Events, Updates).</p>
-    <p>Looking at:</p>
-    <p>• Kafka + Samza</p>
-    <p>• Google Cloud dataFlow</p>
-    <p>• AWS Kinesis <br/></p>
-    <p>• Azure Stream Analytics <br/></p>
-    <p>• Apache Flink <br/></p>
-    <p>• Apache Storm</p>
-    <p>• Akka Streams</p>
-    <p>• Spark Streaming</p>
-    <p>• Flume</p>
-    <p>• AMQP (e.g. RabbitMQ)</p>
-    <p>• Complex Event Processing (CEP)</p>
-    <p>• Event Sourcing and CQRS (e.g. AxonFramework) <br/></p>
     <p>A good introduction is this recent article on O'Reilly:</p>
     <p> <a class="linkified" href="http://radar.oreilly.com/2015/04/a-real-time-processing-revival.html">http://radar.oreilly.com/2015/04/a-real-tim...</a> </p>
-    <p>Join this group to meet peers and to hear about and play hands-on with the different technologies.</p>
 """
     return generic_meetup("StreamProcessing-be")
 
