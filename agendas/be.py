@@ -402,6 +402,14 @@ def ember_js_brussels():
     return generic_meetup("Ember-js-Brussels")
 
 
+@event_source(background_color="#f2a579", text_color="#000000", url="http://www.meetup.com/fr/Fab-Brol-Mons/", predefined_tags=['fablab', 'mons'])
+def fab_brol_mons():
+    """
+    <p>Si vous aimez bidouiller des raspberry pi, des Arduino, des breadboards etc etc et que vous cherchez des personnes avec qui passer un peu de temps pour améliorer vos idées alors rejoignez-nous !</p>
+    """
+    return generic_meetup("Fab-Brol-Mons")
+
+
 @event_source(background_color="#f2798e", text_color="#000000", url="http://www.meetup.com/FabLabBornem/", predefined_tags=['fablab', 'bornem'])
 def fablab_bornem():
     """
