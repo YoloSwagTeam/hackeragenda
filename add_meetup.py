@@ -42,7 +42,7 @@ def hsv_to_rgb(h, s, v):
 def main(meetup, tc=(255, 255, 255), bg=None, *tags):
     target_url = meetup
 
-    soup = BeautifulSoup(requests.get(target_url).content)
+    soup = BeautifulSoup(requests.get(target_url).content, "html.parser")
 
     description = soup.find("div", id="groupDesc")
     description = (" " * 4).join(map(lambda x: str(x), description.contents)) + (" " * 4)
