@@ -579,6 +579,19 @@ def internet_of_things_ghent():
     return generic_meetup("Internet-of-Things-Ghent")
 
 
+@event_source(background_color="#79c1f2", text_color="#000000", url="http://www.meetup.com/fr/Internet-of-Things-IoT-Leuven/", predefined_tags=['iot', 'code', 'leuven'])
+def internet_of_things_iot_leuven():
+    """
+    <p>Executive summary still to come :-) .... but if you're interested in any aspects of "the Internet Of Things" and are willing to share, discuss, engage with us feel free to join our group and attend one of our events. </p>
+    <p>If there's one revolutionary technology out there that you don't want to miss #IoT is just that . </p>
+    <p>It is my intention not only to have peer2peer discussions but also to have presentations from industry speakers and influencers on this subject.</p>
+    <p>Don't forget to spread the word onto other IoTGroupies!</p>
+    <p>Hope to CU soon ~ Bart</p>
+    <p> <br/></p>
+"""
+    return generic_meetup("Internet-of-Things-IoT-Leuven")
+
+
 @event_source(background_color="#CE112C", text_color="#ffffff", url="http://www.meetup.com/iot_be/", predefined_tags=['code', 'iot'])
 def iot_be():
     """
