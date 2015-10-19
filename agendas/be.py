@@ -191,6 +191,16 @@ def bhackspace():
 
 
 
+@event_source(background_color="#99c2eb", text_color="#ffffff", url="http://www.meetup.com/fr/Big-Data-Brussels/", predefined_tags=['code', 'bigdata'])
+def big_data_brussels():
+    """
+    <p>An upcoming regular event for people interested in Big Data, whether you are professionals in the field, enthusiasts, or students looking to build your career in that direction. We'll host interesting talks from industry experts, a focus on both business and technical aspects of big data, and plenty of time for networking! </p>
+    <p>Big Data, Brussels is hosted and managed by <a href="http://dataconomy.com/">Dataconomy Media GmbH</a>. Please get in touch with events@dataconomy.com if you are interested in participating. <br> </br></p>
+    <p><a class="embedded" href="https://www.youtube.com/watch?v=v-ryAXdftUQ">https://www.youtube.com/watch?v=v-ryAXdftUQ</a></p>
+"""
+    return generic_meetup("Big-Data-Brussels")
+
+
 @event_source(background_color="black", text_color="white", url="http://www.meetup.com/bigdatabe", predefined_tags=["data", "code", "nosql", "code"], description="<p>Welcome to our Belgian community about bigdata, NoSQL and anything data. If you live or work in Belgium and are interested in any of these technologies, please join! We want you!</p>")
 def bigdata_be():
     return generic_meetup("bigdatabe",)
