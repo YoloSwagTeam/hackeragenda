@@ -206,6 +206,18 @@ def bigdata_be():
     return generic_meetup("bigdatabe",)
 
 
+@event_source(background_color="#fdeaab", text_color="#ffffff", url="http://www.meetup.com/fr/Bitcoin-Brussels/", predefined_tags=['bitcoin'])
+def bitcoin_brussels():
+    """
+    <p><strong><span>Welcome to the <em>Bitcoin Brussels</em> group!</span></strong></p>
+    <p><strong><span>New members: please join the mailing list - all the discussion happens there! <br> </br></span></strong></p>
+    <p><span>The aim is to bring together people that are interested in cryptocurrencies; to promote discussions among people from different fields, having different backgrounds, and therefore different perspectives.</span></p>
+    <p><span>We want to create a group that would meet in a friendly and informal way, to discuss any kind of subjects related to blockchains, ranging from technical aspects such as cryptographic concepts and software implementations to high-level reflexions, as the social impact to expect on our societies. The goal is also to find common interests to be explored further, practically creating any kind of experimentation, vulgarization, or business opportunities.</span></p>
+    <p><span>We target any kind of audience, whether you have strong expertise to share, you are totally new and curious about bitcoin, or even just want to pass by to have a beer and say hello!</span></p>
+"""
+    return generic_meetup("Bitcoin-Brussels")
+
+
 @event_source(background_color="#828282", text_color="white", key=None, url="https://blender-brussels.github.io/")
 def blender_brussels():
     '<p>The <strong>Blender-Brussels</strong> − also known as <strong>Blender BPY/BGE workshops</strong> − are a series of monthly work sessions organized by <a href="http://xuv.be">Julien Deswaef</a> (<a href="https://github.com/xuv" class="user-mention">@xuv</a>) and <a href="http://frankiezafe.org">François Zajéga</a> (<a href="https://github.com/frankiezafe" class="user-mention">@frankiezafe</a>) with the aim of providing a regular gathering and knowledge sharing space for artists and coders interested in Python scripting in the context of Blender.</p>'
