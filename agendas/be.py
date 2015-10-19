@@ -1165,7 +1165,7 @@ def webrtc():
     return generic_meetup("WebRTC-crossingborders")
 
 
-@event_source(background_color="#a329f", text_color="#ffffff", url="http://www.meetup.com/fr/WebRTC-Belgium/", predefined_tags=['code', 'webrtc', 'web'])
+@event_source(background_color="#0a329f", text_color="#ffffff", url="http://www.meetup.com/fr/WebRTC-Belgium/", predefined_tags=['code', 'webrtc', 'web'])
 def webrtc_belgium():
     """
     <p>Welcome to WebRTC Belgium! The goal for this group right now is to develop a community around the up-and-coming WebRTC technology. Developers, Product Managers, IT Fans, tinkerers, all are welcome to join and share! WebRTC is the next generation of communications over the Internet. It allows open standard browsers to communicate with each other and exchange audio, video and files using a simple Javascript-based API. Early supporters like Google Chrome, Mozilla, Microsoft Edge. The standard is still under development (W3C and IETF)</p>
