@@ -244,6 +244,22 @@ def brixel():
 
 
 
+@event_source(background_color="#cf11", text_color="#ffffff", url="http://www.meetup.com/fr/BruJUG/", predefined_tags=['code', 'java'])
+def brujug():
+    """
+    <p>Brussels is a great city. Java is an amazing platform to develop with. Wouldn't it be awesome if the two could get mixed?! Well, that's the BruJUG, a local Java User Group where passionate Java developers can, since 2010, attend presentations given by passionate speakers.</p>
+    <p>Will it be some technology expert, a "big name" evangelist, or even yourself? Let's join the BruJUG to discover what this year will be made of.</p>
+    <p>Oh! One last thing. All the events organized by the BruJUG are FREE!</p>
+    <p>Pictures of all events are available on FlickR: <a class="linkified" href="https://secure.flickr.com/brujug/">https://secure.flickr.com/brujug/</a></p>
+    <p>Videos of divers sessions can be found here: <a class="linkified" href="https://vimeo.com/channels/brujug">https://vimeo.com/channels/brujug</a></p>
+    <p>Fastest news channel: <a class="linkified" href="https://twitter.com/brujug">https://twitter.com/brujug</a></p>
+    <p>And we are on LinkedIn!</p>
+    <p>Do you want to come for the first time, but worry to be lost and alone in the crowd? No problem, just drop us a nice (private) mail/message and we will take care of you, and we promise to make it as nice and pleasant experience. </p>
+    <p><em>Registration to events is required since seats are limited.</em></p>
+"""
+    return generic_meetup("BruJUG")
+
+
 @event_source(background_color="#415A6C", text_color="#CBE5F7", url="http://www.meetup.com/Brussels-Cassandra-Users", predefined_tags=["nosql", "jvm", "database", "bruxelles", "code"], description="<p>Open to all those interested in Apache Cassandra, Big Data, Hadoop, Hive, Hector, NoSQL, Pig, and high scalability. Let's get together and share what we know!</p>")
 def brussels_cassandra_users():
     return generic_meetup("Brussels-Cassandra-Users")
