@@ -295,6 +295,14 @@ def brussels_wordpress():
     return generic_meetup("wp-bru")
 
 
+@event_source(background_color="#8179f2", text_color="#000000", url="http://www.meetup.com/fr/BrusselsPHP/", predefined_tags=['code', 'php', 'brussels'])
+def brusselsphp():
+    """
+    <p>This is a group for anyone that has an interest in PHP and that want to meet with like minded people. I hope to see all of you soon.</p>
+"""
+    return generic_meetup("BrusselsPHP")
+
+
 @event_source(background_color="#FEED01", text_color="black", url="http://budalab.fikket.com")
 def budalab():
     """
