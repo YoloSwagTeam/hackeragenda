@@ -243,6 +243,15 @@ def brussels_drupal_meetup():
     return generic_meetup("Brussels-Drupal-Meetup")
 
 
+@event_source(background_color="#927f82", text_color="#ffffff", url="http://www.meetup.com/fr/Brussels-lean-coffee/", predefined_tags=['code', 'kanban', 'agile'])
+def brussels_lean_coffee():
+    """
+    <p><span>Each Thursday morning we meet in the centre of Brussels to talk about Lean, Kanban, Agile, TPS, or even Personal Kanban and Discovery Kanban. Join us if you get excited about limiting WIP, visualizing workflow, self-organizing teams, and change or even just want to know more about them.</span> <br/></p>
+    <p><i>The meetup is member of the Belgium lean coffee meetups, more locations at <a href="http://www.meetup.com/Belgium-lean-coffee">Belgium lean coffee</a>.</i></p>
+"""
+    return generic_meetup("Brussels-lean-coffee")
+
+
 @event_source(background_color="#0324C1", text_color="white", url="http://www.meetup.com/wp-bru", predefined_tags=["bruxelles", "wordpress", "cms", "php", "webdev", "code"], description='<p>A gathering of WordPress users and professionals of all levels.<br><br>Whether you\'re a site owner, designer, developer, plug-in creator all are welcome to attend to learn, share and expand their knowledge of WordPress.<br><br>Have a look at <a href="http://www.meetup.com/wp-bru/about/">our about page</a> for a idea of the type of activities I\'d like to see organised.</p>')
 def brussels_wordpress():
     return generic_meetup("wp-bru")
