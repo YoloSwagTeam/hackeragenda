@@ -800,6 +800,14 @@ def opengarage():
     return generic_meetup("OpenGarage")
 
 
+@event_source(background_color="#b6f279", text_color="#000000", url="http://www.meetup.com/fr/OpenHack-Antwerpen/", predefined_tags=['code', 'openhack'])
+def openhack_antwerpen():
+    """
+    <p>Monthly software meetup, you can hack on anything! Any language, framework, public/open-source, personal, etc. Skill level doesn’t matter. We don’t care if you’re working on Hello World or on increasing your wizarding level. You don’t have to have an idea to hack on! You’re more than welcome to come just to pair with someone. <a class="linkified" href="http://openhack.github.io/berchem/" rel="nofollow" target="_blank" title="http://openhack.github.io/berchem/">http://openhack.github.io/berchem/</a></p>
+"""
+    return generic_meetup("OpenHack-Antwerpen")
+
+
 @event_source(background_color="#7B6DB0", text_color="#ffffff", url="http://www.meetup.com/OpenStreetMap-Belgium/", predefined_tags=['osm', 'carto'])
 def openstreetmap_belgium():
     """
