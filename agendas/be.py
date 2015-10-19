@@ -1013,21 +1013,7 @@ def voidwarranties():
     </p>
     """
 
-    data = Calendar.from_ical(requests.get("http://wiki.voidwarranties.be/index.php/Special:Ask/-5B-5BCategory:Events-5D-5D/-3FHas-20start-20date=start/-3FHas-20end-20date=end/-3FHas-20coordinates=location/format=icalendar/title=VoidWarranties/description=Events-20at-20http:-2F-2Fvoidwarranties.be/limit=500").content)
-
-    for event in data.walk()[1:]:
-        title = str(event["SUMMARY"])
-        url = event["URL"]
-        start = event["DTSTART"].dt if event.get("DTSTART") else event["DTSTAMP"].dt
-        end = event["DTEND"].dt if event.get("DTSTART") else None
-
-        yield {
-            'title': title,
-            'url': url,
-            'start': start,
-            'end': end,
-            'tags': ("hackeragenda",)
-        }
+    return generic_meetup("VoidWarranties")
 
 
 @event_source(background_color="#7ef279", text_color="#000000", url="http://www.meetup.com/wajug-be/", predefined_tags=['code'])
