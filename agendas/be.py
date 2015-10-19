@@ -234,6 +234,15 @@ def brussels_data_science_meetup():
 
 
 
+@event_source(background_color="#8779f2", text_color="#000000", url="http://www.meetup.com/fr/Brussels-Drupal-Meetup/", predefined_tags=['code', 'drupal', 'php', 'brussels'])
+def brussels_drupal_meetup():
+    """
+    <p>If you are doing Drupal in Brussels or thereabouts and would like to learn and chat about Drupal and would like to meet like minded folk, please join.</p>
+    <p>Thanks  :) <br/></p>
+"""
+    return generic_meetup("Brussels-Drupal-Meetup")
+
+
 @event_source(background_color="#0324C1", text_color="white", url="http://www.meetup.com/wp-bru", predefined_tags=["bruxelles", "wordpress", "cms", "php", "webdev", "code"], description='<p>A gathering of WordPress users and professionals of all levels.<br><br>Whether you\'re a site owner, designer, developer, plug-in creator all are welcome to attend to learn, share and expand their knowledge of WordPress.<br><br>Have a look at <a href="http://www.meetup.com/wp-bru/about/">our about page</a> for a idea of the type of activities I\'d like to see organised.</p>')
 def brussels_wordpress():
     return generic_meetup("wp-bru")
