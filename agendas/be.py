@@ -244,7 +244,7 @@ def brixel():
 
 
 
-@event_source(background_color="#cf11", text_color="#ffffff", url="http://www.meetup.com/fr/BruJUG/", predefined_tags=['code', 'java'])
+@event_source(background_color="#0c0f11", text_color="#ffffff", url="http://www.meetup.com/fr/BruJUG/", predefined_tags=['code', 'java'])
 def brujug():
     """
     <p>Brussels is a great city. Java is an amazing platform to develop with. Wouldn't it be awesome if the two could get mixed?! Well, that's the BruJUG, a local Java User Group where passionate Java developers can, since 2010, attend presentations given by passionate speakers.</p>
