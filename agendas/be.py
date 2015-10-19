@@ -927,6 +927,14 @@ def source():
             today += timedelta(days=1)
 
 
+@event_source(background_color="#f2ab79", text_color="#000000", url="http://www.meetup.com/fr/Space-Enthusiasts-Belgium/", predefined_tags=['space'])
+def space_enthusiasts_belgium():
+    """
+    <p>Interested in space? Whether you're just a science fiction junkie, or the next Elon Musk, everyone is welcome in this group! We do events from visiting space-related locations, to discussing books to read, to building the next rocket and satellite. All are welcome!</p>
+"""
+    return generic_meetup("Space-Enthusiasts-Belgium")
+
+
 @event_source(background_color="#aa79f2", text_color="#000000", url="http://www.meetup.com/StreamProcessing-be/", predefined_tags=['code', 'stream_processing'])
 def streamprocessing_be():
     """
