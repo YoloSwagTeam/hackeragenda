@@ -478,6 +478,14 @@ def foam():
         }
 
 
+@event_source(background_color="#ffffff", text_color="#ffffff", url="http://www.meetup.com/fr/french-meteor-meetup/", predefined_tags=['code', 'meteor', 'javascript', 'web'])
+def french_meteor_meetup():
+    """
+    <p>Ceci est un groupe réunissant les développeurs enthousiastes utilisant la plateforme Meteor en Belgique francophone.</p>
+"""
+    return generic_meetup("french-meteor-meetup")
+
+
 @event_source(background_color="#A53B5B", text_color="#ffffff", url="http://www.meetup.com/GirlsCodeEU/", predefined_tags=[])
 def girls_code_eu():
     """
