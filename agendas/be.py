@@ -954,7 +954,7 @@ def realize():
     return generic_eventbrite("realize-6130306851")
 
 
-@event_source(background_color="#f5021", text_color="#ffffff", url="http://www.meetup.com/fr/RedHat-Belgium/", predefined_tags=['redhat', 'code', 'sysadmin'])
+@event_source(background_color="#0f5021", text_color="#ffffff", url="http://www.meetup.com/fr/RedHat-Belgium/", predefined_tags=['redhat', 'code', 'sysadmin'])
 def redhat_belgium():
     """
     <p>This group is about Red Hat Belgium organizing technical events like TUG and hands-on labs on technologies like Openstack, Openshift, JBOSS middleware, Gluster, Ceph etc. <br/></p>
