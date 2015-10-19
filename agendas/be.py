@@ -937,6 +937,15 @@ def r_belgium():
     return generic_meetup("RBelgium")
 
 
+@event_source(background_color="#ef4e30", text_color="#ffffff", url="http://www.meetup.com/fr/ReactJS-Belgium/", predefined_tags=['code', 'web', 'reactjs', 'javascript'])
+def reactjs_belgium():
+    """
+    <p>For more than a year now, React.js has changed the way we think about client-side applications through concepts such as the virtual dom, one-way data flow, immutable data structures and isomorphism.</p>
+    <p>ReactBelgium is the occasion to meet those who are building things with React, demo your work, learn from each other and help build the future of the web together!</p>
+"""
+    return generic_meetup("ReactJS-Belgium")
+
+
 @event_source(background_color="#36c0cb", text_color="black", url="http://realizebxl.be/", predefined_tags=["makerspace", "bruxelles"])
 def realize():
     """
