@@ -550,6 +550,14 @@ def french_meteor_meetup():
     return generic_meetup("french-meteor-meetup")
 
 
+@event_source(background_color="#1565C0", text_color="#ffffff", url="http://gdg.brussels/", predefined_tags=['code'])
+def gdg_brussels():
+    """
+    <p>Google Developer Group is an English speaking group of developers and engineers that meet once a month since 2009 to share, learn and code with Android, Dart, Polymer and other Google Technologies. The main purpose is to get to know other developers and to exchange knowledge and hear about the latest features of new technologies.</p>
+    <p>The group is independent of Google. The organizers are not working for Google. Still, we have a good relationship.</p>
+    """
+    return generic_meetup("gdg-brussels")
+
 @event_source(background_color="#A53B5B", text_color="#ffffff", url="http://www.meetup.com/GirlsCodeEU/", predefined_tags=[])
 def girls_code_eu():
     """
