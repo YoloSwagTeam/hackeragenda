@@ -1119,7 +1119,7 @@ def urlab():
     puissent y exprimer leur créativité de manière collaborative.
     </p>
     """
-    return json_api("https://urlab.be/hackeragenda.json")
+    return json_api("https://urlab.be/api/hackeragenda.json")
 
 
 @event_source(background_color="#25272C", text_color="#C58723", key=None, url="http://voidwarranties.be")
