@@ -199,7 +199,7 @@ def bigdata_be():
     return generic_meetup("bigdatabe",)
 
 
-@event_source(background_color="#fdeaab", text_color="#ffffff", url="http://www.meetup.com/fr/Bitcoin-Brussels/", predefined_tags=['bitcoin'])
+@event_source(background_color="#262626", text_color="#ffffff", url="http://www.meetup.com/fr/Bitcoin-Brussels/", predefined_tags=['bitcoin'])
 def bitcoin_brussels():
     """
     <p><strong><span>Welcome to the <em>Bitcoin Brussels</em> group!</span></strong></p>
