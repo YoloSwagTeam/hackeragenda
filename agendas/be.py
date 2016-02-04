@@ -1,5 +1,6 @@
 # encoding: utf-8
 
+import os
 import re
 import time
 import calendar
@@ -334,20 +335,25 @@ def bxlug():
 
     <p><a href="spip.php?rubrique4" class="spip_out">Nos rencontres aident tout un chacun à installer et configurer des systèmes libres, à approfondir leurs connaissances et à découvrir de nouveaux horizons</a></p>
     """
-    soup = BeautifulSoup(requests.get("http://www.bxlug.be/spip.php?page=agenda-zpip").content)
-    for entry in soup('article', 'evenement'):
+    now = int(time.time())
+    then = now + (60 * 60 * 24 * 14)
+
+    data = requests.get("http://www.bxlug.be/spip.php?page=calendrier_quete.json&start=%s&end=%s&_=%s" % (now, then, now)).json()
+
+    for event in data:
+
         # [:-1] => ignore timezones, because sqlite doesn't seem to like it
-        start = parse(entry('meta', itemprop='startDate')[0]['content'][:-1])
-        end = parse(entry('meta', itemprop='endDate')[0]['content'][:-1])
-        title = entry('span', itemprop='name')[0].text
-        url = "http://www.bxlug.be/" + entry('a', itemprop='url')[0]['href']
-        location = entry.find("p", "location")("span")[1].text.split("Contact")[0].split(":", 1)[1].strip() if entry.find("p", "location") else None
+        start = parse(event["start"])
+        end = parse(event["end"])
+        title = event["title"]
+        url = os.path.join("http://www.bxlug.be/", event["url"])
+        # location = entry.find("p", "location")("span")[1].text.split("Contact")[0].split(":", 1)[1].strip() if entry.find("p", "location") else None
 
         yield {
             'title': title,
             'url': url,
             'start': start,
-            'location': location,
+            # 'location': location,
             'end': end,
             'tags': ("lug", "bruxelles", "libre")
         }
