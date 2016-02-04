@@ -374,6 +374,9 @@ def constantvzw():
         title = event("h3")[1].text
         url = "http://www.constantvzw.org/site/" + event.a["href"]
 
+        if re.search(",\d+\.html", url):
+            continue
+
         location = event.find("p", itemprop="location").text.replace("\n", " ") if event.find("p", itemprop="location") else None
 
         start = parse(event.find("abbr", "dtstart")["title"]).replace(tzinfo=None)
