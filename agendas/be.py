@@ -5,6 +5,7 @@ import re
 import time
 import requests
 import feedparser
+import dateparser
 
 from bs4 import BeautifulSoup
 from django.template.defaultfilters import slugify
@@ -625,26 +626,35 @@ def imal():
 def incubhacker():
     "<p>Incubhacker est un hackerspace basé dans la région namuroise, c'est un espace de rencontre et de création interdisciplinaire.</p>"
 
-    now = calendar.timegm(datetime.now().utctimetuple())
+    soup = BeautifulSoup(requests.get("http://www.incubhacker.be/?page=1").content, "html5lib")
 
-    # 2 magics numbers are from a reverse of the incubhacker calendar api
-    for event in requests.get("http://www.incubhacker.be/index.php/component/gcalendar/jsonfeed?format=raw&gcid=2&start=%s&end=%s" % (now - 1187115, now + 2445265)).json():
-        title = event["title"]
-        url = "http://www.incubhacker.be" + event["url"]
-        start = parse(event["start"]).replace(tzinfo=None)
-        end = parse(event["end"]).replace(tzinfo=None)
+    pages_number = int(soup("a", "iCtip", href=lambda x: x and x.startswith("http://www.incubhacker.be/?page="))[-1].text)
 
-        tags = ["hackerspace"]
-        if event.title.strip() in ("INCUBHACKER", "Réunion normale"):
-            tags.append("meeting")
+    for page_number in range(1, pages_number + 1):
+        soup = BeautifulSoup(requests.get("http://www.incubhacker.be/?page=%s" % page_number).content, "html5lib")
 
-        yield {
-            'title': title,
-            'url': url,
-            'start': start,
-            'end': end,
-            'tags': tags
-        }
+        for event in soup("div", "ic-content"):
+            title = event.h2.text.strip()
+            url = "http://www.incubhacker.be" + event.h2.a["href"]
+
+            date = event.find("span", "ic-period-startdate").text
+            start_time = event.find("span", "ic-single-starttime").text
+            end_time = event.find("span", "ic-single-endtime").text
+
+            start = dateparser.parse(date + " " + start_time)
+            end = dateparser.parse(date + " " + end_time)
+
+            tags = ["hackerspace"]
+            if title.strip() == u'S\xe9ance hebdomadaire normale':
+                tags.append("meeting")
+
+            yield {
+                'title': title,
+                'url': url,
+                'start': start,
+                'end': end,
+                'tags': tags
+            }
 
 
 @event_source(background_color="#79f2e1", text_color="#000000", url="http://www.meetup.com/Internet-of-Things-Ghent/", predefined_tags=['code', 'iot', 'ghent'])
