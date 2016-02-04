@@ -74,7 +74,6 @@ def belgian_software_craftsmanship_guild():
     return generic_meetup("Belgian-Software-Craftsmanship-Guild")
 
 
-
 @event_source(background_color="#133F52", text_color="white", url="http://www.meetup.com/Belgium-Python-Meetup-aka-AperoPythonBe", predefined_tags=("python", "code", "drink"))
 def belgium_python_meetup():
     "<p>Belgium Python Meetup aka AperoPythonBe</p>"
@@ -108,7 +107,6 @@ def agile_belgium():
     return generic_meetup("Agile-Belgium")
 
 
-
 @event_source(background_color="#F8981D", text_color="white", url="http://www.meetup.com/AWS-User-Group-Belgium", predefined_tags=["cloud", "amazon", "aws", "sysadmin", "code"])
 def aws_user_group_belgium():
     """<p>This is a group for anyone interested in cloud computing on the Amazon Web Services platform. All skills levels are welcome.</p>"""
@@ -126,7 +124,6 @@ def belgian_blender_user_group():
         per_event_url_function=lambda event: event["DESCRIPTION"])
 
 
-
 @event_source(background_color="#9D3532", text_color="white", url="http://www.meetup.com/The-Belgian-AngularJS-Meetup-Group", predefined_tags=["angularjs", "javascript", "webdev", "code"])
 def belgian_angularjs():
     """
@@ -135,17 +132,14 @@ def belgian_angularjs():
     return generic_meetup("The-Belgian-AngularJS-Meetup-Group")
 
 
-
 @event_source(background_color="#1D1D1D", text_color="white", url="http://www.meetup.com/Belgian-node-js-User-Group", predefined_tags=["nodejs", "javascript", "code"], description='<p>This node.js user group gathers the belgian node.js developers so we can improve our skill set and build kick-ass amazing apps.<br><br>For the time being: find us on line at <a href="http://www.shadowmedia.be/nodejs/">http://www.shadowmedia.be/nodejs/</a>.</p>')
 def belgian_nodejs_user_group():
     return generic_meetup("Belgian-node-js-User-Group")
 
 
-
 @event_source(background_color="#7B6DB0", text_color="white", url="http://www.meetup.com/Belgian-Puppet-User-Group", predefined_tags=["puppet", "sysadmin", "devops", "code"], description="<p>Bringing puppet loving people together on a regular base, to talk about best practices, their experience and have interesting discussions about a great configuration management tool.<br><br>IRC: freenode - #puppet-be</p>")
 def belgian_puppet_user_group():
     return generic_meetup("Belgian-Puppet-User-Group")
-
 
 
 @event_source(background_color="#E0393E", text_color="white", url="http://www.meetup.com/Belgian-node-js-User-Group", predefined_tags=["ruby", "code"], description="<p>BRUG is the Belgian Ruby User Group.</p>")
@@ -159,7 +153,6 @@ def belgium_tableau_software_data_analytics_user_group_meetup():
     <p>For people with a passion for exploring, using data analytics. Explorers may be interested sport, health, journalism, science, engineering, politics, government, finance, economics, art, or history, to name but a few. Meetings are mainly conducted in English with a little French and Dutch thrown in.</p>
 """
     return generic_meetup("Belgium-Tableau-Software-Data-Analytics-User-Group-Meetup")
-
 
 
 @event_source(background_color="#FEE63C", text_color="#000000", url="http://www.meetup.com/brug__", predefined_tags=["java", "scala", "jvm", "code"], description="<p>The Belgian Scala User Group.</p>")
@@ -188,7 +181,6 @@ def bhackspace():
             'location': location.strip() if location else "Bastogne",
             'tags': ("hackerspace", "bastogne")
         }
-
 
 
 @event_source(background_color="#99c2eb", text_color="#ffffff", url="http://www.meetup.com/fr/Big-Data-Brussels/", predefined_tags=['code', 'bigdata'])
@@ -243,7 +235,6 @@ def brixel():
     return generic_meetup("Brixel-Hackerspace-Meetup-Spalbeek-Hasselt")
 
 
-
 @event_source(background_color="#0c0f11", text_color="#ffffff", url="http://www.meetup.com/fr/BruJUG/", predefined_tags=['code', 'java'])
 def brujug():
     """
@@ -265,11 +256,9 @@ def brussels_cassandra_users():
     return generic_meetup("Brussels-Cassandra-Users")
 
 
-
 @event_source(background_color="#CAD9EC", text_color="black", url="http://www.meetup.com/Brussels-Data-Science-Community-Meetup", predefined_tags=["bruxelles", "code", "bigdata"], description='<p>The <strong>Blender-Brussels</strong> − also known as <strong>Blender BPY/BGE workshops</strong> − are a series of monthly work sessions organized by <a href="http://xuv.be">Julien Deswaef</a> (<a href="https://github.com/xuv" class="user-mention">@xuv</a>) and <a href="http://frankiezafe.org">François Zajéga</a> (<a href="https://github.com/frankiezafe" class="user-mention">@frankiezafe</a>) with the aim of providing a regular gathering and knowledge sharing space for artists and coders interested in Python scripting in the context of Blender.</p>')
 def brussels_data_science_meetup():
     return generic_meetup("Brussels-Data-Science-Community-Meetup")
-
 
 
 @event_source(background_color="#8779f2", text_color="#000000", url="http://www.meetup.com/fr/Brussels-Drupal-Meetup/", predefined_tags=['code', 'drupal', 'php', 'brussels'])
@@ -317,7 +306,7 @@ def budalab():
     now = int(time.time())
     then = now + (60 * 60 * 24 * 14)
     location = "Designregio Kortrijk, Broelkaai 1B, 8500 KORTRIJK"
-    data = requests.get("http://budalab.fikket.com/api2/events/calendar.json?start=%s&end=%s"%(now, then)).json()
+    data = requests.get("http://budalab.fikket.com/api2/events/calendar.json?start=%s&end=%s" % (now, then)).json()
 
     for entry in data:
         title = entry["title"]
@@ -469,7 +458,6 @@ def docker_belgium():
     return generic_meetup("Docker-Belgium")
 
 
-
 @event_source(background_color="#FC745D", text_color="white", url="http://www.meetup.com/Ember-js-Brussels", predefined_tags=["emberjs", "javascript", "code", "webdev"], description="This is a group for anyone interested in developing web applications in Ember.js. I created this group because it's nice to have a local community for sharing knowledge, ideas and inspiration about this awesome web framework. The learning curve for Ember.js is not the lightest so it will also be a place to share your frustrations! Beginner or expert, everyone is welcome.")
 def ember_js_brussels():
     return generic_meetup("Ember-js-Brussels")
@@ -557,6 +545,7 @@ def gdg_brussels():
     <p>The group is independent of Google. The organizers are not working for Google. Still, we have a good relationship.</p>
     """
     return generic_meetup("gdg-brussels")
+
 
 @event_source(background_color="#A53B5B", text_color="#ffffff", url="http://www.meetup.com/GirlsCodeEU/", predefined_tags=[])
 def girls_code_eu():
@@ -695,7 +684,6 @@ def jeudi_du_libre_mons():
     return generic_meetup("Jeudis-du-Libre-Mons")
 
 
-
 @event_source(background_color="#FFFFFF", text_color="#FB503B", url="http://www.meetup.com/Laravel-Brussels", predefined_tags=["bruxelles", "laravel", "php", "webdev", "code"], description='<p>A group for anyone interested in learning about and sharing knowledge on Laravel, the "PHP framework for web artisans". The group welcomes beginners and experts, amateurs and pros, young and old, etc. Laravel is an accessible, yet powerful framework for web application development. Its expressive, elegant syntax and its clean structure make PHP development a real joy. As the Laravel community keeps growing, this group is an attempt to get Belgium-based users to know each other, and to spread the word!</p>')
 def laravel_brussels():
     return generic_meetup("Laravel-Brussels")
@@ -709,11 +697,9 @@ def le_wagon_brussels_coding_station():
     return generic_meetup("Le-Wagon-Brussels-Coding-Station")
 
 
-
 @event_source(background_color="#37C2F1", text_color="black", url="http://www.meetup.com/Les-mardis-de-lagile-Bruxelles", predefined_tags=["bruxelles", "agile", "code", "drink"], description="<p>Appel à la communauté agile de Bruxelles ! Que vous soyez un fervent agiliste ou tout simplement intéressé par l'agilité, venez découvrir de nouvelles approches, vous enrichir à travers les nombreuses sessions proposées, participer à des innovation games et partager vos retours d'expérience lors de nos meetups \"Les Mardis de l'agile\" !</p>")
 def les_mardis_de_l_agile():
     return generic_meetup("Les-mardis-de-lagile-Bruxelles")
-
 
 
 @event_source(background_color="#3EA86F", text_color="white", url="http://www.meetup.com/MongoDB-Belgium", predefined_tags=["mongodb", "database", "code"])
@@ -878,6 +864,7 @@ def openstreetmap_belgium():
 """
     return generic_meetup("OpenStreetMap-Belgium")
 
+
 @event_source(background_color="#3987CB", text_color="white", url="http://www.opentechschool.org", predefined_tags=["learning", "code", "bruxelles"])
 def opentechschool():
     '''
@@ -930,7 +917,6 @@ def php_antwerp():
     return generic_meetup("phpantwerp")
 
 
-
 @event_source(background_color="#015074", text_color="white", url="http://www.meetup.com/phpbenelux", predefined_tags=["php", "code", "webdev"])
 def phpbenelux():
     """<p>PHPBenelux user group meetings are a fun way to learn about best practices and new innovations from the world of PHP and to hang out with other PHP developers</p>"""
@@ -981,7 +967,6 @@ def relab():
     créatifs et économiques d’upcycling, en liaison avec les nouveaux moyens&nbsp;de fabrication et de communication numérique.</p>
     """
     return generic_google_agenda("https://www.google.com/calendar/ical/utmnk71g19dcs2d0f88q3hf528%40group.calendar.google.com/public/basic.ics")
-
 
 
 @event_source(background_color="white", text_color="#6F371F", url="http://www.meetup.com/ruby_burgers-rb", predefined_tags=["ruby", "code", "drink"])
@@ -1110,7 +1095,7 @@ def timelab():
             soup = None
 
 
-@event_source(background_color="pink", text_color="black", predefined_tags=["hackerspace"],  url="http://urlab.be")
+@event_source(background_color="pink", text_color="black", predefined_tags=["hackerspace"], url="http://urlab.be")
 def urlab():
     """
     <p>
@@ -1155,7 +1140,6 @@ def web_and_mobile_development_wvl():
     <p>A web and mobile development Usergroup for all devs based in West-Vlaanderen.</p>
 """
     return generic_meetup("web-and-mobile-development-wvl")
-
 
 
 @event_source(background_color="#F99232", text_color="white", url="http://www.meetup.com/WebRTC-crossingborders", predefined_tags=["code", "webrtc", "webdev"])
