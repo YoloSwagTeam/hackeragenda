@@ -398,19 +398,22 @@ def daemons_shell_scripts():
 
     root = "http://%s@ooooo.be" % settings.OOOOO_CREDENTIALS
 
-    soup = BeautifulSoup(requests.get(root + "/cloud/remote.php/caldav/calendars/hackeragenda/hackeragenda_shared_by_ooooo").content)
+    soup = BeautifulSoup(requests.get(root + "/cloud/remote.php/caldav/calendars/hackeragenda/hackeragenda_shared_by_ooooo").content, "html5lib")
     for ics in set([x["href"] for x in soup("a") if x["href"].endswith(".ics")]):
 
         data = Calendar.from_ical(requests.get(root + ics).content)
 
         for event in data.walk()[1:]:
+            if "SUMMARY" not in event or "DTSTART" not in event:
+                continue
+
             yield {
                 'title': event["SUMMARY"].encode("Utf-8"),
                 'url': "http://www.ooooo.be/daemonsshellscripts/",
                 'start': event["DTSTART"].dt.replace(tzinfo=None),
-                'end': event["DTEND"].dt.replace(tzinfo=None),
-                'location': event["LOCATION"].encode("Utf-8"),
-                'tags': (slugify(event["LOCATION"].encode("Utf-8")), 'libre') + tuple(event["CATEGORIES"].split(", "))
+                'end': event["DTEND"].dt.replace(tzinfo=None) if "DTEND" in event else None,
+                'location': event["LOCATION"].encode("Utf-8") if "LOCATION" in event else None,
+                'tags': (slugify(event.get("LOCATION", "").encode("Utf-8")), 'libre') + tuple(event.get("CATEGORIES", "").split(", "))
             }
 
 
