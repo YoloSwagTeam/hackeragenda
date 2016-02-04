@@ -179,5 +179,5 @@ def generic_google_agenda(gurl, per_event_url_function=None):
             last_modifications[uid] = last_mod
             known_uids[uid] = detail
 
-    return iter(known_uids.values())
+    return iter(filter(lambda x: not x["url"].startswith("<"), known_uids.values()))
 
