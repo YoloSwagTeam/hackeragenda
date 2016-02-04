@@ -1179,7 +1179,7 @@ def webrtc_belgium():
     return generic_meetup("WebRTC-Belgium")
 
 
-@event_source(background_color="white", text_color="black", url="http://www.0x20.be")
+#@event_source(background_color="white", text_color="black", url="http://www.0x20.be")
 def whitespace():
     """
     <p>
