@@ -24,3 +24,4 @@ geopy
 pyyaml
 beautifulsoup4
 django_view_dispatch
+html5lib
