@@ -496,7 +496,7 @@ def foam():
     </p>
     """
 
-    soup = BeautifulSoup(requests.get("http://fo.am/events/").content)
+    soup = BeautifulSoup(requests.get("http://fo.am/events/").content, "html.parser")
 
     for line in soup.find('table', 'eventlist')('tr')[1:]:
         title, event_date = line('td')
