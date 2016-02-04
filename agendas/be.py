@@ -368,25 +368,16 @@ def constantvzw():
 
     <p>Constant organizes workshops, print-parties, walks and ‘Verbindingen/Jonctions’-meetings on a regular basis for a public that’s into experiments, discussions and all kinds of exchanges.</p>
     """
-    soup = BeautifulSoup(requests.get("http://www.constantvzw.org/site/").content)
+    soup = BeautifulSoup(requests.get("http://www.constantvzw.org/site/?page=agenda").content, "html5lib")
 
-    for event in soup.find("div", id="flow")("div", recursive=False)[:-1]:
-        title = event('a')[1].text
-        url = "http://www.constantvzw.org/site/" + event('a')[1]["href"]
+    for event in soup.find("div", "liste-items evenements")("div", "box"):
+        title = event("h3")[1].text
+        url = "http://www.constantvzw.org/site/" + event.a["href"]
 
-        if len(event.span.text.split(" @ ")) == 2:
-            time, location = event.span.text.split(" @ ")
-        else:
-            time = event.span.text.split("@")[0].strip()
-            location = None
+        location = event.find("p", itemprop="location").text.replace("\n", " ") if event.find("p", itemprop="location") else None
 
-        if time.startswith("From "):
-            data = time.split("From ", 1)[1].split(" to ")
-            start = parse(data[0])
-            end = parse(data[1])
-        else:
-            start = parse(time).replace(tzinfo=None)
-            end = None
+        start = parse(event.find("abbr", "dtstart")["title"]).replace(tzinfo=None)
+        end = parse(event.find("abbr", "dtend")["title"]).replace(tzinfo=None)
 
         yield {
             'title': title,
