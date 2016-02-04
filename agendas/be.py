@@ -706,6 +706,14 @@ def les_mardis_de_l_agile():
     return generic_meetup("Les-mardis-de-lagile-Bruxelles")
 
 
+@event_source(background_color="#d1c4b8", text_color="#ffffff", url="http://www.meetup.com/fr-FR/Leuven-Lean-coffee/", predefined_tags=[])
+def leuven_lean_coffee():
+    """
+    <p>Each Month we meet in Leuven to talk about Lean, Kanban, Agile, TPS, or even Personal Kanban and Discovery Kanban. Join us if you get excited about limiting WIP, visualizing workflow, self-organizing teams, and change or even just want to know more about them. The meetup is member of the Belgium lean coffee meetups, more locations at Belgium lean coffee.</p>
+"""
+    return generic_meetup("Leuven-Lean-coffee")
+
+
 @event_source(background_color="#3EA86F", text_color="white", url="http://www.meetup.com/MongoDB-Belgium", predefined_tags=["mongodb", "database", "code"])
 def mongodb_belgium():
     """
