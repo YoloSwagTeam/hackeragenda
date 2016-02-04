@@ -89,6 +89,7 @@ PREDEFINED_FILTERS["default"] = {
         'brixel',
         'bxlug',
         'constantvzw',
+        'F_LAT',
         'foam',
         'hsbxl',
         'incubhacker',
