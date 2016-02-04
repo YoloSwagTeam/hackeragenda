@@ -730,7 +730,7 @@ def npbbxl():
         if parse(event["published"]).replace(tzinfo=None) < parse("28/02/15"):
             continue
 
-        title, date, location = re.match("(.+) (\d+/\d+/\d+ at \d+\.\d+ [ap]m), (.+)", event["title"]).groups()
+        title, date, _, location = re.match("(.+) (\d+/\d+/\d+ at \d+(\.\d+)? ?[ap]m), (.+)", event["title"]).groups()
         date, time = map(parse, date.replace(".", "h").split(" at "))
         date = date.replace(hour=time.hour).replace(minute=time.minute)
 
