@@ -683,7 +683,7 @@ def iot_be():
     return generic_meetup("iot_be")
 
 
-@event_source(background_color="#ffde17", text_color="#ffffff", url="http://www.meetup.com/javascriptlab/", predefined_tags=['javascript', 'code'])
+@event_source(background_color="#ffde17", text_color="#000000", url="http://www.meetup.com/javascriptlab/", predefined_tags=['javascript', 'code'])
 def javascriptlab():
     """
     <p>We love JavaScript and we thought it would be a great idea to put together a place where people can talk, meet and share their knowledge to bring their skills to the next level.  <br>So join us and let's get better at doing this, together.</br></p>
@@ -1169,7 +1169,7 @@ def webrtc():
     return generic_meetup("WebRTC-crossingborders")
 
 
-@event_source(background_color="#0a329f", text_color="#ffffff", url="http://www.meetup.com/fr/WebRTC-Belgium/", predefined_tags=['code', 'webrtc', 'web'])
+@event_source(background_color="#1a329f", text_color="#000000", url="http://www.meetup.com/fr/WebRTC-Belgium/", predefined_tags=['code', 'webrtc', 'web'])
 def webrtc_belgium():
     """
     <p>Welcome to WebRTC Belgium! The goal for this group right now is to develop a community around the up-and-coming WebRTC technology. Developers, Product Managers, IT Fans, tinkerers, all are welcome to join and share! WebRTC is the next generation of communications over the Internet. It allows open standard browsers to communicate with each other and exchange audio, video and files using a simple Javascript-based API. Early supporters like Google Chrome, Mozilla, Microsoft Edge. The standard is still under development (W3C and IETF)</p>
