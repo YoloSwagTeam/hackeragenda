@@ -20,6 +20,8 @@ def add_alpha(color, a=1):
             r, g, b = tuple(int(x, 16) / 15. for x in color[1:])
         elif len(color[1:]) == 6:
             r, g, b = tuple(int(color[i:i + 2], 16) / 255. for i in [1, 3, 5])
+        else:
+            r, g, b = tuple(int(color.rjust(6, '0')[i:i + 2], 16) / 255. for i in [1, 3, 5])
     else:
         r, g, b = colors_lookup[color.lower()]
     return format_rgba_for_css(r, g, b, a)
