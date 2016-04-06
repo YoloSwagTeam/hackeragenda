@@ -683,6 +683,14 @@ def iot_be():
     return generic_meetup("iot_be")
 
 
+@event_source(background_color="#ffde17", text_color="#ffffff", url="http://www.meetup.com/javascriptlab/", predefined_tags=['javascript', 'code'])
+def javascriptlab():
+    """
+    <p>We love JavaScript and we thought it would be a great idea to put together a place where people can talk, meet and share their knowledge to bring their skills to the next level.  <br>So join us and let's get better at doing this, together.</br></p>
+"""
+    return generic_meetup("javascriptlab")
+
+
 @event_source(background_color="#579FAB", text_color="black", url="http://www.meetup.com/Jeudis-du-Libre-Mons", predefined_tags=["mons-hainaut", "libre"], description="<p>La création des Jeudis du Libre est l’initiative de jeunes administrateurs systèmes désireux de communiquer sur Les Logiciels Libres. Tout les troisièmes jeudis du mois, un programme issu du travail de développeurs à travers le monde, est présenté aux administrateurs systèmes, aux amateurs d’informatique, aux professeurs ou encore aux simples curieux.</p>")
 def jeudi_du_libre_mons():
     return generic_meetup("Jeudis-du-Libre-Mons")
