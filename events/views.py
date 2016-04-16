@@ -3,7 +3,7 @@ from datetime import timedelta, datetime
 
 from django.http import HttpResponse
 from django.conf import settings
-from django.views.generic import ListView, TemplateView, MonthArchiveView
+from django.views.generic import ListView, TemplateView, MonthArchiveView, WeekArchiveView
 
 from taggit.models import Tag
 
@@ -106,3 +106,9 @@ class EventMonthArchiveView(MonthArchiveView):
     date_field = "start"
     month_format = "%m"
     template_name = "events/event_archive_month.haml"
+
+
+class EventWeekArchiveView(WeekArchiveView):
+    model = Event
+    date_field = "start"
+    template_name = "events/event_archive_week.haml"
