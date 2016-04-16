@@ -359,6 +359,21 @@ def bxlug():
         }
 
 
+@event_source(background_color="#FFFFFF", text_color="black", url="https://c3l.lu/")
+def c3l():
+    """
+    <p>Funded in 1981, the Chaos Computer Club did not only invade Hamburg and Berlin with its strong idealistic views on hacktivism or network politics, but reached far over the national borders. It was, and still is, an inspiration to many people in the world. Thus, also the reason for funding its own local 'branch' in Luxembourg. </p>
+    """
+    feed = feedparser.parse("http://ical2atom.c3l.lu/")
+    for entry in feed.entries:
+        yield {
+            'title': entry.title,
+            'url': entry.link,
+            'start': parse(entry.updated).replace(tzinfo=None),
+            'tags': ('hackerspace', 'Luxembourg'),
+        }
+
+
 @event_source(background_color="#D2C7BA", text_color="black", key=None, url="http://www.constantvzw.org")
 def constantvzw():
     """
