@@ -503,6 +503,16 @@ def fablab_bornem():
     return generic_meetup("FabLabBornem")
 
 
+@event_source(background_color="#e8e8e8", text_color="#2ba6ab", url="http://fablabmons.be/")
+def fablab_mons():
+    """
+    « Concevez-le et fabriquez-le vous-mêmes ! »
+    Voilà ce que proposent les « FabLabs » aux étudiants, aux chercheurs, aux designers, aux artistes, aux roboticiens, aux entrepreneurs et à tous les bricoleurs du 21e siècle qui veulent passer rapidement d’une idée à un prototype pour promouvoir leur projet.
+    La particularité du projet montois, initié au sein de l’Université de Mons, est en effet d’être porté par une diversité d’acteurs dont les besoins sont finalement très complémentaires. Le « FabLab Mons » est avant tout orienté grand public, formation et recherche.
+    """
+    return generic_google_agenda("https://calendar.google.com/calendar/ical/7j8q9f7sjerkg8im1q3s0sp27o%40group.calendar.google.com/public/basic.ics")
+
+
 @event_source(background_color="#C9C4BF", text_color="black", key=None, url="http://fo.am")
 def foam():
     """
