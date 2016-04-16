@@ -102,6 +102,7 @@ def event_to_fullcalendar_format(event):
 
 
 class EventMonthArchiveView(MonthArchiveView):
+    queryset = Event.objects.filter(agenda=settings.AGENDA)
     model = Event
     date_field = "start"
     month_format = "%m"
@@ -109,6 +110,7 @@ class EventMonthArchiveView(MonthArchiveView):
 
 
 class EventWeekArchiveView(WeekArchiveView):
+    queryset = Event.objects.filter(agenda=settings.AGENDA)
     model = Event
     date_field = "start"
     template_name = "events/event_archive_week.haml"
