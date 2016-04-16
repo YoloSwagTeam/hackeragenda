@@ -37,10 +37,11 @@ class HomeView(TemplateView):
 
 class EventListView(ListView):
     template_name = "events.haml"
-    queryset = Event.objects.filter(start__gte=datetime.now, agenda=settings.AGENDA).order_by("start")
+    queryset = Event.objects.filter(agenda=settings.AGENDA).order_by("start")
 
     def get_context_data(self, **kwargs):
         context = super(EventListView, self).get_context_data(**kwargs)
+        context["object_list"] = context["object_list"].filter(start__gte=datetime.now())
         context["object_list"] = filter_events(self.request, context["object_list"])
         return context
 
