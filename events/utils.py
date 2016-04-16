@@ -10,7 +10,7 @@ def filter_events(request, queryset):
 
     end = request.GET.get("end")
     if end is not None:
-        queryset = queryset.filter(end__lt=datetime.fromtimestamp(int(end)))
+        queryset = queryset.filter(start__lt=datetime.fromtimestamp(int(end)))
 
     section = request.GET.get("section")
     if section:
