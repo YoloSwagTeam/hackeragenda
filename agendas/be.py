@@ -759,6 +759,33 @@ def mongodb_belgium():
     return generic_meetup("MongoDB-Belgium")
 
 
+@event_source(background_color="#b0b0b0", text_color="#66182b", url="http://nadine.be")
+def nadine():
+    """
+    nadine est un labortoire bruxellois pour les arts actuels transdisciplinaires.
+    Grâce aux résidences in-situ, les projets de recherches, ou les ateliers, les artistes disposent d'espace pour s'exprimer.
+    nadine soutient les performances, l'art dans les lieux publics, les installations multimedia, les projets expérimentaux où les frontières de la création/production, recherche et présentation s'estompent
+
+    <i>(traduits du néerlandais par iTitou)</i>
+    """
+    soup = BeautifulSoup(requests.get('http://nadine.be/what/event').content)
+    for cell in soup.select('td'):
+        from_date = parse(cell.select('.from-date')[0].select('.date-display-single')[0]['content']).replace(tzinfo=None)
+        to_date = parse(cell.select('.to-date')[0].select('.date-display-single')[0]['content']).replace(tzinfo=None)
+        title_dom = cell.select('.views-field-title a')[0]
+        title = title_dom.text.strip()
+        url = title_dom['href']
+        tags = ['art'] + cell.select('.views-field-field-freetags .field-content')[0].text.split()
+
+        yield {
+            'title': title,
+            'url': url,
+            'start': from_date,
+            'end': to_date,
+            'tags': tags
+        }
+
+
 @event_source(background_color="indigo", text_color="white", url="https://npbx.wordpress.com/category/npbbxl/")
 def npbbxl():
     '''
