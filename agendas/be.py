@@ -503,6 +503,16 @@ def fablab_bornem():
     return generic_meetup("FabLabBornem")
 
 
+@event_source(background_color="white", text_color="#515151", url="http://www.fablabcharleroi.be/")
+def fablab_charleroi():
+    """
+    Ensuite dans l’esprit que nous voulons mettre en place les mots qui me viennent spontanément : Fun, partage, passion, soutien, entre aide, technique, développement, innovation,…
+    Cette liste non-exhaustive doit vous mettre sur la piste de nos objectifs au sein du fablab de Charleroi.
+    Le Fablab fait partie d’un ensemble plus grand, le bubble hub qui est un espace créatif qui se décompose en plusieurs activités dont celle du fablab : http://bubblehub.be/susciter-la-creativite/fablab/
+    """
+    return generic_google_agenda("https://calendar.google.com/calendar/ical/2qpt4enmk3brsvmkmitko7b3hg%40group.calendar.google.com/public/basic.ics")
+
+
 @event_source(background_color="#e8e8e8", text_color="#2ba6ab", url="http://fablabmons.be/")
 def fablab_mons():
     """
