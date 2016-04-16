@@ -16,7 +16,13 @@ from icalendar import Calendar
 from HTMLParser import HTMLParser
 
 from events.management.commands.fetch_events import event_source
-from events.generics import generic_meetup, generic_eventbrite, generic_google_agenda, json_api
+from events.generics import (
+    generic_meetup,
+    generic_eventbrite,
+    generic_google_agenda,
+    generic_facebook_page,
+    json_api,
+)
 
 
 @event_source(background_color="#f2be79", text_color="#000000", url="http://www.meetup.com/fr/3Dvangelist-professional-workshop-3D-printing/", predefined_tags=[])
@@ -236,6 +242,14 @@ def brixel():
     return generic_meetup("Brixel-Hackerspace-Meetup-Spalbeek-Hasselt")
 
 
+@event_source(background_color="#FF0", text_color="#F00", url="http://brotaru.com/")
+def brotaru():
+    """
+    BROTARU is a monthly meet up of videogame development people in Brussels!
+    """
+    return generic_facebook_page('bxl.otaru')
+
+
 @event_source(background_color="#0c0f11", text_color="#ffffff", url="http://www.meetup.com/fr/BruJUG/", predefined_tags=['code', 'java'])
 def brujug():
     """
@@ -359,6 +373,21 @@ def bxlug():
         }
 
 
+@event_source(background_color="#FFFFFF", text_color="black", url="https://c3l.lu/")
+def c3l():
+    """
+    <p>Funded in 1981, the Chaos Computer Club did not only invade Hamburg and Berlin with its strong idealistic views on hacktivism or network politics, but reached far over the national borders. It was, and still is, an inspiration to many people in the world. Thus, also the reason for funding its own local 'branch' in Luxembourg. </p>
+    """
+    feed = feedparser.parse("http://ical2atom.c3l.lu/")
+    for entry in feed.entries:
+        yield {
+            'title': entry.title,
+            'url': entry.link,
+            'start': parse(entry.updated).replace(tzinfo=None),
+            'tags': ('hackerspace', 'Luxembourg'),
+        }
+
+
 @event_source(background_color="#D2C7BA", text_color="black", key=None, url="http://www.constantvzw.org")
 def constantvzw():
     """
@@ -472,6 +501,26 @@ def fablab_bornem():
     <p>Wij willen een FabLab oprichten in Bornem en we hebben al een naam: FabLab Bornem :-) In een FabLab kan je zelf iets maken, dankzij 3D printers, lasercutters, electronica, sensoren, robots, ... Wat hebben we nodig: (A) een locatie (in een school, in een bedrijf, ...) om het FabLab in te richten (B) enthousiaste vrijwilligers om mee aan de kar te trekken tijdens opstart en nadien begeleiders voor tijdens de openingsuren van het FabLab (bijv. woensdagnamiddag, vrijdagavond) (C) sponsors voor aankoop hardware en software.</p>
 """
     return generic_meetup("FabLabBornem")
+
+
+@event_source(background_color="white", text_color="#515151", url="http://www.fablabcharleroi.be/")
+def fablab_charleroi():
+    """
+    Ensuite dans l’esprit que nous voulons mettre en place les mots qui me viennent spontanément : Fun, partage, passion, soutien, entre aide, technique, développement, innovation,…
+    Cette liste non-exhaustive doit vous mettre sur la piste de nos objectifs au sein du fablab de Charleroi.
+    Le Fablab fait partie d’un ensemble plus grand, le bubble hub qui est un espace créatif qui se décompose en plusieurs activités dont celle du fablab : http://bubblehub.be/susciter-la-creativite/fablab/
+    """
+    return generic_google_agenda("https://calendar.google.com/calendar/ical/2qpt4enmk3brsvmkmitko7b3hg%40group.calendar.google.com/public/basic.ics")
+
+
+@event_source(background_color="#e8e8e8", text_color="#2ba6ab", url="http://fablabmons.be/")
+def fablab_mons():
+    """
+    « Concevez-le et fabriquez-le vous-mêmes ! »
+    Voilà ce que proposent les « FabLabs » aux étudiants, aux chercheurs, aux designers, aux artistes, aux roboticiens, aux entrepreneurs et à tous les bricoleurs du 21e siècle qui veulent passer rapidement d’une idée à un prototype pour promouvoir leur projet.
+    La particularité du projet montois, initié au sein de l’Université de Mons, est en effet d’être porté par une diversité d’acteurs dont les besoins sont finalement très complémentaires. Le « FabLab Mons » est avant tout orienté grand public, formation et recherche.
+    """
+    return generic_google_agenda("https://calendar.google.com/calendar/ical/7j8q9f7sjerkg8im1q3s0sp27o%40group.calendar.google.com/public/basic.ics")
 
 
 @event_source(background_color="#C9C4BF", text_color="black", key=None, url="http://fo.am")
@@ -728,6 +777,33 @@ def mongodb_belgium():
     <p>The first countrywide MongoDB user group in Belgium. Meetups will be held every 3 months. Talk proposals can be sent to hannes@showpad.com.</p>
     """
     return generic_meetup("MongoDB-Belgium")
+
+
+@event_source(background_color="#b0b0b0", text_color="#66182b", url="http://nadine.be")
+def nadine():
+    """
+    nadine est un labortoire bruxellois pour les arts actuels transdisciplinaires.
+    Grâce aux résidences in-situ, les projets de recherches, ou les ateliers, les artistes disposent d'espace pour s'exprimer.
+    nadine soutient les performances, l'art dans les lieux publics, les installations multimedia, les projets expérimentaux où les frontières de la création/production, recherche et présentation s'estompent
+
+    <i>(traduits du néerlandais par iTitou)</i>
+    """
+    soup = BeautifulSoup(requests.get('http://nadine.be/what/event').content)
+    for cell in soup.select('td'):
+        from_date = parse(cell.select('.from-date')[0].select('.date-display-single')[0]['content']).replace(tzinfo=None)
+        to_date = parse(cell.select('.to-date')[0].select('.date-display-single')[0]['content']).replace(tzinfo=None)
+        title_dom = cell.select('.views-field-title a')[0]
+        title = title_dom.text.strip()
+        url = title_dom['href']
+        tags = ['art'] + cell.select('.views-field-field-freetags .field-content')[0].text.split()
+
+        yield {
+            'title': title,
+            'url': url,
+            'start': from_date,
+            'end': to_date,
+            'tags': tags
+        }
 
 
 @event_source(background_color="indigo", text_color="white", url="https://npbx.wordpress.com/category/npbbxl/")
