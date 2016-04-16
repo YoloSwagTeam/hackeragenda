@@ -242,7 +242,7 @@ def brixel():
     return generic_meetup("Brixel-Hackerspace-Meetup-Spalbeek-Hasselt")
 
 
-@event_source(background_color="yellow", text_color="red", url="http://brotaru.com/")
+@event_source(background_color="#FF0", text_color="#F00", url="http://brotaru.com/")
 def brotaru():
     """
     BROTARU is a monthly meet up of videogame development people in Brussels!
