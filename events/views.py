@@ -112,3 +112,4 @@ class EventWeekArchiveView(WeekArchiveView):
     model = Event
     date_field = "start"
     template_name = "events/event_archive_week.haml"
+    week_format = '%W'
