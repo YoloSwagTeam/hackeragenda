@@ -1,7 +1,19 @@
+from datetime import datetime
+
 from django.conf import settings
 
 
 def filter_events(request, queryset):
+    start = request.GET.get("start")
+    if start is not None:
+        print "start", datetime.fromtimestamp(int(start))
+        queryset = queryset.filter(start__gte=datetime.fromtimestamp(int(start)))
+
+    end = request.GET.get("end")
+    if end is not None:
+        print "end", datetime.fromtimestamp(int(end))
+        queryset = queryset.filter(end__lt=datetime.fromtimestamp(int(end)))
+
     section = request.GET.get("section")
     if section:
         source = settings.PREDEFINED_FILTERS[section]["source"]
