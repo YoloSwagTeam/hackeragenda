@@ -1,22 +1,18 @@
 -load events_tags
 
-#filter_bar.snap-drawers.row
-  .snap-drawer.snap-drawer-left.six.columns
+#filter_bar.snap-drawers
+  .snap-drawer.snap-drawer-left.columns
     %h2
       Selection
     %hr
     %p
-      This bar allows you to filter the events<br>
-      by sources or by tags. Every option has<br>
-      three possible state: active (colour),<br>
-      unactive (grey) and excluding (striked).<br>
-      Active options will be fetch ("IN" in sql),<br>
-      excluding options will be removed<br>
-      ("NOT IN" in sql) and unactive options<br>
-      will be ignored.
+      This bar allows you to filter the events
+      by sources or by tags. Every option has
+      three possible state: active (colour),
+      unactive (grey) and excluding (striked).
     %p
-      This will also modify the result of the<br>
-      RSS and of the ICS
+      This will also modify the result of the
+      RSS and of the ICS.
     %h3
       By sources
     %ul#sources.filters

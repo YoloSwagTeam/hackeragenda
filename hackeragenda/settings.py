@@ -205,6 +205,8 @@ INSTALLED_APPS = (
 
 BOWER_INSTALLED_APPS = (
     'fullcalendar#1.6.4',
+    'jquery#^2.2.3',
+    'foundation-sites',
     'snapjs',
 )
 

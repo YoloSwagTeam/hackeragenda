@@ -1,4 +1,5 @@
 *~
+.DS_Store
 build
 develop-eggs
 dist
@@ -17,5 +18,6 @@ settings_local.py
 *.swo
 *.index
 ve/
+venv/
 bower/
 db.sqlite

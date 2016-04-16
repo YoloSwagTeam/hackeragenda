@@ -27,12 +27,12 @@
     <!-- %link{"rel": "stylesheet", "href": "{{ STATIC_URL }}stylesheets/foundation.css"} -->
 
     <!-- Included CSS Files (Compressed) -->
-    %link{"rel": "stylesheet", "href": "{{ STATIC_URL }}stylesheets/foundation.min.css"}
+    %link{"rel": "stylesheet", "href": "{% static 'foundation-sites/dist/foundation.min.css' %}"}
     %link{"rel": "stylesheet", "href": "{{ STATIC_URL }}stylesheets/app.css"}
     %link{"rel": "stylesheet", "href": "{{ STATIC_URL }}stylesheets/leaflet.awesome-markers.css"}
     %link{"rel": "stylesheet", "href": "{{ STATIC_URL }}stylesheets/MarkerCluster.css"}
     %link{"rel": "stylesheet", "href": "{{ STATIC_URL }}stylesheets/MarkerCluster.Default.css"}
-    %link{"rel": "stylesheet", "href": "{% static 'snapjs/snap.css' %}"}
+    %link{"rel": "stylesheet", "href": "{% static 'Snap.js/snap.css' %}"}
     -leaflet_css
 
     :css
@@ -63,17 +63,12 @@
 
     <!-- container -->
     #content.container.snap-content{style: 'background: url("{{ STATIC_URL }}images/white.png") no-repeat scroll center 75% #FFFFFF;'}
-      .row
-        .twelve.columns
-          %h2
-            %a{"style": "color: black", "href": "{% url 'home' %}"}
-              %center.love
-                -block h1_title
-                  Belgium Hacker Agenda
 
       -block container
-        .row
-          .twelve.columns
+        .expanded.row
+          .small-2.columns
+            -block sidebar
+          .small-10.columns
             -block content
 
       %footer.row
@@ -94,28 +89,16 @@
             %span.love
               %a{href: "https://github.com/Psycojoker/hackeragenda"} sauce
 
-    <!-- Included JS Files (Uncompressed) -->
-    <!--
-    %script{"src": "{{ STATIC_URL }}javascripts/modernizr.foundation.js"}
-    %script{"src": "{{ STATIC_URL }}javascripts/jquery.js"}
-    %script{"src": "{{ STATIC_URL }}javascripts/jquery.foundation.mediaQueryToggle.js"}
-    %script{"src": "{{ STATIC_URL }}javascripts/jquery.foundation.reveal.js"}
-    %script{"src": "{{ STATIC_URL }}javascripts/jquery.foundation.orbit.js"}
-    %script{"src": "{{ STATIC_URL }}javascripts/jquery.foundation.navigation.js"}
-    %script{"src": "{{ STATIC_URL }}javascripts/jquery.foundation.buttons.js"}
-    %script{"src": "{{ STATIC_URL }}javascripts/jquery.foundation.tabs.js"}
-    %script{"src": "{{ STATIC_URL }}javascripts/jquery.foundation.forms.js"}
-    %script{"src": "{{ STATIC_URL }}javascripts/jquery.foundation.tooltips.js"}
-    %script{"src": "{{ STATIC_URL }}javascripts/jquery.foundation.accordion.js"}
-    %script{"src": "{{ STATIC_URL }}javascripts/jquery.placeholder.js"}
-    %script{"src": "{{ STATIC_URL }}javascripts/jquery.foundation.alerts.js"} -->
+    %script{"src": "{% static 'jquery/dist/jquery.min.js' %}"}
+    %script{"src": "{% static 'foundation-sites/dist/foundation.min.js' %}"}
+    %script{"src": "{% static 'foundation-sites/js/foundation.core.js' %}"}
+    %script{"src": "{% static 'foundation-sites/js/foundation.tabs.js' %}"}
+    %script{"src": "{% static 'foundation-sites/js/foundation.util.keyboard.js' %}"}
+    %script{"src": "{% static 'foundation-sites/js/foundation.util.timerAndImageLoader.js' %}"}
+    %script{"src": "{% static 'foundation-sites/js/foundation.equalizer.js' %}"}
 
-    <!-- Included JS Files (Compressed) -->
-    %script{"src": "{{ STATIC_URL }}javascripts/foundation.min.js"}
-
-    <!-- Initialize JS Plugins -->
-    %script{"src": "{{ STATIC_URL }}javascripts/app.js"}
     -leaflet_js
     %script{"src": "{{ STATIC_URL }}javascripts/leaflet.awesome-markers.min.js"}
     %script{"src": "{{ STATIC_URL }}javascripts/leaflet.markercluster.js"}
+
     -block javascript
