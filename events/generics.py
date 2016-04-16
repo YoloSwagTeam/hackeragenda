@@ -180,4 +180,3 @@ def generic_google_agenda(gurl, per_event_url_function=None):
             known_uids[uid] = detail
 
     return iter(filter(lambda x: not x["url"].startswith("<"), known_uids.values()))
-
