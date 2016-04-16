@@ -573,7 +573,7 @@ def foam():
         }
 
 
-@event_source(background_color="#ffffff", text_color="#ffffff", url="http://www.meetup.com/fr/french-meteor-meetup/", predefined_tags=['code', 'meteor', 'javascript', 'web'])
+@event_source(background_color="#2E8B57", text_color="#ffffff", url="http://www.meetup.com/fr/french-meteor-meetup/", predefined_tags=['code', 'meteor', 'javascript', 'web'])
 def french_meteor_meetup():
     """
     <p>Ceci est un groupe réunissant les développeurs enthousiastes utilisant la plateforme Meteor en Belgique francophone.</p>
