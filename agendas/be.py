@@ -242,7 +242,7 @@ def brixel():
     return generic_meetup("Brixel-Hackerspace-Meetup-Spalbeek-Hasselt")
 
 
-@event_source(background_color="#FF0", text_color="#F00", url="http://brotaru.com/")
+@event_source(background_color="#FF0", text_color="#F00", url="http://brotaru.com/", predefined_tags=["videogame", "code"])
 def brotaru():
     """
     BROTARU is a monthly meet up of videogame development people in Brussels!
@@ -373,7 +373,7 @@ def bxlug():
         }
 
 
-@event_source(background_color="#FFFFFF", text_color="black", url="https://c3l.lu/")
+@event_source(background_color="#FFFFFF", text_color="black", url="https://c3l.lu/", predefined_tags=["hackerspace", "Luxembourg"])
 def c3l():
     """
     <p>Funded in 1981, the Chaos Computer Club did not only invade Hamburg and Berlin with its strong idealistic views on hacktivism or network politics, but reached far over the national borders. It was, and still is, an inspiration to many people in the world. Thus, also the reason for funding its own local 'branch' in Luxembourg. </p>
@@ -384,7 +384,6 @@ def c3l():
             'title': entry.title,
             'url': entry.link,
             'start': parse(entry.updated).replace(tzinfo=None),
-            'tags': ('hackerspace', 'Luxembourg'),
         }
 
 
@@ -503,7 +502,7 @@ def fablab_bornem():
     return generic_meetup("FabLabBornem")
 
 
-@event_source(background_color="white", text_color="#515151", url="http://www.fablabcharleroi.be/")
+@event_source(background_color="white", text_color="#515151", url="http://www.fablabcharleroi.be/", predefined_tags=["fablab", "charleroi"])
 def fablab_charleroi():
     """
     Ensuite dans l’esprit que nous voulons mettre en place les mots qui me viennent spontanément : Fun, partage, passion, soutien, entre aide, technique, développement, innovation,…
@@ -513,7 +512,7 @@ def fablab_charleroi():
     return generic_google_agenda("https://calendar.google.com/calendar/ical/2qpt4enmk3brsvmkmitko7b3hg%40group.calendar.google.com/public/basic.ics")
 
 
-@event_source(background_color="#e8e8e8", text_color="#2ba6ab", url="http://fablabmons.be/")
+@event_source(background_color="#e8e8e8", text_color="#2ba6ab", url="http://fablabmons.be/", predefined_tags=["fablab", "mons"])
 def fablab_mons():
     """
     « Concevez-le et fabriquez-le vous-mêmes ! »
