@@ -1,7 +1,19 @@
+from datetime import datetime
+
 from django.conf import settings
+from django.db.models import Q
 
 
 def filter_events(request, queryset):
+    if "start" in request.GET and "end" in request.GET:
+        start = datetime.fromtimestamp(int(request.GET["start"]))
+        end = datetime.fromtimestamp(int(request.GET["end"]))
+        q_object = Q(start__gte=start, start__lt=end)
+        q_object = q_object | Q(end__isnull=False, end__gte=start, end__lt=end)
+        q_object = q_object | Q(start__lt=start, end__gt=end)
+
+        queryset = queryset.filter(q_object)
+
     section = request.GET.get("section")
     if section:
         source = settings.PREDEFINED_FILTERS[section]["source"]
