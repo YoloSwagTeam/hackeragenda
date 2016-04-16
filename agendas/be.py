@@ -16,7 +16,13 @@ from icalendar import Calendar
 from HTMLParser import HTMLParser
 
 from events.management.commands.fetch_events import event_source
-from events.generics import generic_meetup, generic_eventbrite, generic_google_agenda, json_api
+from events.generics import (
+    generic_meetup,
+    generic_eventbrite,
+    generic_google_agenda,
+    generic_facebook_page,
+    json_api,
+)
 
 
 @event_source(background_color="#f2be79", text_color="#000000", url="http://www.meetup.com/fr/3Dvangelist-professional-workshop-3D-printing/", predefined_tags=[])
@@ -234,6 +240,14 @@ def blender_brussels():
 @event_source(background_color="#3C6470", text_color="white", url="http://brixel.be", predefined_tags=["Hackerspace", "hasselt"], description="<p>Brixel HQ is located in Spalbeek near Hasselt and we organise events and meetings every Tuesday and the first and third Friday every month. Although we do not always have something planned, we try to be open as much as we can to stimulate the magic things that just might happen... Meetings start at around 19:00h localtime, but this can vary a bit. There is no fixed closing time. We welcome everybody, young or old, in our Brixel HQ. Come have a look, it's fun!</p>")
 def brixel():
     return generic_meetup("Brixel-Hackerspace-Meetup-Spalbeek-Hasselt")
+
+
+@event_source(background_color="yellow", text_color="red", url="http://brotaru.com/")
+def brotaru():
+    """
+    BROTARU is a monthly meet up of videogame development people in Brussels!
+    """
+    return generic_facebook_page('bxl.otaru')
 
 
 @event_source(background_color="#0c0f11", text_color="#ffffff", url="http://www.meetup.com/fr/BruJUG/", predefined_tags=['code', 'java'])
