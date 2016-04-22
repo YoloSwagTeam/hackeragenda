@@ -14,6 +14,21 @@ from events.models import Event
 from imp import load_source
 from os import listdir
 
+
+def catch_exception(function):
+    def wrapper(*args, **kwargs):
+        try:
+            return function(*args, **kwargs)
+        except Exception:
+            traceback.print_exc()
+            try:
+                from raven.contrib.django.raven_compat.models import client
+                client.captureException()
+            except ImportError:
+                print("No Sentry")
+            return ""
+    return wrapper
+
 # instead of doing .encode("Utf-8") everywhere, easier for contributors
 reload(sys)
 sys.setdefaultencoding("utf-8")
@@ -43,7 +58,7 @@ class Command(BaseCommand):
         for source in sources:
             try:
                 with transaction.atomic():
-                    SOURCES_FUNCTIONS[source](
+                    catch_exception(SOURCES_FUNCTIONS[source])(
                         options.get('quiet', True),
                         options.get('nocolor', True)
                     )
