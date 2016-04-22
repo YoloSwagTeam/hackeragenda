@@ -3,7 +3,7 @@ from datetime import timedelta, datetime
 
 from django.http import HttpResponse
 from django.conf import settings
-from django.views.generic import ListView, TemplateView
+from django.views.generic import ListView, TemplateView, MonthArchiveView, WeekArchiveView
 
 from taggit.models import Tag
 
@@ -99,3 +99,19 @@ def event_to_fullcalendar_format(event):
         to_return["end"] = end.strftime("%F %X")
 
     return to_return
+
+
+class EventMonthArchiveView(MonthArchiveView):
+    queryset = Event.objects.filter(agenda=settings.AGENDA)
+    model = Event
+    date_field = "start"
+    month_format = "%m"
+    template_name = "events/event_archive_month.haml"
+
+
+class EventWeekArchiveView(WeekArchiveView):
+    queryset = Event.objects.filter(agenda=settings.AGENDA)
+    model = Event
+    date_field = "start"
+    template_name = "events/event_archive_week.haml"
+    week_format = '%W'

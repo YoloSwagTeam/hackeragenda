@@ -9,6 +9,7 @@ from optparse import make_option
 from dateutil.parser import parse
 
 from django.core.management.base import BaseCommand
+from django.core.urlresolvers import reverse
 from django.conf import settings
 
 from events.models import Event
@@ -66,15 +67,18 @@ class Command(BaseCommand):
         time.sleep(300)
 
     def generate_tweets(self, tweet_date):
+        today = date.today()
+
+        if today.weekday() == 0:
+            yield "All events of this week: http://hackeragenda.be%s" % reverse("events_month", kwargs={"month": "%.2d" % today.month, "year": str(today.year)}), None
+
+        if today.day == 1:
+            yield "All events of this month: http://hackeragenda.be%s" % (reverse("events_week", kwargs={"week": "%.2d" % today.isocalendar()[1], "year": str(today.year)})), None
+
         today_events = Event.objects.filter(agenda=settings.AGENDA).filter(start__gte=tweet_date).filter(start__lt=tweet_date + timedelta(days=1))
-        this_week_other_events = Event.objects.filter(agenda=settings.AGENDA).filter(start__gte=tweet_date + timedelta(days=1)).filter(start__lt=tweet_date + timedelta(days=7))
 
         for tweet, location in self.format_tweets(today_events):
             yield tweet, location
-
-        if tweet_date.weekday() == 0:
-            for tweet, location in self.format_tweets(this_week_other_events):
-                yield tweet, location
 
     def format_tweets(self, events):
         def format_title(x):

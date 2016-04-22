@@ -55,6 +55,9 @@ class Event(models.Model):
         color = self.text_color
         return add_alpha(color, .5) if self.is_over else color
 
+    class Meta:
+        ordering = ['start']
+
 
 class LocationCache(models.Model):
     string = models.CharField(max_length=255, db_index=True, unique=True)

@@ -1,0 +1,7 @@
+-extends "base.haml"
+
+-block content
+  %h1 Event for the week of the {{ week|date:"d F Y" }}
+  %hr
+
+  - include "events.haml"
