@@ -70,10 +70,10 @@ class Command(BaseCommand):
         today = date.today()
 
         if today.weekday() == 0:
-            yield "All events of this week: http://hackeragenda.be%s" % reverse("events_month", kwargs={"month": "%.2d" % today.month, "year": str(today.year)}), None
+            yield "All events of this week: http://hackeragenda.be%s" % (reverse("events_week", kwargs={"week": "%.2d" % today.isocalendar()[1], "year": str(today.year)})), None
 
         if today.day == 1:
-            yield "All events of this month: http://hackeragenda.be%s" % (reverse("events_week", kwargs={"week": "%.2d" % today.isocalendar()[1], "year": str(today.year)})), None
+            yield "All events of this month: http://hackeragenda.be%s" % reverse("events_month", kwargs={"month": "%.2d" % today.month, "year": str(today.year)}), None
 
         today_events = Event.objects.filter(agenda=settings.AGENDA).filter(start__gte=tweet_date).filter(start__lt=tweet_date + timedelta(days=1))
 
