@@ -149,9 +149,9 @@ def belgian_puppet_user_group():
     return generic_meetup("Belgian-Puppet-User-Group")
 
 
-@event_source(background_color="#E0393E", text_color="white", url="http://www.meetup.com/Belgian-node-js-User-Group", predefined_tags=["ruby", "code"], description="<p>BRUG is the Belgian Ruby User Group.</p>")
+@event_source(background_color="#E0393E", text_color="white", url="http://www.meetup.com/ruby_belgium/", predefined_tags=["ruby", "code"], description="<p>BRUG is the Belgian Ruby User Group.</p>")
 def belgian_ruby_user_group():
-    return generic_meetup("brug__")
+    return generic_meetup("ruby_belgium")
 
 
 @event_source(background_color="#f2d379", text_color="#000000", url="http://www.meetup.com/Belgium-Tableau-Software-Data-Analytics-User-Group-Meetup/", predefined_tags=['code', 'data'])
