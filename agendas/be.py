@@ -162,7 +162,7 @@ def belgium_tableau_software_data_analytics_user_group_meetup():
     return generic_meetup("Belgium-Tableau-Software-Data-Analytics-User-Group-Meetup")
 
 
-@event_source(background_color="#FEE63C", text_color="#000000", url="http://www.meetup.com/brug__", predefined_tags=["java", "scala", "jvm", "code"], description="<p>The Belgian Scala User Group.</p>")
+@event_source(background_color="#FEE63C", text_color="#000000", url="http://www.meetup.com/BeScala", predefined_tags=["java", "scala", "jvm", "code"], description="<p>The Belgian Scala User Group.</p>")
 def bescala():
     return generic_meetup("BeScala")
 
