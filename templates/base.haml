@@ -32,7 +32,7 @@
     %link{"rel": "stylesheet", "href": "{{ STATIC_URL }}stylesheets/leaflet.awesome-markers.css"}
     %link{"rel": "stylesheet", "href": "{{ STATIC_URL }}stylesheets/MarkerCluster.css"}
     %link{"rel": "stylesheet", "href": "{{ STATIC_URL }}stylesheets/MarkerCluster.Default.css"}
-    %link{"rel": "stylesheet", "href": "{% static 'Snap.js/snap.css' %}"}
+    %link{"rel": "stylesheet", "href": "{% static 'snapjs/snap.css' %}"}
     -leaflet_css
 
     :css
@@ -70,24 +70,6 @@
             -block sidebar
           .small-10.columns
             -block content
-
-      %footer.row
-        %div{"style": "text-align: center;"}
-          -block footer
-            %span.love
-              %a{'href': '{% url "administration_dashboard" %}'}
-                Admin
-            %br
-            %span.love
-              Made with
-              %span{"style": "color: pink"}❤
-              by
-              %a{href: "http://worlddomination.be"} Bram
-              with the help of
-              %a{href: "https://github.com/Psycojoker/hackeragenda/graphs/contributors"} awesome contributors
-            %br
-            %span.love
-              %a{href: "https://github.com/Psycojoker/hackeragenda"} sauce
 
     %script{"src": "{% static 'jquery/dist/jquery.min.js' %}"}
     %script{"src": "{% static 'foundation-sites/dist/foundation.min.js' %}"}

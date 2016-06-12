@@ -5,12 +5,7 @@
 -load events_tags
 
 -block sidebar
-  %h3
-    %a{"style": "color: black", "href": "{% url 'home' %}"}
-      -block h1_title
-        Belgium Hacker Agenda
-
-  %ul.tabs.vertical{data-tabs:"", id:"main-tabs"}
+  %ul.tabs.vertical.left-menu{data-tabs:"", id:"main-tabs"}
     %li.tabs-title.is-active
       %a{href: "#calendar-view", aria-selected: "true"}
         Calendar
@@ -27,24 +22,26 @@
   %br
 
   %div
-    %span
+    %p
       Select specific events or craft your own <a class="open_filter_tag_bar">query</a>.
-
-    %br
 
     %div.button-group.stacked
       -for filter in predefined_filters
         %a.button.predefined_filter{data-key: "{{ filter }}", id: "section_{{ filter }}"}= filter|capfirst
 
-    %a#rss.button.hollow{href: "{% url 'events_rss' %}"}
-      RSS
-    %a#ics.button.hollow{href: "{% url 'events_ics' %}"}
-      ICS
-    %a.button.hollow{href: "https://twitter.com/hackeragenda_be"}
-      Twitter
+    .center
+      %a#rss.button.hollow.export-button{href: "{% url 'events_rss' %}"}
+        RSS
+      %a#ics.button.hollow.export-button{href: "{% url 'events_ics' %}"}
+        ICS
+      %a#twitter.button.hollow.export-button{href: "https://twitter.com/hackeragenda_be"}
+        Twitter
 
 -block content
   %div.tabs-content{data-tabs-content: "main-tabs", id: "main-tabs"}
+    .logo
+      %img{src: "{% static 'images/logo.png' %}"}
+
     %div.tabs-panel.is-active{id: "calendar-view"}
       #calendar{style: "padding: 20px"}
 
@@ -167,20 +164,40 @@
         Because Love.
 
 
-  %center
-    %a{href: "http://thecatapi.com/"}
-      %img{src: "http://thecatapi.com/api/images/get?format=src&size=small"}
-      %center
-        The cat API
+    %center
+      %a{href: "http://thecatapi.com/"}
+        %img{src: "http://thecatapi.com/api/images/get?format=src&size=small"}
+        %center
+          The cat API
 
-  %hr
+    %br
+    %br
+
+  %footer.row
+    %div{"style": "text-align: center;"}
+      -block footer
+        %br
+        %span.love
+          Made with
+          %span{"style": "color: pink"}❤
+          by
+          %a{href: "http://worlddomination.be"} Bram
+          with the help of
+          %a{href: "https://github.com/Psycojoker/hackeragenda/graphs/contributors"} awesome contributors
+        %br
+        %span.love
+          %a{'href': '{% url "administration_dashboard" %}'}
+            Admin
+          %span{"style": "color: pink"}❤
+          %a{href: "https://github.com/Psycojoker/hackeragenda"}
+            Sauce
 
 -block filter_bar
   -include "filter_bar-be.haml"
 
 -block javascript
   %script{type: "text/javascript", src: "{% static 'fullcalendar/fullcalendar.js' %}"}
-  %script{type: "text/javascript", src: "{% static 'Snap.js/snap.min.js' %}"}
+  %script{type: "text/javascript", src: "{% static 'snapjs/snap.min.js' %}"}
   :javascript
 
     new Foundation.Tabs($('#main-tabs'));

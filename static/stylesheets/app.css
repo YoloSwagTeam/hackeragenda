@@ -26,4 +26,49 @@
    Page Name 2
 ----------------------------------------- */
 
+.left-menu {
+    margin-top: 20px;
+}
 
+.logo {
+    text-align: center;
+    padding-top: 20px;
+}
+
+.center {
+    text-align: center;
+}
+
+.export-button {
+    font-weight: bold;
+}
+
+#rss {
+    background-color: #FF6600;
+    color: white;
+    border-color: white;
+}
+
+#ics {
+    background-color: #FCDE00;
+    color: white;
+    border-color: white;
+}
+
+#twitter {
+    background-color: #55ACEE;
+    color: white;
+    border-color: white;
+}
+
+.separation-bar {
+    width: 50%;
+    margin: auto;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+footer {
+    margin-top: 50px;
+}
