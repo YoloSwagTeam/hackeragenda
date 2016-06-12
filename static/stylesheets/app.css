@@ -72,3 +72,12 @@
 footer {
     margin-top: 50px;
 }
+
+.fc-event {
+    border-bottom-right-radius: 0 !important;
+    border-right-width: 0 !important;
+    border-top-right-radius: 0 !important;
+    border-bottom-left-radius: 0 !important;
+    border-left-width: 0 !important;
+    border-top-left-radius: 0 !important;
+}
