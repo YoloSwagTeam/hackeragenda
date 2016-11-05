@@ -250,6 +250,15 @@ def brotaru():
     return generic_facebook_page('bxl.otaru')
 
 
+@event_source(background_color="#5b5e68", text_color="white", url="http://www.eventbrite.com/o/databeers-brussels-12058309416", predefined_tags=["brussels", "data"])
+def bru_data_beers():
+    """
+    Databeers gathers all those with an interest in data-based stories in an
+    informal and relaxed event, together with the best social lubricant: beer.
+    """
+    return generic_eventbrite("databeers-brussels-12058309416")
+
+
 @event_source(background_color="#0c0f11", text_color="#ffffff", url="http://www.meetup.com/fr/BruJUG/", predefined_tags=['code', 'java'])
 def brujug():
     """

@@ -4,7 +4,7 @@ Markdown>=2.5.2
 Pygments>=2.0.1
 Werkzeug>=0.9.6
 django-bower>=5.0.1
-django-debug-toolbar>=1.2.2
+django-debug-toolbar>=1.2.2,<=1.4
 django-extensions>=1.4.9
 django-pdb>=0.4.1
 django-taggit>=0.12.2
