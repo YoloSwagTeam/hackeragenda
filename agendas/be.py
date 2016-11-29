@@ -582,14 +582,6 @@ def foam():
         }
 
 
-@event_source(background_color="#2E8B57", text_color="#ffffff", url="http://www.meetup.com/fr/french-meteor-meetup/", predefined_tags=['code', 'meteor', 'javascript', 'web'])
-def french_meteor_meetup():
-    """
-    <p>Ceci est un groupe réunissant les développeurs enthousiastes utilisant la plateforme Meteor en Belgique francophone.</p>
-"""
-    return generic_meetup("french-meteor-meetup")
-
-
 @event_source(background_color="#1565C0", text_color="#ffffff", url="http://gdg.brussels/", predefined_tags=['code'])
 def gdg_brussels():
     """
@@ -597,14 +589,6 @@ def gdg_brussels():
     <p>The group is independent of Google. The organizers are not working for Google. Still, we have a good relationship.</p>
     """
     return generic_meetup("gdg-brussels")
-
-
-@event_source(background_color="#A53B5B", text_color="#ffffff", url="http://www.meetup.com/GirlsCodeEU/", predefined_tags=[])
-def girls_code_eu():
-    """
-    <p>Girls Code Europe is a stakeholder group with the mission of promoting digitally skilled girls of all ages across Europe. “Girls Code Europe” is an open initiative of the Digital Leadership Institute, Belgian Contact Point for the European Centre for Women and Technology, with the purpose of bringing individuals and organisations together to increase participation of girls and women in digital studies and careers.</p>
-"""
-    return generic_meetup("GirlsCodeEU")
 
 
 @event_source(background_color="#6C7DB6", text_color="#ffffff", url="http://www.meetup.com/Hasselt-PHP-Meetup/", predefined_tags=['code', 'php', 'hasselt'])
@@ -953,14 +937,6 @@ def opengarage():
     return generic_meetup("OpenGarage")
 
 
-@event_source(background_color="#b6f279", text_color="#000000", url="http://www.meetup.com/fr/OpenHack-Antwerpen/", predefined_tags=['code', 'openhack'])
-def openhack_antwerpen():
-    """
-    <p>Monthly software meetup, you can hack on anything! Any language, framework, public/open-source, personal, etc. Skill level doesn’t matter. We don’t care if you’re working on Hello World or on increasing your wizarding level. You don’t have to have an idea to hack on! You’re more than welcome to come just to pair with someone. <a class="linkified" href="http://openhack.github.io/berchem/" rel="nofollow" target="_blank" title="http://openhack.github.io/berchem/">http://openhack.github.io/berchem/</a></p>
-"""
-    return generic_meetup("OpenHack-Antwerpen")
-
-
 @event_source(background_color="#7B6DB0", text_color="#ffffff", url="http://www.meetup.com/OpenStreetMap-Belgium/", predefined_tags=['osm', 'carto'])
 def openstreetmap_belgium():
     """
@@ -1079,7 +1055,7 @@ def ruby_burgers():
     return generic_meetup("ruby_burgers-rb")
 
 
-@event_source(background_color="#99ccff", text_color="#000000", url="http://src.radiocampus.be/", key="start")
+# @event_source(background_color="#99ccff", text_color="#000000", url="http://src.radiocampus.be/", key="start")
 def source():
     """
     <p>L’émission Source est une émission bimensuelle sur Radio Campus Bruxelles,
@@ -1251,16 +1227,6 @@ def webrtc():
     </p>
     """
     return generic_meetup("WebRTC-crossingborders")
-
-
-@event_source(background_color="#1a329f", text_color="#000000", url="http://www.meetup.com/fr/WebRTC-Belgium/", predefined_tags=['code', 'webrtc', 'web'])
-def webrtc_belgium():
-    """
-    <p>Welcome to WebRTC Belgium! The goal for this group right now is to develop a community around the up-and-coming WebRTC technology. Developers, Product Managers, IT Fans, tinkerers, all are welcome to join and share! WebRTC is the next generation of communications over the Internet. It allows open standard browsers to communicate with each other and exchange audio, video and files using a simple Javascript-based API. Early supporters like Google Chrome, Mozilla, Microsoft Edge. The standard is still under development (W3C and IETF)</p>
-    <p> Suggest a talk: <a href="http://goo.gl/forms/cbJrjmdoLA">http://goo.gl/forms/cbJrjmdoLA</a></p>
-    <p>We also have a slack group: <a class="linkified" href="https://webrtcbelgium.slack.com">https://webrtcbelgium.slack.com</a></p>
-"""
-    return generic_meetup("WebRTC-Belgium")
 
 
 #@event_source(background_color="white", text_color="black", url="http://www.0x20.be")
