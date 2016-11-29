@@ -664,7 +664,10 @@ def incubhacker():
 
     soup = BeautifulSoup(requests.get("http://www.incubhacker.be/?page=1").content, "html5lib")
 
-    pages_number = int(soup("a", "iCtip", href=lambda x: x and x.startswith("http://www.incubhacker.be/?page="))[-1].text)
+    if soup("a", "iCtip", href=lambda x: x and x.startswith("http://www.incubhacker.be/?page=")):
+        pages_number = int(soup("a", "iCtip", href=lambda x: x and x.startswith("http://www.incubhacker.be/?page="))[-1].text)
+    else:
+        pages_number = 1
 
     for page_number in range(1, pages_number + 1):
         soup = BeautifulSoup(requests.get("http://www.incubhacker.be/?page=%s" % page_number).content, "html5lib")
