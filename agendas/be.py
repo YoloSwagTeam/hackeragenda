@@ -782,6 +782,9 @@ def nadine():
     """
     soup = BeautifulSoup(requests.get('http://nadine.be/what/event').content)
     for cell in soup.select('td'):
+        if not cell.select(".from-date"):
+            continue
+
         from_date = parse(cell.select('.from-date')[0].select('.date-display-single')[0]['content']).replace(tzinfo=None)
         to_date = parse(cell.select('.to-date')[0].select('.date-display-single')[0]['content']).replace(tzinfo=None)
         title_dom = cell.select('.views-field-title a')[0]
