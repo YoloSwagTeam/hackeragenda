@@ -15,21 +15,6 @@ from imp import load_source
 from os import listdir
 
 
-def catch_exception(function):
-    def wrapper(*args, **kwargs):
-        try:
-            return function(*args, **kwargs)
-        except Exception as e:
-            traceback.print_exc()
-            print e
-            try:
-                from raven.contrib.django.raven_compat.models import client
-                client.captureException()
-            except ImportError:
-                print("No Sentry")
-            return ""
-    return wrapper
-
 # instead of doing .encode("Utf-8") everywhere, easier for contributors
 reload(sys)
 sys.setdefaultencoding("utf-8")
@@ -59,7 +44,7 @@ class Command(BaseCommand):
         for source in sources:
             try:
                 with transaction.atomic():
-                    catch_exception(SOURCES_FUNCTIONS[source])(
+                    SOURCES_FUNCTIONS[source](
                         options.get('quiet', True),
                         options.get('nocolor', True)
                     )
@@ -69,7 +54,13 @@ class Command(BaseCommand):
                     print "Error while working on '%s': %s" % (source, e)
                 else:
                     print "\033[31;1m[ERROR]\033[0m While working on '\033[33;1m%s\033[0m': %s" % (source, e)
-                traceback.print_exc(file=sys.stdout)
+                traceback.print_exc()
+
+                try:
+                    from raven.contrib.django.raven_compat.models import client
+                    client.captureException()
+                except ImportError:
+                    print("No Sentry")
 
 
 def event_source(background_color, text_color, url, agenda=None, key="url", description="", predefined_tags=[]):
