@@ -1309,20 +1309,20 @@ def makilab():
     soup = BeautifulSoup(requests.get("https://makilab.org/events-list").content, 'html.parser')
 
     while soup:
-        for event in soup.find("div", {"class": "view-events-list"}).find("tbody"):
-            title = event.find("td", {"class": "views-field-title"}).a.text
+        for event in soup.find("div", "view-events-list").find("tbody"):
+            title = event.find("td", "views-field-title").a.text
 
-            datetimeTag = event.find("td", {"class": "views-field-field-event-datetime"}).span
+            datetimeTag = event.find("td", "views-field-field-event-datetime").span
             if datetimeTag.div:
-                start = parse(datetimeTag.div.find("span", {"class": "date-display-start"})["content"])
-                end = parse(datetimeTag.div.find("span", {"class": "date-display-end"})["content"])
+                start = parse(datetimeTag.div.find("span", "date-display-start")["content"])
+                end = parse(datetimeTag.div.find("span", "date-display-end")["content"])
                 all_day = False
             else:
                 start = parse(datetimeTag["content"])
                 end = None
                 all_day = True
 
-            urlTag = event.find("td", {"class": "views-field-view-node"})
+            urlTag = event.find("td", "views-field-view-node")
             base_domain = "https://makilab.org" if not urlTag.a["href"].startswith("http") else ""
             url = (base_domain + urlTag.a["href"]) if urlTag.a else "https://makilab.org"
 
@@ -1337,6 +1337,7 @@ def makilab():
             }
 
         next_page_links = soup('li', 'pager-next')
+
         if next_page_links and next_page_links[0].text:
             href = "https://makilab.org/" + next_page_links[0]('a')[0]['href']
             soup = BeautifulSoup(requests.get(href).content)
