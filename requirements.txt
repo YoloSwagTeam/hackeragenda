@@ -7,7 +7,7 @@ django-bower>=5.0.1
 django-debug-toolbar>=1.2.2,<=1.4
 django-extensions>=1.4.9
 django-pdb>=0.4.1
-django-taggit>=0.12.2
+django-taggit==0.16.0
 django-tastypie>=0.12.1
 facepy>=1.0.4
 feedparser>=5.1.3
