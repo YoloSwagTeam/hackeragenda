@@ -1310,34 +1310,31 @@ def makilab():
 
     while soup:
         for event in soup.find("div", {"class": "view-events-list"}).find("tbody"):
-            try:
-                title = event.find("td", {"class": "views-field-title"}).a.text
+            title = event.find("td", {"class": "views-field-title"}).a.text
 
-                datetimeTag = event.find("td", {"class": "views-field-field-event-datetime"}).span
-                if datetimeTag.div:
-                    start = parse(datetimeTag.div.find("span", {"class": "date-display-start"})["content"])
-                    end = parse(datetimeTag.div.find("span", {"class": "date-display-end"})["content"])
-                    all_day = False
-                else:
-                    start = parse(datetimeTag["content"])
-                    end = None
-                    all_day = True
+            datetimeTag = event.find("td", {"class": "views-field-field-event-datetime"}).span
+            if datetimeTag.div:
+                start = parse(datetimeTag.div.find("span", {"class": "date-display-start"})["content"])
+                end = parse(datetimeTag.div.find("span", {"class": "date-display-end"})["content"])
+                all_day = False
+            else:
+                start = parse(datetimeTag["content"])
+                end = None
+                all_day = True
 
-                urlTag = event.find("td", {"class": "views-field-view-node"})
-                base_domain = "https://makilab.org" if not urlTag.a["href"].startswith("http") else ""
-                url = (base_domain + urlTag.a["href"]) if urlTag.a else "https://makilab.org"
+            urlTag = event.find("td", {"class": "views-field-view-node"})
+            base_domain = "https://makilab.org" if not urlTag.a["href"].startswith("http") else ""
+            url = (base_domain + urlTag.a["href"]) if urlTag.a else "https://makilab.org"
 
-                yield {
-                    'title': title,
-                    'start': start,
-                    'end': end,
-                    'all_day': all_day,
-                    'url': url,
-                    'location': "Rue Zénobe Gramme 1348 Louvain-La-Neuve",
-                    'tags': ('fablab',)
-                }
-            except TypeError:
-                pass
+            yield {
+                'title': title,
+                'start': start,
+                'end': end,
+                'all_day': all_day,
+                'url': url,
+                'location': "Rue Zénobe Gramme 1348 Louvain-La-Neuve",
+                'tags': ('fablab',)
+            }
 
         next_page_links = soup('li', 'pager-next')
         if next_page_links and next_page_links[0].text:
