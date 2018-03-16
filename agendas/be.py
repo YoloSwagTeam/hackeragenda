@@ -8,6 +8,7 @@ import feedparser
 import dateparser
 
 from bs4 import BeautifulSoup
+from bs4.element import NavigableString
 from django.template.defaultfilters import slugify
 from django.conf import settings
 from datetime import date, datetime, timedelta
@@ -1310,6 +1311,10 @@ def makilab():
 
     while soup:
         for event in soup.find("div", "view-events-list").find("tbody"):
+            # empty string, skip
+            if isinstance(event, NavigableString):
+                continue
+
             title = event.find("td", "views-field-title").a.text
 
             datetimeTag = event.find("td", "views-field-field-event-datetime").span
