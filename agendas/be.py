@@ -1345,6 +1345,6 @@ def makilab():
 
         if next_page_links and next_page_links[0].text:
             href = "https://makilab.org/" + next_page_links[0]('a')[0]['href']
-            soup = BeautifulSoup(requests.get(href).content)
+            soup = BeautifulSoup(requests.get(href).content, 'html.parser')
         else:
             soup = None
