@@ -1315,11 +1315,11 @@ def makilab():
 
                 datetimeTag = event.find("td", {"class": "views-field-field-event-datetime"}).span
                 if datetimeTag.div:
-                    start = datetimeTag.div.find("span", {"class": "date-display-start"})["content"]
-                    end = datetimeTag.div.find("span", {"class": "date-display-end"})["content"]
+                    start = parse(datetimeTag.div.find("span", {"class": "date-display-start"})["content"])
+                    end = parse(datetimeTag.div.find("span", {"class": "date-display-end"})["content"])
                     all_day = False
                 else:
-                    start = datetimeTag["content"]
+                    start = parse(datetimeTag["content"])
                     end = None
                     all_day = True
 
