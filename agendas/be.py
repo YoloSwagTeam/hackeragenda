@@ -1334,8 +1334,8 @@ def makilab():
 
             yield {
                 'title': title,
-                'start': start,
-                'end': end,
+                'start': start.replace(tzinfo=None),
+                'end': end.replace(tzinfo=None) if end else end,
                 'all_day': all_day,
                 'url': url,
                 'location': "Rue Zénobe Gramme 1348 Louvain-La-Neuve",
