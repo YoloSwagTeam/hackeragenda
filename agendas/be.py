@@ -1332,6 +1332,10 @@ def makilab():
             base_domain = "https://makilab.org" if not urlTag.a["href"].startswith("http") else ""
             url = (base_domain + urlTag.a["href"]) if urlTag.a else "https://makilab.org"
 
+            tags = ('fablab',)
+            if title == "TechLab - sur RDV par email uniquement":
+                tags = ('fablab', 'on_reservation')
+
             yield {
                 'title': title,
                 'start': start.replace(tzinfo=None),
@@ -1339,7 +1343,7 @@ def makilab():
                 'all_day': all_day,
                 'url': url,
                 'location': "Rue Zénobe Gramme 1348 Louvain-La-Neuve",
-                'tags': ('fablab',)
+                'tags': tags
             }
 
         next_page_links = soup('li', 'pager-next')
