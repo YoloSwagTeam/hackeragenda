@@ -94,6 +94,8 @@ PREDEFINED_FILTERS["default"] = {
         'hsbxl',
         'incubhacker',
         'jeudi_du_libre_mons',
+        'ko_lab',
+        'makilab',
         'neutrinet',
         'npbbxl',
         'okfnbe',
@@ -113,7 +115,7 @@ PREDEFINED_FILTERS["default"] = {
     ],
     "exclude_source": [],
     "tag": [],
-    "exclude_tag": ["meeting"],
+    "exclude_tag": ["meeting", "on_reservation"],
 }
 
 PREDEFINED_FILTERS["all"] = {
