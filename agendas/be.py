@@ -1363,5 +1363,5 @@ def ko_lab():
     """
     return json_api("https://ko-lab.space/api/hackeragenda.json")
 
-
 # generic_facebook("Ko-Lab", "HS.ko.lab", background_color="#1ABC9C", text_color="black", predefined_tags=["hackerspace","makerspace"], url="https://ko-lab.space")
+generic_facebook_page("HS.ko.lab")
