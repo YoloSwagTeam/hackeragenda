@@ -136,7 +136,8 @@ PREDEFINED_FILTERS["hackerspaces"] = {
         "urlab",
         "voidwarranties",
         "whitespace",
-        "wolfplex"
+        "wolfplex",
+        "ko_lab"
     ],
     "exclude_source": [],
     "tag": [],
