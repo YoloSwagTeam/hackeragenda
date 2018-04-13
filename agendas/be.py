@@ -1361,8 +1361,7 @@ def ko_lab():
     <p>A makerspace – also referred to as a hacklab. Is a community-operated workspace where people can meet, socialize and ko-laborate. Often with common interests in science, technology, articrafts, digital art etc. It offers the place and time to do or find out what you really love to do.</p>
     <p>Dus, Ko-Lab biedt de ruimte; jij bepaalt of het een werkplek, een gezellige huiskamer, een atelier, een machinewinkel, een kunststudio, een leerplek en/of een ontmoetingsplek wordt.</p>
     """
-    return json_api("https://ko-lab.space/api/hackeragenda.json")
-
+    return json_api("https://ko-lab.space/hackeragenda")
 
 # generic_facebook("Ko-Lab", "HS.ko.lab", background_color="#1ABC9C", text_color="black", predefined_tags=["hackerspace","makerspace"], url="https://ko-lab.space")
 # generic_facebook_page("HS.ko.lab")
