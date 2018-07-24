@@ -20,7 +20,7 @@ django-view-dispatch==0.1
 facepy==1.0.8
 feedparser==5.2.1
 geopy==1.11.0
-gunicorn==19.4.5
+gunicorn==19.5.0
 hamlpy==0.82.2
 html5lib==0.9999999
 icalendar==3.9.2
