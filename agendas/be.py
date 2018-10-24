@@ -837,28 +837,42 @@ def neutrinet():
     </p>
     '''
 
-    soup = BeautifulSoup(requests.get("http://neutrinet.be/index.php?title=Main_Page").content)
-
-    if not soup.table.table.tr.find('table', 'wikitable'):
-        return
-
-    for event in filter(lambda x: x, map(lambda x: x('td'), soup.table.table.tr.find('table', 'wikitable')('tr'))):
-        title = event[0].text
-        url = "https://neutrinet.be" + event[0].a["href"]
-        start = parse(event[1].text)
-        location = event[2].text
-
+    ics = requests.get("https://files.neutrinet.be/remote.php/dav/public-calendars/375V4JSNHTU04NXL/?export")
+    data = Calendar.from_ical(ics.content)
+        
+    for event in data.walk("vevent"):
+        if "SUMMARY" not in event or "DTSTART" not in event:
+            continue
+        
+        start = event["DTSTART"].dt
+        all_day = not isinstance(start, datetime)
+        
+        if isinstance(start, datetime):
+            start = start.replace(tzinfo=None)
+        
+        end = event["DTEND"].dt if "DTEND" in event else None
+        if isinstance(end, datetime):
+            end = end.replace(tzinfo=None)
+        
+        location = str(event["LOCATION"]) if "LOCATION" in event else None
+        
+        title = str(event["SUMMARY"])
+        
         tags = ["network", "isp"]
-        if "Meeting" in title:
+        if "meeting" in title.lower() or "réunion" in title.lower():
             tags.append("meeting")
-
-        yield {
+        if "install party" in title.lower():
+            tags.append("install party")
+        
+        print( {
             'title': title,
-            'url': url,
+            'url': "https://neutrinet.be",
             'start': start,
-            'location': location.strip() if location else None,
-            'tags': tags
-        }
+            'end': end,
+            'location': location,
+            'tags': tags,
+            'all_day': all_day
+        } )
 
 
 @event_source(background_color="#299C8F", text_color="white", url="https://www.google.com", predefined_tags=["opendata"])
