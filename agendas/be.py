@@ -864,7 +864,7 @@ def neutrinet():
         if "install party" in title.lower():
             tags.append("install party")
         
-        print( {
+        yield {
             'title': title,
             'url': "https://neutrinet.be",
             'start': start,
@@ -872,7 +872,7 @@ def neutrinet():
             'location': location,
             'tags': tags,
             'all_day': all_day
-        } )
+        }
 
 
 @event_source(background_color="#299C8F", text_color="white", url="https://www.google.com", predefined_tags=["opendata"])
