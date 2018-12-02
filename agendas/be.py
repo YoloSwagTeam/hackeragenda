@@ -856,7 +856,7 @@ def neutrinet():
 
         location = str(event["LOCATION"]) if "LOCATION" in event else None
 
-        title = str(event["SUMMARY"])
+        title = str(event["SUMMARY"]).replace("\n", " ").replace("  ", " ")
 
         tags = ["network", "isp"]
         if "meeting" in title.lower() or "réunion" in title.lower():
