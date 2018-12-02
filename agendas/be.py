@@ -839,31 +839,31 @@ def neutrinet():
 
     ics = requests.get("https://files.neutrinet.be/remote.php/dav/public-calendars/375V4JSNHTU04NXL/?export")
     data = Calendar.from_ical(ics.content)
-        
+
     for event in data.walk("vevent"):
         if "SUMMARY" not in event or "DTSTART" not in event:
             continue
-        
+
         start = event["DTSTART"].dt
         all_day = not isinstance(start, datetime)
-        
+
         if isinstance(start, datetime):
             start = start.replace(tzinfo=None)
-        
+
         end = event["DTEND"].dt if "DTEND" in event else None
         if isinstance(end, datetime):
             end = end.replace(tzinfo=None)
-        
+
         location = str(event["LOCATION"]) if "LOCATION" in event else None
-        
+
         title = str(event["SUMMARY"])
-        
+
         tags = ["network", "isp"]
         if "meeting" in title.lower() or "réunion" in title.lower():
             tags.append("meeting")
         if "install party" in title.lower():
             tags.append("install party")
-        
+
         yield {
             'title': title,
             'url': "https://neutrinet.be",
