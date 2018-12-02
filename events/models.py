@@ -31,7 +31,7 @@ class Event(models.Model):
     def date_to_string(self):
         if self.all_day:
             if self.end and self.end != self.start:
-                res = "%s - %s" % (x.strftime("%Y-%m-%d") for x in (self.start, self.end)) 
+                res = "%s - %s" % tuple(x.strftime("%Y-%m-%d") for x in (self.start, self.end))
             else:
                 res = self.start.strftime("%Y-%m-%d")
         elif self.end:
