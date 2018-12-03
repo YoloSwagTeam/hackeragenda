@@ -41,7 +41,7 @@ def json_api(url):
             'url': event['url'],
             'start': parse(event['start']).replace(tzinfo=None),
             'end': parse(event['end']).replace(tzinfo=None) if 'end' in event else None,
-            'all_day': event['all_day'] if 'all_day' in event else None,
+            'all_day': event['all_day'] if 'all_day' in event else False,
             'location': event['location'] if 'location' in event else None,
         }
 
