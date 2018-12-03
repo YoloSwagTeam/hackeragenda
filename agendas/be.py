@@ -614,24 +614,7 @@ def hsbxl():
     Tuesday meetings</a>, hack nights or other get-together events.
     </p>
     '''
-
-    today = date.today() - timedelta(days=6 * 30)
-
-    data = requests.get("https://hackerspace.be/Special:Ask/-5B-5BCategory:TechTue-7C-7CEvent-5D-5D-20-5B-5BEnd-20date::-3E%s-2D%s-2D%s-20-5D-5D/-3FStart-20date/-3FEnd-20date/-3FLocation/format%%3Djson/sort%%3D-5BStart-20date-5D/order%%3Dasc/offset%%3D0'" % (today.year, today.month, today.day), verify=False).json()
-
-    for event in data["results"].values():
-        tags = ["hackerspace"]
-        if "TechTue" in event["fulltext"] or "Garbage day" in event["fulltext"]:
-            tags.append("meeting")
-
-        yield {
-            'title': event["fulltext"],
-            'url': event["fullurl"],
-            'start': datetime.fromtimestamp(int(event["printouts"]["Start date"][0])),
-            'end': datetime.fromtimestamp(int(event["printouts"]["End date"][0])),
-            'location': event["printouts"]["Location"][0]["fulltext"],
-            'tags': tags
-        }
+    return json_api("https://hsbxl.be/hackeragenda.json")
 
 
 @event_source(background_color="#b8ada0", text_color="#ffffff", url="http://www.meetup.com/Icon-Brussels-research-and-education-group/", predefined_tags=['art'])
