@@ -92,7 +92,7 @@ def event_source(background_color, text_color, url, agenda=None, key="url", desc
                     if nocolor:
                         print unicode(res)
                     else:
-                        print "\033[32;1m * \033[0m", unicode(res)
+                        print "\033[32;1m * \033[0m", unicode(res).encode("Utf-8")
 
                 return res
 
