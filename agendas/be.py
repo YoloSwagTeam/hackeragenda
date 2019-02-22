@@ -1362,3 +1362,21 @@ def ko_lab():
 
 # generic_facebook("Ko-Lab", "HS.ko.lab", background_color="#1ABC9C", text_color="black", predefined_tags=["hackerspace","makerspace"], url="https://ko-lab.space")
 # generic_facebook_page("HS.ko.lab")
+
+@event_source(background_color="#D3360B", text_color="white", predefined_tags=["railsgirl"], url="http://railsgirls.com/")
+def rails_girl():
+    """
+    <p>Learn sketching, prototyping, basic programming and get introduced to the world of technology.</p>
+    """
+    events = json.loads(urlopen("http://railsgirls.com/events/events.json").read())
+    for ev in events:
+        name = "Rails Girl"
+        tags = ["railsgirl"]
+        yield {
+            'title': name,
+            'start': ev.startDate,
+            'end': ev.endDate,
+            'url': ev.eventUrl,
+            'location': ev.location,
+            'tags': tags
+        }
