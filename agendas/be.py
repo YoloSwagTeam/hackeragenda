@@ -819,12 +819,19 @@ def neutrinet():
     </p><p>Human rights, Net neutrality, privacy, transparency are our core values.
     </p>
     '''
+    NEUTRINET_MONTH_CALENDAR_URL = "https://files.neutrinet.be/index.php/apps/calendar/p/375V4JSNHTU04NXL/dayGridMonth/{day:%Y-%m-%d}"
+    NEUTRINET_DAV_CALENDAR_URL = "https://files.neutrinet.be/remote.php/dav/public-calendars/375V4JSNHTU04NXL/?export"
 
-    ics = requests.get("https://files.neutrinet.be/remote.php/dav/public-calendars/375V4JSNHTU04NXL/?export")
+    ics = requests.get(NEUTRINET_DAV_CALENDAR_URL)
     data = Calendar.from_ical(ics.content)
 
+    tag_keywords = {
+        "meeting": ["hub", "meeting", "réunion"],
+        "install party": ["install party"]
+    }
+
     for event in data.walk("vevent"):
-        if "SUMMARY" not in event or "DTSTART" not in event:
+        if "DTSTART" not in event:
             continue
 
         start = event["DTSTART"].dt
@@ -839,17 +846,20 @@ def neutrinet():
 
         location = str(event["LOCATION"]) if "LOCATION" in event else None
 
-        title = str(event["SUMMARY"]).replace("\n", " ").replace("  ", " ")
+        try:
+            title = str(event["SUMMARY"]).replace("\n", " ").replace("  ", " ")
+        except KeyError:
+            title = ""
+        ltitle = title.lower()
 
         tags = ["network", "isp"]
-        if "meeting" in title.lower() or "réunion" in title.lower():
-            tags.append("meeting")
-        if "install party" in title.lower():
-            tags.append("install party")
+        for tag, keywords in tag_keywords.items():
+            if any(keyword in ltitle for keyword in keywords):
+                tags.append(tag)
 
         yield {
             'title': title,
-            'url': "https://neutrinet.be",
+            'url': NEUTRINET_MONTH_CALENDAR_URL.format(day=start),
             'start': start,
             'end': end,
             'location': location,
