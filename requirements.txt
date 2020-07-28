@@ -1,5 +1,5 @@
 BeautifulSoup>=3.2.1
-Django>=1.7.1,<1.8
+Django>=1.7.1,<1.12
 Markdown>=2.5.2
 Pygments>=2.0.1
 Werkzeug>=0.9.6

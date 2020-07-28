@@ -8,7 +8,7 @@ colormath==2.1.1
 contextlib2==0.5.1
 dateparser==0.3.2
 decorator==4.0.9
-Django==1.7.11
+Django==1.11.29
 django-bower==5.1.0
 django-debug-toolbar==1.4
 django-extensions==1.6.1
