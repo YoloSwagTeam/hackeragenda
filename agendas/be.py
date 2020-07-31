@@ -11,10 +11,10 @@ from bs4 import BeautifulSoup
 from bs4.element import NavigableString
 from django.template.defaultfilters import slugify
 from django.conf import settings
-from datetime import date, datetime, timedelta
+from datetime import datetime, timedelta
 from dateutil.parser import parse
 from icalendar import Calendar
-from HTMLParser import HTMLParser
+from html.parser import HTMLParser
 
 from events.management.commands.fetch_events import event_source
 from events.generics import (
@@ -434,7 +434,7 @@ def constantvzw():
 def daemons_shell_scripts():
     "Dæmons & Shell Scripts"
     if not hasattr(settings, "OOOOO_CREDENTIALS"):
-        print "ERROR: no OOOOO_CREDENTIALS in settings, disabling daemons_shell_scripts"
+        print("ERROR: no OOOOO_CREDENTIALS in settings, disabling daemons_shell_scripts")
         return
 
     root = "http://%s@ooooo.be" % settings.OOOOO_CREDENTIALS

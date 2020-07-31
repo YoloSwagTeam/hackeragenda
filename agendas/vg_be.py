@@ -2,7 +2,7 @@
 
 import requests
 
-from BeautifulSoup import BeautifulSoup
+from bs4 import BeautifulSoup
 from datetime import datetime, timedelta
 
 from events.management.commands.fetch_events import event_source

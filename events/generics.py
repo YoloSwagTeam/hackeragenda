@@ -6,7 +6,7 @@ import requests
 from dateutil.parser import parse
 from icalendar import Calendar
 from icalendar import Event as icalendarEvent
-from BeautifulSoup import BeautifulSoup
+from bs4 import BeautifulSoup
 from django.conf import settings
 
 month_convertor = (
@@ -95,7 +95,7 @@ def generic_meetup(meetup_name):
 # Facebook pages require APP token
 def generic_facebook_page(fb_page):
     if not hasattr(settings, "FACEBOOK_APP_ID") or not hasattr(settings, "FACEBOOK_APP_SECRET"):
-        print "ERROR: Facebook Page %s disabled, please define FACEBOOK_APP_ID and FACEBOOK_APP_SECRET in your agenda settings file" % fb_page
+        print("ERROR: Facebook Page %s disabled, please define FACEBOOK_APP_ID and FACEBOOK_APP_SECRET in your agenda settings file" % fb_page)
         return
 
     graph = facepy.GraphAPI.for_application(settings.FACEBOOK_APP_ID, settings.FACEBOOK_APP_SECRET)
@@ -113,7 +113,7 @@ def generic_facebook_page(fb_page):
 # Facebook pages require USER token
 def generic_facebook_group(fb_group):
     if not hasattr(settings, "FACEBOOK_USER_TOKEN"):
-        print "ERROR: Facebook Group %s disabled, please define FACEBOOK_USER_TOKEN in your agenda settings file" % fb_group
+        print("ERROR: Facebook Group %s disabled, please define FACEBOOK_USER_TOKEN in your agenda settings file" % fb_group)
         return
 
     graph = facepy.GraphAPI(settings.FACEBOOK_USER_TOKEN)

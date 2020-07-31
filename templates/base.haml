@@ -23,16 +23,13 @@
       %script{"src": "http://html5shiv.googlecode.com/svn/trunk/html5.js"}
     <![endif]-->
 
-    <!-- Included CSS Files (Uncompressed) -->
-    <!-- %link{"rel": "stylesheet", "href": "{{ STATIC_URL }}stylesheets/foundation.css"} -->
-
     <!-- Included CSS Files (Compressed) -->
     %link{"rel": "stylesheet", "href": "{% static 'foundation-sites/dist/foundation.min.css' %}"}
-    %link{"rel": "stylesheet", "href": "{{ STATIC_URL }}stylesheets/leaflet.awesome-markers.css"}
-    %link{"rel": "stylesheet", "href": "{{ STATIC_URL }}stylesheets/MarkerCluster.css"}
-    %link{"rel": "stylesheet", "href": "{{ STATIC_URL }}stylesheets/MarkerCluster.Default.css"}
+    %link{"rel": "stylesheet", "href": "{% static 'stylesheets/leaflet.awesome-markers.css' %}"}
+    %link{"rel": "stylesheet", "href": "{% static 'stylesheets/MarkerCluster.css' %}"}
+    %link{"rel": "stylesheet", "href": "{% static 'stylesheets/MarkerCluster.Default.css' %}"}
     %link{"rel": "stylesheet", "href": "{% static 'snapjs/snap.css' %}"}
-    %link{"rel": "stylesheet", "href": "{{ STATIC_URL }}stylesheets/app.css"}
+    %link{"rel": "stylesheet", "href": "{% static 'stylesheets/app.css' %}"}
     -leaflet_css
 
     :css
@@ -62,7 +59,7 @@
     -block filter_bar
 
     <!-- container -->
-    #content.container.snap-content{style: 'background: url("{{ STATIC_URL }}images/white.png") no-repeat scroll center 75% #FFFFFF;'}
+    #content.container.snap-content{style: 'background: url("{% static \'images/white.png\' %}") no-repeat scroll center 75% #FFFFFF;'}
 
       -block container
         .expanded.row
@@ -80,7 +77,7 @@
     %script{"src": "{% static 'foundation-sites/js/foundation.equalizer.js' %}"}
 
     -leaflet_js
-    %script{"src": "{{ STATIC_URL }}javascripts/leaflet.awesome-markers.min.js"}
-    %script{"src": "{{ STATIC_URL }}javascripts/leaflet.markercluster.js"}
+      %script{"src": "{% static 'javascripts/leaflet.awesome-markers.min.js' %}"}
+        %script{"src": "{% static 'javascripts/leaflet.markercluster.js' %}"}
 
     -block javascript

@@ -1,11 +1,9 @@
 # encoding: utf-8
 
-import sys
 import traceback
 
 from datetime import datetime
 from collections import OrderedDict
-from optparse import make_option
 
 from django.core.management.base import BaseCommand
 from django.db import transaction
@@ -15,28 +13,27 @@ from imp import load_source
 from os import listdir
 
 
-# instead of doing .encode("Utf-8") everywhere, easier for contributors
-reload(sys)
-sys.setdefaultencoding("utf-8")
-
 SOURCES_FUNCTIONS = OrderedDict()
 SOURCES_OPTIONS = {}
 
 
 class Command(BaseCommand):
-    option_list = BaseCommand.option_list + (
-        make_option('--quiet',
+    def add_arguments(self, parser):
+        parser.add_argument(
+            '--quiet',
             action='store_true',
             dest='quiet',
             default=False,
-            help='No debug output'),
+            help='No debug output'
+        )
 
-        make_option('--nocolor',
+        parser.add_argument(
+            '--nocolor',
             action='store_true',
             dest='nocolor',
             default=False,
-            help='No ANSI colors in output')
-    )
+            help='No ANSI colors in output'
+        )
 
     def handle(self, *args, **options):
         sources = SOURCES_FUNCTIONS.keys() if not args else args
@@ -51,9 +48,9 @@ class Command(BaseCommand):
 
             except Exception as e:
                 if options.get('nocolor', True):
-                    print "Error while working on '%s': %s" % (source, e)
+                    print("Error while working on '%s': %s" % (source, e))
                 else:
-                    print "\033[31;1m[ERROR]\033[0m While working on '\033[33;1m%s\033[0m': %s" % (source, e)
+                    print("\033[31;1m[ERROR]\033[0m While working on '\033[33;1m%s\033[0m': %s" % (source, e))
                 traceback.print_exc()
 
                 try:
@@ -90,9 +87,9 @@ def event_source(background_color, text_color, url, agenda=None, key="url", desc
 
                 if not quiet:
                     if nocolor:
-                        print unicode(res)
+                        print(unicode(res))
                     else:
-                        print "\033[32;1m * \033[0m", unicode(res).encode("Utf-8")
+                        print("\033[32;1m * \033[0m", unicode(res).encode("Utf-8"))
 
                 return res
 
@@ -107,9 +104,9 @@ def event_source(background_color, text_color, url, agenda=None, key="url", desc
 
             if not quiet:
                 if nocolor:
-                    print " === Finished for", org_name
+                    print(" === Finished for", org_name)
                 else:
-                    print "\033[34;1m === \033[0m Finished for", org_name
+                    print("\033[34;1m === \033[0m Finished for", org_name)
 
         if org_name is None:
             org_name = func.__name__.lower()
@@ -131,9 +128,9 @@ def load_agenda(name):
     try:
         load_source(name, "agendas/" + name + ".py")
     except Exception as err:
-        print " === Error when loading fetchers for agenda", name
+        print(" === Error when loading fetchers for agenda", name)
         traceback.print_exc()
-        print err
+        print(err)
 
 
 def load_agendas():

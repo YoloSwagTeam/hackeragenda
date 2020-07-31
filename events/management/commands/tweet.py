@@ -5,7 +5,6 @@ import urllib
 import tweepy
 
 from datetime import date, timedelta
-from optparse import make_option
 from dateutil.parser import parse
 
 from django.core.management.base import BaseCommand
@@ -21,7 +20,7 @@ def tweet_size(tweet):
 
 def connect_to_twitter():
     if not hasattr(settings, "TWITTER_ACCESS_TOKEN") or not hasattr(settings, "TWITTER_ACCESS_SECRET"):
-        print "Error: TWITTER_ACCESS_TOKEN and TWITTER_ACCESS_SECRET must be set in the settings.py"
+        print("Error: TWITTER_ACCESS_TOKEN and TWITTER_ACCESS_SECRET must be set in the settings.py")
         sys.exit(1)
 
     auth = tweepy.OAuthHandler("KwayVtavdRYPKmnSuZO2w", "vvhA31BhosJdcpjmQJk8ORqp7M0whIDBlIAGqwAQ")
@@ -30,33 +29,36 @@ def connect_to_twitter():
 
 
 class Command(BaseCommand):
-    option_list = BaseCommand.option_list + (
-       make_option('--run',
+    def add_arguments(self, parser):
+        parser.add_argument(
+            '--run',
             action='store_true',
             dest='run',
             default=False,
-            help='Actually tweet'),
-       make_option('--date',
+            help='Actually tweet',
+        )
+        parser.add_argument(
+            '--date',
             action='store',
             dest='date',
             default=None,
-            help='custom date, default to today'),
-    )
+            help='custom date, default to today',
+        )
 
     def handle(self, *args, **options):
         if not options["run"]:
-            print "Warning: won't tweet, use --run to actually tweet."
+            print("Warning: won't tweet, use --run to actually tweet.")
         else:
             self.twitter = connect_to_twitter()
 
         for tweet, location in self.generate_tweets(parse(options["date"]) if options["date"] is not None else date.today()):
             if not options["run"]:
-                print tweet, location
+                print(tweet, location)
             else:
                 self.tweet(tweet, location)
 
     def tweet(self, t, location):
-        print "Tweet:", t
+        print("Tweet:", t)
         if location is None:
             self.twitter.update_status(t)
         else:

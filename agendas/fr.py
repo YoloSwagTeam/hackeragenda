@@ -5,7 +5,7 @@ import calendar
 import feedparser
 
 from datetime import datetime
-from BeautifulSoup import BeautifulSoup
+from bs4 import BeautifulSoup
 from dateutil.parser import parse
 from icalendar import Calendar
 

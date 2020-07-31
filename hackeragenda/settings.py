@@ -50,32 +50,41 @@ STATICFILES_DIRS = (
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
-#    'django.contrib.staticfiles.finders.DefaultStorageFinder',
-    'djangobower.finders.BowerFinder',
 )
 
 SECRET_KEY = 't)^bq6!v8!vj$+t+!4x1+uj100d73_8pt5d1(gh=py=lz7$^vm'
 
-BOWER_COMPONENTS_ROOT = SUBPROJECT_PATH + '/bower/'
+TEMPLATES = [
+    {
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'DIRS': [os.path.join(SUBPROJECT_PATH, "templates"),],
+        # 'APP_DIRS': True,
+        'OPTIONS': {
+            'loaders': [
+                'hamlpy.template.loaders.HamlPyFilesystemLoader',
+                'hamlpy.template.loaders.HamlPyAppDirectoriesLoader',
+                'django.template.loaders.filesystem.Loader',
+                'django.template.loaders.app_directories.Loader',
+            ],
+            'context_processors': [
+                'django.template.context_processors.debug',
+                'django.template.context_processors.request',
+                'django.contrib.auth.context_processors.auth',
+                'django.contrib.messages.context_processors.messages',
+            ],
+        },
+    },
+]
 
-TEMPLATE_LOADERS = (
-    'hamlpy.template.loaders.HamlPyFilesystemLoader',
-    'hamlpy.template.loaders.HamlPyAppDirectoriesLoader',
-    'django.template.loaders.filesystem.Loader',
-    'django.template.loaders.app_directories.Loader',
-#     'django.template.loaders.eggs.Loader',
-)
-
-MIDDLEWARE_CLASSES = (
+MIDDLEWARE = [
+    'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
-    # Uncomment the next line for simple clickjacking protection:
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-)
+]
 
 PREDEFINED_FILTERS = OrderedDict()
 PREDEFINED_FILTERS["default"] = {
@@ -166,7 +175,7 @@ PREDEFINED_FILTERS["code"] = {
 }
 
 if DEBUG:
-    MIDDLEWARE_CLASSES += (
+    MIDDLEWARE += (
         'debug_toolbar.middleware.DebugToolbarMiddleware',
         # Needed for the admin interface
         'django.contrib.sessions.middleware.SessionMiddleware',
@@ -179,10 +188,6 @@ ROOT_URLCONF = 'hackeragenda.urls'
 
 # Python dotted path to the WSGI application used by Django's runserver.
 WSGI_APPLICATION = 'hackeragenda.wsgi.application'
-
-TEMPLATE_DIRS = (
-    os.path.join(SUBPROJECT_PATH, "templates"),
-)
 
 LEAFLET_CONFIG = {
     'DEFAULT_CENTER': (50.6407351, 4.66696),
@@ -197,20 +202,12 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.admin',
-    'djangobower',
     'authentication',
     'administration',
     'events',
     'taggit',
     'gunicorn',
     'leaflet',
-)
-
-BOWER_INSTALLED_APPS = (
-    'fullcalendar#1.6.4',
-    'jquery#^2.2.3',
-    'foundation-sites',
-    'snapjs',
 )
 
 AGENDA = "be"
