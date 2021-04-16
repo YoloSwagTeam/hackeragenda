@@ -4,7 +4,7 @@ certifi==2020.6.20
 chardet==3.0.4
 dateparser==0.7.6
 Django==3.0.8
-django-debug-toolbar==2.2
+django-debug-toolbar==2.2.1
 django-extensions==3.0.3
 django-hamlpy==1.2
 django-leaflet==0.27.0
