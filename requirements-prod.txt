@@ -37,7 +37,7 @@ soupsieve==2.0.1
 sqlparse==0.3.1
 tweepy==3.9.0
 tzlocal==2.1
-urllib3==1.25.10
+urllib3==1.26.5
 webencodings==0.5.1
 weirdict==0.3.0
 Werkzeug==1.0.1
