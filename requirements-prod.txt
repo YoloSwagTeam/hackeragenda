@@ -3,7 +3,7 @@ beautifulsoup4==4.9.1
 certifi==2020.6.20
 chardet==3.0.4
 dateparser==0.7.6
-Django==3.0.8
+Django==3.1.13
 django-debug-toolbar==2.2
 django-extensions==3.0.3
 django-hamlpy==1.2
