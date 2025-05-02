@@ -408,17 +408,17 @@ def constantvzw():
     """
     soup = BeautifulSoup(requests.get("http://www.constantvzw.org/site/?page=agenda").content, "html5lib")
 
-    for event in soup.find("div", "liste-items evenements")("div", "box"):
-        title = event("h3")[1].text
-        url = "http://www.constantvzw.org/site/" + event.a["href"]
-
-        if re.search(",\d+\.html", url):
+    for event in soup.find("ul", class_="liste-items evenements")("li", class_="item"):
+        h4 = event("h4")
+        if not len(h4):
             continue
+        title = h4[0].text
+        url = "http://www.constantvzw.org/site/" + event.a["href"]
 
         location = event.find("p", itemprop="location").text.replace("\n", " ") if event.find("p", itemprop="location") else None
 
-        start = parse(event.find("abbr", "dtstart")["title"]).replace(tzinfo=None)
-        end = parse(event.find("abbr", "dtend")["title"]).replace(tzinfo=None)
+        start = parse(event.find("meta", itemprop="startDate").attrs["content"]).replace(tzinfo=None)
+        end = parse(event.find("meta", itemprop="endDate").attrs["content"]).replace(tzinfo=None)
 
         yield {
             'title': title,
@@ -428,7 +428,6 @@ def constantvzw():
             'location': location.strip() if location else None,
             'tags': ("artist", "libre", "art"),
         }
-
 
 @event_source(background_color="black", text_color="#FFC3A0", url="http://www.ooooo.be/daemonsshellscripts/", key=None)
 def daemons_shell_scripts():
