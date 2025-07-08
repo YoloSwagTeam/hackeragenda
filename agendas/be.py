@@ -26,14 +26,6 @@ from events.generics import (
 )
 
 
-@event_source(background_color="#f2be79", text_color="#000000", url="http://www.meetup.com/fr/3Dvangelist-professional-workshop-3D-printing/", predefined_tags=[])
-def _3dvangelist_professional_workshop_3d_printing():
-    """
-    <p>Boeiende workshops 3D-printen van theorie tot praktijk Op verschillende locaties in Vlaanderen. Natuurlijk hebt u al gehoord van 3D-printen. Maar nu is de vraag: wat kunt u er eigenlijk mee, zowel professioneel als persoonlijk? Het goede nieuws is dat u dat met de workshops van 3Dvangelist individueel kunt ontdekken. We bieden u een unieke formule en dat op verschillende locaties in Vlaanderen. Doet u mee? Want misschien wist u het nog niet, maar: we zijn allemaal makers. De workshop is ook beschikbaar als in-companytraining op maat of in een formule specifiek voor leerkrachten.</p>
-"""
-    return generic_meetup("3Dvangelist-professional-workshop-3D-printing")
-
-
 @event_source(background_color="#133F52", text_color="#FFFFFF", key=None, url="https://groups.google.com/d/forum/afpyro-be")
 def afpyro():
     '<p>Les apéros des amateurs du langage de programmation <a href="https://www.python.org/">python</a>.</p>'
@@ -47,23 +39,6 @@ def afpyro():
             'url': "http://afpyro.afpy.org" + link['href'],
             'tags': ("python", "code", "drink", "code")
         }
-
-
-@event_source(background_color="#3EA86F", text_color="#ffffff", url="http://www.meetup.com/API-Craftsmanship/", predefined_tags=['code', 'craftsmanship', 'api'])
-def api_craftsmanship():
-    """
-    <p>Our objective is to provide API enthusiasts, people who are thinking about, interested in, or actively developing APIs, a space to get together, share ideas, trends, and discuss techniques and technologies. Please come and join us, learn from each other, and have a little fun.</p>
-"""
-    return generic_meetup("API-Craftsmanship")
-
-
-@event_source(background_color="#61B132", text_color="#ffffff", url="http://www.meetup.com/BeClojure/", predefined_tags=['code', 'clojure', 'jvm', 'lisp', 'concurency'])
-def be_clojure():
-    """
-    <p>Do you love Lisp? Are you a Functional Programmer already using other languages and curious about Clojure? Are you already using Clojure? Do you want to talk about Clojure with fellow developers in Belgium? Join us!</p>
-    <p><a href="http://beclojure.org">http://beclojure.org</a> <br/></p>
-"""
-    return generic_meetup("BeClojure")
 
 
 @event_source(background_color="#F99232", text_color="#ffffff", url="http://www.meetup.com/Belgian-Java-User-Group/", predefined_tags=['code', 'java'])
@@ -121,17 +96,6 @@ def aws_user_group_belgium():
     return generic_meetup("AWS-User-Group-Belgium")
 
 
-@event_source(background_color="#F39532", text_color="white", url="www.bbug.be", predefined_tags=["blender", "art", "3D-modeling"])
-def belgian_blender_user_group():
-    """
-    <p>The Belgian Blender User Group is a belgium based community of users of the open source software called <a href="https://www.blender.org/">Blender</a>.</p>
-    <p>We are a group of users targeting IRL meetings and organizing workshops and training.</p>
-    """
-    return generic_google_agenda(
-        "https://www.google.com/calendar/ical/7chafqnhlfkjqhp806t1tefsgc%40group.calendar.google.com/public/basic.ics",
-        per_event_url_function=lambda event: event["DESCRIPTION"])
-
-
 @event_source(background_color="#9D3532", text_color="white", url="http://www.meetup.com/The-Belgian-AngularJS-Meetup-Group", predefined_tags=["angularjs", "javascript", "webdev", "code"])
 def belgian_angularjs():
     """
@@ -150,45 +114,9 @@ def belgian_puppet_user_group():
     return generic_meetup("Belgian-Puppet-User-Group")
 
 
-@event_source(background_color="#E0393E", text_color="white", url="http://www.meetup.com/ruby_belgium/", predefined_tags=["ruby", "code"], description="<p>BRUG is the Belgian Ruby User Group.</p>")
-def belgian_ruby_user_group():
-    return generic_meetup("ruby_belgium")
-
-
-@event_source(background_color="#f2d379", text_color="#000000", url="http://www.meetup.com/Belgium-Tableau-Software-Data-Analytics-User-Group-Meetup/", predefined_tags=['code', 'data'])
-def belgium_tableau_software_data_analytics_user_group_meetup():
-    """
-    <p>For people with a passion for exploring, using data analytics. Explorers may be interested sport, health, journalism, science, engineering, politics, government, finance, economics, art, or history, to name but a few. Meetings are mainly conducted in English with a little French and Dutch thrown in.</p>
-"""
-    return generic_meetup("Belgium-Tableau-Software-Data-Analytics-User-Group-Meetup")
-
-
 @event_source(background_color="#FEE63C", text_color="#000000", url="http://www.meetup.com/BeScala", predefined_tags=["java", "scala", "jvm", "code"], description="<p>The Belgian Scala User Group.</p>")
 def bescala():
     return generic_meetup("BeScala")
-
-
-@event_source(background_color="DarkGoldenRod", text_color="white", url="http://bhackspace.be")
-def bhackspace():
-    "<p>The BHackspace is a hackerspace located in Bastogne, Belgium.</p>"
-    soup = BeautifulSoup(requests.get("http://wiki.bhackspace.be/index.php/Main_Page").content)
-
-    if soup.table.find('table', 'table') is None:
-        return
-
-    for event in soup.find('table', 'table')('tr')[1:]:
-        title = event.a.text
-        url = "http://wiki.bhackspace.be" + event.a["href"]
-        start = parse(event('td')[1].text)
-        location = event('td')[2].text
-
-        yield {
-            'title': title,
-            'url': url,
-            'start': start,
-            'location': location.strip() if location else "Bastogne",
-            'tags': ("hackerspace", "bastogne")
-        }
 
 
 @event_source(background_color="#99c2eb", text_color="#ffffff", url="http://www.meetup.com/fr/Big-Data-Brussels/", predefined_tags=['code', 'bigdata'])
@@ -276,11 +204,6 @@ def brujug():
     return generic_meetup("BruJUG")
 
 
-@event_source(background_color="#415A6C", text_color="#CBE5F7", url="http://www.meetup.com/Brussels-Cassandra-Users", predefined_tags=["nosql", "jvm", "database", "bruxelles", "code"], description="<p>Open to all those interested in Apache Cassandra, Big Data, Hadoop, Hive, Hector, NoSQL, Pig, and high scalability. Let's get together and share what we know!</p>")
-def brussels_cassandra_users():
-    return generic_meetup("Brussels-Cassandra-Users")
-
-
 @event_source(background_color="#CAD9EC", text_color="black", url="http://www.meetup.com/Brussels-Data-Science-Community-Meetup", predefined_tags=["bruxelles", "code", "bigdata"], description='<p>The <strong>Blender-Brussels</strong> − also known as <strong>Blender BPY/BGE workshops</strong> − are a series of monthly work sessions organized by <a href="http://xuv.be">Julien Deswaef</a> (<a href="https://github.com/xuv" class="user-mention">@xuv</a>) and <a href="http://frankiezafe.org">François Zajéga</a> (<a href="https://github.com/frankiezafe" class="user-mention">@frankiezafe</a>) with the aim of providing a regular gathering and knowledge sharing space for artists and coders interested in Python scripting in the context of Blender.</p>')
 def brussels_data_science_meetup():
     return generic_meetup("Brussels-Data-Science-Community-Meetup")
@@ -293,15 +216,6 @@ def brussels_drupal_meetup():
     <p>Thanks  :) <br/></p>
 """
     return generic_meetup("Brussels-Drupal-Meetup")
-
-
-@event_source(background_color="#927f82", text_color="#ffffff", url="http://www.meetup.com/fr/Brussels-lean-coffee/", predefined_tags=['code', 'kanban', 'agile'])
-def brussels_lean_coffee():
-    """
-    <p><span>Each Thursday morning we meet in the centre of Brussels to talk about Lean, Kanban, Agile, TPS, or even Personal Kanban and Discovery Kanban. Join us if you get excited about limiting WIP, visualizing workflow, self-organizing teams, and change or even just want to know more about them.</span> <br/></p>
-    <p><i>The meetup is member of the Belgium lean coffee meetups, more locations at <a href="http://www.meetup.com/Belgium-lean-coffee">Belgium lean coffee</a>.</i></p>
-"""
-    return generic_meetup("Brussels-lean-coffee")
 
 
 @event_source(background_color="#0324C1", text_color="white", url="http://www.meetup.com/wp-bru", predefined_tags=["bruxelles", "wordpress", "cms", "php", "webdev", "code"], description='<p>A gathering of WordPress users and professionals of all levels.<br><br>Whether you\'re a site owner, designer, developer, plug-in creator all are welcome to attend to learn, share and expand their knowledge of WordPress.<br><br>Have a look at <a href="http://www.meetup.com/wp-bru/about/">our about page</a> for a idea of the type of activities I\'d like to see organised.</p>')
@@ -317,38 +231,8 @@ def brusselsphp():
     return generic_meetup("BrusselsPHP")
 
 
-@event_source(background_color="#FEED01", text_color="black", url="http://budalab.fikket.com")
-def budalab():
-    """
-    <p>
-    BUDA::lab is een meetingspot, een open werk- plek voor designers,
-    studenten, bedrijven, kunstenaars, actieve DIY'ers, ... BUDA::lab is een
-    plek om te creeren, om te materialiseren, om ervaring te delen, kennis te
-    verzamelen en uitgedaagd te worden. Sluit je aan, loop binnen wanneer je
-    wil en ontdek wat BUDA::lab voor jou kan betekenen!
-    </p>
-    """
-    now = int(time.time())
-    then = now + (60 * 60 * 24 * 14)
-    location = "Designregio Kortrijk, Broelkaai 1B, 8500 KORTRIJK"
-    data = requests.get("http://budalab.fikket.com/api2/events/calendar.json?start=%s&end=%s" % (now, then)).json()
-
-    for entry in data:
-        title = entry["title"]
-        start = datetime.strptime(entry["start"][:-6], "%Y-%m-%dT%H:%M:%S")
-        end = datetime.strptime(entry["end"][:-6], "%Y-%m-%dT%H:%M:%S")
-
-        yield {
-            'title': title,
-            'location': location,
-            'url': entry["url"],
-            'start': start,
-            'end': end,
-            'tags': ("fablab",)
-        }
-
-
-@event_source(background_color="white", text_color="#990000", url="http://www.bxlug.be")
+# FIXME
+# @event_source(background_color="white", text_color="#990000", url="http://www.bxlug.be")
 def bxlug():
     """
     <p>Le BxLUG est une association d’utilisateurs de logiciels libres créée en 1999 et dont l’objectif est la promotion de GNU/Linux et autres logiciels libres dans la région de Bruxelles.</p>
@@ -397,7 +281,8 @@ def c3l():
         }
 
 
-@event_source(background_color="#D2C7BA", text_color="black", key=None, url="http://www.constantvzw.org")
+# FIXME
+# @event_source(background_color="#D2C7BA", text_color="black", key=None, url="http://www.constantvzw.org")
 def constantvzw():
     """
     <p><strong>Constant is a non-profit association, an interdisciplinary arts-lab based and active in Brussels since 1997.</strong></p>
@@ -491,19 +376,6 @@ def docker_belgium():
     return generic_meetup("Docker-Belgium")
 
 
-@event_source(background_color="#FC745D", text_color="white", url="http://www.meetup.com/Ember-js-Brussels", predefined_tags=["emberjs", "javascript", "code", "webdev"], description="This is a group for anyone interested in developing web applications in Ember.js. I created this group because it's nice to have a local community for sharing knowledge, ideas and inspiration about this awesome web framework. The learning curve for Ember.js is not the lightest so it will also be a place to share your frustrations! Beginner or expert, everyone is welcome.")
-def ember_js_brussels():
-    return generic_meetup("Ember-js-Brussels")
-
-
-@event_source(background_color="#f2a579", text_color="#000000", url="http://www.meetup.com/fr/Fab-Brol-Mons/", predefined_tags=['fablab', 'mons'])
-def fab_brol_mons():
-    """
-    <p>Si vous aimez bidouiller des raspberry pi, des Arduino, des breadboards etc etc et que vous cherchez des personnes avec qui passer un peu de temps pour améliorer vos idées alors rejoignez-nous !</p>
-    """
-    return generic_meetup("Fab-Brol-Mons")
-
-
 @event_source(background_color="#f2798e", text_color="#000000", url="http://www.meetup.com/FabLabBornem/", predefined_tags=['fablab', 'bornem'])
 def fablab_bornem():
     """
@@ -512,27 +384,8 @@ def fablab_bornem():
     return generic_meetup("FabLabBornem")
 
 
-@event_source(background_color="white", text_color="#515151", url="http://www.fablabcharleroi.be/", predefined_tags=["fablab", "charleroi"])
-def fablab_charleroi():
-    """
-    Ensuite dans l’esprit que nous voulons mettre en place les mots qui me viennent spontanément : Fun, partage, passion, soutien, entre aide, technique, développement, innovation,…
-    Cette liste non-exhaustive doit vous mettre sur la piste de nos objectifs au sein du fablab de Charleroi.
-    Le Fablab fait partie d’un ensemble plus grand, le bubble hub qui est un espace créatif qui se décompose en plusieurs activités dont celle du fablab : http://bubblehub.be/susciter-la-creativite/fablab/
-    """
-    return generic_google_agenda("https://calendar.google.com/calendar/ical/2qpt4enmk3brsvmkmitko7b3hg%40group.calendar.google.com/public/basic.ics")
-
-
-@event_source(background_color="#e8e8e8", text_color="#2ba6ab", url="http://fablabmons.be/", predefined_tags=["fablab", "mons"])
-def fablab_mons():
-    """
-    « Concevez-le et fabriquez-le vous-mêmes ! »
-    Voilà ce que proposent les « FabLabs » aux étudiants, aux chercheurs, aux designers, aux artistes, aux roboticiens, aux entrepreneurs et à tous les bricoleurs du 21e siècle qui veulent passer rapidement d’une idée à un prototype pour promouvoir leur projet.
-    La particularité du projet montois, initié au sein de l’Université de Mons, est en effet d’être porté par une diversité d’acteurs dont les besoins sont finalement très complémentaires. Le « FabLab Mons » est avant tout orienté grand public, formation et recherche.
-    """
-    return generic_google_agenda("https://calendar.google.com/calendar/ical/7j8q9f7sjerkg8im1q3s0sp27o%40group.calendar.google.com/public/basic.ics")
-
-
-@event_source(background_color="#C9C4BF", text_color="black", key=None, url="http://fo.am")
+# FIXME
+# @event_source(background_color="#C9C4BF", text_color="black", key=None, url="http://fo.am")
 def foam():
     """
     <p>
@@ -689,19 +542,6 @@ def internet_of_things_ghent():
     return generic_meetup("Internet-of-Things-Ghent")
 
 
-@event_source(background_color="#79c1f2", text_color="#000000", url="http://www.meetup.com/fr/Internet-of-Things-IoT-Leuven/", predefined_tags=['iot', 'code', 'leuven'])
-def internet_of_things_iot_leuven():
-    """
-    <p>Executive summary still to come :-) .... but if you're interested in any aspects of "the Internet Of Things" and are willing to share, discuss, engage with us feel free to join our group and attend one of our events. </p>
-    <p>If there's one revolutionary technology out there that you don't want to miss #IoT is just that . </p>
-    <p>It is my intention not only to have peer2peer discussions but also to have presentations from industry speakers and influencers on this subject.</p>
-    <p>Don't forget to spread the word onto other IoTGroupies!</p>
-    <p>Hope to CU soon ~ Bart</p>
-    <p> <br/></p>
-"""
-    return generic_meetup("Internet-of-Things-IoT-Leuven")
-
-
 @event_source(background_color="#CE112C", text_color="#ffffff", url="http://www.meetup.com/iot_be/", predefined_tags=['code', 'iot'])
 def iot_be():
     """
@@ -719,11 +559,6 @@ def javascriptlab():
     return generic_meetup("javascriptlab")
 
 
-@event_source(background_color="#579FAB", text_color="black", url="http://www.meetup.com/Jeudis-du-Libre-Mons", predefined_tags=["mons-hainaut", "libre"], description="<p>La création des Jeudis du Libre est l’initiative de jeunes administrateurs systèmes désireux de communiquer sur Les Logiciels Libres. Tout les troisièmes jeudis du mois, un programme issu du travail de développeurs à travers le monde, est présenté aux administrateurs systèmes, aux amateurs d’informatique, aux professeurs ou encore aux simples curieux.</p>")
-def jeudi_du_libre_mons():
-    return generic_meetup("Jeudis-du-Libre-Mons")
-
-
 @event_source(background_color="#FFFFFF", text_color="#FB503B", url="http://www.meetup.com/Laravel-Brussels", predefined_tags=["bruxelles", "laravel", "php", "webdev", "code"], description='<p>A group for anyone interested in learning about and sharing knowledge on Laravel, the "PHP framework for web artisans". The group welcomes beginners and experts, amateurs and pros, young and old, etc. Laravel is an accessible, yet powerful framework for web application development. Its expressive, elegant syntax and its clean structure make PHP development a real joy. As the Laravel community keeps growing, this group is an attempt to get Belgium-based users to know each other, and to spread the word!</p>')
 def laravel_brussels():
     return generic_meetup("Laravel-Brussels")
@@ -735,11 +570,6 @@ def le_wagon_brussels_coding_station():
     <p>Our program is designed for complete beginners or "half-beginners" who really want to dive into programming and, above all, change their mindset. Learn to think like a developer, consider issues with new insight, and become more creative thanks to these newly acquired abilities. Our unique goal is to facilitate becoming an outstanding entrepreneur who is able to code his/her own projects and to deeply understand technical issues.</p>
 """
     return generic_meetup("Le-Wagon-Brussels-Coding-Station")
-
-
-@event_source(background_color="#37C2F1", text_color="black", url="http://www.meetup.com/Les-mardis-de-lagile-Bruxelles", predefined_tags=["bruxelles", "agile", "code", "drink"], description="<p>Appel à la communauté agile de Bruxelles ! Que vous soyez un fervent agiliste ou tout simplement intéressé par l'agilité, venez découvrir de nouvelles approches, vous enrichir à travers les nombreuses sessions proposées, participer à des innovation games et partager vos retours d'expérience lors de nos meetups \"Les Mardis de l'agile\" !</p>")
-def les_mardis_de_l_agile():
-    return generic_meetup("Les-mardis-de-lagile-Bruxelles")
 
 
 @event_source(background_color="#d1c4b8", text_color="#ffffff", url="http://www.meetup.com/fr-FR/Leuven-Lean-coffee/", predefined_tags=[])
@@ -788,7 +618,8 @@ def nadine():
         }
 
 
-@event_source(background_color="indigo", text_color="white", url="https://npbx.wordpress.com/category/npbbxl/")
+# FIXME
+# @event_source(background_color="indigo", text_color="white", url="https://npbx.wordpress.com/category/npbbxl/")
 def npbbxl():
     '''
     <p>A NetPoliticsBeerX (#nbpx) is an informal meetup of people involved or interested in the different fields of internet politics and activism (e.g. copyright, privacy, open data, net neutrality, …).</p>
@@ -1114,24 +945,6 @@ def source():
             today += timedelta(days=1)
 
 
-@event_source(background_color="#f2ab79", text_color="#000000", url="http://www.meetup.com/fr/Space-Enthusiasts-Belgium/", predefined_tags=['space'])
-def space_enthusiasts_belgium():
-    """
-    <p>Interested in space? Whether you're just a science fiction junkie, or the next Elon Musk, everyone is welcome in this group! We do events from visiting space-related locations, to discussing books to read, to building the next rocket and satellite. All are welcome!</p>
-"""
-    return generic_meetup("Space-Enthusiasts-Belgium")
-
-
-@event_source(background_color="#aa79f2", text_color="#000000", url="http://www.meetup.com/StreamProcessing-be/", predefined_tags=['code', 'stream_processing'])
-def streamprocessing_be():
-    """
-    <p>A Belgium based Meetup about Stream Processing (where all data is treated as a continuous stream of (immutable) Facts, Events, Updates).</p>
-    <p>A good introduction is this recent article on O'Reilly:</p>
-    <p> <a class="linkified" href="http://radar.oreilly.com/2015/04/a-real-time-processing-revival.html">http://radar.oreilly.com/2015/04/a-real-tim...</a> </p>
-"""
-    return generic_meetup("StreamProcessing-be")
-
-
 @event_source(background_color="#333333", text_color="#ffffff", url="http://www.meetup.com/Symfony-User-Group-Belgium/", predefined_tags=['code', 'php', 'symfony'])
 def symfony_user_group_belgium():
     """
@@ -1148,7 +961,8 @@ def syn2cat():
     return generic_google_agenda("https://level2.lu/events/ical")
 
 
-@event_source(background_color="#333", text_color="white", url="http://www.timelab.org")
+# FIXME
+# @event_source(background_color="#333", text_color="white", url="http://www.timelab.org")
 def timelab():
     """<p>Timelab brengt makers samen. Deel uitmaken van de makers-community stimuleert leren, samenwerken, creativiteit, innovatie en experiment.</p>"""
     soup = BeautifulSoup(requests.get("http://www.timelab.org/agenda").content)
@@ -1201,7 +1015,8 @@ def urlab():
     return json_api("https://urlab.be/api/hackeragenda.json")
 
 
-@event_source(background_color="#25272C", text_color="#C58723", key=None, url="http://voidwarranties.be")
+# FIXME https://spaceapi.voidwarranties.be/ical
+# @event_source(background_color="#25272C", text_color="#C58723", key=None, url="http://voidwarranties.be")
 def voidwarranties():
     """
     <p>
@@ -1312,7 +1127,8 @@ def wolfplex():
         }
 
 
-@event_source(background_color="#3EBDEA", text_color="#000", url="https://makilab.org")
+# FIXME
+# @event_source(background_color="#3EBDEA", text_color="#000", url="https://makilab.org")
 def makilab():
     "<p>Makilab est le fablab de Louvain-La-Neuve, dans le Brabant Wallon.</p>"
     soup = BeautifulSoup(requests.get("https://makilab.org/events-list").content, 'html.parser')
@@ -1362,7 +1178,8 @@ def makilab():
             soup = None
 
 
-@event_source(background_color="#1ABC9C", text_color="black", predefined_tags=["hackerspace","makerspace"], url="https://ko-lab.space")
+# FIXME dead?
+# @event_source(background_color="#1ABC9C", text_color="black", predefined_tags=["hackerspace","makerspace"], url="https://ko-lab.space")
 def ko_lab():
     """
     <p>A makerspace – also referred to as a hacklab. Is a community-operated workspace where people can meet, socialize and ko-laborate. Often with common interests in science, technology, articrafts, digital art etc. It offers the place and time to do or find out what you really love to do.</p>
