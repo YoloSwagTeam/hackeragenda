@@ -21,7 +21,7 @@ class Event(models.Model):
     lon = models.FloatField(default=None, null=True, blank=True)
     lat = models.FloatField(default=None, null=True, blank=True)
 
-    def __unicode__(self):
+    def __str__(self):
         title = self.title
         if self.location:
             title += " - %s" % (self.location)
