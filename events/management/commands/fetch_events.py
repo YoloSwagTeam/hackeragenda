@@ -35,6 +35,14 @@ class Command(BaseCommand):
             help='No ANSI colors in output'
         )
 
+        parser.add_argument(
+            '--strict',
+            action='store_true',
+            dest='strict',
+            default=False,
+            help='Failed on error (used for development)'
+        )
+
     def handle(self, *args, **options):
         sources = SOURCES_FUNCTIONS.keys() if not args else args
 
@@ -59,10 +67,14 @@ class Command(BaseCommand):
                 except ImportError:
                     print("No Sentry")
 
+                if options.get('strict', False):
+                    raise e
+
 
 def event_source(background_color, text_color, url, agenda=None, key="url", description="", predefined_tags=[]):
     if agenda is None:
         agenda = CURRENT_AGENDA
+
     def event_source_wrapper(func, org_name=None):
         def fetch_events(quiet, nocolor):
             def create_event(**detail):
