@@ -9,18 +9,11 @@ sucks".
 
 # Installation
 
-You need [bower](http://bower.io/)! You'll probably need to have a recent 
-version of nodejs to install it.
-
 ``` shell
 git clone https://github.com/Psycojoker/hackeragenda.git
 cd hackeragenda
-virtualenv ve
-source ve/bin/activate
-pip install -r requirements.txt
-python manage.py syncdb --noinput
-python manage.py migrate
-python manage.py bower_install
+pdm install
+pdm run python manage.py migrate
 ```
 
 # Usage
@@ -28,7 +21,7 @@ python manage.py bower_install
 To update the events:
 
 ``` shell
-python manage.py fetch_events
+pdm run python manage.py fetch_events
 ```
 
 In production, this command is in a crontab that run every one hour.
@@ -36,14 +29,14 @@ In production, this command is in a crontab that run every one hour.
 You can launch only one or more specific parser by passing them as args of the command:
 
 ``` shell
-python manage.py fetch_events urlab agenda_du_libre_be hsbxl
+pdm run python manage.py fetch_events urlab agenda_du_libre_be hsbxl
 ```
 
 If you don't want any output you can use the <code>--quiet</code> command line
 option (this is very usefull if you want to use it in a crontab):
 
 ``` shell
-python manage.py fetch_events --quiet
+pdm run python manage.py fetch_events --quiet
 ```
 
 # How to add an organisation

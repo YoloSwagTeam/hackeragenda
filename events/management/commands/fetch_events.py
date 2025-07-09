@@ -9,7 +9,7 @@ from django.core.management.base import BaseCommand
 from django.db import transaction
 from events.models import Event
 
-from imp import load_source
+from importlib import import_module
 from os import listdir
 
 
@@ -138,7 +138,7 @@ def load_agenda(name):
     global CURRENT_AGENDA
     CURRENT_AGENDA = name
     try:
-        load_source(name, "agendas/" + name + ".py")
+        import_module(f"agendas.{name}")
     except Exception as err:
         print(" === Error when loading fetchers for agenda", name)
         traceback.print_exc()
