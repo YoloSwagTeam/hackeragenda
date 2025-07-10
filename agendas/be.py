@@ -34,7 +34,7 @@ from events.generics import (
 )
 def afpyro():
     '<p>Les apéros des amateurs du langage de programmation <a href="https://www.python.org/">python</a>.</p>'
-    soup = BeautifulSoup(requests.get("http://afpyro.afpy.org/").content)
+    soup = BeautifulSoup(requests.get("http://afpyro.afpy.org/").content, "html5lib")
     filtering = lambda x: x["href"][:7] == "/dates/" and "(BE)" in x.text
     for link in filter(filtering, soup("a")):
         datetuple = map(int, link["href"].split("/")[-1].split(".")[0].split("_"))
@@ -234,7 +234,7 @@ def bitcoin_brussels():
 def blender_brussels():
     '<p>The <strong>Blender-Brussels</strong> − also known as <strong>Blender BPY/BGE workshops</strong> − are a series of monthly work sessions organized by <a href="http://xuv.be">Julien Deswaef</a> (<a href="https://github.com/xuv" class="user-mention">@xuv</a>) and <a href="http://frankiezafe.org">François Zajéga</a> (<a href="https://github.com/frankiezafe" class="user-mention">@frankiezafe</a>) with the aim of providing a regular gathering and knowledge sharing space for artists and coders interested in Python scripting in the context of Blender.</p>'
 
-    soup = BeautifulSoup(requests.get("https://blender-brussels.github.io/").content)
+    soup = BeautifulSoup(requests.get("https://blender-brussels.github.io/").content, "html5lib")
 
     for entry in soup("article", attrs={"class": None}):
         start = entry.find("time")
@@ -600,7 +600,7 @@ def foam():
         else:
             start, end = dates[0], None
 
-        soupsoup = BeautifulSoup(requests.get("http://fo.am" + link).content)
+        soupsoup = BeautifulSoup(requests.get("http://fo.am" + link).content, "html.parser")
 
         if soupsoup.find("h3", text="Location"):
             location = re.sub(
@@ -857,7 +857,7 @@ def nadine():
 
     <i>(traduits du néerlandais par iTitou)</i>
     """
-    soup = BeautifulSoup(requests.get("http://nadine.be/what/event").content)
+    soup = BeautifulSoup(requests.get("http://nadine.be/what/event").content, "html5lib")
     for cell in soup.select("td"):
         if not cell.select(".from-date"):
             continue
@@ -1011,14 +1011,14 @@ def okno():
     Fields], a collaborative exploration into the potential of open-air modes of
     creation.</p>
     """
-    soup = BeautifulSoup(requests.get("http://www.okno.be/events/").content)
+    soup = BeautifulSoup(requests.get("http://www.okno.be/events/").content, "html5lib")
 
     for entry in soup("div", "switch-events"):
         datetuple = map(int, entry("span", "date-display-single")[0].text.split("."))
         title = entry("span", "field-content")[0].text
         link = "http://www.okno.be" + entry("a")[0]["href"]
 
-        soupsoup = BeautifulSoup(requests.get(link).content)
+        soupsoup = BeautifulSoup(requests.get(link).content, "html5lib")
 
         maybe_end = (
             soupsoup.find("div", "date").text.split("|")[0].strip().split("\u2014")[1:]
@@ -1334,7 +1334,7 @@ def syn2cat():
 # @event_source(background_color="#333", text_color="white", url="http://www.timelab.org")
 def timelab():
     """<p>Timelab brengt makers samen. Deel uitmaken van de makers-community stimuleert leren, samenwerken, creativiteit, innovatie en experiment.</p>"""
-    soup = BeautifulSoup(requests.get("http://www.timelab.org/agenda").content)
+    soup = BeautifulSoup(requests.get("http://www.timelab.org/agenda").content, "html5lib")
 
     while soup:
         for event_dom in soup("div", "events")[0]("li", "views-row"):
@@ -1369,7 +1369,7 @@ def timelab():
         next_page_links = soup("li", "pager-next")
         if next_page_links and next_page_links[0].text:
             href = "http://www.timelab.org/" + next_page_links[0]("a")[0]["href"]
-            soup = BeautifulSoup(requests.get(href).content)
+            soup = BeautifulSoup(requests.get(href).content, "html5lib")
         else:
             soup = None
 
@@ -1460,7 +1460,7 @@ def whitespace():
     href="http://www.wolfplex.org/">Charleroi</a>.
     </p>
     """
-    soup = BeautifulSoup(requests.get("http://www.0x20.be/Main_Page").content)
+    soup = BeautifulSoup(requests.get("http://www.0x20.be/Main_Page").content, "html5lib")
 
     for event in soup.ul("li"):
         if event.text == "More...":
@@ -1487,7 +1487,7 @@ def whitespace():
 # @event_source(background_color="#666661", text_color="black")
 def wolfplex():
     html_parser = HTMLParser()
-    soup = BeautifulSoup(requests.get("http://www.wolfplex.org/wiki/Main_Page").content)
+    soup = BeautifulSoup(requests.get("http://www.wolfplex.org/wiki/Main_Page").content, "html5lib")
     events = soup.find("div", id="accueil-agenda").dl
 
     for date_info, event in zip(events("dt"), events("dd")[1::2]):

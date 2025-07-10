@@ -48,7 +48,7 @@ def json_api(url):
 
 def generic_eventbrite(eventbrite_id):
     src_url = "http://www.eventbrite.com/o/{}".format(eventbrite_id)
-    soup = BeautifulSoup(requests.get(src_url).content)
+    soup = BeautifulSoup(requests.get(src_url).content, "html5lib")
 
     for event in soup.findAll("div", attrs={"class": "event_row vevent clrfix"}):
         title = event.find("span", attrs={"class": "summary"}).string
