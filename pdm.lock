@@ -5,20 +5,23 @@
 groups = ["default"]
 strategy = ["inherit_metadata"]
 lock_version = "4.5.0"
-content_hash = "sha256:1b629275916d620de892d4744d4c459e081255b3860cfdcb8096dc301de104de"
+content_hash = "sha256:7dece4e05283ed63e2157f1ecb38ef37c36183ac2428a39a3ba44debd554c688"
 
 [[metadata.targets]]
 requires_python = "==3.13.*"
 
 [[package]]
 name = "asgiref"
-version = "3.2.10"
-requires_python = ">=3.5"
+version = "3.9.1"
+requires_python = ">=3.9"
 summary = "ASGI specs, helper code, and adapters"
 groups = ["default"]
+dependencies = [
+    "typing-extensions>=4; python_version < \"3.11\"",
+]
 files = [
-    {file = "asgiref-3.2.10-py3-none-any.whl", hash = "sha256:9fc6fb5d39b8af147ba40765234fa822b39818b12cc80b35ad9b0cef3a476aed"},
-    {file = "asgiref-3.2.10.tar.gz", hash = "sha256:7e51911ee147dd685c3c8b805c0ad0cb58d360987b56953878f8c06d2d1c6f1a"},
+    {file = "asgiref-3.9.1-py3-none-any.whl", hash = "sha256:f3bba7092a48005b5f5bacd747d36ee4a5a61f4a269a6df590b43144355ebd2c"},
+    {file = "asgiref-3.9.1.tar.gz", hash = "sha256:a5ab6582236218e5ef1648f242fd9f10626cfd4de8dc377db215d5d5098e3142"},
 ]
 
 [[package]]
@@ -97,33 +100,34 @@ files = [
 
 [[package]]
 name = "django"
-version = "3.0.8"
-requires_python = ">=3.6"
-summary = "A high-level Python Web framework that encourages rapid development and clean, pragmatic design."
+version = "4.2.23"
+requires_python = ">=3.8"
+summary = "A high-level Python web framework that encourages rapid development and clean, pragmatic design."
 groups = ["default"]
 dependencies = [
-    "asgiref~=3.2",
-    "pytz",
-    "sqlparse>=0.2.2",
+    "asgiref<4,>=3.6.0",
+    "backports-zoneinfo; python_version < \"3.9\"",
+    "sqlparse>=0.3.1",
+    "tzdata; sys_platform == \"win32\"",
 ]
 files = [
-    {file = "Django-3.0.8-py3-none-any.whl", hash = "sha256:5457fc953ec560c5521b41fad9e6734a4668b7ba205832191bbdff40ec61073c"},
-    {file = "Django-3.0.8.tar.gz", hash = "sha256:31a5fbbea5fc71c99e288ec0b2f00302a0a92c44b13ede80b73a6a4d6d205582"},
+    {file = "django-4.2.23-py3-none-any.whl", hash = "sha256:dafbfaf52c2f289bd65f4ab935791cb4fb9a198f2a5ba9faf35d7338a77e9803"},
+    {file = "django-4.2.23.tar.gz", hash = "sha256:42fdeaba6e6449d88d4f66de47871015097dc6f1b87910db00a91946295cfae4"},
 ]
 
 [[package]]
 name = "django-debug-toolbar"
-version = "2.2"
-requires_python = ">=3.5"
+version = "5.2.0"
+requires_python = ">=3.9"
 summary = "A configurable set of panels that display various debug information about the current request/response."
 groups = ["default"]
 dependencies = [
-    "Django>=1.11",
-    "sqlparse>=0.2.0",
+    "django>=4.2.9",
+    "sqlparse>=0.2",
 ]
 files = [
-    {file = "django-debug-toolbar-2.2.tar.gz", hash = "sha256:eabbefe89881bbe4ca7c980ff102e3c35c8e8ad6eb725041f538988f2f39a943"},
-    {file = "django_debug_toolbar-2.2-py3-none-any.whl", hash = "sha256:ff94725e7aae74b133d0599b9bf89bd4eb8f5d2c964106e61d11750228c8774c"},
+    {file = "django_debug_toolbar-5.2.0-py3-none-any.whl", hash = "sha256:15627f4c2836a9099d795e271e38e8cf5204ccd79d5dbcd748f8a6c284dcd195"},
+    {file = "django_debug_toolbar-5.2.0.tar.gz", hash = "sha256:9e7f0145e1a1b7d78fcc3b53798686170a5b472d9cf085d88121ff823e900821"},
 ]
 
 [[package]]
@@ -158,14 +162,16 @@ files = [
 
 [[package]]
 name = "django-leaflet"
-version = "0.27.0"
+version = "0.32.0"
+requires_python = ">=3.9"
 summary = "Use Leaflet in your django projects"
 groups = ["default"]
 dependencies = [
     "Django",
 ]
 files = [
-    {file = "django-leaflet-0.27.0.tar.gz", hash = "sha256:2b6076322706d6966c98da359a120cb2a8a9c3aff235ec5db30399c6f1153fb7"},
+    {file = "django_leaflet-0.32.0-py3-none-any.whl", hash = "sha256:a17d8e6cc05dd98e8e543fbf198b81dabbf9f195c222e786d1686aeda91c1aa8"},
+    {file = "django_leaflet-0.32.0.tar.gz", hash = "sha256:013ccb06ee08071caec98a65dffd68ab3694dafce72caff34f3d78f35568ae25"},
 ]
 
 [[package]]
@@ -179,29 +185,29 @@ files = [
 
 [[package]]
 name = "django-taggit"
-version = "1.3.0"
-requires_python = ">=3.5"
+version = "6.1.0"
+requires_python = ">=3.8"
 summary = "django-taggit is a reusable Django application for simple tagging."
 groups = ["default"]
 dependencies = [
-    "Django>=1.11",
+    "Django>=4.1",
 ]
 files = [
-    {file = "django-taggit-1.3.0.tar.gz", hash = "sha256:4a833bf71f4c2deddd9745924eee53be1c075d7f0020a06f12e29fa3d752732d"},
-    {file = "django_taggit-1.3.0-py3-none-any.whl", hash = "sha256:609b0223d8a652f3fae088b7fd29f294fdadaca2d7931d45c27d6c59b02fdf31"},
+    {file = "django_taggit-6.1.0-py3-none-any.whl", hash = "sha256:ab776264bbc76cb3d7e49e1bf9054962457831bd21c3a42db9138b41956e4cf0"},
+    {file = "django_taggit-6.1.0.tar.gz", hash = "sha256:c4d1199e6df34125dd36db5eb0efe545b254dec3980ce5dd80e6bab3e78757c3"},
 ]
 
 [[package]]
 name = "django-tastypie"
-version = "0.14.3"
+version = "0.15.1"
 summary = "A flexible & capable API layer for Django."
 groups = ["default"]
 dependencies = [
-    "python-dateutil!=2.0,>=1.5",
+    "python-dateutil>=2.1",
     "python-mimeparse!=1.5,>=0.1.4",
 ]
 files = [
-    {file = "django-tastypie-0.14.3.tar.gz", hash = "sha256:79fbadf81a3cc42cb5304731a88f46c207ae4c8efa7556856356ec916e5b2ec7"},
+    {file = "django_tastypie-0.15.1.tar.gz", hash = "sha256:1eb41318b08c0ebc9b8a386871b45401a623e6a5566bf32ae3e17be2c59318b7"},
 ]
 
 [[package]]
@@ -575,6 +581,18 @@ dependencies = [
 files = [
     {file = "tweepy-3.9.0-py2.py3-none-any.whl", hash = "sha256:3b3780df00eaa937bbd5427d2011e4b3bcb6a29a87bb4cbb4addfc47850e46a5"},
     {file = "tweepy-3.9.0.tar.gz", hash = "sha256:bfd19a5c11f35f7f199c795f99d9cbf8a52eb33f0ecfb6c91ee10b601180f604"},
+]
+
+[[package]]
+name = "tzdata"
+version = "2025.2"
+requires_python = ">=2"
+summary = "Provider of IANA time zone data"
+groups = ["default"]
+marker = "sys_platform == \"win32\""
+files = [
+    {file = "tzdata-2025.2-py2.py3-none-any.whl", hash = "sha256:1a403fada01ff9221ca8044d701868fa132215d84beb92242d9acd2147f667a8"},
+    {file = "tzdata-2025.2.tar.gz", hash = "sha256:b60a638fcc0daffadf82fe0f57e53d06bdec2f36c4df66280ae79bce6bd6f2b9"},
 ]
 
 [[package]]

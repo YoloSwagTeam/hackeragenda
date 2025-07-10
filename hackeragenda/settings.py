@@ -253,6 +253,8 @@ SOUTH_MIGRATION_MODULES = {
 
 LOGIN_REDIRECT_URL = '/administration/'
 
+DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
+
 try:
     from settings_local import *
 except ImportError:

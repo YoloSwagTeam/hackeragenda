@@ -14,7 +14,7 @@ def format_rgba_for_css(r, g, b, a):
 
 
 def add_alpha(color, a=1):
-    assert type(color) in (unicode, str), "%s (%s) should be a string" % (color, type(color))
+    assert type(color) in (bytes, str), "%s (%s) should be a string" % (color, type(color))
     if color[0] == "#":
         if len(color[1:]) == 3:
             r, g, b = tuple(int(x, 16) / 15. for x in color[1:])

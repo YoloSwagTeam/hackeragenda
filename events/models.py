@@ -25,7 +25,7 @@ class Event(models.Model):
         title = self.title
         if self.location:
             title += " - %s" % (self.location)
-        return u"[%s] %s (%s)" % (self.source, title, self.date_to_string)
+        return f"[{self.source}] {title} ({self.date_to_string})"
 
     @property
     def date_to_string(self):
@@ -65,4 +65,4 @@ class LocationCache(models.Model):
     lat = models.FloatField(default=None, null=True, blank=True)
 
     def __unicode__(self):
-        return u"%s (%s, %s)" % (self.string, self.lon, self.lat)
+        return f"{self.string} ({self.lon}, {self.lat})"
