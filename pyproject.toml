@@ -62,3 +62,8 @@ distribution = false
 [build-system]
 requires = ["pdm-backend"]
 build-backend = "pdm.backend"
+
+[dependency-groups]
+lint = [
+    "ruff~=0.12",
+]
