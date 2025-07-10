@@ -50,6 +50,7 @@ dependencies = [
     "weirdict~=0.3.0",
     "werkzeug~=3.1",
     "legacy-cgi~=2.6",
+    "rich~=13.2",
 ]
 requires-python = "==3.13.*"
 readme = "README.md"

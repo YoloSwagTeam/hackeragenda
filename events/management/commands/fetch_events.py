@@ -5,6 +5,9 @@ import traceback
 from datetime import datetime
 from collections import OrderedDict
 
+from rich.console import Console
+from rich.markdown import Markdown
+
 from django.core.management.base import BaseCommand
 from django.db import transaction
 from events.models import Event
@@ -15,6 +18,9 @@ from os import listdir
 
 SOURCES_FUNCTIONS = OrderedDict()
 SOURCES_OPTIONS = {}
+
+
+console = Console()
 
 
 class Command(BaseCommand):
@@ -126,6 +132,12 @@ def event_source(
 
                 return res
 
+            if not quiet:
+                if nocolor:
+                    print(f" === {org_name} ===")
+                else:
+                    console.print(Markdown(f"# {org_name.replace('_', ' ').title()}"), width=120)
+
             if key in (None, False):
                 Event.objects.filter(source=org_name).delete()
             else:
@@ -137,12 +149,8 @@ def event_source(
 
             for event in func():
                 create_event(**event)
-
-            if not quiet:
-                if nocolor:
-                    print(" === Finished for", org_name)
-                else:
-                    print("\033[34;1m === \033[0m Finished for", org_name)
+            else:
+                print()
 
         if org_name is None:
             org_name = func.__name__.lower()
