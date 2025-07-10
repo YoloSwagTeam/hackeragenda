@@ -47,7 +47,7 @@ def json_api(url):
 
 
 def generic_eventbrite(eventbrite_id):
-    src_url = "http://www.eventbrite.com/o/{}".format(eventbrite_id)
+    src_url = "https://www.eventbrite.com/o/{}".format(eventbrite_id)
     soup = BeautifulSoup(requests.get(src_url).content, "html5lib")
 
     for event in soup.findAll("div", attrs={"class": "event_row vevent clrfix"}):
@@ -71,7 +71,7 @@ def generic_eventbrite(eventbrite_id):
 def generic_meetup(meetup_name):
     data = Calendar.from_ical(
         requests.get(
-            "http://www.meetup.com/{}/events/ical/".format(meetup_name)
+            "https://www.meetup.com/{}/events/ical/".format(meetup_name)
         ).content
     )
 
@@ -119,7 +119,7 @@ def generic_facebook_page(fb_page):
         for event in page["data"]:
             yield {
                 "title": event["name"],
-                "url": "http://www.facebook.com/%s" % event["id"],
+                "url": "https://www.facebook.com/%s" % event["id"],
                 "start": parse(event["start_time"]).replace(tzinfo=None),
                 "location": event.get("location"),
             }
@@ -140,7 +140,7 @@ def generic_facebook_group(fb_group):
         for event in page["data"]:
             yield {
                 "title": event["name"],
-                "url": "http://www.facebook.com/%s" % event["id"],
+                "url": "https://www.facebook.com/%s" % event["id"],
                 "start": parse(event["start_time"]).replace(tzinfo=None),
                 "location": event.get("location"),
             }
@@ -170,7 +170,7 @@ def generic_google_agenda(gurl, per_event_url_function=None):
                 (
                     str(event["URL"])
                     if str(event["URL"]).startswith("http")
-                    else "http://" + str(event["URL"])
+                    else "https://" + str(event["URL"])
                 )
                 if event.get("URL")
                 else ""

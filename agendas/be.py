@@ -34,14 +34,14 @@ from events.generics import (
 )
 def afpyro():
     '<p>Les apéros des amateurs du langage de programmation <a href="https://www.python.org/">python</a>.</p>'
-    soup = BeautifulSoup(requests.get("http://afpyro.afpy.org/").content, "html5lib")
+    soup = BeautifulSoup(requests.get("https://afpyro.afpy.org/").content, "html5lib")
     filtering = lambda x: x["href"][:7] == "/dates/" and "(BE)" in x.text
     for link in filter(filtering, soup("a")):
         datetuple = map(int, link["href"].split("/")[-1].split(".")[0].split("_"))
         yield {
             "title": link.text,
             "start": datetime(*datetuple),
-            "url": "http://afpyro.afpy.org" + link["href"],
+            "url": "https://afpyro.afpy.org" + link["href"],
             "tags": ("python", "code", "drink", "code"),
         }
 
@@ -49,7 +49,7 @@ def afpyro():
 @event_source(
     background_color="#F99232",
     text_color="#ffffff",
-    url="http://www.meetup.com/Belgian-Java-User-Group/",
+    url="https://www.meetup.com/Belgian-Java-User-Group/",
     predefined_tags=["code", "java"],
 )
 def belgian_java_user_group():
@@ -62,7 +62,7 @@ def belgian_java_user_group():
 @event_source(
     background_color="#ef4531",
     text_color="#ffffff",
-    url="http://www.meetup.com/Belgian-Software-Craftsmanship-Guild/",
+    url="https://www.meetup.com/Belgian-Software-Craftsmanship-Guild/",
     predefined_tags=["code", "craftsmanship", "agile"],
 )
 def belgian_software_craftsmanship_guild():
@@ -75,7 +75,7 @@ def belgian_software_craftsmanship_guild():
 @event_source(
     background_color="#133F52",
     text_color="white",
-    url="http://www.meetup.com/Belgium-Python-Meetup-aka-AperoPythonBe",
+    url="https://www.meetup.com/Belgium-Python-Meetup-aka-AperoPythonBe",
     predefined_tags=("python", "code", "drink"),
 )
 def belgium_python_meetup():
@@ -86,21 +86,21 @@ def belgium_python_meetup():
 def agenda_du_libre_be_duplicate(event_query, detail):
     id = detail["url"].split("/")[-1].split("=")[-1]
     event_query.filter(
-        url="http://www.agendadulibre.be/showevent.php?id=%s" % id
+        url="https://www.agendadulibre.be/showevent.php?id=%s" % id
     ).delete()
-    event_query.filter(url="http://www.agendadulibre.be/events/%s" % id).delete()
+    event_query.filter(url="https://www.agendadulibre.be/events/%s" % id).delete()
 
 
 @event_source(
     background_color="#3A87AD",
     text_color="white",
-    url="http://www.agendadulibre.be",
+    url="https://www.agendadulibre.be",
     key=agenda_du_libre_be_duplicate,
 )
 def agenda_du_libre_be():
     "<p>L'agenda des évènements du Logiciel Libre en Belgique.</p>"
     data = Calendar.from_ical(
-        requests.get("http://www.agendadulibre.be/ical.php?region=all").content
+        requests.get("https://www.agendadulibre.be/ical.php?region=all").content
     )
 
     for event in data.walk()[1:]:
@@ -116,7 +116,7 @@ def agenda_du_libre_be():
 @event_source(
     background_color="#D2353A",
     text_color="white",
-    url="http://www.meetup.com/Agile-Belgium",
+    url="https://www.meetup.com/Agile-Belgium",
 )
 def agile_belgium():
     """<p>This is the meetup group of the Agile Belgium community. We organize regular drinkups and user group meetings. Come after work and meet people you usually only meet at conferences. Anyone interested in Agile or Lean can join.</p>"""
@@ -126,7 +126,7 @@ def agile_belgium():
 @event_source(
     background_color="#F8981D",
     text_color="white",
-    url="http://www.meetup.com/AWS-User-Group-Belgium",
+    url="https://www.meetup.com/AWS-User-Group-Belgium",
     predefined_tags=["cloud", "amazon", "aws", "sysadmin", "code"],
 )
 def aws_user_group_belgium():
@@ -137,7 +137,7 @@ def aws_user_group_belgium():
 @event_source(
     background_color="#9D3532",
     text_color="white",
-    url="http://www.meetup.com/The-Belgian-AngularJS-Meetup-Group",
+    url="https://www.meetup.com/The-Belgian-AngularJS-Meetup-Group",
     predefined_tags=["angularjs", "javascript", "webdev", "code"],
 )
 def belgian_angularjs():
@@ -150,9 +150,9 @@ def belgian_angularjs():
 @event_source(
     background_color="#1D1D1D",
     text_color="white",
-    url="http://www.meetup.com/Belgian-node-js-User-Group",
+    url="https://www.meetup.com/Belgian-node-js-User-Group",
     predefined_tags=["nodejs", "javascript", "code"],
-    description='<p>This node.js user group gathers the belgian node.js developers so we can improve our skill set and build kick-ass amazing apps.<br><br>For the time being: find us on line at <a href="http://www.shadowmedia.be/nodejs/">http://www.shadowmedia.be/nodejs/</a>.</p>',
+    description='<p>This node.js user group gathers the belgian node.js developers so we can improve our skill set and build kick-ass amazing apps.<br><br>For the time being: find us on line at <a href="https://www.shadowmedia.be/nodejs/">https://www.shadowmedia.be/nodejs/</a>.</p>',
 )
 def belgian_nodejs_user_group():
     return generic_meetup("Belgian-node-js-User-Group")
@@ -161,7 +161,7 @@ def belgian_nodejs_user_group():
 @event_source(
     background_color="#7B6DB0",
     text_color="white",
-    url="http://www.meetup.com/Belgian-Puppet-User-Group",
+    url="https://www.meetup.com/Belgian-Puppet-User-Group",
     predefined_tags=["puppet", "sysadmin", "devops", "code"],
     description="<p>Bringing puppet loving people together on a regular base, to talk about best practices, their experience and have interesting discussions about a great configuration management tool.<br><br>IRC: freenode - #puppet-be</p>",
 )
@@ -172,7 +172,7 @@ def belgian_puppet_user_group():
 @event_source(
     background_color="#FEE63C",
     text_color="#000000",
-    url="http://www.meetup.com/BeScala",
+    url="https://www.meetup.com/BeScala",
     predefined_tags=["java", "scala", "jvm", "code"],
     description="<p>The Belgian Scala User Group.</p>",
 )
@@ -183,13 +183,13 @@ def bescala():
 @event_source(
     background_color="#99c2eb",
     text_color="#ffffff",
-    url="http://www.meetup.com/fr/Big-Data-Brussels/",
+    url="https://www.meetup.com/fr/Big-Data-Brussels/",
     predefined_tags=["code", "bigdata"],
 )
 def big_data_brussels():
     """
     <p>An upcoming regular event for people interested in Big Data, whether you are professionals in the field, enthusiasts, or students looking to build your career in that direction. We'll host interesting talks from industry experts, a focus on both business and technical aspects of big data, and plenty of time for networking! </p>
-    <p>Big Data, Brussels is hosted and managed by <a href="http://dataconomy.com/">Dataconomy Media GmbH</a>. Please get in touch with events@dataconomy.com if you are interested in participating. <br> </br></p>
+    <p>Big Data, Brussels is hosted and managed by <a href="https://dataconomy.com/">Dataconomy Media GmbH</a>. Please get in touch with events@dataconomy.com if you are interested in participating. <br> </br></p>
     <p><a class="embedded" href="https://www.youtube.com/watch?v=v-ryAXdftUQ">https://www.youtube.com/watch?v=v-ryAXdftUQ</a></p>
     """
     return generic_meetup("Big-Data-Brussels")
@@ -198,7 +198,7 @@ def big_data_brussels():
 @event_source(
     background_color="black",
     text_color="white",
-    url="http://www.meetup.com/bigdatabe",
+    url="https://www.meetup.com/bigdatabe",
     predefined_tags=["data", "code", "nosql", "code"],
     description="<p>Welcome to our Belgian community about bigdata, NoSQL and anything data. If you live or work in Belgium and are interested in any of these technologies, please join! We want you!</p>",
 )
@@ -211,7 +211,7 @@ def bigdata_be():
 @event_source(
     background_color="#262626",
     text_color="#ffffff",
-    url="http://www.meetup.com/fr/Bitcoin-Brussels/",
+    url="https://www.meetup.com/fr/Bitcoin-Brussels/",
     predefined_tags=["bitcoin"],
 )
 def bitcoin_brussels():
@@ -232,7 +232,7 @@ def bitcoin_brussels():
     url="https://blender-brussels.github.io/",
 )
 def blender_brussels():
-    '<p>The <strong>Blender-Brussels</strong> − also known as <strong>Blender BPY/BGE workshops</strong> − are a series of monthly work sessions organized by <a href="http://xuv.be">Julien Deswaef</a> (<a href="https://github.com/xuv" class="user-mention">@xuv</a>) and <a href="http://frankiezafe.org">François Zajéga</a> (<a href="https://github.com/frankiezafe" class="user-mention">@frankiezafe</a>) with the aim of providing a regular gathering and knowledge sharing space for artists and coders interested in Python scripting in the context of Blender.</p>'
+    '<p>The <strong>Blender-Brussels</strong> − also known as <strong>Blender BPY/BGE workshops</strong> − are a series of monthly work sessions organized by <a href="https://xuv.be">Julien Deswaef</a> (<a href="https://github.com/xuv" class="user-mention">@xuv</a>) and <a href="https://frankiezafe.org">François Zajéga</a> (<a href="https://github.com/frankiezafe" class="user-mention">@frankiezafe</a>) with the aim of providing a regular gathering and knowledge sharing space for artists and coders interested in Python scripting in the context of Blender.</p>'
 
     soup = BeautifulSoup(requests.get("https://blender-brussels.github.io/").content, "html5lib")
 
@@ -255,7 +255,7 @@ def blender_brussels():
 @event_source(
     background_color="#3C6470",
     text_color="white",
-    url="http://brixel.be",
+    url="https://brixel.be",
     predefined_tags=["Hackerspace", "hasselt"],
     description="<p>Brixel HQ is located in Spalbeek near Hasselt and we organise events and meetings every Tuesday. Although we do not always have something planned, we try to be open as much as we can to stimulate the magic things that just might happen... Meetings start at around 19:00h localtime, but this can vary a bit. There is no fixed closing time. We welcome everybody, young or old, in our Brixel HQ. Come have a look, it's fun!</p>",
 )
@@ -266,7 +266,7 @@ def brixel():
 @event_source(
     background_color="#FF0",
     text_color="#F00",
-    url="http://brotaru.com/",
+    url="https://brotaru.com/",
     predefined_tags=["videogame", "code"],
 )
 def brotaru():
@@ -279,7 +279,7 @@ def brotaru():
 @event_source(
     background_color="#5b5e68",
     text_color="white",
-    url="http://www.eventbrite.com/o/databeers-brussels-12058309416",
+    url="https://www.eventbrite.com/o/databeers-brussels-12058309416",
     predefined_tags=["brussels", "data"],
 )
 def bru_data_beers():
@@ -293,7 +293,7 @@ def bru_data_beers():
 @event_source(
     background_color="#0c0f11",
     text_color="#ffffff",
-    url="http://www.meetup.com/fr/BruJUG/",
+    url="https://www.meetup.com/fr/BruJUG/",
     predefined_tags=["code", "java"],
 )
 def brujug():
@@ -314,9 +314,9 @@ def brujug():
 @event_source(
     background_color="#CAD9EC",
     text_color="black",
-    url="http://www.meetup.com/Brussels-Data-Science-Community-Meetup",
+    url="https://www.meetup.com/Brussels-Data-Science-Community-Meetup",
     predefined_tags=["bruxelles", "code", "bigdata"],
-    description='<p>The <strong>Blender-Brussels</strong> − also known as <strong>Blender BPY/BGE workshops</strong> − are a series of monthly work sessions organized by <a href="http://xuv.be">Julien Deswaef</a> (<a href="https://github.com/xuv" class="user-mention">@xuv</a>) and <a href="http://frankiezafe.org">François Zajéga</a> (<a href="https://github.com/frankiezafe" class="user-mention">@frankiezafe</a>) with the aim of providing a regular gathering and knowledge sharing space for artists and coders interested in Python scripting in the context of Blender.</p>',
+    description='<p>The <strong>Blender-Brussels</strong> − also known as <strong>Blender BPY/BGE workshops</strong> − are a series of monthly work sessions organized by <a href="https://xuv.be">Julien Deswaef</a> (<a href="https://github.com/xuv" class="user-mention">@xuv</a>) and <a href="https://frankiezafe.org">François Zajéga</a> (<a href="https://github.com/frankiezafe" class="user-mention">@frankiezafe</a>) with the aim of providing a regular gathering and knowledge sharing space for artists and coders interested in Python scripting in the context of Blender.</p>',
 )
 def brussels_data_science_meetup():
     return generic_meetup("Brussels-Data-Science-Community-Meetup")
@@ -325,7 +325,7 @@ def brussels_data_science_meetup():
 @event_source(
     background_color="#8779f2",
     text_color="#000000",
-    url="http://www.meetup.com/fr/Brussels-Drupal-Meetup/",
+    url="https://www.meetup.com/fr/Brussels-Drupal-Meetup/",
     predefined_tags=["code", "drupal", "php", "brussels"],
 )
 def brussels_drupal_meetup():
@@ -339,9 +339,9 @@ def brussels_drupal_meetup():
 @event_source(
     background_color="#0324C1",
     text_color="white",
-    url="http://www.meetup.com/wp-bru",
+    url="https://www.meetup.com/wp-bru",
     predefined_tags=["bruxelles", "wordpress", "cms", "php", "webdev", "code"],
-    description="<p>A gathering of WordPress users and professionals of all levels.<br><br>Whether you're a site owner, designer, developer, plug-in creator all are welcome to attend to learn, share and expand their knowledge of WordPress.<br><br>Have a look at <a href=\"http://www.meetup.com/wp-bru/about/\">our about page</a> for a idea of the type of activities I'd like to see organised.</p>",
+    description="<p>A gathering of WordPress users and professionals of all levels.<br><br>Whether you're a site owner, designer, developer, plug-in creator all are welcome to attend to learn, share and expand their knowledge of WordPress.<br><br>Have a look at <a href=\"https://www.meetup.com/wp-bru/about/\">our about page</a> for a idea of the type of activities I'd like to see organised.</p>",
 )
 def brussels_wordpress():
     return generic_meetup("wp-bru")
@@ -350,7 +350,7 @@ def brussels_wordpress():
 @event_source(
     background_color="#8179f2",
     text_color="#000000",
-    url="http://www.meetup.com/fr/BrusselsPHP/",
+    url="https://www.meetup.com/fr/BrusselsPHP/",
     predefined_tags=["code", "php", "brussels"],
 )
 def brusselsphp():
@@ -361,7 +361,7 @@ def brusselsphp():
 
 
 # FIXME
-# @event_source(background_color="white", text_color="#990000", url="http://www.bxlug.be")
+# @event_source(background_color="white", text_color="#990000", url="https://www.bxlug.be")
 def bxlug():
     """
     <p>Le BxLUG est une association d’utilisateurs de logiciels libres créée en 1999 et dont l’objectif est la promotion de GNU/Linux et autres logiciels libres dans la région de Bruxelles.</p>
@@ -376,7 +376,7 @@ def bxlug():
     then = now + (60 * 60 * 24 * 14)
 
     data = requests.get(
-        "http://www.bxlug.be/spip.php?page=calendrier_quete.json&start=%s&end=%s&_=%s"
+        "https://www.bxlug.be/spip.php?page=calendrier_quete.json&start=%s&end=%s&_=%s"
         % (now, then, now)
     ).json()
 
@@ -385,7 +385,7 @@ def bxlug():
         start = parse(event["start"])
         end = parse(event["end"])
         title = event["title"]
-        url = os.path.join("http://www.bxlug.be/", event["url"])
+        url = os.path.join("https://www.bxlug.be/", event["url"])
         # location = entry.find("p", "location")("span")[1].text.split("Contact")[0].split(":", 1)[1].strip() if entry.find("p", "location") else None
 
         yield {
@@ -408,7 +408,7 @@ def c3l():
     """
     <p>Funded in 1981, the Chaos Computer Club did not only invade Hamburg and Berlin with its strong idealistic views on hacktivism or network politics, but reached far over the national borders. It was, and still is, an inspiration to many people in the world. Thus, also the reason for funding its own local 'branch' in Luxembourg. </p>
     """
-    feed = feedparser.parse("http://ical2atom.c3l.lu/")
+    feed = feedparser.parse("https://ical2atom.c3l.lu/")
     for entry in feed.entries:
         yield {
             "title": entry.title,
@@ -418,7 +418,7 @@ def c3l():
 
 
 # FIXME
-# @event_source(background_color="#D2C7BA", text_color="black", key=None, url="http://www.constantvzw.org")
+# @event_source(background_color="#D2C7BA", text_color="black", key=None, url="https://www.constantvzw.org")
 def constantvzw():
     """
     <p><strong>Constant is a non-profit association, an interdisciplinary arts-lab based and active in Brussels since 1997.</strong></p>
@@ -428,12 +428,12 @@ def constantvzw():
     <p>Constant organizes workshops, print-parties, walks and ‘Verbindingen/Jonctions’-meetings on a regular basis for a public that’s into experiments, discussions and all kinds of exchanges.</p>
     """
     soup = BeautifulSoup(
-        requests.get("http://www.constantvzw.org/site/?page=agenda").content, "html5lib"
+        requests.get("https://www.constantvzw.org/site/?page=agenda").content, "html5lib"
     )
 
     for event in soup.find("div", "liste-items evenements")("div", "box"):
         title = event("h3")[1].text
-        url = "http://www.constantvzw.org/site/" + event.a["href"]
+        url = "https://www.constantvzw.org/site/" + event.a["href"]
 
         if re.search(",\d+\.html", url):
             continue
@@ -460,7 +460,7 @@ def constantvzw():
 @event_source(
     background_color="black",
     text_color="#FFC3A0",
-    url="http://www.ooooo.be/daemonsshellscripts/",
+    url="https://www.ooooo.be/daemonsshellscripts/",
     key=None,
 )
 def daemons_shell_scripts():
@@ -471,7 +471,7 @@ def daemons_shell_scripts():
         )
         return
 
-    root = "http://%s@ooooo.be" % settings.OOOOO_CREDENTIALS
+    root = "https://%s@ooooo.be" % settings.OOOOO_CREDENTIALS
 
     soup = BeautifulSoup(
         requests.get(
@@ -489,7 +489,7 @@ def daemons_shell_scripts():
 
             yield {
                 "title": event["SUMMARY"].encode("Utf-8"),
-                "url": "http://www.ooooo.be/daemonsshellscripts/",
+                "url": "https://www.ooooo.be/daemonsshellscripts/",
                 "start": event["DTSTART"].dt.replace(tzinfo=None),
                 "end": event["DTEND"].dt.replace(tzinfo=None)
                 if "DTEND" in event
@@ -505,7 +505,7 @@ def daemons_shell_scripts():
 @event_source(
     background_color="#0095CB",
     text_color="#ffffff",
-    url="http://www.meetup.com/dddbelgium/",
+    url="https://www.meetup.com/dddbelgium/",
     predefined_tags=["code", "ddd"],
 )
 def ddd_belgium():
@@ -520,7 +520,7 @@ def ddd_belgium():
 @event_source(
     background_color="#e3a030",
     text_color="#ffffff",
-    url="http://www.meetup.com/fr/Devoxx4Kids-BE/",
+    url="https://www.meetup.com/fr/Devoxx4Kids-BE/",
     predefined_tags=["code", "kids", "education"],
 )
 def devoxx4kids_be():
@@ -534,7 +534,7 @@ def devoxx4kids_be():
 @event_source(
     background_color="#7B6DB0",
     text_color="#ffffff",
-    url="http://www.meetup.com/devspace-elixir-study-group/",
+    url="https://www.meetup.com/devspace-elixir-study-group/",
     predefined_tags=["code", "elixir", "concurency"],
 )
 def devspace_elixir_study_group():
@@ -548,9 +548,9 @@ def devspace_elixir_study_group():
 @event_source(
     background_color="#008FC4",
     text_color="white",
-    url="http://www.meetup.com/Docker-Belgium",
+    url="https://www.meetup.com/Docker-Belgium",
     predefined_tags=["docker", "lxc", "sysadmin", "devops", "code"],
-    description='<p>Meet other developers and ops engineers using Docker.&nbsp;Docker is an open platform for developers and sysadmins to build, ship, and run distributed applications. Consisting of Docker Engine, a portable, lightweight runtime and packaging tool, and Docker Hub, a cloud service for sharing applications and automating workflows, Docker enables apps to be quickly assembled from components and eliminates the friction between development, QA, and production environments. As a result, IT can ship faster and run the same app, unchanged, on laptops, data center VMs, and any cloud.</p><p>Learn more about Docker at&nbsp;<a href="http://www.docker.com/">http://www.docker.com</a></p>',
+    description='<p>Meet other developers and ops engineers using Docker.&nbsp;Docker is an open platform for developers and sysadmins to build, ship, and run distributed applications. Consisting of Docker Engine, a portable, lightweight runtime and packaging tool, and Docker Hub, a cloud service for sharing applications and automating workflows, Docker enables apps to be quickly assembled from components and eliminates the friction between development, QA, and production environments. As a result, IT can ship faster and run the same app, unchanged, on laptops, data center VMs, and any cloud.</p><p>Learn more about Docker at&nbsp;<a href="https://www.docker.com/">https://www.docker.com</a></p>',
 )
 def docker_belgium():
     return generic_meetup("Docker-Belgium")
@@ -559,7 +559,7 @@ def docker_belgium():
 @event_source(
     background_color="#f2798e",
     text_color="#000000",
-    url="http://www.meetup.com/FabLabBornem/",
+    url="https://www.meetup.com/FabLabBornem/",
     predefined_tags=["fablab", "bornem"],
 )
 def fablab_bornem():
@@ -570,7 +570,7 @@ def fablab_bornem():
 
 
 # FIXME
-# @event_source(background_color="#C9C4BF", text_color="black", key=None, url="http://fo.am")
+# @event_source(background_color="#C9C4BF", text_color="black", key=None, url="https://fo.am")
 def foam():
     """
     <p>
@@ -587,7 +587,7 @@ def foam():
     </p>
     """
 
-    soup = BeautifulSoup(requests.get("http://fo.am/events/").content, "html.parser")
+    soup = BeautifulSoup(requests.get("https://fo.am/events/").content, "html.parser")
 
     for line in soup.find("table", "eventlist")("tr")[1:]:
         title, event_date = line("td")
@@ -600,7 +600,7 @@ def foam():
         else:
             start, end = dates[0], None
 
-        soupsoup = BeautifulSoup(requests.get("http://fo.am" + link).content, "html.parser")
+        soupsoup = BeautifulSoup(requests.get("https://fo.am" + link).content, "html.parser")
 
         if soupsoup.find("h3", text="Location"):
             location = re.sub(
@@ -619,7 +619,7 @@ def foam():
 
         yield {
             "title": title.text,
-            "url": "http://fo.am" + link,
+            "url": "https://fo.am" + link,
             "location": location,
             "start": start,
             "end": end,
@@ -630,7 +630,7 @@ def foam():
 @event_source(
     background_color="#1565C0",
     text_color="#ffffff",
-    url="http://gdg.brussels/",
+    url="https://gdg.brussels/",
     predefined_tags=["code"],
 )
 def gdg_brussels():
@@ -644,7 +644,7 @@ def gdg_brussels():
 @event_source(
     background_color="#6C7DB6",
     text_color="#ffffff",
-    url="http://www.meetup.com/Hasselt-PHP-Meetup/",
+    url="https://www.meetup.com/Hasselt-PHP-Meetup/",
     predefined_tags=["code", "php", "hasselt"],
 )
 def hasselt_php_meetup():
@@ -676,7 +676,7 @@ def hsbxl():
 @event_source(
     background_color="#b8ada0",
     text_color="#ffffff",
-    url="http://www.meetup.com/Icon-Brussels-research-and-education-group/",
+    url="https://www.meetup.com/Icon-Brussels-research-and-education-group/",
     predefined_tags=["art"],
 )
 def icon_brussels_research_and_education_group():
@@ -689,7 +689,7 @@ def icon_brussels_research_and_education_group():
 @event_source(
     background_color="#F47D31",
     text_color="white",
-    url="http://www.imal.org/fablab/",
+    url="https://www.imal.org/fablab/",
     predefined_tags=["fablab", "art"],
     description="""
     <p>iMAL (interactive Media Art Laboratory), is a non-profit association
@@ -709,25 +709,25 @@ def imal():
 
 
 @event_source(
-    background_color="#296038", text_color="#6FCE91", url="http://www.incubhacker.be"
+    background_color="#296038", text_color="#6FCE91", url="https://www.incubhacker.be"
 )
 def incubhacker():
     "<p>Incubhacker est un hackerspace basé dans la région namuroise, c'est un espace de rencontre et de création interdisciplinaire.</p>"
 
     soup = BeautifulSoup(
-        requests.get("http://www.incubhacker.be/?page=1").content, "html5lib"
+        requests.get("https://www.incubhacker.be/?page=1").content, "html5lib"
     )
 
     if soup(
         "a",
         "iCtip",
-        href=lambda x: x and x.startswith("http://www.incubhacker.be/?page="),
+        href=lambda x: x and x.startswith("https://www.incubhacker.be/?page="),
     ):
         pages_number = int(
             soup(
                 "a",
                 "iCtip",
-                href=lambda x: x and x.startswith("http://www.incubhacker.be/?page="),
+                href=lambda x: x and x.startswith("https://www.incubhacker.be/?page="),
             )[-1].text
         )
     else:
@@ -735,13 +735,13 @@ def incubhacker():
 
     for page_number in range(1, pages_number + 1):
         soup = BeautifulSoup(
-            requests.get("http://www.incubhacker.be/?page=%s" % page_number).content,
+            requests.get("https://www.incubhacker.be/?page=%s" % page_number).content,
             "html5lib",
         )
 
         for event in soup("div", "ic-content"):
             title = event.h2.text.strip()
-            url = "http://www.incubhacker.be" + event.h2.a["href"]
+            url = "https://www.incubhacker.be" + event.h2.a["href"]
 
             date = event.find("span", "ic-period-startdate").text
             start_time = event.find("span", "ic-single-starttime").text
@@ -760,7 +760,7 @@ def incubhacker():
 @event_source(
     background_color="#79f2e1",
     text_color="#000000",
-    url="http://www.meetup.com/Internet-of-Things-Ghent/",
+    url="https://www.meetup.com/Internet-of-Things-Ghent/",
     predefined_tags=["code", "iot", "ghent"],
 )
 def internet_of_things_ghent():
@@ -774,7 +774,7 @@ def internet_of_things_ghent():
 @event_source(
     background_color="#CE112C",
     text_color="#ffffff",
-    url="http://www.meetup.com/iot_be/",
+    url="https://www.meetup.com/iot_be/",
     predefined_tags=["code", "iot"],
 )
 def iot_be():
@@ -788,7 +788,7 @@ def iot_be():
 @event_source(
     background_color="#ffde17",
     text_color="#000000",
-    url="http://www.meetup.com/javascriptlab/",
+    url="https://www.meetup.com/javascriptlab/",
     predefined_tags=["javascript", "code"],
 )
 def javascriptlab():
@@ -801,7 +801,7 @@ def javascriptlab():
 @event_source(
     background_color="#FFFFFF",
     text_color="#FB503B",
-    url="http://www.meetup.com/Laravel-Brussels",
+    url="https://www.meetup.com/Laravel-Brussels",
     predefined_tags=["bruxelles", "laravel", "php", "webdev", "code"],
     description='<p>A group for anyone interested in learning about and sharing knowledge on Laravel, the "PHP framework for web artisans". The group welcomes beginners and experts, amateurs and pros, young and old, etc. Laravel is an accessible, yet powerful framework for web application development. Its expressive, elegant syntax and its clean structure make PHP development a real joy. As the Laravel community keeps growing, this group is an attempt to get Belgium-based users to know each other, and to spread the word!</p>',
 )
@@ -812,7 +812,7 @@ def laravel_brussels():
 @event_source(
     background_color="#C9342C",
     text_color="#ffffff",
-    url="http://www.meetup.com/Le-Wagon-Brussels-Coding-Station/",
+    url="https://www.meetup.com/Le-Wagon-Brussels-Coding-Station/",
     predefined_tags=["code", "education"],
 )
 def le_wagon_brussels_coding_station():
@@ -825,7 +825,7 @@ def le_wagon_brussels_coding_station():
 @event_source(
     background_color="#d1c4b8",
     text_color="#ffffff",
-    url="http://www.meetup.com/fr-FR/Leuven-Lean-coffee/",
+    url="https://www.meetup.com/fr-FR/Leuven-Lean-coffee/",
     predefined_tags=[],
 )
 def leuven_lean_coffee():
@@ -838,7 +838,7 @@ def leuven_lean_coffee():
 @event_source(
     background_color="#3EA86F",
     text_color="white",
-    url="http://www.meetup.com/MongoDB-Belgium",
+    url="https://www.meetup.com/MongoDB-Belgium",
     predefined_tags=["mongodb", "database", "code"],
 )
 def mongodb_belgium():
@@ -848,7 +848,7 @@ def mongodb_belgium():
     return generic_meetup("MongoDB-Belgium")
 
 
-@event_source(background_color="#b0b0b0", text_color="#66182b", url="http://nadine.be")
+@event_source(background_color="#b0b0b0", text_color="#66182b", url="https://nadine.be")
 def nadine():
     """
     nadine est un labortoire bruxellois pour les arts actuels transdisciplinaires.
@@ -857,7 +857,7 @@ def nadine():
 
     <i>(traduits du néerlandais par iTitou)</i>
     """
-    soup = BeautifulSoup(requests.get("http://nadine.be/what/event").content, "html5lib")
+    soup = BeautifulSoup(requests.get("https://nadine.be/what/event").content, "html5lib")
     for cell in soup.select("td"):
         if not cell.select(".from-date"):
             continue
@@ -889,7 +889,7 @@ def nadine():
 def npbbxl():
     """
     <p>A NetPoliticsBeerX (#nbpx) is an informal meetup of people involved or interested in the different fields of internet politics and activism (e.g. copyright, privacy, open data, net neutrality, …).</p>
-    <p>It all started in Berlin with the legendary #npbb and spread from there to Düsseldorf (<a href="http://twitter.com/sixtus/status/25290063331983360">#npbd</a>),&nbsp;Bruxelles (<a href="http://doodle.com/3ev9zcu87uts522m">#npbbxl</a>) and whoknowswhatsnext.</p>
+    <p>It all started in Berlin with the legendary #npbb and spread from there to Düsseldorf (<a href="https://twitter.com/sixtus/status/25290063331983360">#npbd</a>),&nbsp;Bruxelles (<a href="https://doodle.com/3ev9zcu87uts522m">#npbbxl</a>) and whoknowswhatsnext.</p>
     """
     for event in feedparser.parse(
         "https://npbx.wordpress.com/category/npbbxl/feed/"
@@ -913,7 +913,7 @@ def npbbxl():
 
 
 @event_source(
-    background_color="DarkBlue", text_color="white", url="http://neutrinet.be"
+    background_color="DarkBlue", text_color="white", url="https://neutrinet.be"
 )
 def neutrinet():
     """
@@ -992,7 +992,7 @@ def okfnbe():
 
 
 @event_source(
-    background_color="#FFFFFF", text_color="#00AA00", url="http://www.okno.be"
+    background_color="#FFFFFF", text_color="#00AA00", url="https://www.okno.be"
 )
 def okno():
     """
@@ -1011,12 +1011,12 @@ def okno():
     Fields], a collaborative exploration into the potential of open-air modes of
     creation.</p>
     """
-    soup = BeautifulSoup(requests.get("http://www.okno.be/events/").content, "html5lib")
+    soup = BeautifulSoup(requests.get("https://www.okno.be/events/").content, "html5lib")
 
     for entry in soup("div", "switch-events"):
         datetuple = map(int, entry("span", "date-display-single")[0].text.split("."))
         title = entry("span", "field-content")[0].text
-        link = "http://www.okno.be" + entry("a")[0]["href"]
+        link = "https://www.okno.be" + entry("a")[0]["href"]
 
         soupsoup = BeautifulSoup(requests.get(link).content, "html5lib")
 
@@ -1053,21 +1053,21 @@ def opengarage_meetings(event):
 @event_source(
     background_color="DarkOrchid",
     text_color="white",
-    url="http://www.meetup.com/OpenGarage",
+    url="https://www.meetup.com/OpenGarage",
     predefined_tags=["hackerspace", opengarage_meetings],
     key=opengarage_duplicated,
 )
 def opengarage():
     """
-    <p>The "Open Garage" is a double garage in Borsbeek, Belgium, some sort of <a href="http://en.wikipedia.org/wiki/Hackerspace">hackerspace</a>, where I (<a href="https://plus.google.com/u/2/+AnthonyLiekens/posts">Anthony Liekens</a>) host weekly workshops and many of my projects.
+    <p>The "Open Garage" is a double garage in Borsbeek, Belgium, some sort of <a href="https://en.wikipedia.org/wiki/Hackerspace">hackerspace</a>, where I (<a href="https://plus.google.com/u/2/+AnthonyLiekens/posts">Anthony Liekens</a>) host weekly workshops and many of my projects.
     The garage is open every Thursday evening to everyone who wants to join our community\'s numerous hacking projects.</p>
     <p>Don\'t listen to me, but check out the media\'s reviews of the Open Garage:</p>
     <ul>
-    <li><a href="http://hackaday.com/2013/10/22/hackerspacing-in-europe-garage-space-in-antwerp/">Hackaday\'s review of the Open Garage</a></li>
-    <li><a href="http://anthony.liekens.net/pub/gva20140614.pdf">The Open Garage in GvA\'s Citta</a> (Belgian newspaper)</li>
+    <li><a href="https://hackaday.com/2013/10/22/hackerspacing-in-europe-garage-space-in-antwerp/">Hackaday\'s review of the Open Garage</a></li>
+    <li><a href="https://anthony.liekens.net/pub/gva20140614.pdf">The Open Garage in GvA\'s Citta</a> (Belgian newspaper)</li>
     <li><a href="https://www.youtube.com/watch?v=aCuUv5ltw6g">The Open Garage in "Iedereen Beroemd"</a> (Belgian national TV)</li>
-    <li><a href="http://www.radio1.be/programmas/de-bende-van-einstein/binnenkijken-de-garage-van-anthony-liekens">The Open Garage on Radio 1</a> (Belgian national radio)</li>
-    <li><a href="http://krant.tijd.be/ipaper/20140215#paper/sabato_nl/50">The Open Garage in De Tijd</a> (Belgian "Times" newspaper)</li>
+    <li><a href="https://www.radio1.be/programmas/de-bende-van-einstein/binnenkijken-de-garage-van-anthony-liekens">The Open Garage on Radio 1</a> (Belgian national radio)</li>
+    <li><a href="https://krant.tijd.be/ipaper/20140215#paper/sabato_nl/50">The Open Garage in De Tijd</a> (Belgian "Times" newspaper)</li>
     </ul>
     """
     return generic_meetup("OpenGarage")
@@ -1076,7 +1076,7 @@ def opengarage():
 @event_source(
     background_color="#7B6DB0",
     text_color="#ffffff",
-    url="http://www.meetup.com/OpenStreetMap-Belgium/",
+    url="https://www.meetup.com/OpenStreetMap-Belgium/",
     predefined_tags=["osm", "carto"],
 )
 def openstreetmap_belgium():
@@ -1089,7 +1089,7 @@ def openstreetmap_belgium():
 @event_source(
     background_color="#3987CB",
     text_color="white",
-    url="http://www.opentechschool.org",
+    url="https://www.opentechschool.org",
     predefined_tags=["learning", "code", "bruxelles"],
 )
 def opentechschool():
@@ -1117,7 +1117,7 @@ def owaspbe():
     <p>
     The Open Web Application Security Project (OWASP) is a <a rel="nofollow"
     class="external text"
-    href="http://www.irs.gov/charities/charitable/article/0,,id=96099,00.html">501(c)(3)</a>
+    href="https://www.irs.gov/charities/charitable/article/0,,id=96099,00.html">501(c)(3)</a>
     worldwide not-for-profit charitable organization focused on improving the
     security of software. Our mission is to make software security <a
     rel="nofollow" class="external text"
@@ -1135,7 +1135,7 @@ def owaspbe():
 @event_source(
     background_color="#757AB2",
     text_color="#ffffff",
-    url="http://www.meetup.com/php-wvl/",
+    url="https://www.meetup.com/php-wvl/",
     predefined_tags=["code", "php"],
 )
 def php_wvl():
@@ -1148,7 +1148,7 @@ def php_wvl():
 @event_source(
     background_color="#0c0024",
     text_color="#ffffff",
-    url="http://www.meetup.com/fr/phpantwerp/",
+    url="https://www.meetup.com/fr/phpantwerp/",
     predefined_tags=["code", "php"],
 )
 def php_antwerp():
@@ -1161,7 +1161,7 @@ def php_antwerp():
 @event_source(
     background_color="#015074",
     text_color="white",
-    url="http://www.meetup.com/phpbenelux",
+    url="https://www.meetup.com/phpbenelux",
     predefined_tags=["php", "code", "webdev"],
 )
 def phpbenelux():
@@ -1172,7 +1172,7 @@ def phpbenelux():
 @event_source(
     background_color="#0082B1",
     text_color="#ffffff",
-    url="http://www.meetup.com/RBelgium/",
+    url="https://www.meetup.com/RBelgium/",
     predefined_tags=["code", "r", "data"],
 )
 def r_belgium():
@@ -1185,7 +1185,7 @@ def r_belgium():
 @event_source(
     background_color="#ef4e30",
     text_color="#ffffff",
-    url="http://www.meetup.com/fr/ReactJS-Belgium/",
+    url="https://www.meetup.com/fr/ReactJS-Belgium/",
     predefined_tags=["code", "web", "reactjs", "javascript"],
 )
 def reactjs_belgium():
@@ -1199,12 +1199,12 @@ def reactjs_belgium():
 @event_source(
     background_color="#36c0cb",
     text_color="black",
-    url="http://realizebxl.be/",
+    url="https://realizebxl.be/",
     predefined_tags=["makerspace", "bruxelles"],
 )
 def realize():
     """
-    <p><strong>Realize</strong> est un atelier partagé<a title="plan" href="https://www.google.be/maps/preview#!q=Rue+du+M%C3%A9tal+32%2C+Saint-Gilles&amp;data=!4m10!1m9!4m8!1m3!1d23940!2d4.802835!3d50.988438!3m2!1i1920!2i912!4f13.1" target="_blank"> situé à Saint-Gilles</a>, à deux pas du Parvis. Tous ceux qui veulent réaliser des objets peuvent y accéder grâce à diverses <a href="http://realizebxl.be/inscription/">formules d’abonnement</a>.</p>
+    <p><strong>Realize</strong> est un atelier partagé<a title="plan" href="https://www.google.be/maps/preview#!q=Rue+du+M%C3%A9tal+32%2C+Saint-Gilles&amp;data=!4m10!1m9!4m8!1m3!1d23940!2d4.802835!3d50.988438!3m2!1i1920!2i912!4f13.1" target="_blank"> situé à Saint-Gilles</a>, à deux pas du Parvis. Tous ceux qui veulent réaliser des objets peuvent y accéder grâce à diverses <a href="https://realizebxl.be/inscription/">formules d’abonnement</a>.</p>
     """
     return generic_eventbrite("realize-6130306851")
 
@@ -1212,7 +1212,7 @@ def realize():
 @event_source(
     background_color="#0f5021",
     text_color="#ffffff",
-    url="http://www.meetup.com/fr/RedHat-Belgium/",
+    url="https://www.meetup.com/fr/RedHat-Belgium/",
     predefined_tags=["redhat", "code", "sysadmin"],
 )
 def redhat_belgium():
@@ -1228,7 +1228,7 @@ def redhat_belgium():
 @event_source(
     background_color="#2BC884",
     text_color="white",
-    url="http://www.relab.be",
+    url="https://www.relab.be",
     predefined_tags=["fablab"],
 )
 def relab():
@@ -1242,20 +1242,20 @@ def relab():
     )
 
 
-# @event_source(background_color="white", text_color="#6F371F", url="http://www.meetup.com/ruby_burgers-rb", predefined_tags=["ruby", "code", "drink"])
+# @event_source(background_color="white", text_color="#6F371F", url="https://www.meetup.com/ruby_burgers-rb", predefined_tags=["ruby", "code", "drink"])
 def ruby_burgers():
     """<p>Ruby lovers meet burger lovers. Join us to talk about ruby AND burgers in the best burger places in Brussels</p>"""
     return generic_meetup("ruby_burgers-rb")
 
 
-# @event_source(background_color="#99ccff", text_color="#000000", url="http://src.radiocampus.be/", key="start")
+# @event_source(background_color="#99ccff", text_color="#000000", url="https://src.radiocampus.be/", key="start")
 def source():
     """
     <p>L’émission Source est une émission bimensuelle sur Radio Campus Bruxelles,
     disponible à Bruxelles sur le 92.1 de la bande FM, ou partout via
-    <a href="http://streamer.radiocampus.be:8000/">son flux Icecast</a>,
+    <a href="https://streamer.radiocampus.be:8000/">son flux Icecast</a>,
     si la réception est mauvaise ou impossible d'où vous êtes.</p>
-    <p><a href="http://src.radiocampus.be/equipe/">L'équipe</a>
+    <p><a href="https://src.radiocampus.be/equipe/">L'équipe</a>
     prend les micros le vendredi à 18 heures, une semaine sur deux,
     et vous accompagne pendant une heure et demie. Le sujet de l’émission est
     principalement le Libre, que ce soit dans une perspective informatique,
@@ -1263,7 +1263,7 @@ def source():
     </p>
     """
     radio_campus_program = requests.get(
-        "http://emissions.radiocampus.be/horaire"
+        "https://emissions.radiocampus.be/horaire"
     ).content
     name = "Source"
 
@@ -1298,7 +1298,7 @@ def source():
                 "title": title,
                 "start": start_time,
                 "end": end_time,
-                "url": "http://src.radiocampus.be/",
+                "url": "https://src.radiocampus.be/",
             }
         else:
             today += timedelta(days=1)
@@ -1307,7 +1307,7 @@ def source():
 @event_source(
     background_color="#333333",
     text_color="#ffffff",
-    url="http://www.meetup.com/Symfony-User-Group-Belgium/",
+    url="https://www.meetup.com/Symfony-User-Group-Belgium/",
     predefined_tags=["code", "php", "symfony"],
 )
 def symfony_user_group_belgium():
@@ -1331,17 +1331,17 @@ def syn2cat():
 
 
 # FIXME
-# @event_source(background_color="#333", text_color="white", url="http://www.timelab.org")
+# @event_source(background_color="#333", text_color="white", url="https://www.timelab.org")
 def timelab():
     """<p>Timelab brengt makers samen. Deel uitmaken van de makers-community stimuleert leren, samenwerken, creativiteit, innovatie en experiment.</p>"""
-    soup = BeautifulSoup(requests.get("http://www.timelab.org/agenda").content, "html5lib")
+    soup = BeautifulSoup(requests.get("https://www.timelab.org/agenda").content, "html5lib")
 
     while soup:
         for event_dom in soup("div", "events")[0]("li", "views-row"):
             title = event_dom("h2", "title")[0].text
             url = event_dom("a")[0]["href"]
             if not url.startswith("http"):
-                url = "http://www.timelab.org" + url
+                url = "https://www.timelab.org" + url
 
             start_dom = event_dom("span", "date-display-start")
             if start_dom:
@@ -1368,7 +1368,7 @@ def timelab():
 
         next_page_links = soup("li", "pager-next")
         if next_page_links and next_page_links[0].text:
-            href = "http://www.timelab.org/" + next_page_links[0]("a")[0]["href"]
+            href = "https://www.timelab.org/" + next_page_links[0]("a")[0]["href"]
             soup = BeautifulSoup(requests.get(href).content, "html5lib")
         else:
             soup = None
@@ -1378,7 +1378,7 @@ def timelab():
     background_color="pink",
     text_color="black",
     predefined_tags=["hackerspace"],
-    url="http://urlab.be",
+    url="https://urlab.be",
 )
 def urlab():
     """
@@ -1392,7 +1392,7 @@ def urlab():
 
 
 # FIXME https://spaceapi.voidwarranties.be/ical
-# @event_source(background_color="#25272C", text_color="#C58723", key=None, url="http://voidwarranties.be")
+# @event_source(background_color="#25272C", text_color="#C58723", key=None, url="https://voidwarranties.be")
 def voidwarranties():
     """
     <p>
@@ -1414,7 +1414,7 @@ def voidwarranties():
 @event_source(
     background_color="#7ef279",
     text_color="#000000",
-    url="http://www.meetup.com/wajug-be/",
+    url="https://www.meetup.com/wajug-be/",
     predefined_tags=["code"],
 )
 def wajug_be():
@@ -1427,7 +1427,7 @@ def wajug_be():
 @event_source(
     background_color="#F99232",
     text_color="white",
-    url="http://www.meetup.com/WebRTC-crossingborders",
+    url="https://www.meetup.com/WebRTC-crossingborders",
     predefined_tags=["code", "webrtc", "webdev"],
 )
 def webrtc():
@@ -1444,7 +1444,7 @@ def webrtc():
     return generic_meetup("WebRTC-crossingborders")
 
 
-# @event_source(background_color="white", text_color="black", url="http://www.0x20.be")
+# @event_source(background_color="white", text_color="black", url="https://www.0x20.be")
 def whitespace():
     """
     <p>
@@ -1455,18 +1455,18 @@ def whitespace():
     href="/FAQ" title="FAQ">FAQ</a> is an ever growing useful resource of
     information about who we are, what we do and how you can become a part of all
     the <b>awesomeness.</b>  Also check out the hackerspaces in <a class="external
-    text" href="http://we.voidwarranties.be">Antwerp</a>, <a class="external text"
-    href="http://hackerspace.be/">Brussels</a> and <a class="external text"
-    href="http://www.wolfplex.org/">Charleroi</a>.
+    text" href="https://we.voidwarranties.be">Antwerp</a>, <a class="external text"
+    href="https://hackerspace.be/">Brussels</a> and <a class="external text"
+    href="https://www.wolfplex.org/">Charleroi</a>.
     </p>
     """
-    soup = BeautifulSoup(requests.get("http://www.0x20.be/Main_Page").content, "html5lib")
+    soup = BeautifulSoup(requests.get("https://www.0x20.be/Main_Page").content, "html5lib")
 
     for event in soup.ul("li"):
         if event.text == "More...":
             continue
         title = event.a.text
-        url = "http://www.0x20.be" + event.a["href"]
+        url = "https://www.0x20.be" + event.a["href"]
         if "-" in event.b.text[:-1]:
             start, end = map(lambda x: parse(x.strip()), event.b.text[:-1].split("-"))
         else:
@@ -1487,7 +1487,7 @@ def whitespace():
 # @event_source(background_color="#666661", text_color="black")
 def wolfplex():
     html_parser = HTMLParser()
-    soup = BeautifulSoup(requests.get("http://www.wolfplex.org/wiki/Main_Page").content, "html5lib")
+    soup = BeautifulSoup(requests.get("https://www.wolfplex.org/wiki/Main_Page").content, "html5lib")
     events = soup.find("div", id="accueil-agenda").dl
 
     for date_info, event in zip(events("dt"), events("dd")[1::2]):
@@ -1496,9 +1496,9 @@ def wolfplex():
 
         title = html_parser.unescape(event.text)
         base_domain = (
-            "http://www.wolfplex.org" if not event.a["href"].startswith("http") else ""
+            "https://www.wolfplex.org" if not event.a["href"].startswith("http") else ""
         )
-        url = (base_domain + event.a["href"]) if event.a else "http://www.wolfplex.org"
+        url = (base_domain + event.a["href"]) if event.a else "https://www.wolfplex.org"
         start = parse(date_info.span["title"])
 
         if "@" in title:
