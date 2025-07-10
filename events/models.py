@@ -31,7 +31,9 @@ class Event(models.Model):
     def date_to_string(self):
         if self.all_day:
             if self.end and self.end != self.start:
-                res = "%s - %s" % tuple(x.strftime("%Y-%m-%d") for x in (self.start, self.end))
+                res = "%s - %s" % tuple(
+                    x.strftime("%Y-%m-%d") for x in (self.start, self.end)
+                )
             else:
                 res = self.start.strftime("%Y-%m-%d")
         elif self.end:
@@ -48,15 +50,15 @@ class Event(models.Model):
     @property
     def calendar_border_color(self):
         color = self.border_color
-        return add_alpha(color, .7) if self.is_over else color
+        return add_alpha(color, 0.7) if self.is_over else color
 
     @property
     def calendar_text_color(self):
         color = self.text_color
-        return add_alpha(color, .5) if self.is_over else color
+        return add_alpha(color, 0.5) if self.is_over else color
 
     class Meta:
-        ordering = ['start']
+        ordering = ["start"]
 
 
 class LocationCache(models.Model):

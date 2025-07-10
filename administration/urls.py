@@ -9,7 +9,11 @@ from .utils import user_can_add_events
 
 
 urlpatterns = [
-    path(r"", views.dashboard, name="administration_dashboard",),
+    path(
+        r"",
+        views.dashboard,
+        name="administration_dashboard",
+    ),
     path(
         "event/<int:pk>/update/",
         user_can_add_events(views.update_event),

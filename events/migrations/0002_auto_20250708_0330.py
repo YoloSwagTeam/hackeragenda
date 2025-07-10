@@ -4,28 +4,38 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('events', '0001_initial'),
+        ("events", "0001_initial"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='LocationCache',
+            name="LocationCache",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('string', models.CharField(db_index=True, max_length=255, unique=True)),
-                ('lon', models.FloatField(blank=True, default=None, null=True)),
-                ('lat', models.FloatField(blank=True, default=None, null=True)),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "string",
+                    models.CharField(db_index=True, max_length=255, unique=True),
+                ),
+                ("lon", models.FloatField(blank=True, default=None, null=True)),
+                ("lat", models.FloatField(blank=True, default=None, null=True)),
             ],
         ),
         migrations.AlterModelOptions(
-            name='event',
-            options={'ordering': ['start']},
+            name="event",
+            options={"ordering": ["start"]},
         ),
         migrations.AlterField(
-            model_name='event',
-            name='all_day',
+            model_name="event",
+            name="all_day",
             field=models.BooleanField(blank=True, default=False),
         ),
     ]

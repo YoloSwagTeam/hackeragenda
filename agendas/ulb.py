@@ -4,20 +4,20 @@
 # import requests
 # import time
 # import calendar
-# 
+#
 # from bs4 import BeautifulSoup
 # from django.template.defaultfilters import slugify
 # from datetime import date, datetime, timedelta
 # from dateutil.parser import parse
 # from icalendar import Calendar
 # from HTMLParser import HTMLParser
-# 
+#
 # from events.management.commands.fetch_events import event_source
 # from events.generics import (
 #     generic_meetup, generic_eventbrite, generic_google_agenda,
 #     generic_facebook_page, generic_facebook_group, json_api
 # )
-# 
+#
 # @event_source(background_color="#00a614", text_color="white", predefined_tags=["cercle"], url="")
 # def agro():
 #     """
@@ -27,14 +27,14 @@
 #     et se détendre de temps en temps.... voir souvent!</p>
 #     """
 #     return generic_facebook_group("5217419333")
-# 
-# 
+#
+#
 # @event_source(background_color="#32e5da", text_color="white", predefined_tags=["cercle"], url="")
 # def CGeo():
 #     """<p>Cercle de Géographie et de Géologie</p>"""
 #     return generic_facebook_group("148882266650")
-# 
-# 
+#
+#
 # @event_source(
 #     background_color="#4b5054", text_color="white",
 #     url="http://www.chaa.be/", predefined_tags=["cercle"],
@@ -43,8 +43,8 @@
 #     return generic_google_agenda(
 #         "https://www.google.com/calendar/ical/chaa.ulb%40gmail.com/public/basic.ics",
 #         per_event_url_function=lambda event: event["DESCRIPTION"])
-# 
-# 
+#
+#
 # @event_source(background_color="#8a116d", text_color="white", url="http://cerkinfo.be/", predefined_tags=["cercle"])
 # def ci():
 #     """
@@ -58,8 +58,8 @@
 #     return generic_google_agenda(
 #         "https://www.google.com/calendar/ical/b6s2tn7vm5mr8cl4sdq1m9qp0o%40group.calendar.google.com/public/basic.ics",
 #         per_event_url_function=lambda event: event["DESCRIPTION"])
-# 
-# 
+#
+#
 # @event_source(background_color="pink", text_color="black", predefined_tags=["hackerspace"],  url="http://urlab.be")
 # def urlab():
 #     """

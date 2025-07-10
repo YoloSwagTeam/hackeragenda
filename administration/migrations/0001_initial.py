@@ -5,7 +5,6 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     initial = True
 
     dependencies = [
@@ -14,16 +13,24 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
-            name='Source',
+            name="Source",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(max_length=255)),
-                ('border_color', models.CharField(max_length=255)),
-                ('text_color', models.CharField(max_length=255)),
-                ('agenda', models.CharField(max_length=255)),
-                ('url', models.URLField()),
-                ('description', models.TextField()),
-                ('users', models.ManyToManyField(to=settings.AUTH_USER_MODEL)),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("name", models.CharField(max_length=255)),
+                ("border_color", models.CharField(max_length=255)),
+                ("text_color", models.CharField(max_length=255)),
+                ("agenda", models.CharField(max_length=255)),
+                ("url", models.URLField()),
+                ("description", models.TextField()),
+                ("users", models.ManyToManyField(to=settings.AUTH_USER_MODEL)),
             ],
         ),
     ]

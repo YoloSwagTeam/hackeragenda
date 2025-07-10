@@ -13,7 +13,12 @@ class NextEventsFeed(Feed):
     description = "Next events"
 
     def items(self):
-        return filter_events(request=self.request, queryset=Event.objects.filter(start__gte=datetime.now, agenda=settings.AGENDA).order_by("start"))
+        return filter_events(
+            request=self.request,
+            queryset=Event.objects.filter(
+                start__gte=datetime.now, agenda=settings.AGENDA
+            ).order_by("start"),
+        )
 
     def get_object(self, request):
         # youhou, dirty hack to have access to request in items()

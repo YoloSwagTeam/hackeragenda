@@ -3,7 +3,7 @@
 from settings import *
 
 # http://www.i18nguy.com/unicode/language-identifiers.html
-LANGUAGE_CODE = 'fr-fr'
+LANGUAGE_CODE = "fr-fr"
 
 PREDEFINED_FILTERS = OrderedDict()
 PREDEFINED_FILTERS["default"] = {
@@ -20,4 +20,4 @@ PREDEFINED_FILTERS["tout"] = {
     "exclude_tag": [],
 }
 
-AGENDA="ulb"
+AGENDA = "ulb"

@@ -21,7 +21,7 @@ def %(function_name)s():
 
 
 def color_distance(rgb1, rgb2):
-    '''d = {} distance between two colors(3)'''
+    """d = {} distance between two colors(3)"""
     rm = 0.5 * (rgb1[0] + rgb2[0])
     d = sum((2 + rm, 4, 3 - rm) * (rgb1 - rgb2) ** 2) ** 0.5
     return d
@@ -32,7 +32,7 @@ def rgb_to_hex(rgb):
 
 
 def rgb_to_hsv(rgb):
-    return colorsys.rgb_to_hsv(*map(lambda x: x/255., rgb))
+    return colorsys.rgb_to_hsv(*map(lambda x: x / 255.0, rgb))
 
 
 def hsv_to_rgb(h, s, v):
@@ -45,7 +45,9 @@ def main(meetup, tc=(255, 255, 255), bg=None, *tags):
     soup = BeautifulSoup(requests.get(target_url).content, "html.parser")
 
     description = soup.find("div", id="groupDesc")
-    description = (" " * 4).join(map(lambda x: str(x), description.contents)) + (" " * 4)
+    description = (" " * 4).join(map(lambda x: str(x), description.contents)) + (
+        " " * 4
+    )
     description = "\n".join(map(lambda x: x.rstrip(), description.split("\n")))
 
     target_meetup_name = target_url.split("/")[-2]
@@ -58,14 +60,16 @@ def main(meetup, tc=(255, 255, 255), bg=None, *tags):
 
     if bg == None:
         if logo_url:
-            palette = extract_colors(Image.open(BytesIO(requests.get(logo_url).content)))
+            palette = extract_colors(
+                Image.open(BytesIO(requests.get(logo_url).content))
+            )
 
             colors = palette.colors
             background_color = colors[0].value
             text_color = tc
         else:
             h = (random.randint(1, 100) * 0.618033988749895) % 1
-            background_color = hsv_to_rgb(h, .5, .95)
+            background_color = hsv_to_rgb(h, 0.5, 0.95)
             text_color = "#000000"
 
         h, s, v = rgb_to_hsv(background_color)
@@ -82,15 +86,25 @@ def main(meetup, tc=(255, 255, 255), bg=None, *tags):
         if target < i.name:
             break
 
-    i.insert_before(template % {
-        "background_color": rgb_to_hex(background_color) if not (isinstance(background_color, basestring) and background_color.startswith("#")) else background_color,
-        "text_color": rgb_to_hex(text_color) if not (isinstance(text_color, basestring) and text_color.startswith("#")) else text_color,
-        "url": target_url,
-        "tags": ", ".join(map(repr, tags)),
-        "function_name": target,
-        "description": description,
-        "meetup_name": target_meetup_name,
-    })
+    i.insert_before(
+        template
+        % {
+            "background_color": rgb_to_hex(background_color)
+            if not (
+                isinstance(background_color, basestring)
+                and background_color.startswith("#")
+            )
+            else background_color,
+            "text_color": rgb_to_hex(text_color)
+            if not (isinstance(text_color, basestring) and text_color.startswith("#"))
+            else text_color,
+            "url": target_url,
+            "tags": ", ".join(map(repr, tags)),
+            "function_name": target,
+            "description": description,
+            "meetup_name": target_meetup_name,
+        }
+    )
 
     red.dumps()
 
@@ -99,5 +113,5 @@ def main(meetup, tc=(255, 255, 255), bg=None, *tags):
     os.system("python manage.py fetch_events %s" % target)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     argh.dispatch_command(main)

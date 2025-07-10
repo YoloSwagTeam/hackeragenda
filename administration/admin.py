@@ -5,4 +5,5 @@ from .models import Source
 class SourceAdmin(admin.ModelAdmin):
     pass
 
+
 admin.site.register(Source, SourceAdmin)

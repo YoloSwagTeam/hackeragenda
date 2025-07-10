@@ -5,12 +5,13 @@ from .models import Source
 
 
 input_formats = list(forms.DateTimeField.input_formats) + [
-    '%Y/%m/%d %H:%M:%S',
-    '%Y/%m/%d %H:%M',
-    '%Y/%m/%d %Hh%M',
-    '%Y/%m/%d %Hh',
-    '%Y/%m/%d',
+    "%Y/%m/%d %H:%M:%S",
+    "%Y/%m/%d %H:%M",
+    "%Y/%m/%d %Hh%M",
+    "%Y/%m/%d %Hh",
+    "%Y/%m/%d",
 ]
+
 
 class AddEventForm(forms.Form):
     title = forms.CharField()
@@ -22,4 +23,6 @@ class AddEventForm(forms.Form):
     location = forms.CharField(required=False)
 
     def for_user(self, user):
-        self["source"].field.queryset = Source.objects.filter(agenda=settings.AGENDA, users=user)
+        self["source"].field.queryset = Source.objects.filter(
+            agenda=settings.AGENDA, users=user
+        )

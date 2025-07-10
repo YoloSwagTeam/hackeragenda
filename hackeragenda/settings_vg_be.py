@@ -13,22 +13,22 @@ PREDEFINED_FILTERS["default"] = {
 PREDEFINED_FILTERS["eating"] = {
     "source": [],
     "exclude_source": [],
-    "tag": ['eating'],
+    "tag": ["eating"],
     "exclude_tag": [],
 }
 
 PREDEFINED_FILTERS["cooking class"] = {
     "source": [],
     "exclude_source": [],
-    "tag": ['cooking class'],
+    "tag": ["cooking class"],
     "exclude_tag": [],
 }
 
 PREDEFINED_FILTERS["animal rights"] = {
     "source": [],
     "exclude_source": [],
-    "tag": ['animal-rights'],
+    "tag": ["animal-rights"],
     "exclude_tag": [],
 }
 
-AGENDA="vg_be"
+AGENDA = "vg_be"
