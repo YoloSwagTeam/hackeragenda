@@ -5,7 +5,7 @@
 groups = ["default", "lint"]
 strategy = ["inherit_metadata"]
 lock_version = "4.5.0"
-content_hash = "sha256:b240cc8c2e7279b6407fb288a723af7d6c5040478d4afc7a50dca725b2934dde"
+content_hash = "sha256:ff1abde63893a1d129b3571704a48c50a705a6df2cd1ad61171ff3361955221b"
 
 [[metadata.targets]]
 requires_python = "==3.13.*"
@@ -290,20 +290,6 @@ dependencies = [
 files = [
     {file = "gunicorn-23.0.0-py3-none-any.whl", hash = "sha256:ec400d38950de4dfd418cff8328b2c8faed0edb0d517d3394e457c317908ca4d"},
     {file = "gunicorn-23.0.0.tar.gz", hash = "sha256:f014447a0101dc57e294f6c18ca6b40227a4c90e9bdb586042628030cba004ec"},
-]
-
-[[package]]
-name = "hamlpy"
-version = "0.82.2"
-summary = "HAML like syntax for Django templates"
-groups = ["default"]
-dependencies = [
-    "django",
-    "markdown",
-    "pygments",
-]
-files = [
-    {file = "hamlpy-0.82.2.tar.gz", hash = "sha256:d63540cf3759b49fd4897ff53de0198d4566988b1c78b210998ceddaa85b80b8"},
 ]
 
 [[package]]
