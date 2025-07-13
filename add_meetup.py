@@ -58,7 +58,7 @@ def main(meetup, tc=(255, 255, 255), bg=None, *tags):
 
     logo_url = soup.find("img", "photo")["src"] if soup.find("img", "photo") else None
 
-    if bg == None:
+    if bg is None:
         if logo_url:
             palette = extract_colors(
                 Image.open(BytesIO(requests.get(logo_url).content))

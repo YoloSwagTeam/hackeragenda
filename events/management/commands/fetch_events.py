@@ -136,7 +136,9 @@ def event_source(
                 if nocolor:
                     print(f" === {org_name} ===")
                 else:
-                    console.print(Markdown(f"# {org_name.replace('_', ' ').title()}"), width=120)
+                    console.print(
+                        Markdown(f"# {org_name.replace('_', ' ').title()}"), width=120
+                    )
 
             if key in (None, False):
                 Event.objects.filter(source=org_name).delete()

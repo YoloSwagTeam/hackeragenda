@@ -26,5 +26,5 @@ def test_all_organisations():
 
     for name, options in SOURCES_OPTIONS.iteritems():
         # Should raise if color not found
-        bg = add_alpha(options["bg"])
-        fg = add_alpha(options["fg"])
+        add_alpha(options["bg"])
+        add_alpha(options["fg"])
