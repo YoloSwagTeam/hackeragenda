@@ -89,12 +89,12 @@ def generic_meetup(meetup_name):
             continue
 
         detail = {
-            "title": title.encode("Utf-8"),
+            "title": title,
             "url": event.get("URL", ""),
             "start": start.dt.replace(tzinfo=None)
             if isinstance(start.dt, datetime)
             else start.dt,
-            "location": event.get("LOCATION", "").encode("Utf-8"),
+            "location": event.get("LOCATION", ""),
         }
 
         yield detail
