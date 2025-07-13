@@ -26,12 +26,13 @@ from events.generics import (
 )
 
 
-@event_source(
-    background_color="#133F52",
-    text_color="#FFFFFF",
-    key=None,
-    url="https://groups.google.com/d/forum/afpyro-be",
-)
+# XXX afpy doesn't exist in Belgium anymore and python.be doesn't have next events
+# @event_source(
+#     background_color="#133F52",
+#     text_color="#FFFFFF",
+#     key=None,
+#     url="https://groups.google.com/d/forum/afpyro-be",
+# )
 def afpyro():
     '<p>Les apéros des amateurs du langage de programmation <a href="https://www.python.org/">python</a>.</p>'
     soup = BeautifulSoup(requests.get("https://afpyro.afpy.org/").content, "html5lib")
