@@ -31,7 +31,7 @@ dependencies = [
     "markdown~=3.8",
     "mimeparse~=0.1.3",
     "oauthlib<4",
-    "Pygments~=2.6.1",
+    "pygments~=2.19",
     "python-dateutil~=2.8.1",
     "python-mimeparse~=2.0",
     "pytz~=2025.2",
@@ -66,4 +66,8 @@ build-backend = "pdm.backend"
 [dependency-groups]
 lint = [
     "ruff~=0.12",
+]
+dev = [
+    "pudb==2025.1",
+    "ipython>=9.4.0",
 ]
