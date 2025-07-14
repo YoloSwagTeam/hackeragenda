@@ -23,30 +23,6 @@ from events.generics import (
 )
 
 
-# XXX afpy doesn't exist in Belgium anymore and python.be doesn't have next events
-# @event_source(
-#     background_color="#133F52",
-#     text_color="#FFFFFF",
-#     key=None,
-#     url="https://groups.google.com/d/forum/afpyro-be",
-# )
-def afpyro():
-    '<p>Les apéros des amateurs du langage de programmation <a href="https://www.python.org/">python</a>.</p>'
-    soup = BeautifulSoup(requests.get("https://afpyro.afpy.org/").content, "html5lib")
-
-    def filtering(x):
-        return x["href"][:7] == "/dates/" and "(BE)" in x.text
-
-    for link in filter(filtering, soup("a")):
-        datetuple = map(int, link["href"].split("/")[-1].split(".")[0].split("_"))
-        yield {
-            "title": link.text,
-            "start": datetime(*datetuple),
-            "url": "https://afpyro.afpy.org" + link["href"],
-            "tags": ("python", "code", "drink", "code"),
-        }
-
-
 @event_source(
     background_color="#F99232",
     text_color="#ffffff",
