@@ -574,19 +574,6 @@ def hsbxl():
 
 
 @event_source(
-    background_color="#b8ada0",
-    text_color="#ffffff",
-    url="https://www.meetup.com/Icon-Brussels-research-and-education-group/",
-    predefined_tags=["art"],
-)
-def icon_brussels_research_and_education_group():
-    """
-    <p>Hi! This is the place to announce and discuss events, free try-out courses and meetups organised by Icon-Brussels, an innovative research and learning centre for art and contemporary technology, based in the heart of Brussels, Europe. You can find out about masterclasses with topics like Adobe After Effects, Film Art, Arduino, Processing for Visual Art, Logo Design, and much, much more. We will be updating the eventlist regularly. You'll be invited for one-time lectures, concerts and anything to do with technological innovation and entrepreneurship.</p>
-    """
-    return generic_meetup("Icon-Brussels-research-and-education-group")
-
-
-@event_source(
     background_color="#F47D31",
     text_color="white",
     url="https://www.imal.org/fablab/",
