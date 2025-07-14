@@ -387,7 +387,8 @@ def c3l():
     """
     <p>Funded in 1981, the Chaos Computer Club did not only invade Hamburg and Berlin with its strong idealistic views on hacktivism or network politics, but reached far over the national borders. It was, and still is, an inspiration to many people in the world. Thus, also the reason for funding its own local 'branch' in Luxembourg. </p>
     """
-    feed = feedparser.parse("https://ical2atom.c3l.lu/")
+    feed = feedparser.parse("https://ical2atom.c3l.lu/index.xml")
+    assert len(feed.entries) != 0
     for entry in feed.entries:
         yield {
             "title": entry.title,
