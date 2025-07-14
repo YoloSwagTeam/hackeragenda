@@ -1057,63 +1057,34 @@ def wolfplex():
         }
 
 
-# FIXME
-# @event_source(background_color="#3EBDEA", text_color="#000", url="https://makilab.org")
+@event_source(background_color="#3EBDEA", text_color="#000", url="https://makilab.org")
 def makilab():
     "<p>Makilab est le fablab de Louvain-La-Neuve, dans le Brabant Wallon.</p>"
-    soup = BeautifulSoup(
-        requests.get("https://makilab.org/events-list").content, "html.parser"
-    )
+    now = int(time.time())
+    first_day_of_the_month = date.today().replace(day=1)
 
-    while soup:
-        for event in soup.find("div", "view-events-list").find("tbody"):
-            # empty string, skip
-            if isinstance(event, NavigableString):
-                continue
+    for modifier in range(-2, 10):
+        current_time = now + (modifier * (60 * 60 * 24 * 14))
+        month = (
+            (first_day_of_the_month + (modifier * timedelta(days=30)))
+            .replace(day=1)
+            .strftime("%F")
+        )
+        next_month = (
+            (first_day_of_the_month + ((1 + modifier) * timedelta(days=30)))
+            .replace(day=1)
+            .strftime("%F")
+        )
 
-            title = event.find("td", "views-field-title").a.text
-
-            datetimeTag = event.find("td", "views-field-field-event-datetime").span
-            if datetimeTag.div:
-                start = parse(
-                    datetimeTag.div.find("span", "date-display-start")["content"]
-                )
-                end = parse(datetimeTag.div.find("span", "date-display-end")["content"])
-                all_day = False
-            else:
-                start = parse(datetimeTag["content"])
-                end = None
-                all_day = True
-
-            urlTag = event.find("td", "views-field-view-node")
-            base_domain = (
-                "https://makilab.org" if not urlTag.a["href"].startswith("http") else ""
-            )
-            url = (
-                (base_domain + urlTag.a["href"]) if urlTag.a else "https://makilab.org"
-            )
-
-            tags = ("fablab",)
-            if title == "TechLab - sur RDV par email uniquement":
-                tags = ("fablab", "on_reservation")
+        for event in requests.get("https://openhub.fab-manager.com/api/availabilities/public?t%5B%5D=9&m%5B%5D=7&s%5B%5D=1&evt=true&dispo=true&reserved=&start={}T00%3A00%3A00&end={}T00%3A00%3A00&timezone=Europe%2FBrussels&_={}".format(month, next_month, current_time)).json():
 
             yield {
-                "title": title,
-                "start": start.replace(tzinfo=None),
-                "end": end.replace(tzinfo=None) if end else end,
-                "all_day": all_day,
-                "url": url,
-                "location": "Rue Zénobe Gramme 1348 Louvain-La-Neuve",
-                "tags": tags,
+                "title": event["title"],
+                "url": "https://openhub.fab-manager.com/#!/calendar",
+                "start": parse(event["start"]).replace(tzinfo=None),
+                "end": parse(event["end"]).replace(tzinfo=None),
+                "tags": ("hackerspace",),
             }
-
-        next_page_links = soup("li", "pager-next")
-
-        if next_page_links and next_page_links[0].text:
-            href = "https://makilab.org/" + next_page_links[0]("a")[0]["href"]
-            soup = BeautifulSoup(requests.get(href).content, "html.parser")
-        else:
-            soup = None
 
 
 # FIXME dead?
