@@ -394,7 +394,12 @@ def c3l():
         }
 
 
-@event_source(background_color="#D2C7BA", text_color="black", key=None, url="https://www.constantvzw.org")
+@event_source(
+    background_color="#D2C7BA",
+    text_color="black",
+    key=None,
+    url="https://www.constantvzw.org",
+)
 def constantvzw():
     """
     <p><strong>Constant is a non-profit association, an interdisciplinary arts-lab based and active in Brussels since 1997.</strong></p>
@@ -403,12 +408,16 @@ def constantvzw():
 
     <p>Constant organizes workshops, print-parties, walks and ‘Verbindingen/Jonctions’-meetings on a regular basis for a public that’s into experiments, discussions and all kinds of exchanges.</p>
     """
-    for event in requests.get("https://constantvzw.org/w/json/events.en.json?_=1752494703496").json()["projected_events"]:
+    for event in requests.get(
+        "https://constantvzw.org/w/json/events.en.json?_=1752494703496"
+    ).json()["projected_events"]:
         yield {
             "title": event["title"],
             "url": f"https://constantvzw.org/site/{event['url_article']}",
             "start": parse(event["start"]),
-            "end": parse(event["end"]) if event["end"] != "0000-00-00 00:00:00" else None,
+            "end": parse(event["end"])
+            if event["end"] != "0000-00-00 00:00:00"
+            else None,
             "all_day": event["end"] == "0000-00-00 00:00:00",
             "tags": ("artist", "libre", "art"),
         }
@@ -556,7 +565,9 @@ def hsbxl():
     Tuesday meetings</a>, hack nights or other get-together events.
     </p>
     """
-    for event in Calendar.from_ical(requests.get("https://hsbxl.be/events/index.ics").content).walk():
+    for event in Calendar.from_ical(
+        requests.get("https://hsbxl.be/events/index.ics").content
+    ).walk():
         if "SUMMARY" not in event:
             continue
 
@@ -924,11 +935,14 @@ def syn2cat():
     return generic_google_agenda("https://level2.lu/events/ical/")
 
 
-@event_source(background_color="#333", text_color="white", url="https://www.timelab.org")
+@event_source(
+    background_color="#333", text_color="white", url="https://www.timelab.org"
+)
 def timelab():
     """<p>Timelab brengt makers samen. Deel uitmaken van de makers-community stimuleert leren, samenwerken, creativiteit, innovatie en experiment.</p>"""
-    for event in requests.get("https://civi.timelab.org/sites/all/modules/civicrm/extern/rest.php?api_key=AZsxdft666E&key=b74fb3d7b6397e00363c9e4b34eff9c1&entity=timelab&action=geteventlist&json={%22orderdirection%22:%22de: sc%22,%22allowEndDateOutOfRange%22:false,%22except_types%22:[%2223%22,%2258%22],%22only_types%22:[1],%22limit%22:12}").json()["values"]:
-
+    for event in requests.get(
+        "https://civi.timelab.org/sites/all/modules/civicrm/extern/rest.php?api_key=AZsxdft666E&key=b74fb3d7b6397e00363c9e4b34eff9c1&entity=timelab&action=geteventlist&json={%22orderdirection%22:%22de: sc%22,%22allowEndDateOutOfRange%22:false,%22except_types%22:[%2223%22,%2258%22],%22only_types%22:[1],%22limit%22:12}"
+    ).json()["values"]:
         yield {
             "title": event["title"],
             "url": f"https://www.timelab.org/events/{event['id']}-{slugify(event['title'])}",
@@ -954,7 +968,12 @@ def urlab():
     return json_api("https://urlab.be/api/hackeragenda.json")
 
 
-@event_source(background_color="#25272C", text_color="#C58723", key=None, url="https://voidwarranties.be")
+@event_source(
+    background_color="#25272C",
+    text_color="#C58723",
+    key=None,
+    url="https://voidwarranties.be",
+)
 def voidwarranties():
     """
     <p>
@@ -970,7 +989,9 @@ def voidwarranties():
     </p>
     """
 
-    for event in Calendar.from_ical(requests.get("https://spaceapi.voidwarranties.be/ical").content).walk():
+    for event in Calendar.from_ical(
+        requests.get("https://spaceapi.voidwarranties.be/ical").content
+    ).walk():
         if "SUMMARY" not in event:
             continue
 
@@ -988,7 +1009,9 @@ def voidwarranties():
 
         yield {
             "title": event["SUMMARY"],
-            "url": event["URL"] if "URL" in event else "https://we.voidwarranties.be/activities.html",
+            "url": event["URL"]
+            if "URL" in event
+            else "https://we.voidwarranties.be/activities.html",
             "start": start,
             "end": end,
             "all_day": all_day,
@@ -1018,7 +1041,9 @@ def hackerspace_gent():
     various aspects of constructive & creative tinkering.
     </p>
     """
-    return generic_google_agenda("https://calendar.google.com/calendar/ical/info%40hackerspace.gent/public/basic.ics")
+    return generic_google_agenda(
+        "https://calendar.google.com/calendar/ical/info%40hackerspace.gent/public/basic.ics"
+    )
 
 
 # @event_source(background_color="#666661", text_color="black")
@@ -1073,8 +1098,11 @@ def makilab():
             .strftime("%F")
         )
 
-        for event in requests.get("https://openhub.fab-manager.com/api/availabilities/public?t%5B%5D=9&m%5B%5D=7&s%5B%5D=1&evt=true&dispo=true&reserved=&start={}T00%3A00%3A00&end={}T00%3A00%3A00&timezone=Europe%2FBrussels&_={}".format(month, next_month, current_time)).json():
-
+        for event in requests.get(
+            "https://openhub.fab-manager.com/api/availabilities/public?t%5B%5D=9&m%5B%5D=7&s%5B%5D=1&evt=true&dispo=true&reserved=&start={}T00%3A00%3A00&end={}T00%3A00%3A00&timezone=Europe%2FBrussels&_={}".format(
+                month, next_month, current_time
+            )
+        ).json():
             yield {
                 "title": event["title"],
                 "url": "https://openhub.fab-manager.com/#!/calendar",
