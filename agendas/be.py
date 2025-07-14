@@ -163,17 +163,6 @@ def belgian_nodejs_user_group():
 
 
 @event_source(
-    background_color="#7B6DB0",
-    text_color="white",
-    url="https://www.meetup.com/Belgian-Puppet-User-Group",
-    predefined_tags=["puppet", "sysadmin", "devops", "code"],
-    description="<p>Bringing puppet loving people together on a regular base, to talk about best practices, their experience and have interesting discussions about a great configuration management tool.<br><br>IRC: freenode - #puppet-be</p>",
-)
-def belgian_puppet_user_group():
-    return generic_meetup("Belgian-Puppet-User-Group")
-
-
-@event_source(
     background_color="#FEE63C",
     text_color="#000000",
     url="https://www.meetup.com/BeScala",
@@ -210,23 +199,6 @@ def bigdata_be():
     return generic_meetup(
         "bigdatabe",
     )
-
-
-@event_source(
-    background_color="#262626",
-    text_color="#ffffff",
-    url="https://www.meetup.com/fr/Bitcoin-Brussels/",
-    predefined_tags=["bitcoin"],
-)
-def bitcoin_brussels():
-    """
-    <p><strong><span>Welcome to the <em>Bitcoin Brussels</em> group!</span></strong></p>
-    <p><strong><span>New members: please join the mailing list - all the discussion happens there! <br> </br></span></strong></p>
-    <p><span>The aim is to bring together people that are interested in cryptocurrencies; to promote discussions among people from different fields, having different backgrounds, and therefore different perspectives.</span></p>
-    <p><span>We want to create a group that would meet in a friendly and informal way, to discuss any kind of subjects related to blockchains, ranging from technical aspects such as cryptographic concepts and software implementations to high-level reflexions, as the social impact to expect on our societies. The goal is also to find common interests to be explored further, practically creating any kind of experimentation, vulgarization, or business opportunities.</span></p>
-    <p><span>We target any kind of audience, whether you have strong expertise to share, you are totally new and curious about bitcoin, or even just want to pass by to have a beer and say hello!</span></p>
-    """
-    return generic_meetup("Bitcoin-Brussels")
 
 
 @event_source(
@@ -267,19 +239,6 @@ def blender_brussels():
 )
 def brixel():
     return generic_meetup("Brixel-Hackerspace-Meetup-Spalbeek-Hasselt")
-
-
-@event_source(
-    background_color="#FF0",
-    text_color="#F00",
-    url="https://brotaru.com/",
-    predefined_tags=["videogame", "code"],
-)
-def brotaru():
-    """
-    BROTARU is a monthly meet up of videogame development people in Brussels!
-    """
-    return generic_facebook_page("bxl.otaru")
 
 
 @event_source(
