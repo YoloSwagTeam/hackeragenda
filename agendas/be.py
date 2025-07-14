@@ -924,53 +924,20 @@ def syn2cat():
     """
     <p>L'agenda du Syn2Cat, hackerspace Luxembourgeois</p>
     """
-    return generic_google_agenda("https://level2.lu/events/ical")
+    return generic_google_agenda("https://level2.lu/events/ical/")
 
 
-# FIXME
-# @event_source(background_color="#333", text_color="white", url="https://www.timelab.org")
+@event_source(background_color="#333", text_color="white", url="https://www.timelab.org")
 def timelab():
     """<p>Timelab brengt makers samen. Deel uitmaken van de makers-community stimuleert leren, samenwerken, creativiteit, innovatie en experiment.</p>"""
-    soup = BeautifulSoup(
-        requests.get("https://www.timelab.org/agenda").content, "html5lib"
-    )
+    for event in requests.get("https://civi.timelab.org/sites/all/modules/civicrm/extern/rest.php?api_key=AZsxdft666E&key=b74fb3d7b6397e00363c9e4b34eff9c1&entity=timelab&action=geteventlist&json={%22orderdirection%22:%22de: sc%22,%22allowEndDateOutOfRange%22:false,%22except_types%22:[%2223%22,%2258%22],%22only_types%22:[1],%22limit%22:12}").json()["values"]:
 
-    while soup:
-        for event_dom in soup("div", "events")[0]("li", "views-row"):
-            title = event_dom("h2", "title")[0].text
-            url = event_dom("a")[0]["href"]
-            if not url.startswith("http"):
-                url = "https://www.timelab.org" + url
-
-            start_dom = event_dom("span", "date-display-start")
-            if start_dom:
-                start = parse(start_dom[0]["content"]).replace(tzinfo=None)
-                end = parse(
-                    event_dom("span", "date-display-end")[0]["content"]
-                ).replace(tzinfo=None)
-                all_day = False
-            else:
-                start_dom = event_dom("span", "date-display-single")
-                start = parse(start_dom[0]["content"]).replace(tzinfo=None)
-                end = None
-                all_day = True
-
-            yield {
-                "title": title,
-                "start": start,
-                "end": end,
-                "all_day": all_day,
-                "url": url.replace("/nl/", ""),
-                "location": "Brusselsepoortstraat 97 9000 Gent",
-                "tags": ("fablab",),
-            }
-
-        next_page_links = soup("li", "pager-next")
-        if next_page_links and next_page_links[0].text:
-            href = "https://www.timelab.org/" + next_page_links[0]("a")[0]["href"]
-            soup = BeautifulSoup(requests.get(href).content, "html5lib")
-        else:
-            soup = None
+        yield {
+            "title": event["title"],
+            "url": f"https://www.timelab.org/events/{event['id']}-{slugify(event['title'])}",
+            "start": event["start_date"],
+            "end": event["end_date"],
+        }
 
 
 @event_source(
