@@ -710,7 +710,7 @@ def neutrinet():
 @event_source(
     background_color="#299C8F",
     text_color="white",
-    url="https://www.google.com",
+    url="https://openknowledge.be/",
     predefined_tags=["opendata"],
 )
 def okfnbe():
