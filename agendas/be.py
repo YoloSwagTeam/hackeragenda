@@ -397,8 +397,7 @@ def c3l():
         }
 
 
-# FIXME
-# @event_source(background_color="#D2C7BA", text_color="black", key=None, url="https://www.constantvzw.org")
+@event_source(background_color="#D2C7BA", text_color="black", key=None, url="https://www.constantvzw.org")
 def constantvzw():
     """
     <p><strong>Constant is a non-profit association, an interdisciplinary arts-lab based and active in Brussels since 1997.</strong></p>
@@ -407,33 +406,13 @@ def constantvzw():
 
     <p>Constant organizes workshops, print-parties, walks and ‘Verbindingen/Jonctions’-meetings on a regular basis for a public that’s into experiments, discussions and all kinds of exchanges.</p>
     """
-    soup = BeautifulSoup(
-        requests.get("https://www.constantvzw.org/site/?page=agenda").content,
-        "html5lib",
-    )
-
-    for event in soup.find("div", "liste-items evenements")("div", "box"):
-        title = event("h3")[1].text
-        url = "https://www.constantvzw.org/site/" + event.a["href"]
-
-        if re.search(",\d+\.html", url):
-            continue
-
-        location = (
-            event.find("p", itemprop="location").text.replace("\n", " ")
-            if event.find("p", itemprop="location")
-            else None
-        )
-
-        start = parse(event.find("abbr", "dtstart")["title"]).replace(tzinfo=None)
-        end = parse(event.find("abbr", "dtend")["title"]).replace(tzinfo=None)
-
+    for event in requests.get("https://constantvzw.org/w/json/events.en.json?_=1752494703496").json()["projected_events"]:
         yield {
-            "title": title,
-            "url": url,
-            "start": start,
-            "end": end,
-            "location": location.strip() if location else None,
+            "title": event["title"],
+            "url": f"https://constantvzw.org/site/{event['url_article']}",
+            "start": parse(event["start"]),
+            "end": parse(event["end"]) if event["end"] != "0000-00-00 00:00:00" else None,
+            "all_day": event["end"] == "0000-00-00 00:00:00",
             "tags": ("artist", "libre", "art"),
         }
 
