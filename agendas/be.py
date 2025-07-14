@@ -418,51 +418,6 @@ def constantvzw():
 
 
 @event_source(
-    background_color="black",
-    text_color="#FFC3A0",
-    url="https://www.ooooo.be/daemonsshellscripts/",
-    key=None,
-)
-def daemons_shell_scripts():
-    "Dæmons & Shell Scripts"
-    if not hasattr(settings, "OOOOO_CREDENTIALS"):
-        print(
-            "ERROR: no OOOOO_CREDENTIALS in settings, disabling daemons_shell_scripts"
-        )
-        return
-
-    root = "https://%s@ooooo.be" % settings.OOOOO_CREDENTIALS
-
-    soup = BeautifulSoup(
-        requests.get(
-            root
-            + "/cloud/remote.php/caldav/calendars/hackeragenda/hackeragenda_shared_by_ooooo"
-        ).content,
-        "html5lib",
-    )
-    for ics in set([x["href"] for x in soup("a") if x["href"].endswith(".ics")]):
-        data = Calendar.from_ical(requests.get(root + ics).content)
-
-        for event in data.walk()[1:]:
-            if "SUMMARY" not in event or "DTSTART" not in event:
-                continue
-
-            yield {
-                "title": event["SUMMARY"].encode("Utf-8"),
-                "url": "https://www.ooooo.be/daemonsshellscripts/",
-                "start": event["DTSTART"].dt.replace(tzinfo=None),
-                "end": event["DTEND"].dt.replace(tzinfo=None)
-                if "DTEND" in event
-                else None,
-                "location": event["LOCATION"].encode("Utf-8")
-                if "LOCATION" in event
-                else None,
-                "tags": (slugify(event.get("LOCATION", "").encode("Utf-8")), "libre")
-                + tuple(event.get("CATEGORIES", "").split(", ")),
-            }
-
-
-@event_source(
     background_color="#0095CB",
     text_color="#ffffff",
     url="https://www.meetup.com/dddbelgium/",
