@@ -610,20 +610,6 @@ def internet_of_things_ghent():
 
 
 @event_source(
-    background_color="#CE112C",
-    text_color="#ffffff",
-    url="https://www.meetup.com/iot_be/",
-    predefined_tags=["code", "iot"],
-)
-def iot_be():
-    """
-    <p><span>This meetup is dedicated to the design practices, technologies, insights and opportunities around the next frontier information access - the Internet of Things (IoT). We want to cross-pollinate ideas from engineers, designers, researchers, data scientists and entrepreneurs to create meaningful and tangible solutions that will make information access more human, ubiquitous and commercially viable.</span></p>
-    <p><span>Follow us on Twitter: @iot_be (#iot_be)</span></p>
-    """
-    return generic_meetup("iot_be")
-
-
-@event_source(
     background_color="#ffde17",
     text_color="#000000",
     url="https://www.meetup.com/javascriptlab/",
@@ -634,17 +620,6 @@ def javascriptlab():
     <p>We love JavaScript and we thought it would be a great idea to put together a place where people can talk, meet and share their knowledge to bring their skills to the next level.  <br>So join us and let's get better at doing this, together.</br></p>
     """
     return generic_meetup("javascriptlab")
-
-
-@event_source(
-    background_color="#FFFFFF",
-    text_color="#FB503B",
-    url="https://www.meetup.com/Laravel-Brussels",
-    predefined_tags=["bruxelles", "laravel", "php", "webdev", "code"],
-    description='<p>A group for anyone interested in learning about and sharing knowledge on Laravel, the "PHP framework for web artisans". The group welcomes beginners and experts, amateurs and pros, young and old, etc. Laravel is an accessible, yet powerful framework for web application development. Its expressive, elegant syntax and its clean structure make PHP development a real joy. As the Laravel community keeps growing, this group is an attempt to get Belgium-based users to know each other, and to spread the word!</p>',
-)
-def laravel_brussels():
-    return generic_meetup("Laravel-Brussels")
 
 
 @event_source(
@@ -671,85 +646,6 @@ def leuven_lean_coffee():
     <p>Each Month we meet in Leuven to talk about Lean, Kanban, Agile, TPS, or even Personal Kanban and Discovery Kanban. Join us if you get excited about limiting WIP, visualizing workflow, self-organizing teams, and change or even just want to know more about them. The meetup is member of the Belgium lean coffee meetups, more locations at Belgium lean coffee.</p>
     """
     return generic_meetup("Leuven-Lean-coffee")
-
-
-@event_source(
-    background_color="#3EA86F",
-    text_color="white",
-    url="https://www.meetup.com/MongoDB-Belgium",
-    predefined_tags=["mongodb", "database", "code"],
-)
-def mongodb_belgium():
-    """
-    <p>The first countrywide MongoDB user group in Belgium. Meetups will be held every 3 months. Talk proposals can be sent to hannes@showpad.com.</p>
-    """
-    return generic_meetup("MongoDB-Belgium")
-
-
-@event_source(background_color="#b0b0b0", text_color="#66182b", url="https://nadine.be")
-def nadine():
-    """
-    nadine est un labortoire bruxellois pour les arts actuels transdisciplinaires.
-    Grâce aux résidences in-situ, les projets de recherches, ou les ateliers, les artistes disposent d'espace pour s'exprimer.
-    nadine soutient les performances, l'art dans les lieux publics, les installations multimedia, les projets expérimentaux où les frontières de la création/production, recherche et présentation s'estompent
-
-    <i>(traduits du néerlandais par iTitou)</i>
-    """
-    soup = BeautifulSoup(
-        requests.get("https://nadine.be/what/event").content, "html5lib"
-    )
-    for cell in soup.select("td"):
-        if not cell.select(".from-date"):
-            continue
-
-        from_date = parse(
-            cell.select(".from-date")[0].select(".date-display-single")[0]["content"]
-        ).replace(tzinfo=None)
-        to_date = parse(
-            cell.select(".to-date")[0].select(".date-display-single")[0]["content"]
-        ).replace(tzinfo=None)
-        title_dom = cell.select(".views-field-title a")[0]
-        title = title_dom.text.strip()
-        url = title_dom["href"]
-        tags = ["art"] + cell.select(".views-field-field-freetags .field-content")[
-            0
-        ].text.split()
-
-        yield {
-            "title": title,
-            "url": url,
-            "start": from_date,
-            "end": to_date,
-            "tags": tags,
-        }
-
-
-# FIXME
-# @event_source(background_color="indigo", text_color="white", url="https://npbx.wordpress.com/category/npbbxl/")
-def npbbxl():
-    """
-    <p>A NetPoliticsBeerX (#nbpx) is an informal meetup of people involved or interested in the different fields of internet politics and activism (e.g. copyright, privacy, open data, net neutrality, …).</p>
-    <p>It all started in Berlin with the legendary #npbb and spread from there to Düsseldorf (<a href="https://twitter.com/sixtus/status/25290063331983360">#npbd</a>),&nbsp;Bruxelles (<a href="https://doodle.com/3ev9zcu87uts522m">#npbbxl</a>) and whoknowswhatsnext.</p>
-    """
-    for event in feedparser.parse(
-        "https://npbx.wordpress.com/category/npbbxl/feed/"
-    ).entries:
-        # before this date, the events doesn't respect the format
-        if parse(event["published"]).replace(tzinfo=None) < parse("28/02/15"):
-            continue
-
-        title, date, _, location = re.match(
-            "(.+) (\d+/\d+/\d+ at \d+(\.\d+)? ?[ap]m), (.+)", event["title"]
-        ).groups()
-        date, time = map(parse, date.replace(".", "h").split(" at "))
-        date = date.replace(hour=time.hour).replace(minute=time.minute)
-
-        yield {
-            "title": title,
-            "url": event["link"],
-            "start": date,
-            "tags": ["politic", "netpolitic", "activism"],
-        }
 
 
 @event_source(
@@ -829,55 +725,6 @@ def okfnbe():
     return generic_google_agenda(
         "https://www.google.com/calendar/ical/sv07fu4vrit3l8nb0jlo8v7n80@group.calendar.google.com/public/basic.ics"
     )
-
-
-@event_source(
-    background_color="#FFFFFF", text_color="#00AA00", url="https://www.okno.be"
-)
-def okno():
-    """
-    <p>OKNO is an artist-run organisation connecting new media and ecology. It
-    approaches art and culture from a collaborative, DIY and post-disciplinary
-    point of view, discovering new materials and aesthetics along the way. The
-    OpenGreens rooftop garden and the online server are used as research
-    environments during a continuous programme of residencies, workshops, meetings,
-    exhibitions and performances.</p>
-
-    <p>For the last few years, OKNO has been focusing on long-term projects,
-    involving a diverse and international set of artists and experts sharing an
-    interest in the environmental and experimental. Time Inventors’ Kabinet [TIK],
-    which revolved around the attempt to devise an ecological time standard, was
-    closed in 2012. In 2013, OKNO started on ALOTOF [A Laboratory On The Open
-    Fields], a collaborative exploration into the potential of open-air modes of
-    creation.</p>
-    """
-    soup = BeautifulSoup(
-        requests.get("https://www.okno.be/events/").content, "html5lib"
-    )
-
-    for entry in soup("div", "switch-events"):
-        datetuple = map(int, entry("span", "date-display-single")[0].text.split("."))
-        title = entry("span", "field-content")[0].text
-        link = "https://www.okno.be" + entry("a")[0]["href"]
-
-        soupsoup = BeautifulSoup(requests.get(link).content, "html5lib")
-
-        maybe_end = (
-            soupsoup.find("div", "date").text.split("|")[0].strip().split("\u2014")[1:]
-        )
-        if maybe_end:
-            maybe_end = parse(maybe_end[0].strip())
-        else:
-            maybe_end = None
-
-        yield {
-            "title": title,
-            "url": link,
-            "start": datetime(*datetuple),
-            "end": maybe_end,
-            "location": soupsoup.find("div", "date").text.split("|")[-1].strip(),
-            "tags": ("art",),
-        }
 
 
 def opengarage_duplicated(event_query, detail):
@@ -1039,19 +886,6 @@ def reactjs_belgium():
 
 
 @event_source(
-    background_color="#36c0cb",
-    text_color="black",
-    url="https://realizebxl.be/",
-    predefined_tags=["makerspace", "bruxelles"],
-)
-def realize():
-    """
-    <p><strong>Realize</strong> est un atelier partagé<a title="plan" href="https://www.google.be/maps/preview#!q=Rue+du+M%C3%A9tal+32%2C+Saint-Gilles&amp;data=!4m10!1m9!4m8!1m3!1d23940!2d4.802835!3d50.988438!3m2!1i1920!2i912!4f13.1" target="_blank"> situé à Saint-Gilles</a>, à deux pas du Parvis. Tous ceux qui veulent réaliser des objets peuvent y accéder grâce à diverses <a href="https://realizebxl.be/inscription/">formules d’abonnement</a>.</p>
-    """
-    return generic_eventbrite("realize-6130306851")
-
-
-@event_source(
     background_color="#0f5021",
     text_color="#ffffff",
     url="https://www.meetup.com/fr/RedHat-Belgium/",
@@ -1065,88 +899,6 @@ def redhat_belgium():
     <p> <br/></p>
     """
     return generic_meetup("RedHat-Belgium")
-
-
-@event_source(
-    background_color="#2BC884",
-    text_color="white",
-    url="https://www.relab.be",
-    predefined_tags=["fablab"],
-)
-def relab():
-    """
-    <p><strong>Le RElab, premier Fab Lab de Wallonie, est un atelier numérique ouvert au public et une structure de développement créatif local.</strong>
-    La spécificité du RElab réside dans l’utilisation de matériaux de récupération comme matière première et dans l’étude de nouveaux procédés sociaux,
-    créatifs et économiques d’upcycling, en liaison avec les nouveaux moyens&nbsp;de fabrication et de communication numérique.</p>
-    """
-    return generic_google_agenda(
-        "https://www.google.com/calendar/ical/utmnk71g19dcs2d0f88q3hf528%40group.calendar.google.com/public/basic.ics"
-    )
-
-
-# @event_source(background_color="white", text_color="#6F371F", url="https://www.meetup.com/ruby_burgers-rb", predefined_tags=["ruby", "code", "drink"])
-def ruby_burgers():
-    """<p>Ruby lovers meet burger lovers. Join us to talk about ruby AND burgers in the best burger places in Brussels</p>"""
-    return generic_meetup("ruby_burgers-rb")
-
-
-# @event_source(background_color="#99ccff", text_color="#000000", url="https://src.radiocampus.be/", key="start")
-def source():
-    """
-    <p>L’émission Source est une émission bimensuelle sur Radio Campus Bruxelles,
-    disponible à Bruxelles sur le 92.1 de la bande FM, ou partout via
-    <a href="https://streamer.radiocampus.be:8000/">son flux Icecast</a>,
-    si la réception est mauvaise ou impossible d'où vous êtes.</p>
-    <p><a href="https://src.radiocampus.be/equipe/">L'équipe</a>
-    prend les micros le vendredi à 18 heures, une semaine sur deux,
-    et vous accompagne pendant une heure et demie. Le sujet de l’émission est
-    principalement le Libre, que ce soit dans une perspective informatique,
-    sociale ou culturelle.
-    </p>
-    """
-    radio_campus_program = requests.get(
-        "https://emissions.radiocampus.be/horaire"
-    ).content
-    name = "Source"
-
-    # 1. get all lines which are a day name or the emission name
-    interesting = (
-        "Lundi",
-        "Mardi",
-        "Mercredi",
-        "Jeudi",
-        "Vendredi",
-        "Samedi",
-        "Dimanche",
-        name,
-    )
-
-    def is_interesting(line):
-        return any(filter(lambda word: word in line, interesting))
-
-    interesting_lines = filter(is_interesting, radio_campus_program.split("\n"))
-
-    # 2. We ensure the first entry is today's name (don't fuck-up calendar)
-    if "Aujourd'hui" not in interesting_lines[0]:
-        return
-
-    # 3. We walk the interesting lines, keepin track of the current day
-    today = datetime.today()
-    for line in interesting_lines[1:]:
-        if name in line:
-            words = map(str.strip, line.split())
-            start, end = map(lambda x: map(int, x.split(":")), words[0:2])
-            title = " ".join(words[2:])
-            start_time = datetime(today.year, today.month, today.day, *start)
-            end_time = datetime(today.year, today.month, today.day, *end)
-            yield {
-                "title": title,
-                "start": start_time,
-                "end": end_time,
-                "url": "https://src.radiocampus.be/",
-            }
-        else:
-            today += timedelta(days=1)
 
 
 @event_source(
