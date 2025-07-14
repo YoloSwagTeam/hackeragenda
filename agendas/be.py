@@ -109,11 +109,11 @@ def agenda_du_libre_be():
 
     for event in data.walk()[1:]:
         yield {
-            "title": event["SUMMARY"].encode("Utf-8"),
+            "title": event["SUMMARY"],
             "url": event["URL"],
             "start": event["DTSTART"].dt.replace(tzinfo=None),
-            "location": event["LOCATION"].encode("Utf-8"),
-            "tags": (slugify(event["LOCATION"].encode("Utf-8")), "libre"),
+            "location": event["LOCATION"],
+            "tags": (slugify(event["LOCATION"]), "libre"),
         }
 
 
