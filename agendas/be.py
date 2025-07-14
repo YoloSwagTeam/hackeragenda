@@ -596,55 +596,6 @@ def imal():
 
 
 @event_source(
-    background_color="#296038", text_color="#6FCE91", url="https://www.incubhacker.be"
-)
-def incubhacker():
-    "<p>Incubhacker est un hackerspace basé dans la région namuroise, c'est un espace de rencontre et de création interdisciplinaire.</p>"
-
-    soup = BeautifulSoup(
-        requests.get("https://www.incubhacker.be/?page=1").content, "html5lib"
-    )
-
-    if soup(
-        "a",
-        "iCtip",
-        href=lambda x: x and x.startswith("https://www.incubhacker.be/?page="),
-    ):
-        pages_number = int(
-            soup(
-                "a",
-                "iCtip",
-                href=lambda x: x and x.startswith("https://www.incubhacker.be/?page="),
-            )[-1].text
-        )
-    else:
-        pages_number = 1
-
-    for page_number in range(1, pages_number + 1):
-        soup = BeautifulSoup(
-            requests.get("https://www.incubhacker.be/?page=%s" % page_number).content,
-            "html5lib",
-        )
-
-        for event in soup("div", "ic-content"):
-            title = event.h2.text.strip()
-            url = "https://www.incubhacker.be" + event.h2.a["href"]
-
-            date = event.find("span", "ic-period-startdate").text
-            start_time = event.find("span", "ic-single-starttime").text
-            end_time = event.find("span", "ic-single-endtime").text
-
-            start = dateparser.parse(date + " " + start_time)
-            end = dateparser.parse(date + " " + end_time)
-
-            tags = ["hackerspace"]
-            if title.strip() == "S\xe9ance hebdomadaire normale":
-                tags.append("meeting")
-
-            yield {"title": title, "url": url, "start": start, "end": end, "tags": tags}
-
-
-@event_source(
     background_color="#79f2e1",
     text_color="#000000",
     url="https://www.meetup.com/Internet-of-Things-Ghent/",
