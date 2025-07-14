@@ -1012,66 +1012,16 @@ def wajug_be():
     return generic_meetup("wajug-be")
 
 
-@event_source(
-    background_color="#F99232",
-    text_color="white",
-    url="https://www.meetup.com/WebRTC-crossingborders",
-    predefined_tags=["code", "webrtc", "webdev"],
-)
-def webrtc():
+@event_source(background_color="white", text_color="black", url="https://www.0x20.be")
+def hackerspace_gent():
     """
     <p>
-    As part of a community who believe that WebRTC is a movement for the next
-    years, we exchange ideas, knowledge and experience, projects on where and how
-    to apply this new future focused browser-to-browser technology.<br>
-
-    Join the enthousiasts about new technologies and business related
-    opportunities.&nbsp;
+    Hackerspace Gent (0x20) is a hackerspace in the wonderful city of Ghent,
+    Belgium. It is a physical space run by a group of people dedicated to
+    various aspects of constructive & creative tinkering.
     </p>
     """
-    return generic_meetup("WebRTC-crossingborders")
-
-
-# @event_source(background_color="white", text_color="black", url="https://www.0x20.be")
-def whitespace():
-    """
-    <p>
-    <a href="/Whitespace" title="Whitespace">Whitespace</a> (0x20) is a <a
-    href="/Documentation" title="Documentation">hackerspace</a> in the wonderful
-    city of Ghent, Belgium. It is a physical space run by a group of people
-    dedicated to various aspects of constructive &amp; creative hacking. Our <a
-    href="/FAQ" title="FAQ">FAQ</a> is an ever growing useful resource of
-    information about who we are, what we do and how you can become a part of all
-    the <b>awesomeness.</b>  Also check out the hackerspaces in <a class="external
-    text" href="https://we.voidwarranties.be">Antwerp</a>, <a class="external text"
-    href="https://hackerspace.be/">Brussels</a> and <a class="external text"
-    href="https://www.wolfplex.org/">Charleroi</a>.
-    </p>
-    """
-    soup = BeautifulSoup(
-        requests.get("https://www.0x20.be/Main_Page").content, "html5lib"
-    )
-
-    for event in soup.ul("li"):
-        if event.text == "More...":
-            continue
-        title = event.a.text
-        url = "https://www.0x20.be" + event.a["href"]
-        if "-" in event.b.text[:-1]:
-            start, end = map(lambda x: parse(x.strip()), event.b.text[:-1].split("-"))
-        else:
-            start = parse(event.b.text[:-1])
-            end = None
-        location = event("a")[1].text
-
-        yield {
-            "title": title,
-            "url": url,
-            "start": start,
-            "end": end,
-            "location": location.strip() if location else None,
-            "tags": ("hackerspace",),
-        }
+    return generic_google_agenda("https://calendar.google.com/calendar/ical/info%40hackerspace.gent/public/basic.ics")
 
 
 # @event_source(background_color="#666661", text_color="black")
