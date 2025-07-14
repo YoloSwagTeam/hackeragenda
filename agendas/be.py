@@ -433,20 +433,6 @@ def ddd_belgium():
 
 
 @event_source(
-    background_color="#e3a030",
-    text_color="#ffffff",
-    url="https://www.meetup.com/fr/Devoxx4Kids-BE/",
-    predefined_tags=["code", "kids", "education"],
-)
-def devoxx4kids_be():
-    """
-    <p>L'ASBL Devoxx4Kids est axée sur l'éducation des parents afin qu'ils montrent à leurs enfants qu'il est possible de faire quelque chose de plus créatif avec les ordinateurs. L'objectif est d'introduire les parents et leurs enfants à la programmation, de la robotique et de l'ingénierie d'une façon amusante. Pour ce faire, l'ASBL Devoxx4Kids organise des sessions où les participants peuvent développer des jeux informatiques, programmer des robots et ont également une introduction à l'électronique. </p>
-    <p><span>De Devoxx4Kids VZW richt zich op het opleiden van ouders om hun kinderen te laten zien dat het mogelijk is om iets meer creatief met computers doen. Het doel is om ouders en hun kinderen te programmeren, robotica en engineering te introduceren op een leuke manier. Om dit te doen, organiseert de VZW Devoxx4Kids sessies waarin deelnemers computer games, programma robots kunnen ontwikkelen en hebben ook een inleiding tot de elektronica.</span> <br/></p>
-    """
-    return generic_meetup("Devoxx4Kids-BE")
-
-
-@event_source(
     background_color="#7B6DB0",
     text_color="#ffffff",
     url="https://www.meetup.com/devspace-elixir-study-group/",
