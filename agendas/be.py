@@ -544,7 +544,7 @@ def hasselt_php_meetup():
 
 
 @event_source(
-    background_color="coral", text_color="white", key=None, url="https://hackerspace.be"
+    background_color="coral", text_color="white", key=None, url="https://hsbxl.be"
 )
 def hsbxl():
     """
@@ -559,7 +559,18 @@ def hsbxl():
     Tuesday meetings</a>, hack nights or other get-together events.
     </p>
     """
-    return json_api("https://hsbxl.be/hackeragenda.json")
+    for event in Calendar.from_ical(requests.get("https://hsbxl.be/events/index.ics").content).walk():
+        if "SUMMARY" not in event:
+            continue
+
+        yield {
+            "title": event["SUMMARY"],
+            "url": event["URL"],
+            "start": event["DTSTART"].dt.replace(tzinfo=None),
+            "end": event["DTEND"].dt.replace(tzinfo=None),
+            "location": event["LOCATION"],
+            "tags": (slugify(event["LOCATION"]), "libre"),
+        }
 
 
 @event_source(
