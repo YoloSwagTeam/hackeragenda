@@ -8,9 +8,7 @@ import feedparser
 import dateparser
 
 from bs4 import BeautifulSoup
-from bs4.element import NavigableString
 from django.template.defaultfilters import slugify
-from django.conf import settings
 from datetime import datetime, timedelta, date
 from dateutil.parser import parse
 from icalendar import Calendar
@@ -21,7 +19,6 @@ from events.generics import (
     generic_meetup,
     generic_eventbrite,
     generic_google_agenda,
-    generic_facebook_page,
     json_api,
 )
 
