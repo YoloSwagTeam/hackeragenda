@@ -957,8 +957,7 @@ def urlab():
     return json_api("https://urlab.be/api/hackeragenda.json")
 
 
-# FIXME https://spaceapi.voidwarranties.be/ical
-# @event_source(background_color="#25272C", text_color="#C58723", key=None, url="https://voidwarranties.be")
+@event_source(background_color="#25272C", text_color="#C58723", key=None, url="https://voidwarranties.be")
 def voidwarranties():
     """
     <p>
@@ -974,7 +973,30 @@ def voidwarranties():
     </p>
     """
 
-    return generic_meetup("VoidWarranties")
+    for event in Calendar.from_ical(requests.get("https://spaceapi.voidwarranties.be/ical").content).walk():
+        if "SUMMARY" not in event:
+            continue
+
+        start = event["DTSTART"].dt
+        end = event["DTEND"].dt
+        all_day = False
+
+        if isinstance(start, datetime):
+            start = start.replace(tzinfo=None)
+        else:
+            all_day = True
+
+        if isinstance(end, datetime):
+            end = end.replace(tzinfo=None)
+
+        yield {
+            "title": event["SUMMARY"],
+            "url": event["URL"] if "URL" in event else "https://we.voidwarranties.be/activities.html",
+            "start": start,
+            "end": end,
+            "all_day": all_day,
+            "location": event["LOCATION"] if "LOCATION" in event else None,
+        }
 
 
 @event_source(
