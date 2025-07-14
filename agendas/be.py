@@ -11,7 +11,7 @@ from bs4 import BeautifulSoup
 from bs4.element import NavigableString
 from django.template.defaultfilters import slugify
 from django.conf import settings
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, date
 from dateutil.parser import parse
 from icalendar import Calendar
 from html.parser import HTMLParser
@@ -366,8 +366,9 @@ def brusselsphp():
     return generic_meetup("BrusselsPHP")
 
 
-# FIXME
-# @event_source(background_color="white", text_color="#990000", url="https://www.bxlug.be")
+@event_source(
+    background_color="white", text_color="#990000", url="https://www.bxlug.be"
+)
 def bxlug():
     """
     <p>Le BxLUG est une association d’utilisateurs de logiciels libres créée en 1999 et dont l’objectif est la promotion de GNU/Linux et autres logiciels libres dans la région de Bruxelles.</p>
@@ -379,29 +380,42 @@ def bxlug():
     <p><a href="spip.php?rubrique4" class="spip_out">Nos rencontres aident tout un chacun à installer et configurer des systèmes libres, à approfondir leurs connaissances et à découvrir de nouveaux horizons</a></p>
     """
     now = int(time.time())
-    then = now + (60 * 60 * 24 * 14)
+    first_day_of_the_month = date.today().replace(day=1)
 
-    data = requests.get(
-        "https://www.bxlug.be/spip.php?page=calendrier_quete.json&start=%s&end=%s&_=%s"
-        % (now, then, now)
-    ).json()
+    for modifier in range(-2, 10):
+        current_time = now + (modifier * (60 * 60 * 24 * 14))
+        month = (
+            (first_day_of_the_month + (modifier * timedelta(days=30)))
+            .replace(day=1)
+            .strftime("%F")
+        )
+        next_month = (
+            (first_day_of_the_month + ((1 + modifier) * timedelta(days=30)))
+            .replace(day=1)
+            .strftime("%F")
+        )
 
-    for event in data:
-        # [:-1] => ignore timezones, because sqlite doesn't seem to like it
-        start = parse(event["start"])
-        end = parse(event["end"])
-        title = event["title"]
-        url = os.path.join("https://www.bxlug.be/", event["url"])
-        # location = entry.find("p", "location")("span")[1].text.split("Contact")[0].split(":", 1)[1].strip() if entry.find("p", "location") else None
+        data = requests.get(
+            "https://www.bxlug.be/spip.php?page=agenda.json&sans_lien=non&var_t={}&start={}T00%3A00%3A00%2B02%3A00&end={}T00%3A00%3A00%2B02%3A00".format(
+                current_time,
+                month,
+                next_month,
+            )
+        ).json()
 
-        yield {
-            "title": title,
-            "url": url,
-            "start": start,
-            # 'location': location,
-            "end": end,
-            "tags": ("lug", "bruxelles", "libre"),
-        }
+        for event in data:
+            start = parse(event["start"])
+            end = parse(event["end"])
+            title = event["title"]
+            url = os.path.join("https://www.bxlug.be/", event["url"])
+
+            yield {
+                "title": title,
+                "url": url,
+                "start": start,
+                "end": end,
+                "tags": ("lug", "bruxelles", "libre"),
+            }
 
 
 @event_source(
