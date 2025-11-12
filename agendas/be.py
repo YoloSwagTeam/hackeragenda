@@ -1088,15 +1088,19 @@ def makilab():
             }
 
 
-# FIXME dead?
-# @event_source(background_color="#1ABC9C", text_color="black", predefined_tags=["hackerspace","makerspace"], url="https://ko-lab.space")
+ 
+@event_source(
+    background_color="#221f21",
+    text_color="white",
+    url="https://ko-lab.space/",
+    predefined_tags=["hackerspace","makerspace", "Mechelen", "Antwerpen"],
+    description="""
+    <p>At it's core Ko-Lab hackerspace is a community operated workspace where people can meet, socialize and ko-laborate. However over the years we have become much more than that. We strive to be a place where ideas can blossom, cross pollination occurs between people with vastly different skill sets, people learn from each other and things get done. Businesses were started, friendships were made and stuff was developed. Ko-lab is much more then a workshop with cool machines. So come on by and check it out.</p>
+    <p> We have our weekly Open Friday starting around 19:30</p>
+    <p>Come talk with us on our <a href="https://discord.gg/EJx4CZDPXM>Discord</a> or check out our website.</p>
+    """,
+)
 def ko_lab():
-    """
-    <p>A makerspace – also referred to as a hacklab. Is a community-operated workspace where people can meet, socialize and ko-laborate. Often with common interests in science, technology, articrafts, digital art etc. It offers the place and time to do or find out what you really love to do.</p>
-    <p>Dus, Ko-Lab biedt de ruimte; jij bepaalt of het een werkplek, een gezellige huiskamer, een atelier, een machinewinkel, een kunststudio, een leerplek en/of een ontmoetingsplek wordt.</p>
-    """
-    return json_api("https://ko-lab.space/hackeragenda")
-
-
-# generic_facebook("Ko-Lab", "HS.ko.lab", background_color="#1ABC9C", text_color="black", predefined_tags=["hackerspace","makerspace"], url="https://ko-lab.space")
-# generic_facebook_page("HS.ko.lab")
+    return generic_google_agenda(
+        "https://calendar.google.com/calendar/ical/c_8deb636c343a6563e4cfd04a8a047cbbe0ac785f75fca3000f8074d82977f20a%40group.calendar.google.com/public/basic.ics"
+    )
