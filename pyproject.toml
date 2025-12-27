@@ -79,3 +79,10 @@ dev = [
 
 [tool.pdm.scripts]
 fetch_events = "python manage.py fetch_events"
+lint = {composite = ["ruff-check-fix", "ruff-format"]}
+lint-check = {composite = ["ruff-check", "ruff-format-check"]}
+
+ruff-check = "ruff check"
+ruff-check-fix = "ruff check --fix"
+ruff-format = "ruff format"
+ruff-format-check = "ruff format --check --diff"
