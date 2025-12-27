@@ -39,6 +39,20 @@ option (this is very usefull if you want to use it in a crontab):
 pdm run fetch_events --quiet
 ```
 
+# Linting
+
+To run linting too you can use:
+
+``` shell
+pdm run lint
+```
+
+And if you only want to check:
+
+``` shell
+pdm run lint-check
+```
+
 # How to add an organisation
 
 Events are periodically fetched from organisations websites. Therefore, you 
