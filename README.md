@@ -155,22 +155,3 @@ Each event could optionally provide the following attributes:
 * "end" : end of the event, in ISO8601 (string)
 * "all_day" : Is the event the whole day? (boolean)
 * "location" : Human readable adress for your event (string)
-
-# Other countries
-
-I'm looking for volunteers to open other instance of hackeragenda in other
-countries. France will probably be the next one. Don't hesitate to contact me
-if you want to do so!(see my mail on my profile) I can provide hosting (but
-without giving you access to it :/) and I'd like you to be at least able to
-write a web parser in python using
-[BeaufitulSoup](http://www.crummy.com/software/BeautifulSoup/) (or learn how
-to) and be ready to learn a bit of Django (not that much) if you don't already
-know it.
-
-My objective is to end up with Hackeragenda all over the world and
-meta-hackeragenda like hackeragenda.eu.
-
-Current public instance (known to me):
-
-* [Belgium](http://hackeragenda.be)
-* [France](http://hackeragenda.fr)
