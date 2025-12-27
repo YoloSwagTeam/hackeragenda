@@ -76,3 +76,6 @@ dev = [
     "ipython>=9.4.0",
     "ipdb>=0.13.13",
 ]
+
+[tool.pdm.scripts]
+fetch_events = "python manage.py fetch_events"

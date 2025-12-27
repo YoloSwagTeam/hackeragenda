@@ -21,7 +21,7 @@ pdm run python manage.py migrate
 To update the events:
 
 ``` shell
-pdm run python manage.py fetch_events
+pdm run fetch_events
 ```
 
 In production, this command is in a crontab that run every one hour.
@@ -29,14 +29,14 @@ In production, this command is in a crontab that run every one hour.
 You can launch only one or more specific parser by passing them as args of the command:
 
 ``` shell
-pdm run python manage.py fetch_events urlab agenda_du_libre_be hsbxl
+pdm run fetch_events urlab agenda_du_libre_be hsbxl
 ```
 
 If you don't want any output you can use the <code>--quiet</code> command line
 option (this is very usefull if you want to use it in a crontab):
 
 ``` shell
-pdm run python manage.py fetch_events --quiet
+pdm run fetch_events --quiet
 ```
 
 # How to add an organisation
