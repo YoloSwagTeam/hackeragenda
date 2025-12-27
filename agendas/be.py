@@ -5,7 +5,6 @@ import re
 import time
 import requests
 import feedparser
-import dateparser
 
 from bs4 import BeautifulSoup
 from django.template.defaultfilters import slugify
@@ -1088,12 +1087,11 @@ def makilab():
             }
 
 
- 
 @event_source(
     background_color="#221f21",
     text_color="white",
     url="https://ko-lab.space/",
-    predefined_tags=["hackerspace","makerspace", "Mechelen", "Antwerpen"],
+    predefined_tags=["hackerspace", "makerspace", "Mechelen", "Antwerpen"],
     description="""
     <p>At it's core Ko-Lab hackerspace is a community operated workspace where people can meet, socialize and ko-laborate. However over the years we have become much more than that. We strive to be a place where ideas can blossom, cross pollination occurs between people with vastly different skill sets, people learn from each other and things get done. Businesses were started, friendships were made and stuff was developed. Ko-lab is much more then a workshop with cool machines. So come on by and check it out.</p>
     <p> We have our weekly Open Friday starting around 19:30</p>

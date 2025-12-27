@@ -91,12 +91,11 @@ def main(meetup, tc=(255, 255, 255), bg=None, *tags):
         % {
             "background_color": rgb_to_hex(background_color)
             if not (
-                isinstance(background_color, basestring)
-                and background_color.startswith("#")
+                isinstance(background_color, str) and background_color.startswith("#")
             )
             else background_color,
             "text_color": rgb_to_hex(text_color)
-            if not (isinstance(text_color, basestring) and text_color.startswith("#"))
+            if not (isinstance(text_color, str) and text_color.startswith("#"))
             else text_color,
             "url": target_url,
             "tags": ", ".join(map(repr, tags)),
