@@ -20,3 +20,4 @@ ve/
 venv/
 bower/
 db.sqlite
+.pdm-python
