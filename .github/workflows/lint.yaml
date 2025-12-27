@@ -1,0 +1,29 @@
+---
+name: Lint the code
+
+on:
+  push:
+    branches:
+      - "*"
+
+permissions:
+  contents: read
+
+jobs:
+  lint:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python 3.13
+        uses: actions/setup-python@v3
+        with:
+          python-version: "3.13"
+
+      - name: Setup PDM
+        uses: pdm-project/setup-pdm@v4
+
+      - name: Check formatting
+        run: |
+          pdm install
+          pdm run lint-check
