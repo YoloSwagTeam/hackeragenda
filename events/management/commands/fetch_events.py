@@ -152,7 +152,8 @@ def event_source(
             for event in func():
                 create_event(**event)
             else:
-                print()
+                if not quiet:
+                    print()
 
         if org_name is None:
             org_name = func.__name__.lower()
