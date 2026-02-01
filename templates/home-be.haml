@@ -34,8 +34,6 @@
         RSS
       %a#ics.button.hollow.export-button{href: "{% url 'events_ics' %}"}
         ICS
-      %a#twitter.button.hollow.export-button{href: "https://twitter.com/hackeragenda_be"}
-        Twitter
 
 -block content
   %div.tabs-content{data-tabs-content: "main-tabs", id: "main-tabs"}
@@ -59,9 +57,7 @@
       %p You can take a look at:
       %ul
         %li the RSS, ICs (ical) export at the top of the page, next to the section selection button and at the <a class="open_filter_tag_bar button small">Customize</a> button to make your own selection of events
-        %li subscribe to the <a href="https://twitter.com/hackeragenda_be">twitter account</a> to be inform about the events of the day
         %li look at the <a href="https://github.com/psycojoker/hackeragenda">source code</a> (python/django) of HackerAgenda because you are curious and/or wants to contribute
-        %li if you want to reuse HackerAgenda, <b>you don't need to fork it</b>, the code base is though to supports several different agendas without needed to fork it. <a href="mailto: brain at worlddomination dot be">Contact me</a> and we'll discuss about it (or you can't send pull requests directly, just look at how this is done for <a href="http://hackeragenda.fr">HackerAgenda.Fr</a>).
 
     %div.tabs-panel{id: "list-view"}
       #listFormat
