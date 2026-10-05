@@ -1095,7 +1095,7 @@ def makilab():
     description="""
     <p>At it's core Ko-Lab hackerspace is a community operated workspace where people can meet, socialize and ko-laborate. However over the years we have become much more than that. We strive to be a place where ideas can blossom, cross pollination occurs between people with vastly different skill sets, people learn from each other and things get done. Businesses were started, friendships were made and stuff was developed. Ko-lab is much more then a workshop with cool machines. So come on by and check it out.</p>
     <p> We have our weekly Open Friday starting around 19:30</p>
-    <p>Come talk with us on our <a href="https://discord.gg/EJx4CZDPXM>Discord</a> or check out our website.</p>
+    <p>Come talk with us on our <a href="https://mattermost.ko-lab.space/signup_user_complete/?id=nk7dg5o8tjdqpxdu16i5ic3i5o">Mattermost</a> or check out our website.</p>
     """,
 )
 def ko_lab():
